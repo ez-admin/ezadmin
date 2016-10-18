@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans  
+                        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd  
+                        http://www.springframework.org/schema/context  
+                        http://www.springframework.org/schema/context/spring-context-4.2.xsd 
+                        http://www.springframework.org/schema/mvc 
+                        http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--上面的xsd最好和当前使用的Spring版本号一致,如果换了Spring版本,这个最好也跟着改-->
+
+
+    <!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
+    <!--要对 Controller 进行 AOP 日志处理，只能放在这里，如果单独放一个 xml 文件是没有效果的-->
+    <context:component-scan base-package="com.ez.ssm.**.controller,com.ez.ssm.aop,com.ez.ssm.interceptor"/>
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+
+    <!--设置拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**" /> <!--拦截所有请求-->
+            <bean class="com.ez.ssm.interceptor.SystemInitInterceptor">
+                <property name="ignoreUrl">
+                    <list>
+                        <!-- 完整路径 -->
+                        <!--<value>/sysUserController/test-logback</value>-->
+                        
+                        <!-- 配置在Controller上路径，其下所有方法都忽略 -->
+                        <value>/sysUserController/**</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+
+    <!-- 配置注解驱动 -->
+    <!-- 处理responseBody 里面日期类型，统一处理返回json日期时间格式 -->
+    <!--资料：http://blog.csdn.net/edward9145/article/details/18700415-->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+                        <property name="dateFormat">
+                            <bean class="java.text.SimpleDateFormat">
+                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
+                            </bean>
+                        </property>
+                    </bean>
+                </property>
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html;charset=UTF-8</value>
+                        <value>application/json;charset=UTF-8</value>
+                        <value>application/xml;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+
+
+    <!--静态资源映射-->
+    <!--
+    http://perfy315.iteye.com/blog/2008763
+    mapping="/js/**"
+    表示当浏览器有静态资源请求的时候，并且请求url路径中带有：/js/，则这个资源跑到webapp目录下的/WEB-INF/statics/js/去找
+    比如我们在 JSP 中引入一个 js 文件：src="${webRoot}/js/jQuery-core/jquery-1.6.1.min.js
+    -->
+    <mvc:resources mapping="/css/**" location="/WEB-INF/statics/css/"/>
+    <mvc:resources mapping="/js/**" location="/WEB-INF/statics/js/"/>
+    <mvc:resources mapping="/images/**" location="/WEB-INF/statics/images/"/>
+
+
+    <!-- 对模型视图名称的解析，即在模型视图名称添加前后缀(如果最后一个还是表示文件夹,则最后的斜杠不要漏了) 使用JSP-->
+    <!-- 默认的视图解析器 在上边的解析错误时使用 (默认使用html)- -->
+    <bean id="defaultViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/view/"/><!--设置JSP文件的目录位置-->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+
+    <!-- 文件上传 start 配置文件上传，如果没有使用文件上传可以不用配置，当然如果不配，那么配置文件中也不必引入上传组件包 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 默认编码 -->
+        <property name="defaultEncoding" value="UTF-8"/>
+        <!-- 文件大小最大值 上传文件大小限制为10M，10*1024*1024 -->
+        <property name="maxUploadSize" value="10485760"/>
+        <!-- 内存中的最大值 -->
+        <property name="maxInMemorySize" value="4096"/>
+    </bean>
+    <!--文件上传 end-->
+
+
+</beans>
