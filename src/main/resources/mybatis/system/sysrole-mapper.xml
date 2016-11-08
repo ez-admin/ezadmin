@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="com.ez.system.dao.SysRoleDao">
+
+	<resultMap id="SysRole" type="com.ez.system.entity.SysRole">
+        <result property="roleId" column="ROLE_ID"/>
+        <result property="roleName" column="ROLE_NAME"/>
+        <result property="rights" column="RIGHTS"/>
+        <result property="parentId" column="PARENT_ID"/>
+        <result property="addQx" column="ADD_QX"/>
+        <result property="delQx" column="DEL_QX"/>
+        <result property="editQx" column="EDIT_QX"/>
+        <result property="chaQx" column="CHA_QX"/>
+        <result property="qxId" column="QX_ID"/>
+	</resultMap>
+	
+	<sql id="selectId">
+		ROLE_ID,
+		ROLE_NAME,
+		RIGHTS,
+		PARENT_ID,
+		ADD_QX,
+		DEL_QX,
+		EDIT_QX,
+		CHA_QX,
+		QX_ID
+    </sql>
+    
+    <select id="findAll" resultMap="SysRole">
+		select
+		<include refid="selectId" />
+		from sys_role
+	</select>
+	
+	<select id="queryAll" resultType="com.ez.system.entity.SysRole" parameterType="com.ez.system.entity.SysRole">
+		select
+		<include refid="selectId" />
+		from sys_role
+		<include refid="querywhere1"/>
+		<if test="@Ognl@isNotEmpty(sort) and @Ognl@isNotEmpty(direction)">
+		 order by ${sort} ${direction}
+		</if>
+	</select>
+
+	<select id="query" resultMap="SysRole" parameterType="java.util.HashMap">
+		select
+		<include refid="selectId" />
+		from sys_role
+		<include refid="querywhere"/>
+		<if test="@Ognl@isNotEmpty(t.sort) and @Ognl@isNotEmpty(t.direction)">
+		 order by ${t.sort} ${t.direction}
+		</if>
+	</select>
+	
+	<sql id="querywhere">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	      				
+			   <if test="@Ognl@isNotEmpty(t.roleName)">
+					AND ROLE_NAME like '%${t.roleName}%'
+			   </if>
+			   <if test="@Ognl@isNotEmpty(t.rights)">
+					AND RIGHTS like '%${t.rights}%'
+			   </if>
+			   <if test="@Ognl@isNotEmpty(t.parentId)">
+					AND PARENT_ID like '%${t.parentId}%'
+			   </if>
+			   <if test="@Ognl@isNotEmpty(t.addQx)">
+					AND ADD_QX like '%${t.addQx}%'
+			   </if>
+			   <if test="@Ognl@isNotEmpty(t.delQx)">
+					AND DEL_QX like '%${t.delQx}%'
+			   </if>
+			   <if test="@Ognl@isNotEmpty(t.editQx)">
+					AND EDIT_QX like '%${t.editQx}%'
+			   </if>
+			   <if test="@Ognl@isNotEmpty(t.chaQx)">
+					AND CHA_QX like '%${t.chaQx}%'
+			   </if>
+			   <if test="@Ognl@isNotEmpty(t.qxId)">
+					AND QX_ID like '%${t.qxId}%'
+			   </if>
+	       
+		</where>
+	</sql>
+	
+		<sql id="querywhere1">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	      				
+		       <if test="@Ognl@isNotEmpty(roleName)">
+					AND ROLE_NAME like '%${roleName}%'
+				</if>
+		       <if test="@Ognl@isNotEmpty(rights)">
+					AND RIGHTS like '%${rights}%'
+				</if>
+		       <if test="@Ognl@isNotEmpty(parentId)">
+					AND PARENT_ID like '%${parentId}%'
+				</if>
+		       <if test="@Ognl@isNotEmpty(addQx)">
+					AND ADD_QX like '%${addQx}%'
+				</if>
+		       <if test="@Ognl@isNotEmpty(delQx)">
+					AND DEL_QX like '%${delQx}%'
+				</if>
+		       <if test="@Ognl@isNotEmpty(editQx)">
+					AND EDIT_QX like '%${editQx}%'
+				</if>
+		       <if test="@Ognl@isNotEmpty(chaQx)">
+					AND CHA_QX like '%${chaQx}%'
+				</if>
+		       <if test="@Ognl@isNotEmpty(qxId)">
+					AND QX_ID like '%${qxId}%'
+				</if>
+	       
+		</where>
+	</sql>
+
+	<!-- 总记录数 -->
+	<select id="count" parameterType="com.ez.system.entity.SysRole" resultType="int">
+		select count(0) from sys_role
+		<include refid="querywhere1"/>
+	</select>
+	
+	<!-- 新增 -->
+	<insert id="addAll" parameterType="com.ez.system.entity.SysRole">
+	<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="id" >
+        SELECT LAST_INSERT_ID() AS ID   
+    </selectKey>
+		INSERT INTO sys_role (
+        	ROLE_NAME ,
+        	RIGHTS ,
+        	PARENT_ID ,
+        	ADD_QX ,
+        	DEL_QX ,
+        	EDIT_QX ,
+        	CHA_QX ,
+        	QX_ID 
+        ) VALUES (
+        	#{roleName} ,
+        	#{rights} ,
+        	#{parentId} ,
+        	#{addQx} ,
+        	#{delQx} ,
+        	#{editQx} ,
+        	#{chaQx} ,
+        	#{qxId} 
+        )
+	</insert>
+	
+	<!-- 新增Selective -->
+	<insert id="add" parameterType="com.ez.system.entity.SysRole">
+	<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="id" >
+	        SELECT LAST_INSERT_ID() AS ID
+	</selectKey>
+		INSERT INTO sys_role 
+		<include refid="addtrim"/>
+	</insert>
+	
+	<sql id="addtrim">
+	<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(roleName)">
+				ROLE_NAME,
+			</if>
+			<if test="@Ognl@isNotEmpty(rights)">
+				RIGHTS,
+			</if>
+			<if test="@Ognl@isNotEmpty(parentId)">
+				PARENT_ID,
+			</if>
+			<if test="@Ognl@isNotEmpty(addQx)">
+				ADD_QX,
+			</if>
+			<if test="@Ognl@isNotEmpty(delQx)">
+				DEL_QX,
+			</if>
+			<if test="@Ognl@isNotEmpty(editQx)">
+				EDIT_QX,
+			</if>
+			<if test="@Ognl@isNotEmpty(chaQx)">
+				CHA_QX,
+			</if>
+			<if test="@Ognl@isNotEmpty(qxId)">
+				QX_ID,
+			</if>
+    </trim>
+    <trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(roleName)">
+				#{roleName},
+			</if>
+			<if test="@Ognl@isNotEmpty(rights)">
+				#{rights},
+			</if>
+			<if test="@Ognl@isNotEmpty(parentId)">
+				#{parentId},
+			</if>
+			<if test="@Ognl@isNotEmpty(addQx)">
+				#{addQx},
+			</if>
+			<if test="@Ognl@isNotEmpty(delQx)">
+				#{delQx},
+			</if>
+			<if test="@Ognl@isNotEmpty(editQx)">
+				#{editQx},
+			</if>
+			<if test="@Ognl@isNotEmpty(chaQx)">
+				#{chaQx},
+			</if>
+			<if test="@Ognl@isNotEmpty(qxId)">
+				#{qxId},
+			</if>
+    </trim>
+	</sql>
+	
+	<!-- 删 -->
+	<delete id="deleteById" parameterType="String">
+		DELETE FROM sys_role WHERE
+        ROLE_ID = #{id} 
+	</delete>
+	
+	<!-- 根据主键查实体 -->
+	<select id="getById" parameterType="String" resultMap="SysRole">
+		SELECT <include refid="selectId" />
+		    FROM sys_role 
+	        WHERE 
+        ROLE_ID = #{id} 
+	</select>
+	
+	<!-- 更新all -->
+	<update id="updateAll" parameterType="com.ez.system.entity.SysRole">
+	    UPDATE sys_role SET
+	        ROLE_NAME = #{roleName} ,
+	        RIGHTS = #{rights} ,
+	        PARENT_ID = #{parentId} ,
+	        ADD_QX = #{addQx} ,
+	        DEL_QX = #{delQx} ,
+	        EDIT_QX = #{editQx} ,
+	        CHA_QX = #{chaQx} ,
+	        QX_ID = #{qxId} 
+        WHERE 
+	        ROLE_ID = #{roleId} 
+	</update>
+	
+	<sql id="updateset">
+	<set>
+		<if test="@Ognl@isNotEmpty(roleName)">
+			ROLE_NAME = #{roleName},
+		</if>
+		<if test="@Ognl@isNotEmpty(rights)">
+			RIGHTS = #{rights},
+		</if>
+		<if test="@Ognl@isNotEmpty(parentId)">
+			PARENT_ID = #{parentId},
+		</if>
+		<if test="@Ognl@isNotEmpty(addQx)">
+			ADD_QX = #{addQx},
+		</if>
+		<if test="@Ognl@isNotEmpty(delQx)">
+			DEL_QX = #{delQx},
+		</if>
+		<if test="@Ognl@isNotEmpty(editQx)">
+			EDIT_QX = #{editQx},
+		</if>
+		<if test="@Ognl@isNotEmpty(chaQx)">
+			CHA_QX = #{chaQx},
+		</if>
+		<if test="@Ognl@isNotEmpty(qxId)">
+			QX_ID = #{qxId},
+		</if>
+    </set>
+	</sql>
+	
+	<!-- 更新Selective -->
+	<update id="modify" parameterType="com.ez.system.entity.SysRole">
+	    UPDATE sys_role 
+		<include refid="updateset"/>
+        WHERE 
+	        ROLE_ID = #{roleId} 
+	</update>
+	
+	<!-- 查找唯一索引但不是主键的字段Selective -->
+	
+</mapper>
+

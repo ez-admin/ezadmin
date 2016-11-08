@@ -65,6 +65,15 @@
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.3.5" />
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.3.2" />
           <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.6" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-all:1.2.3" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-guice:1.2.3" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-core:1.2.3" />
+          <element id="library" level="project" name="Maven: commons-beanutils:commons-beanutils:1.8.3" />
+          <element id="library" level="project" name="Maven: com.google.inject:guice:3.0" />
+          <element id="library" level="project" name="Maven: javax.inject:javax.inject:1" />
+          <element id="library" level="project" name="Maven: com.google.inject.extensions:guice-multibindings:3.0" />
+          <element id="library" level="project" name="Maven: ognl:ognl:3.0.8" />
+          <element id="library" level="project" name="Maven: javassist:javassist:3.11.0.GA" />
         </element>
       </element>
       <element id="directory" name="META-INF">

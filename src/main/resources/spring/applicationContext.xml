@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans  
-http://www.springframework.org/schema/beans/spring-beans-4.2.xsd  
+http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
 http://www.springframework.org/schema/context  
-http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+http://www.springframework.org/schema/context/spring-context-4.2.xsd ">
 
     <!--上面的xsd最好和当前使用的Spring版本号一致,如果换了Spring版本,这个最好也跟着改-->
+
+    <!-- 资料：http://www.cnblogs.com/-bumblebee-/archive/2012/03/23/2413366.html-->
+    <!--基于Spirng注解的自动装配-->
+    <context:annotation-config />
 
 
     <!-- 引入属性文件 放在最开头,在使用spring之前就引入,里面的变量才能被引用-->
@@ -25,10 +33,124 @@ http://www.springframework.org/schema/context/spring-context-4.2.xsd">
     <!--http://blog.csdn.net/u012763117/article/details/17253849-->
     <!--http://casheen.iteye.com/blog/295348-->
     <!--http://blog.csdn.net/zhang854429783/article/details/6785574-->
-    <context:component-scan base-package="com.ez.**.service"/>
+    <context:component-scan base-package="com.ez.**"/>
 
-    <!-- 资料：http://www.cnblogs.com/-bumblebee-/archive/2012/03/23/2413366.html-->
-    <!--基于Spirng注解的自动装配-->
-    <context:annotation-config />
+    <!-- 使用阿里的druid配置数据源 start-->
+    <!--具体查看官网信息：https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_DruidDataSource%E5%8F%82%E8%80%83%E9%85%8D%E7%BD%AE-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <!--这三个变量读取config.properties的-->
+        <property name="url" value="${data_source_url}"/>
+        <property name="username" value="${data_source_username}"/>
+        <property name="password" value="${data_source_password}"/>
 
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="1"/>
+        <!-- 初始化连接池最大使用连接数量 -->
+        <property name="maxActive" value="20"/>
+        <!-- 初始化连接池最小空闲 -->
+        <property name="minIdle" value="1"/>
+
+        <!-- 获取连接最大等待时间，单位毫秒-->
+        <property name="maxWait" value="60000"/>
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="25200000"/>
+
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+        <!--如果用Oracle，则把poolPreparedStatements配置为true，mysql可以配置为false。分库分表较多的数据库，建议配置为false。-->
+        <property name="poolPreparedStatements" value="false" />
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+
+        <property name="validationQuery" value="${validation_query}"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+
+
+        <!--当程序存在缺陷时，申请的连接忘记关闭，这时候，就存在连接泄漏了。Druid提供了RemoveAbandanded相关配置，用来关闭长时间不使用的连接-->
+        <!--配置removeAbandoned对性能会有一些影响，建议怀疑存在泄漏之后再打开。在上面的配置中，如果连接超过30分钟未关闭，就会被强行回收，并且日志记录连接申请时的调用堆栈。-->
+        <!--具体查看官网信息：https://github.com/alibaba/druid/wiki/%E8%BF%9E%E6%8E%A5%E6%B3%84%E6%BC%8F%E7%9B%91%E6%B5%8B-->
+        <!-- 打开removeAbandoned功能 -->
+        <property name="removeAbandoned" value="true"/>
+        <!-- 1800秒，也就是30分钟 -->
+        <property name="removeAbandonedTimeout" value="1800"/>
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="true"/>
+
+        <!-- 配置监控统计拦截的filters-->
+        <!--官网信息：https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_StatFilter-->
+        <!--mergeSql可以合并输出的sql，方便查看，但是在mybatis框架中使用这个则无法监控sql,需要用stat-->
+        <!--<property name="filters" value="mergeSql,log4j"/>-->
+        <!--<property name="filters" value="mergeSql,wall"/>-->
+        <!--<property name="filters" value="stat"/>-->
+        <!--<property name="filters" value="mergeSql"/>-->
+        <property name="filters" value="stat,log4j"/>
+    </bean>
+    <!-- 使用阿里的druid配置数据源 end-->
+
+    <!-- 声明事务管理器，基于数据库的事务管理 -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+          p:dataSource-ref="dataSource" />
+
+
+    <!-- 启用注解方式1：开启注解事务 start-->
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+    <!-- 启用注解方式1：开启注解事务 end-->
+
+
+    <!-- mybatis分页 -->
+    <bean id="pagePlugin" class="com.ez.plugin.PagePlugin">
+        <property name="properties">
+            <props>
+                <prop key="dialect">com.ez.plugin.H2Dialect</prop>
+                <prop key="pageSqlId">.*query.*</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- 创建sqlSessionFactoryBean -->
+    <bean id="sqlSessionFactory"
+          class="org.mybatis.spring.SqlSessionFactoryBean"
+          p:dataSource-ref="dataSource"
+          p:mapperLocations="classpath:mybatis/*/*.xml"
+          p:plugins-ref="pagePlugin"/>
+
+    <!-- 配置sqlSessionTemplate -->
+    <bean class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactory"/>
+    </bean>
+    <!-- 映射接口直接转换为spring容器的bean -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.*.*.dao"/>
+
+    <!-- ================ Shiro start ================ -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="ShiroRealm" />
+    </bean>
+
+    <!-- 項目自定义的Realm -->
+    <bean id="ShiroRealm" class="com.ez.interceptor.shiro.ShiroRealm" ></bean>
+
+    <!-- Shiro Filter -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!-- shiro的核心安全接口 -->
+        <property name="securityManager" ref="securityManager" />
+        <!-- 要求登录时的链接,非必须的属性,默认会自动寻找Web工程根目录下的"/login.jsp"页面或者自己指定的路径地址 -->
+        <property name="loginUrl" value="/ez/syslogin/login_toLogin.do" />
+        <!-- 登陆成功后要跳转的连接，非必须的属性,如果自己已经设置登陆成功的地址 -->
+        <property name="successUrl" value="/ez/syslogin/index.do" />
+        <!-- 未授权时要跳转的连接 -->
+        <property name="unauthorizedUrl" value="/ez/syslogin/login_toLogin.do" />
+        <!-- shiro连接约束配置 -->
+        <property name="filterChainDefinitions">
+            <value>
+                /static/js/myjs/** 		        	= authc
+                /ez/syslogin/login_toLogin.do   	= anon
+                /*.do       					    = authc
+            </value>
+        </property>
+    </bean>
+    <!-- ================ Shiro end ================ -->
 </beans>

@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="com.ez.system.dao.SysLogDao">
+
+	<resultMap id="SysLog" type="com.ez.system.entity.SysLog">
+        <result property="id" column="id"/>
+        <result property="mehtoddescription" column="mehtoddescription"/>
+        <result property="exceptionCode" column="exceptionCode"/>
+        <result property="logtype" column="logtype"/>
+        <result property="exceptionDetail" column="exceptionDetail"/>
+        <result property="method" column="method"/>
+        <result property="params" column="params"/>
+        <result property="cmpno" column="cmpno"/>
+        <result property="userno" column="userno"/>
+        <result property="createDate" column="createDate"/>
+        <result property="requestIp" column="requestIp"/>
+	</resultMap>
+	
+	<sql id="selectId">
+		id,
+mehtoddescription,
+exceptionCode,
+logtype,
+exceptionDetail,
+method,
+params,
+cmpno,
+userno,
+createDate,
+requestIp
+    </sql>
+    
+    <select id="findAll" resultType="com.ez.system.entity.SysLog">
+		select
+		<include refid="selectId" />
+		from sys_log
+	</select>
+	
+	<select id="queryAll" resultType="com.ez.system.entity.SysLog" parameterType="com.ez.system.entity.SysLog">
+		select
+		<include refid="selectId" />
+		from sys_log
+		<include refid="querywhere1"/>
+		<if test="@Ognl@isNotEmpty(sort) and @Ognl@isNotEmpty(direction)">
+		 order by ${sort} ${direction}
+		</if>
+	</select>
+
+	<select id="query" resultType="com.ez.system.entity.SysLog" parameterType="java.util.HashMap">
+		select
+		<include refid="selectId" />
+		from sys_log
+		<include refid="querywhere"/>
+		<if test="@Ognl@isNotEmpty(t.sort) and @Ognl@isNotEmpty(t.direction)">
+		 order by ${t.sort} ${t.direction}
+		</if>
+	</select>
+	
+	<sql id="querywhere">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	      				
+			   <if test="@Ognl@isNotEmpty(t.mehtoddescription)">
+					AND mehtoddescription like '%${t.mehtoddescription}%'
+			   </if>
+			   <if test="@Ognl@isNotEmpty(t.exceptionCode)">
+					AND exceptionCode like '%${t.exceptionCode}%'
+			   </if>
+			   <if test="@Ognl@isNotEmpty(t.logtype)">
+					AND logtype like '%${t.logtype}%'
+			   </if>
+			   <if test="@Ognl@isNotEmpty(t.exceptionDetail)">
+					AND exceptionDetail like '%${t.exceptionDetail}%'
+			   </if>
+			   <if test="@Ognl@isNotEmpty(t.method)">
+					AND method like '%${t.method}%'
+			   </if>
+			   <if test="@Ognl@isNotEmpty(t.params)">
+					AND params like '%${t.params}%'
+			   </if>
+			   <if test="@Ognl@isNotEmpty(t.cmpno)">
+					AND cmpno like '%${t.cmpno}%'
+			   </if>
+			   <if test="@Ognl@isNotEmpty(t.userno)">
+					AND userno like '%${t.userno}%'
+			   </if>
+			   <if test="@Ognl@isNotEmpty(t.createDate)">
+					AND createDate like '%${t.createDate}%'
+			   </if>
+			   <if test="@Ognl@isNotEmpty(t.requestIp)">
+					AND requestIp like '%${t.requestIp}%'
+			   </if>
+	       
+		</where>
+	</sql>
+	
+		<sql id="querywhere1">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	      				
+		       <if test="@Ognl@isNotEmpty(mehtoddescription)">
+					AND mehtoddescription like '%${mehtoddescription}%'
+				</if>
+		       <if test="@Ognl@isNotEmpty(exceptionCode)">
+					AND exceptionCode like '%${exceptionCode}%'
+				</if>
+		       <if test="@Ognl@isNotEmpty(logtype)">
+					AND logtype like '%${logtype}%'
+				</if>
+		       <if test="@Ognl@isNotEmpty(exceptionDetail)">
+					AND exceptionDetail like '%${exceptionDetail}%'
+				</if>
+		       <if test="@Ognl@isNotEmpty(method)">
+					AND method like '%${method}%'
+				</if>
+		       <if test="@Ognl@isNotEmpty(params)">
+					AND params like '%${params}%'
+				</if>
+		       <if test="@Ognl@isNotEmpty(cmpno)">
+					AND cmpno like '%${cmpno}%'
+				</if>
+		       <if test="@Ognl@isNotEmpty(userno)">
+					AND userno like '%${userno}%'
+				</if>
+		       <if test="@Ognl@isNotEmpty(createDate)">
+					AND createDate like '%${createDate}%'
+				</if>
+		       <if test="@Ognl@isNotEmpty(requestIp)">
+					AND requestIp like '%${requestIp}%'
+				</if>
+	       
+		</where>
+	</sql>
+
+	<!-- 总记录数 -->
+	<select id="count" parameterType="com.ez.system.entity.SysLog" resultType="int">
+		select count(0) from sys_log
+		<include refid="querywhere1"/>
+	</select>
+	
+	<!-- 新增 -->
+	<insert id="addAll" parameterType="com.ez.system.entity.SysLog">
+	<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="id" >
+        SELECT LAST_INSERT_ID() AS ID   
+    </selectKey>
+		INSERT INTO sys_log (
+        	mehtoddescription ,
+        	exceptionCode ,
+        	logtype ,
+        	exceptionDetail ,
+        	method ,
+        	params ,
+        	cmpno ,
+        	userno ,
+        	createDate ,
+        	requestIp 
+        ) VALUES (
+        	#{mehtoddescription} ,
+        	#{exceptionCode} ,
+        	#{logtype} ,
+        	#{exceptionDetail} ,
+        	#{method} ,
+        	#{params} ,
+        	#{cmpno} ,
+        	#{userno} ,
+        	#{createDate} ,
+        	#{requestIp} 
+        )
+	</insert>
+	
+	<!-- 新增Selective -->
+	<insert id="add" parameterType="com.ez.system.entity.SysLog">
+	<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="id" >
+	        SELECT LAST_INSERT_ID() AS ID
+	</selectKey>
+		INSERT INTO sys_log 
+		<include refid="addtrim"/>
+	</insert>
+	
+	<sql id="addtrim">
+	<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(mehtoddescription)">
+				mehtoddescription,
+			</if>
+			<if test="@Ognl@isNotEmpty(exceptionCode)">
+				exceptionCode,
+			</if>
+			<if test="@Ognl@isNotEmpty(logtype)">
+				logtype,
+			</if>
+			<if test="@Ognl@isNotEmpty(exceptionDetail)">
+				exceptionDetail,
+			</if>
+			<if test="@Ognl@isNotEmpty(method)">
+				method,
+			</if>
+			<if test="@Ognl@isNotEmpty(params)">
+				params,
+			</if>
+			<if test="@Ognl@isNotEmpty(cmpno)">
+				cmpno,
+			</if>
+			<if test="@Ognl@isNotEmpty(userno)">
+				userno,
+			</if>
+			<if test="@Ognl@isNotEmpty(createDate)">
+				createDate,
+			</if>
+			<if test="@Ognl@isNotEmpty(requestIp)">
+				requestIp,
+			</if>
+    </trim>
+    <trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(mehtoddescription)">
+				#{mehtoddescription},
+			</if>
+			<if test="@Ognl@isNotEmpty(exceptionCode)">
+				#{exceptionCode},
+			</if>
+			<if test="@Ognl@isNotEmpty(logtype)">
+				#{logtype},
+			</if>
+			<if test="@Ognl@isNotEmpty(exceptionDetail)">
+				#{exceptionDetail},
+			</if>
+			<if test="@Ognl@isNotEmpty(method)">
+				#{method},
+			</if>
+			<if test="@Ognl@isNotEmpty(params)">
+				#{params},
+			</if>
+			<if test="@Ognl@isNotEmpty(cmpno)">
+				#{cmpno},
+			</if>
+			<if test="@Ognl@isNotEmpty(userno)">
+				#{userno},
+			</if>
+			<if test="@Ognl@isNotEmpty(createDate)">
+				#{createDate},
+			</if>
+			<if test="@Ognl@isNotEmpty(requestIp)">
+				#{requestIp},
+			</if>
+    </trim>
+	</sql>
+	
+	<!-- 删 -->
+	<delete id="deleteById" parameterType="String">
+		DELETE FROM sys_log WHERE
+        id = #{id} 
+	</delete>
+	
+	<!-- 根据主键查实体 -->
+	<select id="getById" parameterType="String" resultType="com.ez.system.entity.SysLog">
+		SELECT <include refid="selectId" />
+		    FROM sys_log 
+	        WHERE 
+        id = #{id} 
+	</select>
+	
+	<!-- 更新all -->
+	<update id="updateAll" parameterType="com.ez.system.entity.SysLog">
+	    UPDATE sys_log SET
+	        mehtoddescription = #{mehtoddescription} ,
+	        exceptionCode = #{exceptionCode} ,
+	        logtype = #{logtype} ,
+	        exceptionDetail = #{exceptionDetail} ,
+	        method = #{method} ,
+	        params = #{params} ,
+	        cmpno = #{cmpno} ,
+	        userno = #{userno} ,
+	        createDate = #{createDate} ,
+	        requestIp = #{requestIp} 
+        WHERE 
+	        id = #{id} 
+	</update>
+	
+	<sql id="updateset">
+	<set>
+		<if test="@Ognl@isNotEmpty(mehtoddescription)">
+			mehtoddescription = #{mehtoddescription},
+		</if>
+		<if test="@Ognl@isNotEmpty(exceptionCode)">
+			exceptionCode = #{exceptionCode},
+		</if>
+		<if test="@Ognl@isNotEmpty(logtype)">
+			logtype = #{logtype},
+		</if>
+		<if test="@Ognl@isNotEmpty(exceptionDetail)">
+			exceptionDetail = #{exceptionDetail},
+		</if>
+		<if test="@Ognl@isNotEmpty(method)">
+			method = #{method},
+		</if>
+		<if test="@Ognl@isNotEmpty(params)">
+			params = #{params},
+		</if>
+		<if test="@Ognl@isNotEmpty(cmpno)">
+			cmpno = #{cmpno},
+		</if>
+		<if test="@Ognl@isNotEmpty(userno)">
+			userno = #{userno},
+		</if>
+		<if test="@Ognl@isNotEmpty(createDate)">
+			createDate = #{createDate},
+		</if>
+		<if test="@Ognl@isNotEmpty(requestIp)">
+			requestIp = #{requestIp},
+		</if>
+    </set>
+	</sql>
+	
+	<!-- 更新Selective -->
+	<update id="modify" parameterType="com.ez.system.entity.SysLog">
+	    UPDATE sys_log 
+		<include refid="updateset"/>
+        WHERE 
+	        id = #{id} 
+	</update>
+	
+	<!-- 查找唯一索引但不是主键的字段Selective -->
+	
+</mapper>
+

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans  
                         http://www.springframework.org/schema/beans/spring-beans-4.2.xsd  
                         http://www.springframework.org/schema/context  
@@ -10,28 +12,19 @@
                         http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
     <!--上面的xsd最好和当前使用的Spring版本号一致,如果换了Spring版本,这个最好也跟着改-->
 
+    <mvc:annotation-driven />
+
 
     <!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
     <!--要对 Controller 进行 AOP 日志处理，只能放在这里，如果单独放一个 xml 文件是没有效果的-->
-    <context:component-scan base-package="com.ez.ssm.**.controller,com.ez.ssm.aop,com.ez.ssm.interceptor"/>
+    <context:component-scan base-package="com.ez.**.controller,com.ez.aop,com.ez.interceptor"/>
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
-
-    <!--设置拦截器 -->
+    <!-- 访问拦截  -->
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/**" /> <!--拦截所有请求-->
-            <bean class="com.ez.ssm.interceptor.SystemInitInterceptor">
-                <property name="ignoreUrl">
-                    <list>
-                        <!-- 完整路径 -->
-                        <!--<value>/sysUserController/test-logback</value>-->
-                        
-                        <!-- 配置在Controller上路径，其下所有方法都忽略 -->
-                        <value>/sysUserController/**</value>
-                    </list>
-                </property>
-            </bean>
+            <mvc:mapping path="/**/**"/>
+            <bean class="com.ez.interceptor.LoginHandlerInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 
@@ -71,9 +64,9 @@
     表示当浏览器有静态资源请求的时候，并且请求url路径中带有：/js/，则这个资源跑到webapp目录下的/WEB-INF/statics/js/去找
     比如我们在 JSP 中引入一个 js 文件：src="${webRoot}/js/jQuery-core/jquery-1.6.1.min.js
     -->
-    <mvc:resources mapping="/css/**" location="/WEB-INF/statics/css/"/>
+   <!-- <mvc:resources mapping="/css/**" location="/WEB-INF/statics/css/"/>
     <mvc:resources mapping="/js/**" location="/WEB-INF/statics/js/"/>
-    <mvc:resources mapping="/images/**" location="/WEB-INF/statics/images/"/>
+    <mvc:resources mapping="/images/**" location="/WEB-INF/statics/images/"/>-->
 
 
     <!-- 对模型视图名称的解析，即在模型视图名称添加前后缀(如果最后一个还是表示文件夹,则最后的斜杠不要漏了) 使用JSP-->
