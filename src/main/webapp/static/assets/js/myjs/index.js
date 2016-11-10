@@ -1,5 +1,11 @@
-	/*$(function() { if (typeof ($.cookie('menusf')) == "undefined") { $("#menusf").attr("checked", true); $("#sidebar").attr("class","sidebar responsive ace-save-state menu-min"); } else { $("#sidebar").attr("class","sidebar responsive ace-save-state"); } });*/
-
+	$(function () {
+		if (typeof ($.cookie('menusf')) == "undefined") {
+			$("#menusf").attr("checked", true);
+			$("#sidebar").attr("class", "sidebar responsive ace-save-state menu-min");
+		} else {
+			$("#sidebar").attr("class", "sidebar responsive ace-save-state");
+		}
+	});
 	function cmainFrame(){
 		var hmain = document.getElementById("mainFrame");
 		var bheight = document.documentElement.clientHeight;

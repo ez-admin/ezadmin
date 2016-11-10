@@ -270,22 +270,15 @@ public class LoginController {
 		return map;
 	}
 	/**
-	 * 进入tab标签
+	 * 进入首页后的默认tab页面
 	 * @return
 	 */
 	@RequestMapping(value="tab")
-	public String tab(){
-		return "ez/index/tab";
-	}
-
-	/**
-	 * 进入首页后的默认页面
-	 * @return
-	 */
-	@RequestMapping(value="login_default")
-	public String defaultPage(){
+	public String tab(Model model){
+		model.addAttribute("SYSNAME",PubConstants.SYSNAME);//读取系统名称
 		return "ez/index/default";
 	}
+
 	 /**
 	 * @param model
 	 * @param request

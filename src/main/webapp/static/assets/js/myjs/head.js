@@ -1,28 +1,4 @@
-/*
-var locat = (window.location+'').split('/');
-$(function(){if('main'== locat[3]){locat =  locat[0]+'//'+locat[2];}else{locat =  locat[0]+'//'+locat[2]+'/'+locat[3];};});
-*/
-
-
 //菜单状态切换
-var fmid = "fhindex";
-var mid = "fhindex";
-/*function siMenu(id,fid,MENU_NAME,MENU_URL){
-	if(id != mid){
-		$("#"+mid).removeClass();
-		mid = id;
-	}
-	if(fid != fmid){
-		$("#"+fmid).removeClass();
-		fmid = fid;
-	}
-	$("#"+fid).attr("class","active open");
-	$("#"+id).attr("class","active");
-	top.mainFrame.tabAddHandler(id,MENU_NAME,MENU_URL);
-	if(MENU_URL != "druid/index.html"){
-		jzts();
-	}
-}*/
 function siMenu(id,MENU_NAME,MENU_URL,obj){
 	//console.log($(obj).html());
 	var new_active = $(obj).parent();//somehow get a reference to our newly clicked(selected) element's parent "LI"
@@ -30,24 +6,25 @@ function siMenu(id,MENU_NAME,MENU_URL,obj){
 	$('.nav-list li.active').attr("class","");//remove ".active" class from all (previously) ".active" elements
 	new_active.addClass('active').parents('.nav-list li').addClass('active');//add ".active" class to our newly selected item and all its parent "LI" elements
 
-	top.mainFrame.tabAddHandler(id,MENU_NAME,MENU_URL);
+	/*breadcrumbs 功能注释掉
+	//you can also update breadcrumbs:
+	var breadcrumb_items = [];
+	//$(this) is a reference to our clicked/selected element
+	$(this).parents('.nav-list li').each(function() {
+		var link = $(this).find('> a');
+		var text = link.text();
+		var href = link.attr('href');
+		breadcrumb_items.push({'text': text, 'href': href});
+	});	*/
+	$("#main-tab").aceaddtab({ title: MENU_NAME, url: MENU_URL });
+
+	//top.mainFrame.tabAddHandler(id,MENU_NAME,MENU_URL);
 	if(MENU_URL != "druid/index.html"){
 		jzts();
 	}
 }
 
 
-/*$(function(){
-
-	//换肤
-	$("#skin-colorpicker").ace_colorpicker().on("change",function(){
-		var b=$(this).find("option:selected").data("class");
-		hf(b);
-		var url = locat+'/head/setSKIN.do?SKIN='+b+'&tm='+new Date().getTime();
-		$.get(url,function(data){});
-	
-	});
-});*/
 
 var USER_ID;
 
@@ -140,38 +117,6 @@ function goOutUser(theuser){
 }
 
 
-
-
-//换肤
-function hf(b){
-	
-	var a=$(document.body);
-	a.attr("class",a.hasClass("navbar-fixed")?"navbar-fixed":"");
-	if(b!="default"){
-		a.addClass(b);
-	}if(b=="skin-1"){
-		$(".ace-nav > li.grey").addClass("dark");
-	}else{
-		$(".ace-nav > li.grey").removeClass("dark");
-	}
-	if(b=="skin-2"){
-			$(".ace-nav > li").addClass("no-border margin-1");
-			$(".ace-nav > li:not(:last-child)").addClass("white-pink")
-			.find('> a > [class*="icon-"]').addClass("pink").end()
-			.eq(0).find(".badge").addClass("badge-warning");
-	}else{
-			$(".ace-nav > li").removeClass("no-border").removeClass("margin-1");
-			$(".ace-nav > li:not(:last-child)").removeClass("white-pink")
-			.find('> a > [class*="icon-"]').removeClass("pink").end()
-			.eq(0).find(".badge").removeClass("badge-warning");
-	}
-	if(b=="skin-3"){
-		$(".ace-nav > li.grey").addClass("red").find(".badge").addClass("badge-yellow");
-	}else{
-		$(".ace-nav > li.grey").removeClass("red").find(".badge").removeClass("badge-yellow");
-	}
-}
-
 //修改个人资料
 function editUserH(){
 	 jzts();
@@ -202,21 +147,6 @@ function editSys(){
 	 diag.show();
 }
 
-//代码生成
-function productCode(){
-	 jzts();
-	 var diag = new top.Dialog();
-	 diag.Drag=true;
-	 diag.Title ="代码生成器";
-	 diag.URL = locat+'/head/goProductCode.do';
-	 diag.Width = 800;
-	 diag.Height = 450;
-	 diag.CancelEvent = function(){ //关闭事件
-		hangge();
-		diag.close();
-	 };
-	 diag.show();
-}
 
 //数据字典
 function zidian(){
@@ -248,20 +178,4 @@ function menu(){
 	 };
 	 diag.show();
 	 
-}
-
-//切换菜单
-function changeMenu(){
-	websocket.send('[leave]'+user);
-	window.location.href=locat+'/main/yes';
-}
-
-//清除加载进度
-function hangge(){
-	$("#jzts").hide();
-}
-
-//显示加载进度
-function jzts(){
-	$("#jzts").show();
 }

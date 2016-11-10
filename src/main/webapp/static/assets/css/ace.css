@@ -20427,3 +20427,14 @@ input.typeahead.scrollable ~ .tt-menu {
     display: none !important;
   }
 }
+/*解决sidebar-shortcuts层的问题 bychenez*/
+.sidebar.menu-min .sidebar-shortcuts {
+  z-index: 2!important;
+}
+.footer {
+  padding-top: 20px!important;
+}
+.footer .footer-inner .footer-content {
+  padding: 5px!important;
+  line-height: 20px!important;
+}

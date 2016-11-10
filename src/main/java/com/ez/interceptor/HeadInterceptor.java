@@ -29,7 +29,7 @@ public class HeadInterceptor implements Filter {
 		   String url=httpServletRequest.getServletPath();
 
 
-		   if(url.indexOf("login_toLogin.html")>=0|url.indexOf("login.jsp")>=0) {
+		   if(url.indexOf("login_toLogin.html")>=0|url.indexOf("login1.jsp")>=0) {
 		    chain.doFilter(request, response);
 		   } else {
 			   if (url.indexOf("getTitle.html") >= 0) {

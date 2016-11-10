@@ -1,19 +1,11 @@
 package ueditor;
 
-import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.fileupload.*;
-import org.apache.commons.fileupload.servlet.*;
-import org.apache.commons.fileupload.FileUploadBase.InvalidContentTypeException;
-import org.apache.commons.fileupload.FileUploadBase.SizeLimitExceededException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-
+import org.apache.commons.io.IOUtils;
 import sun.misc.BASE64Decoder;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
 
 /**
  * UEditor文件上传辅助类

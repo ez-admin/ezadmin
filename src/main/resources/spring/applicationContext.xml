@@ -137,7 +137,7 @@ http://www.springframework.org/schema/context/spring-context-4.2.xsd ">
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <!-- shiro的核心安全接口 -->
         <property name="securityManager" ref="securityManager" />
-        <!-- 要求登录时的链接,非必须的属性,默认会自动寻找Web工程根目录下的"/login.jsp"页面或者自己指定的路径地址 -->
+        <!-- 要求登录时的链接,非必须的属性,默认会自动寻找Web工程根目录下的"/login1.jsp"页面或者自己指定的路径地址 -->
         <property name="loginUrl" value="/ez/syslogin/login_toLogin.do" />
         <!-- 登陆成功后要跳转的连接，非必须的属性,如果自己已经设置登陆成功的地址 -->
         <property name="successUrl" value="/ez/syslogin/index.do" />

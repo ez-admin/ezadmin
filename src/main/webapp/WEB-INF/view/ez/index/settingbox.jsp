@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- #section:settings.box -->
 <div class="ace-settings-container" id="ace-settings-container">
     <div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
@@ -30,7 +31,7 @@
             <div class="ace-settings-item">
                 <input type='checkbox' class="ace ace-checkbox-2" id="menusf" name='menusf' onclick="menusf();"  autocomplete="off" />
                 <label class="lbl" >
-                    菜单缩放
+                    菜单收起
                 </label>
             </div>
             <!-- /section:settings.menu -->
@@ -45,10 +46,10 @@
                 <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-compact" autocomplete="off" />
                 <label class="lbl" for="ace-settings-compact"> 简洁工具栏</label>
             </div>
-            <div class="ace-settings-item">
+            <%--<div class="ace-settings-item">
                 <input type="checkbox" class="ace ace-checkbox-2 ace-save-state" id="ace-settings-navbar" autocomplete="off" />
                 <label class="lbl" for="ace-settings-navbar"> 固定导航栏</label>
-            </div>
+            </div>--%>
             <!-- /section:basics/sidebar.options -->
         </div><!-- /.pull-left -->
     </div><!-- /.ace-settings-box -->
