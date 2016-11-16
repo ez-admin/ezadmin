@@ -80,11 +80,12 @@ public class PageView {
 	 * 使用构造函数，，强制必需输入
 	 * 每页显示数量　和　当前页
 	 * @param pageSize　　每页显示数量
-	 * @param pageNow　当前页
+	 * @param startPage　当前页
 	 */
-	public PageView(int pageSize, int pageNow){
+	public PageView(int pageSize, int startPage){
 		this.pageSize = pageSize;
-		this.pageNow = pageNow;
+		this.startPage = startPage;
+		this.pageNow=startPage/pageSize+1;
 	}
 	/**
 	 * 使用构造函数，，强制必需输入

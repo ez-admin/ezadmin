@@ -238,13 +238,13 @@ Q4
 			b.Q2,
 			b.Q3,
 			b.Q4
-		from SYS_ROLE a, SYS_USER_QX b, SYS_USER c
+		from sys_role a, sys_right b, sys_user c
 		where
 			a.QX_ID = b.U_ID
 		and
-			a.ROLE_ID = c.ROLE_ID
+			a.ROLE_ID = c.RLID
 		and
-			c.ROLE_ID =  #{roleId}
+			c.RLID =  #{roleId}
 		limit 0,1
 	</select>
 

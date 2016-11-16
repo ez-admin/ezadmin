@@ -299,7 +299,6 @@ String basePath = request.getScheme() + "://"
 						login();
 					}
 				});
-				$("#password").focus();
 				$("#password").keydown(function(event){
 					if(event.keyCode==13){
 						login();
@@ -361,7 +360,7 @@ String basePath = request.getScheme() + "://"
 								if (result.status == "true" || result.status == true) {
 									$(".login_info").tips({
 										side : 2,
-										msg : '登录成功，正在转到主页...！',
+										msg : '登录成功，正在转到主页...',
 										bg : '#6FB3E0',
 										time:4
 									});

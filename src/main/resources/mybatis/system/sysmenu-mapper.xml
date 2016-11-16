@@ -39,8 +39,8 @@
 		<include refid="selectId" />
 		from sys_menu
 		<include refid="querywhere1"/>
-		<if test="@Ognl@isNotEmpty(sort) and @Ognl@isNotEmpty(direction)">
-		 order by ${sort} ${direction}
+		<if test="@Ognl@isNotEmpty(sidx) and @Ognl@isNotEmpty(sord)">
+		 order by ${sidx} ${sord}
 		</if>
 	</select>
 
@@ -49,8 +49,8 @@
 		<include refid="selectId" />
 		from sys_menu
 		<include refid="querywhere"/>
-		<if test="@Ognl@isNotEmpty(t.sort) and @Ognl@isNotEmpty(t.direction)">
-		 order by ${t.sort} ${t.direction}
+		<if test="@Ognl@isNotEmpty(t.sidx) and @Ognl@isNotEmpty(t.sord)">
+		 order by ${t.sidx} ${t.sord}
 		</if>
 	</select>
 	

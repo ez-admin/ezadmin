@@ -222,13 +222,13 @@ QX4
 			b.QX2,
 			b.QX3,
 			b.QX4
-		from SYS_ROLE a, SYS_GL_QX b, SYS_USER c
+		from sys_role a, sys_right_gl b, sys_user c
 		where
 			a.QX_ID = b.GL_ID
 		and
-			a.ROLE_ID = c.ROLE_ID
+			a.ROLE_ID = c.RLID
 		and
-			c.ROLE_ID =  #{roleId}
+			c.RLID =  #{roleId}
 
 		limit 0,1
 	</select>

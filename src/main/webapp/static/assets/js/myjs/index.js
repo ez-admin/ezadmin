@@ -1,13 +1,6 @@
-	$(function () {
-		if (typeof ($.cookie('menusf')) == "undefined") {
-			$("#menusf").attr("checked", true);
-			$("#sidebar").attr("class", "sidebar responsive ace-save-state menu-min");
-		} else {
-			$("#sidebar").attr("class", "sidebar responsive ace-save-state");
-		}
-	});
+//处理iframe高度问题
 	function cmainFrame(){
-		var hmain = document.getElementById("mainFrame");
+		var hmain = $("#main-tab .tab-content");
 		var bheight = document.documentElement.clientHeight;
 		hmain .style.width = '100%';
 		hmain .style.height = (bheight  - 51) + 'px';
@@ -18,4 +11,3 @@
 	window.onresize=function(){
 		cmainFrame();
 	};
-	jzts();

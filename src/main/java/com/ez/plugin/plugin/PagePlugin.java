@@ -1,6 +1,7 @@
-package com.ez.plugin;
+package com.ez.plugin.plugin;
 
 
+import com.ez.plugin.dialect.Dialect;
 import com.ez.util.Common;
 import com.ez.util.PageView;
 import org.apache.ibatis.executor.statement.BaseStatementHandler;
@@ -10,7 +11,6 @@ import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.scripting.defaults.DefaultParameterHandler;
-import org.hibernate.dialect.Dialect;
 
 import javax.xml.bind.PropertyException;
 import java.sql.Connection;

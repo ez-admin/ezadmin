@@ -1,27 +1,10 @@
 //菜单状态切换
 function siMenu(id,MENU_NAME,MENU_URL,obj){
-	//console.log($(obj).html());
 	var new_active = $(obj).parent();//somehow get a reference to our newly clicked(selected) element's parent "LI"
 	//$('.nav-list li.active').removeClass('active open'); or
 	$('.nav-list li.active').attr("class","");//remove ".active" class from all (previously) ".active" elements
 	new_active.addClass('active').parents('.nav-list li').addClass('active');//add ".active" class to our newly selected item and all its parent "LI" elements
-
-	/*breadcrumbs 功能注释掉
-	//you can also update breadcrumbs:
-	var breadcrumb_items = [];
-	//$(this) is a reference to our clicked/selected element
-	$(this).parents('.nav-list li').each(function() {
-		var link = $(this).find('> a');
-		var text = link.text();
-		var href = link.attr('href');
-		breadcrumb_items.push({'text': text, 'href': href});
-	});	*/
 	$("#main-tab").aceaddtab({ title: MENU_NAME, url: MENU_URL });
-
-	//top.mainFrame.tabAddHandler(id,MENU_NAME,MENU_URL);
-	if(MENU_URL != "druid/index.html"){
-		jzts();
-	}
 }
 
 

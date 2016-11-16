@@ -19,17 +19,14 @@ import java.util.Map;
 public class HeadController{
 	
 	/**
-	 * 获取头部信息
+	 * 获取头部登陆人信息
 	 */
 	@RequestMapping(value="getUname")
 	@ResponseBody
 	public Map<String,Object> getUname(Model model, HttpServletRequest request) {
 		SysUser sysUser = (SysUser)request.getSession().getAttribute("sysuser");
-		String ez="My name is ChenEz";
-		//model.addAttribute("sysUser",sysUser);
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("sysUser",sysUser);
-		map.put("ez",ez);
 		return map;
 	}
 

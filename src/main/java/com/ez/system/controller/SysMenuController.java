@@ -2,10 +2,8 @@ package com.ez.system.controller;
 
 import com.ez.system.entity.SysMenu;
 import com.ez.system.service.SysMenuService;
-import com.ez.util.Common;
 import com.ez.util.PageView;
 import com.ez.util.WebTool;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,9 +29,15 @@ public class SysMenuController {
 	
 	@Resource
 	private SysMenuService sysMenuService;
-	
-	
-	
+
+	/**
+	 * 跳到列表页面
+	 * @return
+	 */
+	@RequestMapping(value="list")
+	public String list(){
+		return "/ez/system/sysmenu/list";
+	}
 	/**
 	 * 跳到新增页面
 	 * @return
@@ -106,19 +110,44 @@ public class SysMenuController {
     @ResponseBody
 	public Map<String, Object> showlist(Model model,SysMenu sysmenu,HttpServletRequest request){
 		PageView pageView = null;
-		String pageNow=request.getParameter("pager.pageNo");
-		String pageSize=request.getParameter("pager.pageSize");
+//		String pageNow=request.getParameter("pager.pageNo");
+//		String pageSize=request.getParameter("pager.pageSize");
+		/*String pageNow=request.getParameter("page");
+		String pageSize=request.getParameter("rows");
 		if(Common.isEmpty(pageNow)){
 			pageView = new PageView(1);
 		}else{
 			pageView = new PageView(Integer.parseInt(pageSize),Integer.parseInt(pageNow));
+		}*/
+		// For pagination
+		int pageSize = 10;
+		int startPage = 0;
+		String size = request.getParameter("length");
+		if (!"".equals(size) && size != null) {
+			pageSize = Integer.parseInt(size);
 		}
+		String currentRecord = request.getParameter("start");
+		if (!"".equals(currentRecord) && currentRecord != null) {
+			startPage = Integer.parseInt(currentRecord);
+		}
+		// For sortable
+		String sidx = request.getParameter("order[0][column]");
+		String sord = request.getParameter("order[0][dir]");
+		// For search
+		String searchValue = request.getParameter("search[value]");
+
+		pageView = new PageView(pageSize,startPage);
 		Map<String, Object> map=new HashMap<String, Object>();
 		pageView = sysMenuService.query(pageView, sysmenu);
 		List<SysMenu> list=pageView.getRecords();
-		map.put("rows", list); 
-		map.put("pager.pageNo", pageView.getPageNow());
-		map.put("pager.totalRows", pageView.getRowCount());
+		/*map.put("rows", list);
+		map.put("page", pageView.getPageNow());
+		map.put("total",pageView.getPageCount());
+		map.put("records", pageView.getRowCount());*/
+		map.put("draw",request.getParameter("draw"));
+		map.put("recordsTotal",pageView.getRowCount());
+		map.put("recordsFiltered",pageView.getRowCount());
+		map.put("data", list);
 		return map;
 	}
 	
@@ -187,8 +216,7 @@ public class SysMenuController {
 	 * 批量删除数据
 	 * 
 	 * @param model
-	 * @param String
-	 *            [] ids
+	 * @param ids
 	 * @return
 	 */
 	@RequestMapping(value = "deleteAll")

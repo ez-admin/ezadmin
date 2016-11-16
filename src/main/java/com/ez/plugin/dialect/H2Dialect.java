@@ -1,7 +1,5 @@
-package com.ez.plugin;
+package com.ez.plugin.dialect;
 
-
-import org.hibernate.dialect.Dialect;
 
 /**
  * A dialect compatible with the H2 database.

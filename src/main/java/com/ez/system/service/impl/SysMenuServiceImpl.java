@@ -38,6 +38,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 	@Transactional(readOnly=true)
 	public PageView query(PageView pageView, SysMenu sysMenu) {
 		List<SysMenu> list = sysMenuDao.query(pageView, sysMenu);
+		System.out.println("list = " + list);
 		pageView.setRecords(list);
 		return pageView;
 	}

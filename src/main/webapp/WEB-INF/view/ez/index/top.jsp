@@ -29,7 +29,7 @@
 	<script src="static/components/respond/dest/respond.min.js"></script>
 	<![endif]-->
 
-	<link rel="stylesheet" href="static/assets/css/datepicker.css" /><!-- 日期框 -->
+	<!--<link rel="stylesheet" href="static/assets/css/datepicker.css" /> 日期框 -->
 	<script type="text/javascript" src="static/assets/js/jquery-2.0.3.min.js"></script>
 	<!--引入弹窗组件start-->
 	<script type="text/javascript" src="plugins/attention/zDialog/zDrag.js"></script>

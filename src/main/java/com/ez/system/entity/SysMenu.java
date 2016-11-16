@@ -70,22 +70,23 @@ public class SysMenu extends BaseEntity implements java.io.Serializable{
 
 	//系统框架字段 start
 	
-	private String sort;
-	private String direction;
-	public String getSort() {
-		return sort;
+	private String sidx;
+	private String sord;
+
+	public String getSidx() {
+		return sidx;
 	}
-	
-	public void setSort(String sort) {
-		this.sort = sort;
+
+	public void setSidx(String sidx) {
+		this.sidx = sidx;
 	}
-	
-	public String getDirection() {
-		return direction;
+
+	public String getSord() {
+		return sord;
 	}
-	
-	public void setDirection(String direction) {
-		this.direction = direction;
+
+	public void setSord(String sord) {
+		this.sord = sord;
 	}
 	//系统框架字段 end
 

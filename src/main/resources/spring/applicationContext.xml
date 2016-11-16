@@ -95,17 +95,15 @@ http://www.springframework.org/schema/context/spring-context-4.2.xsd ">
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
           p:dataSource-ref="dataSource" />
 
-
     <!-- 启用注解方式1：开启注解事务 start-->
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
     <!-- 启用注解方式1：开启注解事务 end-->
 
-
     <!-- mybatis分页 -->
-    <bean id="pagePlugin" class="com.ez.plugin.PagePlugin">
+    <bean id="pagePlugin" class="com.ez.plugin.plugin.PagePlugin">
         <property name="properties">
             <props>
-                <prop key="dialect">com.ez.plugin.H2Dialect</prop>
+                <prop key="dialect">com.ez.plugin.dialect.H2Dialect</prop>
                 <prop key="pageSqlId">.*query.*</prop>
             </props>
         </property>

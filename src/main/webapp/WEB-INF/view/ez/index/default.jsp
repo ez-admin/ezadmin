@@ -1146,6 +1146,7 @@
 <!--[if lte IE 8]>
 <script src="static/components/ExplorerCanvas/excanvas.js"></script>
 <![endif]-->
+
 <script src="static/components/_mod/jquery-ui.custom/jquery-ui.custom.js"></script>
 <script src="static/components/jqueryui-touch-punch/jquery.ui.touch-punch.js"></script>
 <script src="static/components/_mod/easypiechart/jquery.easypiechart.js"></script>
@@ -1154,50 +1155,13 @@
 <script src="static/components/Flot/jquery.flot.pie.js"></script>
 <script src="static/components/Flot/jquery.flot.resize.js"></script>
 
-<%--
+
 <script src="static/assets/js/src/ace.js"></script>
 <script src="static/assets/js/src/ace.scrolltop.js"></script>
 <script src="static/assets/js/src/elements.scroller.js"></script>
---%>
 <script src="static/components/bootstrap/dist/js/bootstrap.js"></script>
 
-<script src="static/assets/js/src/elements.scroller.js"></script>
-<script src="static/assets/js/src/elements.colorpicker.js"></script>
-<script src="static/assets/js/src/elements.fileinput.js"></script>
-<script src="static/assets/js/src/elements.typeahead.js"></script>
-<script src="static/assets/js/src/elements.wysiwyg.js"></script>
-<script src="static/assets/js/src/elements.spinner.js"></script>
-<script src="static/assets/js/src/elements.treeview.js"></script>
-<script src="static/assets/js/src/elements.wizard.js"></script>
-<script src="static/assets/js/src/elements.aside.js"></script>
-<script src="static/assets/js/src/ace.js"></script>
-<script src="static/assets/js/src/ace.basics.js"></script>
-<script src="static/assets/js/src/ace.scrolltop.js"></script>
-<script src="static/assets/js/src/ace.touch-drag.js"></script>
-<script src="static/assets/js/src/ace.sidebar.js"></script>
-<script src="static/assets/js/src/ace.sidebar-scroll-1.js"></script>
-<script src="static/assets/js/src/ace.submenu-hover.js"></script>
-<script src="static/assets/js/src/ace.widget-box.js"></script>
-<script src="static/assets/js/src/ace.settings.js"></script>
-<script src="static/assets/js/src/ace.settings-rtl.js"></script>
-<script src="static/assets/js/src/ace.settings-skin.js"></script>
-<script src="static/assets/js/src/ace.widget-on-reload.js"></script>
-<script src="static/assets/js/src/ace.searchbox-autocomplete.js"></script>
-
-
 <script type="text/javascript">
-	/*var scripts = [
-		null,
-		"static/components/_mod/jquery-ui.custom/jquery-ui.custom.js",
-		"static/components/jqueryui-touch-punch/jquery.ui.touch-punch.js",
-		"static/components/_mod/easypiechart/jquery.easypiechart.js",
-		"static/components/jquery.sparkline/index.js",
-		"static/components/Flot/jquery.flot.js",
-		"static/components/Flot/jquery.flot.pie.js",
-		"static/components/Flot/jquery.flot.resize.js",
-		null
-	]
-	$('.page-content-area').ace_ajax('loadScripts', scripts, function() {*/
 		//inline scripts related to this page
 		jQuery(function($) {
 			$('.easy-pie-chart.percentage').each(function(){
@@ -1399,8 +1363,6 @@
 			});
 
 		})
-
-	/*});*/
 </script>
 
 </body>

@@ -1,4 +1,4 @@
-package com.ez.plugin;
+package com.ez.plugin.plugin;
 
 import java.lang.reflect.Field;
 

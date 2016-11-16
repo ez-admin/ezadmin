@@ -77,6 +77,9 @@ public class LoginController {
 
 			SysRole sysrole = sysRoleService.getById(user.getRlid());
 			String roleRights = sysrole!=null ? sysrole.getRights() : "";
+			//避免每次拦截用户操作时查询数据库，以下将用户所属角色权限、用户权限限都存入session
+			session.setAttribute(PubConstants.SESSION_ROLE_RIGHTS, roleRights); 		//将角色权限存入session
+
 			List<SysMenu> allmenuList=sysMenuService.findAllList();
 			if(null == session.getAttribute(PubConstants.SESSION_allmenuList)) {
 				if (null != sysrole) {
@@ -86,11 +89,8 @@ public class LoginController {
 				}
 				session.setAttribute(PubConstants.SESSION_allmenuList, allmenuList);
 			}else {
-				allmenuList = (List<SysMenu>)session.getAttribute(PubConstants.SESSION_menuList);
+				allmenuList = (List<SysMenu>)session.getAttribute(PubConstants.SESSION_allmenuList);
 			}
-
-
-
 			if(user!=null){
 				log.setCmpno(user.getCmpno());
 				log.setUserno(user.getUserno());
@@ -205,9 +205,9 @@ public class LoginController {
 				}*/
 				//切换菜单=====
 
-				/*if(null == session.getAttribute(PubConstants.SESSION_QX)){
+				if(null == session.getAttribute(PubConstants.SESSION_QX)){
 					session.setAttribute(PubConstants.SESSION_QX, this.getUQX(session));	//按钮权限放到session中
-				}*/
+				}
 				/*model.addAttribute("sysuser",sysuser);
 				model.addAttribute(PubConstants.SESSION_menuList,menuList);
 				System.out.println("menuList = " + menuList.toString());

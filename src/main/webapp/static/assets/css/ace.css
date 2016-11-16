@@ -14598,7 +14598,7 @@ ul.attachment-list > li {
   margin-bottom: 0 !important;
   margin: 0 4px;
 }
-.dataTables_wrapper .row {
+ {
   margin: 0 !important;
 }
 .dataTables_wrapper .row:first-child {
@@ -14615,6 +14615,7 @@ ul.attachment-list > li {
   padding-top: 12px;
   padding-bottom: 12px;
   background-color: #EFF3F8;
+
 }
 .dataTables_wrapper .dataTables_scroll + .row {
   border-top: 1px solid #e0e0e0;
@@ -20438,3 +20439,18 @@ input.typeahead.scrollable ~ .tt-menu {
   padding: 5px!important;
   line-height: 20px!important;
 }
+/*datatables数据表格位置*/
+.dataTables_wrapper .top,.dataTables_wrapper .bottom{
+  padding-left:10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #EFF3F8;
+  height: 53px;
+}
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_info,.dataTables_wrapper .tableTools-container{
+  float: left;
+}
+.dataTables_wrapper .dataTables_paginate,.dataTables_wrapper  .dataTables_filter{
+  float: right;
+}
+
