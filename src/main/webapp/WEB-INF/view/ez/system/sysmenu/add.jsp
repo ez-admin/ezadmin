@@ -2,6 +2,7 @@
 		 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="digits" uri="http://www.springframework.org/tags/form" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -15,6 +16,8 @@
 	<!-- jsp文件头和头部 -->
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
 	<!-- page specific plugin styles -->
+	<link rel="stylesheet" href="static/components/bootstrap/dist/css/bootstrap.min.css" />
+
 	<link rel="stylesheet" href="static/components/_mod/jquery-ui.custom/jquery-ui.custom.css" />
 	<link rel="stylesheet" href="static/components/chosen/chosen.css" />
 	<link rel="stylesheet" href="static/components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" />
@@ -27,122 +30,96 @@
 	<script src="plugins/form/form.js" type="text/javascript"></script>
 	<!-- 表单异步提交end -->
 	<!-- 表单验证start -->
-	<script src="plugins/form/validationRule.js" type="text/javascript"></script>
+		<link rel="stylesheet" href="plugins/form/css/bootstrapValidator.min.css" />
+	<%--<script src="plugins/form/validationRule.js" type="text/javascript"></script>
 	<script src="plugins/form/validation.js" type="text/javascript"></script>
+	<script type="text/javascript" src="plugins/form/jquery-validate.bootstrap-tooltip.js"></script>--%>
+	<script type="text/javascript" src="plugins/form/js/bootstrapValidator.min.js"></script>
+	<script type="text/javascript" src="plugins/form/js/zh_CN.js"></script>
 	<!-- 表单验证end -->
+	<style type="text/css">
+		.main-container{
+			padding-top: 20px;
+			background-color: rgb(245, 245, 245);
+		}
+		label{
+			text-align: right;
+			font-weight: normal;
+			font-size: 14px;
+			line-height: 30px;
+		}
+		.form-actions {
+			margin-bottom: 0;
+		}
+	</style>
   </head>
   
   <body>
-  <div class="main-container ace-save-state" >
-  	<div class="row">
-	  <div class="col-xs-12">
-		<form class="form-horizontal" id="inputForm" action="<%=path%>/ez/system/sysmenu/add.do" method="post" failAlert="表单填写不正确，请按要求填写！">
-			<div class="form-group">
-				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 菜单名称</label>
-				<div class="col-sm-9">
-					<input type="text" id="form-field-1"  maxlength="3" placeholder="菜单名称" class="validate[required]" /><span class="star">*</span>
-				</div>
-			</div>
+  <div class="main-container ace-save-state">
+	  <div class="row">
+		  <div class="col-xs-12">
+			  <form class="form-horizontal" role="form" id="inputForm" action="<%=path%>/ez/system/sysmenu/add.do"
+					method="post" failAlert="表单填写不正确，请按要求填写！">
+				  <div class="form-group">
+					  <label class="col-xs-4 control-label no-padding-right" for="menuName"> <span class="star">*</span>菜单名称：</label>
+					  <div class="col-xs-6">
+						  <input type="text" name="menuName" id="menuName" placeholder="菜单名称" class="form-control"
+								 maxlength="3" required/>
+					  </div>
+				  </div>
 
-			<div class="form-group">
-				<label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> 菜单URL地址 </label>
+				  <div class="form-group">
+					  <label class="col-xs-4 control-label no-padding-right" for="menuUrl"> 菜单URL地址：</label>
+					  <div class="col-xs-6">
+						  <input type="text" name="menuUrl" id="menuUrl" placeholder="菜单URL地址" class="form-control"
+								 required />
+					  </div>
+				  </div>
 
-				<div class="col-sm-9">
-					<input type="text" id="form-field-1-1" placeholder="菜单URL地址" class="form-control" />
-				</div>
-			</div>
-			<%--<fieldset>
-			<table class="tableStyle" formMode="view">
-				<tr>
-					<th colspan="2">添加*系统管理权限表</th>
-				</tr>
-			</table>
-			<legend>基本信息</legend>
-			<table class="tableStyle" formMode="line" >
+				  <div class="form-group">
+					  <label class="col-xs-4 control-label no-padding-right" for="parentId"> 父级菜单ID：</label>
+					  <div class="col-xs-2">
+						  <input type="number" name="parentId" id="parentId" placeholder="数字" class="form-control"
+								step="1" required />
+					  </div>
+				  </div>
 
-				<tr class="style1">
-					<td width="30%">
-						角色编号:
-					</td>
-					<td width="70%">
-						<input name="roleId" id="roleId" type="text"  maxlength="100" watermark="请输入角色编号" style="width: 400px;"/>
-					</td>
-				</tr>
+				  <div class="form-group">
+					  <label class="col-xs-4 control-label no-padding-right" for="menuOrder"> 菜单顺序：</label>
+					  <div class="col-xs-2">
+						  <input type="number" name="menuOrder" id="menuOrder" placeholder="数字" class="form-control"
+								 step="1" required />
+					  </div>
+				  </div>
+				  <div class="form-group">
+					  <label class="col-xs-4 control-label no-padding-right" for="menuIcon"> 菜单图标：</label>
+					  <div class="col-xs-6">
+						  <input type="text" name="menuIcon" id="menuIcon" placeholder="菜单图标" class="form-control"
+								 required />
+					  </div>
+				  </div>
+				  <div class="form-group">
+					  <label class="col-xs-4 control-label no-padding-right" for="menuType"> 菜单类型：</label>
+					  <div class="col-xs-6">
+						  <input type="text" name="menuType" id="menuType" placeholder="菜单类型" class="form-control"
+								 required />
+					  </div>
+				  </div>
 
-				<tr class="style1">
-					<td width="30%">
-						fxQx:
-					</td>
-					<td width="70%">
-						<input name="fxQx" id="fxQx" type="text"  maxlength="10" watermark="请输入fxQx" class="validate[custom[onlyNumberWide]]" style="width: 400px;"/>
-					</td>
-				</tr>
-
-				<tr class="style1">
-					<td width="30%">
-						fwQx:
-					</td>
-					<td width="70%">
-						<input name="fwQx" id="fwQx" type="text"  maxlength="10" watermark="请输入fwQx" class="validate[custom[onlyNumberWide]]" style="width: 400px;"/>
-					</td>
-				</tr>
-
-				<tr class="style1">
-					<td width="30%">
-						qx1:
-					</td>
-					<td width="70%">
-						<input name="qx1" id="qx1" type="text"  maxlength="10" watermark="请输入qx1" class="validate[custom[onlyNumberWide]]" style="width: 400px;"/>
-					</td>
-				</tr>
-
-				<tr class="style1">
-					<td width="30%">
-						qx2:
-					</td>
-					<td width="70%">
-						<input name="qx2" id="qx2" type="text"  maxlength="10" watermark="请输入qx2" class="validate[custom[onlyNumberWide]]" style="width: 400px;"/>
-					</td>
-				</tr>
-
-				<tr class="style1">
-					<td width="30%">
-						qx3:
-					</td>
-					<td width="70%">
-						<input name="qx3" id="qx3" type="text"  maxlength="10" watermark="请输入qx3" class="validate[custom[onlyNumberWide]]" style="width: 400px;"/>
-					</td>
-				</tr>
-
-				<tr class="style1">
-					<td width="30%">
-						qx4:
-					</td>
-					<td width="70%">
-						<input name="qx4" id="qx4" type="text"  maxlength="10" watermark="请输入qx4" class="validate[custom[onlyNumberWide]]" style="width: 400px;"/>
-					</td>
-				</tr>
-
-			</table>
-			<table class="tableStyle" formMode="line" >
-				<tr >
-					<td width="50%">
-						<div align="right">
-						<input type="submit" value="　保　存　"/> </div>
-					</td>
-					<td >
-						<div align="left">
-						<input type="button" value="　取　消　" onclick="top.Dialog.close()" />
-						</div>
-					</td>
-				</tr>
-			</table>
-			</fieldset>
-			<div class="height_5"></div>--%>
-		</form>
-		</div>
-	</div>
-		
+				  <div class="form-actions center">
+					  <button class="btn btn-white btn-info btn-bold" type="submit">
+						  <i class="ace-icon fa fa-floppy-o bigger-120 blue"></i>
+						  保存
+					  </button>
+					  <button class="btn btn-white btn-warning btn-round" onclick="top.Dialog.close()">
+						  <i class="ace-icon fa fa-reply "></i>
+						  取消
+					  </button>
+				  </div>
+			  </form>
+		  </div>
+	  </div>
+  </div>
 <script type="text/javascript">
 function initComplete(){
 	
@@ -160,7 +137,7 @@ function initComplete(){
 			             });
 		        	}else{
 		        		top.Dialog.alert("保存失败!"+responseText.message,function(){
-		        			window.location.reload();
+		        			window.parent.location.reload();
 			             });
 		        	}
 		             
@@ -175,7 +152,7 @@ function initComplete(){
 
 function closeWin(){
 	//刷新数据
-	top.frmright.refresh();
+	window.parent.location.reload();
 	//关闭窗口
 	top.Dialog.close();
 }

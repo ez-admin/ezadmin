@@ -2,6 +2,7 @@
   <dictionary name="Administrator">
     <words>
       <w>checkpwd</w>
+      <w>parentid</w>
     </words>
   </dictionary>
 </component>

@@ -151,26 +151,26 @@
 									'</button>' +
 									'<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close"> ' +
 										'<li>' +
-											'<a href="#" class="tooltip-info" data-rel="tooltip" title="View"> ' +
+											'<a href="#" class="tooltip-info" data-rel="tooltip" title="查看"> ' +
 												'<span class="blue"> ' +
 													'<i class="ace-icon fa fa-search-plus bigger-120"></i> ' +
-														data.menuName+
+													'查看'+
 												'</span>' +
 											'</a>' +
 										'</li>' +
 										'<li>' +
-											'<a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">' +
+											'<a href="#" class="tooltip-success" data-rel="tooltip" title="修改">' +
 												'<span class="green">' +
 													'<i class="ace-icon fa fa-pencil-square-o bigger-120"></i> ' +
-													data.menuName+
+													'修改'+
 												'</span>' +
 											'</a>' +
 										'</li>' +
 										'<li>' +
-											'<a href="#" class="tooltip-error" data-rel="tooltip" title="Delete"> ' +
+											'<a href="#" class="tooltip-error" data-rel="tooltip" title="删除"> ' +
 												'<span class="red">' +
 													'<i class="ace-icon fa fa-trash-o bigger-120"></i>' +
-													data.menuName+
+													'删除'+
 												'</span>' +
 											'</a>' +
 										'</li>' +
@@ -351,13 +351,16 @@
 		diag.Drag=true;
 		diag.Title ="新增菜单";
 		diag.URL = '/ez/system/sysmenu/addUI.do';
-		diag.Width = 650;
-		diag.Height = 500;
+		/*diag.Width = 650;
+		diag.Height = 500;*/
 		diag.CancelEvent = function(){ //关闭事件
 			setTimeout("location.reload()",100);
 			diag.close();
 		};
 		diag.show();
+	}
+	function refresh() {
+		setTimeout("location.reload()",100);
 	}
 </script>
 
