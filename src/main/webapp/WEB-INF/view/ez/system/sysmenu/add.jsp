@@ -33,14 +33,14 @@
   </head>
   
   <body>
+  <div class="main-container ace-save-state" >
   	<div class="row">
 	  <div class="col-xs-12">
 		<form class="form-horizontal" id="inputForm" action="<%=path%>/ez/system/sysmenu/add.do" method="post" failAlert="表单填写不正确，请按要求填写！">
 			<div class="form-group">
 				<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 菜单名称</label>
-
 				<div class="col-sm-9">
-					<input type="text" id="form-field-1" placeholder="菜单名称" class="col-xs-10 col-sm-5" />
+					<input type="text" id="form-field-1"  maxlength="3" placeholder="菜单名称" class="validate[required]" /><span class="star">*</span>
 				</div>
 			</div>
 

@@ -205,7 +205,12 @@
 	       
 		</where>
 	</sql>
-
+	<!-- 检查密码是否正确 -->
+	<select id="checkpwd" parameterType="com.ez.system.entity.SysUser" resultType="int">
+		select count(0) from sys_user
+		where LOGNM = #{lognm}
+		AND LOGPWD = #{logpwd}
+	</select>
 	<!-- 总记录数 -->
 	<select id="count" parameterType="com.ez.system.entity.SysUser" resultType="int">
 		select count(0) from sys_user

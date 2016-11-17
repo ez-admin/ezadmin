@@ -32,23 +32,23 @@ public class LoginServiceImpl implements LoginService {
 				checkRslt = PubConstants.LOGIN_NOTINUSE;
 			}else{
 				//验证静态密码
-				checkRslt = this.checkStaticPWD(user);
+				checkRslt = this.checkStaticPWD(sysUser);
 			}
 		}
 		return checkRslt;
 	}
 	
 	//验证静态密码
-	public int checkStaticPWD(SysUser user){
+	public int checkStaticPWD(SysUser sysUser){
 		int checkRslt;
-		int count = sysUserDao.count(user);
+		int count = sysUserDao.checkpwd(sysUser);
 		if(count == 0){
 			//pwd not right
 			checkRslt = PubConstants.LOGIN_STTCPWDERR;
 		}else if(count == 1){
 			//pwd right
 			//验证shiro 安全框架
-			checkRslt = checkShiro(user);
+			checkRslt = checkShiro(sysUser);
 		}else{
 			checkRslt = PubConstants.LOGIN_MULTIUSER;
 		}
