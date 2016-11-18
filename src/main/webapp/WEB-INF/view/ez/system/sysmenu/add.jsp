@@ -80,7 +80,7 @@
 					  <label class="col-xs-4 control-label no-padding-right" for="parentId"> 父级菜单ID：</label>
 					  <div class="col-xs-2">
 						  <input type="number" name="parentId" id="parentId" placeholder="数字" class="form-control"
-								step="1" required />
+								step="1" min="0" required />
 					  </div>
 				  </div>
 
@@ -88,7 +88,7 @@
 					  <label class="col-xs-4 control-label no-padding-right" for="menuOrder"> 菜单顺序：</label>
 					  <div class="col-xs-2">
 						  <input type="number" name="menuOrder" id="menuOrder" placeholder="数字" class="form-control"
-								 step="1" required />
+								 step="1" min="0" required />
 					  </div>
 				  </div>
 				  <div class="form-group">
