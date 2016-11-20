@@ -105,23 +105,28 @@
 			},
 			ordering: true,
 			columns: [
-				{ data: null },
-				{ data: 'menuId' },
-				{ data: 'menuName' },
-				{ data: 'menuUrl' },
-				{ data: 'parentId' },
-				{ data: 'menuOrder' },
-				{ data: 'menuIcon' },
-				{ data: 'menuType' },
-				{ data: null }
+				{ data: null ,class:'center'},
+				{ data: 'menuId',class:'center'},
+				{ data: 'menuName' ,class:'center'},
+				{ data: 'menuUrl'},
+				{ data: 'parentId' ,class:'center'},
+				{ data: 'menuOrder',class:'center'},
+				{ data: 'menuIcon',class:'center'},
+				{ data: 'menuType',class:'center'},
+				{ data: null ,class:'center'}
 			],
-			select: {
+			/*select: {
 				style: 'multi'
-			},
+			},*/
 			columnDefs: [{
 				//设置第一行不显示
 				// "visible": false,
 				//"targets": 0
+			},
+			{targets:6,
+				render:function (data,type,row,meta) {
+					return '<i class="ace-icon fa '+ row.menuIcon+' "></i>'
+				}
 			},
 			{
 				//指定是第9列
@@ -131,15 +136,15 @@
 					//渲染 把数据源中的标题和url组成超链接
 					//return '<a href="' + data + '" target="_blank">' + row.title + '</a>';
 					return '<div class="hidden-sm hidden-xs action-buttons"> ' +
-								'<a class="blue" href="#">' +
+								'<a class="blue"  href="javascript:void(0)"  onclick="viewmenu('+row.menuId+');return false;"  >' +
 									'<i class="ace-icon fa fa-search-plus bigger-130"></i> ' +
 									'查看'+
 								'</a>' +
-								'<a class="green" href="#">' +
+								'<a class="green" href="javascript:void(0)" onclick="editmenu('+row.menuId+');return false;">' +
 									'<i class="ace-icon fa fa-pencil bigger-130"></i> ' +
 									'修改'+
 								'</a>' +
-									'<a class="red" href="#">' +
+									'<a class="red" href="javascript:void(0)" onclick="deleteone('+row.menuId+');return false;">' +
 								'<i class="ace-icon fa fa-trash-o bigger-130"></i>' +
 									'删除'+
 								'</a>' +
@@ -151,7 +156,7 @@
 									'</button>' +
 									'<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close"> ' +
 										'<li>' +
-											'<a href="#" class="tooltip-info" data-rel="tooltip" title="查看"> ' +
+											'<a href="javascript:void(0)" onclick="viewmenu('+row.menuId+');return false;">  class="tooltip-info pointer" data-rel="tooltip" title="查看"> ' +
 												'<span class="blue"> ' +
 													'<i class="ace-icon fa fa-search-plus bigger-120"></i> ' +
 													'查看'+
@@ -159,7 +164,7 @@
 											'</a>' +
 										'</li>' +
 										'<li>' +
-											'<a href="#" class="tooltip-success" data-rel="tooltip" title="修改">' +
+											'<a href="javascript:void(0)" onclick="editmenu('+row.menuId+');return false;"> class="tooltip-success pointer" data-rel="tooltip" title="修改">' +
 												'<span class="green">' +
 													'<i class="ace-icon fa fa-pencil-square-o bigger-120"></i> ' +
 													'修改'+
@@ -167,7 +172,7 @@
 											'</a>' +
 										'</li>' +
 										'<li>' +
-											'<a href="#" class="tooltip-error" data-rel="tooltip" title="删除"> ' +
+											'<a href="javascript:void(0)" onclick="deleteone('+row.menuId+');return false;" class="tooltip-error pointer" data-rel="tooltip" title="删除"> ' +
 												'<span class="red">' +
 													'<i class="ace-icon fa fa-trash-o bigger-120"></i>' +
 													'删除'+
@@ -359,8 +364,62 @@
 		};
 		diag.show();
 	}
-	function refresh() {
+	function closeWin() {
 		setTimeout("location.reload()",100);
+		top.Dialog.close();
+	}
+	//查看
+	function viewmenu(menuId){
+		var diag = new top.Dialog();
+		diag.Drag=true;
+		diag.Title ="查看菜单";
+		//typekey=2查看
+		diag.URL = '/ez/system/sysmenu/getById.do?typeKey=2&sysmenuId='+menuId;
+		/*diag.Width = 650;
+		 diag.Height = 500;
+		diag.CancelEvent = function(){ //关闭事件
+			setTimeout("location.reload()",100);
+			diag.close();
+		};*/
+		diag.show();
+	}
+	//修改
+	function editmenu(menuId) {
+		var diag = new top.Dialog();
+		diag.Drag=true;
+		diag.Title ="编辑菜单";
+		//typekey=1编辑
+		diag.URL = '/ez/system/sysmenu/getById.do?typeKey=1&sysmenuId='+menuId;
+		/*diag.Width = 650;
+		 diag.Height = 500;*/
+		diag.CancelEvent = function(){ //关闭事件
+			setTimeout("location.reload()",100);
+			diag.close();
+		};
+		diag.show();
+	}
+	//删除
+	function deleteone(menuId) {
+		top.Dialog.confirm("确定要删除该记录吗？",function(){
+			//删除记录
+			$.post("/ez/system/sysmenu/deleteById.do",
+					{"ids":menuId},
+					function(result){
+						handleResult(result.status,result.message);
+					},"json");
+			//刷新表格
+			location.reload()
+		});
+	}
+	//删除后的提示
+	function handleResult(result,message){
+		if(result =="1"){
+			top.Dialog.alert("删除成功！",null,null,null,1);
+			//刷新表格
+			location.reload()
+		}else{
+			top.Dialog.alert("删除失败！"+message);
+		}
 	}
 </script>
 

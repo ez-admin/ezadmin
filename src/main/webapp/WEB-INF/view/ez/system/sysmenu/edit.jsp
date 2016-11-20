@@ -58,13 +58,13 @@
   <div class="main-container ace-save-state">
 	  <div class="row">
 		  <div class="col-xs-12">
-			  <form class="form-horizontal" role="form" id="inputForm" action="<%=path%>/ez/system/sysmenu/add.do"
+			  <form class="form-horizontal" role="form" id="inputForm" action="<%=path%>/ez/system/sysmenu/update.do"
 					method="post">
-
+					<input type="hidden" name="menuId" value="${sysmenu.menuId}">
 				  <div class="form-group">
 					  <label class="col-xs-4 control-label no-padding-right" for="menuName"> 菜单名称 ：<span class="star">*</span></label>
 					  <div class="col-xs-6">
-						  <input type="text" name="menuName" id="menuName" placeholder="菜单名称" class="form-control"
+						  <input type="text" name="menuName" id="menuName" value="${sysmenu.menuName}" placeholder="菜单名称" class="form-control"
 								  required/>
 					  </div>
 				  </div>
@@ -72,7 +72,7 @@
 				  <div class="form-group">
 					  <label class="col-xs-4 control-label no-padding-right" for="menuUrl"> 菜单URL地址：<span class="star">*</span></label>
 					  <div class="col-xs-6">
-						  <input type="text" name="menuUrl" id="menuUrl" placeholder="菜单URL地址" class="form-control"
+						  <input type="text" name="menuUrl" id="menuUrl" value="${sysmenu.menuUrl}" placeholder="菜单URL地址" class="form-control"
 								 required />
 					  </div>
 				  </div>
@@ -80,7 +80,7 @@
 				  <div class="form-group">
 					  <label class="col-xs-4 control-label no-padding-right" for="parentId"> 父级菜单ID：<span class="star">*</span></label>
 					  <div class="col-xs-2">
-						  <input type="number" name="parentId" id="parentId" placeholder="数字" class="form-control"
+						  <input type="number" name="parentId" id="parentId" value="${sysmenu.parentId}" placeholder="数字" class="form-control"
 								step="1" min="0" required />
 					  </div>
 				  </div>
@@ -88,14 +88,14 @@
 				  <div class="form-group">
 					  <label class="col-xs-4 control-label no-padding-right" for="menuOrder"> 菜单顺序： <span class="star">*</span></label>
 					  <div class="col-xs-2">
-						  <input type="number" name="menuOrder" id="menuOrder" placeholder="数字" class="form-control"
+						  <input type="number" name="menuOrder" id="menuOrder" value="${sysmenu.menuOrder}" placeholder="数字" class="form-control"
 								 step="1" min="0" required />
 					  </div>
 				  </div>
 				  <div class="form-group">
 					  <label class="col-xs-4 control-label no-padding-right" for="menuIcon"> 菜单图标：</label>
 					  <div class="col-xs-6">
-						  <input type="text" name="menuIcon" id="menuIcon" placeholder="菜单图标" class="form-control"
+						  <input type="text" name="menuIcon" id="menuIcon" value="${sysmenu.menuIcon}" placeholder="菜单图标" class="form-control"
 						  />
 					  </div>
 				  </div>
@@ -103,11 +103,11 @@
 					  <label class="col-xs-4 control-label no-padding-right" > 菜单类型：<span class="star">*</span></label>
 					  <div class="col-xs-6">
 						  <label>
-							  <input type="radio" name="menuType" value="1" checked>
+							  <input type="radio" name="menuType" value="1" <c:if test="${sysmenu.menuType == '1' }">checked="checked"</c:if> >
 							  系统菜单
 						  </label>
 						  <label>
-							  <input type="radio" name="menuType" value="2">
+							  <input type="radio" name="menuType" value="2" <c:if test="${sysmenu.menuType == '1' }">checked="checked"</c:if> >
 							  业务菜单
 						  </label>
 					  </div>

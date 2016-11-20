@@ -135,6 +135,11 @@ public class SysMenuController {
 		String sord = request.getParameter("order[0][dir]");
 		// For search
 		String searchValue = request.getParameter("search[value]");
+        if (!sidx.equals("0")){
+            sysmenu.setSidx(sidx);
+        }
+        sysmenu.setSord(sord);
+        sysmenu.setSearchValue(searchValue);
 
 		pageView = new PageView(pageSize,startPage);
 		Map<String, Object> map=new HashMap<String, Object>();

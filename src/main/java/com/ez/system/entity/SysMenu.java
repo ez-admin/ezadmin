@@ -72,6 +72,7 @@ public class SysMenu extends BaseEntity implements java.io.Serializable{
 	
 	private String sidx;
 	private String sord;
+	private String searchValue;
 
 	public String getSidx() {
 		return sidx;
@@ -87,6 +88,14 @@ public class SysMenu extends BaseEntity implements java.io.Serializable{
 
 	public void setSord(String sord) {
 		this.sord = sord;
+	}
+
+	public String getSearchValue() {
+		return searchValue;
+	}
+
+	public void setSearchValue(String searchValue) {
+		this.searchValue = searchValue;
 	}
 	//系统框架字段 end
 
