@@ -56,7 +56,10 @@
 	
 	<sql id="querywhere">
 		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
-		<where>	      				
+		<where>
+				<if test="@Ognl@isNotEmpty(t.menuId)">
+					AND MENU_ID like '%${t.menuId}%'
+				</if>
 			   <if test="@Ognl@isNotEmpty(t.menuName)">
 					AND MENU_NAME like '%${t.menuName}%'
 			   </if>
@@ -75,7 +78,16 @@
 			   <if test="@Ognl@isNotEmpty(t.menuType)">
 					AND MENU_TYPE like '%${t.menuType}%'
 			   </if>
-	       
+				<if test="@Ognl@isNotEmpty(t.searchValue)">
+					AND MENU_ID like '%${t.searchValue}%'
+                    or MENU_NAME like '%${t.searchValue}%'
+                    or MENU_URL like '%${t.searchValue}%'
+                    or PARENT_ID like '%${t.searchValue}%'
+                    or MENU_ORDER like '%${t.searchValue}%'
+                    or MENU_ICON like '%${t.searchValue}%'
+                    or MENU_TYPE  like '%${t.searchValue}%'
+			   </if>
+
 		</where>
 	</sql>
 	
@@ -134,8 +146,8 @@
 	
 	<!-- 新增Selective -->
 	<insert id="add" parameterType="com.ez.system.entity.SysMenu">
-	<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="id" >
-	        SELECT LAST_INSERT_ID() AS ID
+	<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="menuId" >
+	        SELECT LAST_INSERT_ID() AS menuId
 	</selectKey>
 		INSERT INTO sys_menu 
 		<include refid="addtrim"/>
@@ -143,6 +155,9 @@
 	
 	<sql id="addtrim">
 	<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(menuId)">
+				MENU_ID,
+			</if>
 			<if test="@Ognl@isNotEmpty(menuName)">
 				MENU_NAME,
 			</if>
@@ -163,6 +178,9 @@
 			</if>
     </trim>
     <trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(menuId)">
+				#{menuId},
+			</if>
 			<if test="@Ognl@isNotEmpty(menuName)">
 				#{menuName},
 			</if>
@@ -185,7 +203,7 @@
 	</sql>
 	
 	<!-- 删 -->
-	<delete id="deleteById" parameterType="String">
+	<delete id="delete" parameterType="String">
 		DELETE FROM sys_menu WHERE
         MENU_ID = #{id} 
 	</delete>

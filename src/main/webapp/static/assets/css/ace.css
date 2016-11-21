@@ -20453,4 +20453,11 @@ input.typeahead.scrollable ~ .tt-menu {
 .dataTables_wrapper .dataTables_paginate,.dataTables_wrapper  .dataTables_filter{
   float: right;
 }
-
+/*必填项样式*/
+.star{
+  color: red;
+  font-weight: bold;
+}
+.pointer{
+  cursor: pointer;
+}
