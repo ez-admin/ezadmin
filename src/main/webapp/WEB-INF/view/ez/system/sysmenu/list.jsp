@@ -190,6 +190,15 @@
 			"bScrollCollapse": true,
 			"iDisplayLength": 50*/
 
+			//序号
+			"fnDrawCallback": function(){
+				var api = this.api();
+				var startIndex= api.context[0]._iDisplayStart;//获取到本页开始的条数
+				api.column(0).nodes().each(function(cell, i) {
+					cell.innerHTML = startIndex + i + 1;
+				});
+			},
+
 
 			//国际化配置
 			language: {
