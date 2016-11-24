@@ -117,7 +117,7 @@ http://www.springframework.org/schema/context/spring-context-4.2.xsd ">
           p:plugins-ref="pagePlugin"/>
 
     <!-- 配置sqlSessionTemplate -->
-    <bean class="org.mybatis.spring.SqlSessionTemplate">
+    <bean class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
         <constructor-arg ref="sqlSessionFactory"/>
     </bean>
     <!-- 映射接口直接转换为spring容器的bean -->
