@@ -3,6 +3,8 @@ package com.ez.ssm;
 import com.ez.system.entity.SysMenu;
 import com.ez.system.service.SysMenuService;
 import com.ez.system.service.SysUserService;
+import com.ez.util.RightsHelper;
+import com.ez.util.Tools;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+import java.math.BigInteger;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -161,4 +164,35 @@ public class SSMTest {
 		//是否有上一页，有是 true
 		System.out.println("--------------------------------是否有上一页：" + pageResult.hasPrevious());
 	}*/
+
+	//权限和计算
+	@Test
+	public void qxh(){
+		//前台传过来的sys_menu中的MENU_ID值
+		String menuIds="1,2,3,4,5,6,7,8,9";
+		//Tools.str2StrArray(menuIds)用默认的分隔符(,)将字符串转换为字符串数组
+		//sumRights利用BigInteger对权限进行2的权的和计算
+		BigInteger rights = RightsHelper.sumRights(Tools.str2StrArray(menuIds));
+		System.out.println("RightsHelper.sumRights====>"+rights.toString());
+	}
+	//权限分计算
+	@Test
+	public void qxf(){
+		//menuIds可以获取数据库中全部值
+		String[] menuIds={"1","2","3","11","15"};
+		//"1022"是权限和计算的值，判断是否有值
+		if(Tools.notEmpty("1022")){
+			for(int i=0;i<menuIds.length;i++) {
+				//进行比较，有为true，否则为false
+				if (RightsHelper.testRights("1022", menuIds[i])) {
+
+					System.out.println("存在");
+				} else {
+					System.out.println("不存在");
+				}
+			}
+		}else{
+			System.out.println("为空");
+		}
+	}
 }
