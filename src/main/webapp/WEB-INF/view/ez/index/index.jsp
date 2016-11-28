@@ -14,10 +14,6 @@
 	<base href="<%=basePath%>">
 	<!-- jsp文件头和头部 -->
 	<%@ include file="top.jsp"%>
-	<style type="text/css">
-		.commitopacity{position:absolute; width:100%; height:100px; background:#7f7f7f; filter:alpha(opacity=50); -moz-opacity:0.8; -khtml-opacity: 0.5; opacity: 0.5; top:0px; z-index:99999;}
-	</style>
-	<%--<link rel="stylesheet" href="static/assets/css/datepicker.css" />--%><!-- 日期框 -->
 	<!-- 即时通讯 -->
 	<link rel="stylesheet" type="text/css" href="plugins/websocketInstantMsg/ext4/resources/css/ext-all.css">
 	<link rel="stylesheet" type="text/css" href="plugins/websocketInstantMsg/css/websocket.css" />
@@ -42,7 +38,6 @@
 		<div class="main-content">
 			<div class="main-content-inner">
 				<!-- #section:basics/content.breadcrumbs -->
-				<%--breadcrumbs 功能注释掉
 				<div class="breadcrumbs" id="breadcrumbs">
 					<script type="text/javascript">
 						try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
@@ -54,16 +49,17 @@
 						</li>
 					</ul><!-- /.breadcrumb -->
 					<!-- #section:basics/content.searchbox -->
-					<div class="nav-search" id="nav-search">
+					<!--<div class="nav-search" id="nav-search">
 						<form class="form-search">
 							<span class="input-icon">
 								<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
 								<i class="ace-icon fa fa-search nav-search-icon"></i>
 							</span>
 						</form>
-					</div><!-- /.nav-search -->
+					</div>
+					 /.nav-search -->
 					<!-- /section:basics/content.searchbox -->
-				</div>--%>
+				</div>
 				<!-- /section:basics/content.breadcrumbs -->
 				<div class="page-content">
 					<!--浮动设置框-->

@@ -20456,7 +20456,7 @@ input.typeahead.scrollable ~ .tt-menu {
 /*必填项样式*/
 .star{
   color: red;
-  font-weight: bold;
+  line-height: 34px;
 }
 .pointer{
   cursor: pointer;

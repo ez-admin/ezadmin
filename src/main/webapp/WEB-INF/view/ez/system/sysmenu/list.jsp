@@ -15,6 +15,7 @@
 	<!-- jsp文件头和头部 -->
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
 </head>
+
 <div class="main-container">
 	<div class="page-content">
 		<div class="row">
@@ -72,6 +73,7 @@
 <!--[if lte IE 8]>
 <script src="static/components/ExplorerCanvas/excanvas.js"></script>
 <![endif]-->
+
 <script src="static/assets/js/src/ace.js"></script>
 <script src="static/assets/js/src/ace.scrolltop.js"></script>
 <script src="static/assets/js/src/elements.scroller.js"></script>
@@ -84,7 +86,8 @@
 <script src="static/components/datatables.net-buttons/js/buttons.html5.js"></script>
 <script src="static/components/datatables.net-buttons/js/buttons.print.js"></script>
 <script src="static/components/datatables.net-buttons/js/buttons.colVis.js"></script>
-<script src="static/components/datatables.net-select/js/dataTables.select.js"></script>
+<%--<script src="static/components/datatables.net-select/js/dataTables.select.js"></script>--%>
+
 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
@@ -115,76 +118,85 @@
 				{ data: 'menuType',class:'center'},
 				{ data: null ,class:'center'}
 			],
+            //序号
+            "fnDrawCallback": function(){
+                var api = this.api();
+                var startIndex= api.context[0]._iDisplayStart;//获取到本页开始的条数
+                api.column(0).nodes().each(function(cell, i) {
+                    cell.innerHTML = startIndex + i + 1;
+                });
+            },
 			/*select: {
 				style: 'multi'
 			},*/
-			columnDefs: [{
-				//设置第一行不显示
-				// "visible": false,
-				//"targets": 0
-			},
-			{targets:6,
-				render:function (data,type,row,meta) {
-					return '<i class="ace-icon fa '+ row.menuIcon+' "></i>'
-				}
-			},
-			{
-				//指定是第9列
-				targets: 8,
-				//data: "menuId",
-				render: function(data, type, row, meta) {
-					//渲染 把数据源中的标题和url组成超链接
-					//return '<a href="' + data + '" target="_blank">' + row.title + '</a>';
-					return '<div class="hidden-sm hidden-xs action-buttons"> ' +
-								'<a class="blue"  href="javascript:void(0)"  onclick="viewmenu('+row.menuId+');return false;"  >' +
-									'<i class="ace-icon fa fa-search-plus bigger-130"></i> ' +
-									'查看'+
-								'</a>' +
-								'<a class="green" href="javascript:void(0)" onclick="editmenu('+row.menuId+');return false;">' +
-									'<i class="ace-icon fa fa-pencil bigger-130"></i> ' +
-									'修改'+
-								'</a>' +
-									'<a class="red" href="javascript:void(0)" onclick="deleteone('+row.menuId+');return false;">' +
-								'<i class="ace-icon fa fa-trash-o bigger-130"></i>' +
-									'删除'+
-								'</a>' +
-							'</div>' +
-							'<div class="hidden-md hidden-lg"> ' +
-								'<div class="inline pos-rel"> ' +
-									'<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"> ' +
-										'<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>' +
-									'</button>' +
-									'<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close"> ' +
-										'<li>' +
-											'<a href="javascript:void(0)" onclick="viewmenu('+row.menuId+');return false;">  class="tooltip-info pointer" data-rel="tooltip" title="查看"> ' +
-												'<span class="blue"> ' +
-													'<i class="ace-icon fa fa-search-plus bigger-120"></i> ' +
-													'查看'+
-												'</span>' +
-											'</a>' +
-										'</li>' +
-										'<li>' +
-											'<a href="javascript:void(0)" onclick="editmenu('+row.menuId+');return false;"> class="tooltip-success pointer" data-rel="tooltip" title="修改">' +
-												'<span class="green">' +
-													'<i class="ace-icon fa fa-pencil-square-o bigger-120"></i> ' +
-													'修改'+
-												'</span>' +
-											'</a>' +
-										'</li>' +
-										'<li>' +
-											'<a href="javascript:void(0)" onclick="deleteone('+row.menuId+');return false;" class="tooltip-error pointer" data-rel="tooltip" title="删除"> ' +
-												'<span class="red">' +
-													'<i class="ace-icon fa fa-trash-o bigger-120"></i>' +
-													'删除'+
-												'</span>' +
-											'</a>' +
-										'</li>' +
-									'</ul>' +
-								'</div>' +
-							'</div>';
-				}
-
-			}],
+			columnDefs: [
+                {
+                    //设置第一行不显示
+                    // "visible": false,
+                    //"targets": 0
+                },
+                {targets:6,
+                    render:function (data,type,row,meta) {
+                        return '<i class="ace-icon fa '+ row.menuIcon+' "></i>'
+                    }
+                },
+                {
+                    //指定是第9列
+                    targets: 8,
+                    //data: "menuId",
+                    render: function(data, type, row, meta) {
+                        //渲染 把数据源中的标题和url组成超链接
+                        //return '<a href="' + data + '" target="_blank">' + row.title + '</a>';
+                        return '<div class="hidden-sm hidden-xs action-buttons"> ' +
+                                    '<a class="blue"  href="javascript:void(0)"  onclick="viewmenu('+row.menuId+');return false;"  >' +
+                                        '<i class="ace-icon fa fa-search-plus bigger-130"></i> ' +
+                                        '查看'+
+                                    '</a>' +
+                                    '<a class="green" href="javascript:void(0)" onclick="editmenu('+row.menuId+');return false;">' +
+                                        '<i class="ace-icon fa fa-pencil bigger-130"></i> ' +
+                                        '修改'+
+                                    '</a>' +
+                                        '<a class="red" href="javascript:void(0)" onclick="deleteone('+row.menuId+');return false;">' +
+                                    '<i class="ace-icon fa fa-trash-o bigger-130"></i>' +
+                                        '删除'+
+                                    '</a>' +
+                                '</div>' +
+                                '<div class="hidden-md hidden-lg"> ' +
+                                    '<div class="inline pos-rel"> ' +
+                                        '<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"> ' +
+                                            '<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>' +
+                                        '</button>' +
+                                        '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close"> ' +
+                                            '<li>' +
+                                                '<a href="javascript:void(0)" onclick="viewmenu('+row.menuId+');return false;"  class="tooltip-info pointer" data-rel="tooltip" title="查看"> ' +
+                                                    '<span class="blue"> ' +
+                                                        '<i class="ace-icon fa fa-search-plus bigger-120"></i> ' +
+                                                        '查看'+
+                                                    '</span>' +
+                                                '</a>' +
+                                            '</li>' +
+                                            '<li>' +
+                                                '<a href="javascript:void(0)" onclick="editmenu('+row.menuId+');return false;" class="tooltip-success pointer" data-rel="tooltip" title="修改">' +
+                                                    '<span class="green">' +
+                                                        '<i class="ace-icon fa fa-pencil-square-o bigger-120"></i> ' +
+                                                        '修改'+
+                                                    '</span>' +
+                                                '</a>' +
+                                            '</li>' +
+                                            '<li>' +
+                                                '<a href="javascript:void(0)" onclick="deleteone('+row.menuId+');return false;" class="tooltip-error pointer" data-rel="tooltip" title="删除"> ' +
+                                                    '<span class="red">' +
+                                                        '<i class="ace-icon fa fa-trash-o bigger-120"></i>' +
+                                                        '删除'+
+                                                    '</span>' +
+                                                '</a>' +
+                                            '</li>' +
+                                        '</ul>' +
+                                    '</div>' +
+                                '</div>';
+                    }
+			    }
+            ],
 			/*"bProcessing": true,
 			 "bServerSide": true,
 			 "sAjaxSource": "http://127.0.0.1/table.php"	,
@@ -231,17 +243,6 @@
 				}
 			}
 		} );
-		//前台添加序号
-		myTable.on('order.dt search.dt',
-				function() {
-					myTable.column(0, {
-						"search": 'applied',
-						"order": 'applied'
-					}).nodes().each(function(cell, i) {
-						cell.innerHTML = i + 1;
-					});
-				}).draw();
-
 
 		$.fn.dataTable.Buttons.swfPath = "static/components/datatables.net-buttons-swf/copy_csv_xls_pdf.swf"; //in Ace demo static/components will be replaced by correct assets path
 		$.fn.dataTable.Buttons.defaults.dom.container.className = 'dt-buttons btn-overlap btn-group btn-overlap';
@@ -357,65 +358,60 @@
 		}
 
 
-	})
+	});
 
 	//新增
 	function addmenu(){
-		var diag = new top.Dialog();
-		diag.Drag=true;
-		diag.Title ="新增菜单";
-		diag.URL = '/ez/system/sysmenu/addUI.do';
-		/*diag.Width = 650;
-		diag.Height = 500;*/
-		diag.CancelEvent = function(){ //关闭事件
-			setTimeout("location.reload()",100);
-			diag.close();
-		};
-		diag.show();
+		top.layer.open({
+			type: 2,//iframe层
+			title: '新增菜单',
+			maxmin: true,
+			shadeClose: true, //点击遮罩关闭层
+			area : ['800px' , '520px'],
+			//btn: ['保存', '取消'],
+			content: '/ez/system/sysmenu/addUI.do'
+		});
 	}
+
 	function closeWin() {
-		setTimeout("location.reload()",100);
-		top.Dialog.close();
+		location.reload();
+		top.layer.close();
 	}
 	//查看
 	function viewmenu(menuId){
-		var diag = new top.Dialog();
-		diag.Drag=true;
-		diag.Title ="查看菜单";
-		//typekey=2查看
-		diag.URL = '/ez/system/sysmenu/getById.do?typeKey=2&sysmenuId='+menuId;
-		/*diag.Width = 650;
-		 diag.Height = 500;
-		diag.CancelEvent = function(){ //关闭事件
-			setTimeout("location.reload()",100);
-			diag.close();
-		};*/
-		diag.show();
+		top.layer.open({
+			type: 2,//iframe层
+			title: '查看菜单',
+			maxmin: true,
+			shadeClose: true, //点击遮罩关闭层
+			area : ['800px' , '520px'],
+			//btn: ['保存', '取消'],
+			content: '/ez/system/sysmenu/getById.do?typeKey=2&sysmenuId='+menuId
+		});
 	}
 	//修改
 	function editmenu(menuId) {
-		var diag = new top.Dialog();
-		diag.Drag=true;
-		diag.Title ="编辑菜单";
-		//typekey=1编辑
-		diag.URL = '/ez/system/sysmenu/getById.do?typeKey=1&sysmenuId='+menuId;
-		/*diag.Width = 650;
-		 diag.Height = 500;*/
-		diag.CancelEvent = function(){ //关闭事件
-			setTimeout("location.reload()",100);
-			diag.close();
-		};
-		diag.show();
+		top.layer.open({
+			type: 2,//iframe层
+			title: '查看菜单',
+			maxmin: true,
+			shadeClose: true, //点击遮罩关闭层
+			area : ['800px' , '520px'],
+			//btn: ['保存', '取消'],
+			content: '/ez/system/sysmenu/getById.do?typeKey=1&sysmenuId='+menuId
+		});
 	}
 	//删除
 	function deleteone(menuId) {
-		top.Dialog.confirm("确定要删除该记录吗？",function(){
+		top.layer.confirm("确定要删除该记录吗？",{icon: 7},function(index){
 			//删除记录
 			$.post("/ez/system/sysmenu/deleteById.do",
 					{"ids":menuId},
 					function(result){
 						handleResult(result.status,result.message);
 					},"json");
+			//关闭
+			layer.close(index);
 			//刷新表格
 			location.reload()
 		});
@@ -423,11 +419,16 @@
 	//删除后的提示
 	function handleResult(result,message){
 		if(result =="1"){
-			top.Dialog.alert("删除成功！",null,null,null,1);
-			//刷新表格
-			location.reload()
+			top.layer.alert("删除成功！",{icon: 1},function (index1) {
+				//关闭
+				layer.close(index1);
+			});
 		}else{
-			top.Dialog.alert("删除失败！"+message);
+			top.layer.alert("删除失败！"+message,{icon: 2},function (index2) {
+				//关闭
+				layer.close(index2);
+			});
+
 		}
 	}
 </script>

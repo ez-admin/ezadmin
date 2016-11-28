@@ -13,7 +13,7 @@
 			<button class="btn btn-success">
 				<i class="ace-icon fa fa-signal"></i>
 			</button>
-			<button class="btn btn-info" title="UI实例" onclick="window.open('<%=basePathl%>static/index.html');">
+			<button class="btn btn-info" title="UI实例" onclick="window.open('<%=basePathl%>static/acedemo/index.html');">
 				<i class="ace-icon fa fa-pencil"></i>
 			</button>
 			<!-- #section:basics/sidebar.layout.shortcuts -->

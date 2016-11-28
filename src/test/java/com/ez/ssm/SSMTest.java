@@ -5,7 +5,6 @@ import com.ez.system.service.SysMenuService;
 import com.ez.system.service.SysUserService;
 import com.ez.util.RightsHelper;
 import com.ez.util.Tools;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -185,7 +184,6 @@ public class SSMTest {
 			for(int i=0;i<menuIds.length;i++) {
 				//进行比较，有为true，否则为false
 				if (RightsHelper.testRights("1022", menuIds[i])) {
-
 					System.out.println("存在");
 				} else {
 					System.out.println("不存在");

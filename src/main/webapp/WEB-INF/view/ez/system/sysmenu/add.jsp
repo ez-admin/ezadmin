@@ -16,40 +16,20 @@
 	<!-- jsp文件头和头部 -->
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
 	<!-- page specific plugin styles -->
-	<link rel="stylesheet" href="static/components/bootstrap/dist/css/bootstrap.min.css" />
-
-	<link rel="stylesheet" href="static/components/_mod/jquery-ui.custom/jquery-ui.custom.css" />
-	<link rel="stylesheet" href="static/components/chosen/chosen.css" />
-	<link rel="stylesheet" href="static/components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" />
-	<link rel="stylesheet" href="static/components/bootstrap-timepicker/css/bootstrap-timepicker.css" />
-	<link rel="stylesheet" href="static/components/bootstrap-daterangepicker/daterangepicker.css" />
-	<link rel="stylesheet" href="static/components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" />
-	<link rel="stylesheet" href="static/components/mjolnic-bootstrap-colorpicker/dist/css/bootstrap-colorpicker.css" />
-
 	<!-- 表单异步提交start -->
 	<script src="plugins/form/form.js" type="text/javascript"></script>
 	<!-- 表单异步提交end -->
 	<!-- 表单验证start -->
-		<link rel="stylesheet" href="plugins/form/css/bootstrapValidator.min.css" />
-	<%--<script src="plugins/form/validationRule.js" type="text/javascript"></script>
-	<script src="plugins/form/validation.js" type="text/javascript"></script>
-	<script type="text/javascript" src="plugins/form/jquery-validate.bootstrap-tooltip.js"></script>--%>
+		<%--<link rel="stylesheet" href="plugins/form/css/bootstrapValidator.min.css" />
 	<script type="text/javascript" src="plugins/form/js/bootstrapValidator.min.js"></script>
-	<script type="text/javascript" src="plugins/form/js/zh_CN.js"></script>
+	<script type="text/javascript" src="plugins/form/js/zh_CN.js"></script>--%>
 	<!-- 表单验证end -->
 	<style type="text/css">
+		body{
+			background-color: #ffffff;
+		}
 		.main-container{
-			padding-top: 20px;
-			background-color: rgb(245, 245, 245);
-		}
-		label{
-			text-align: right;
-			font-weight: normal;
-			font-size: 14px;
-			line-height: 30px;
-		}
-		.form-actions {
-			margin-bottom: 0;
+			padding: 20px;
 		}
 	</style>
   </head>
@@ -62,35 +42,39 @@
 					method="post">
 
 				  <div class="form-group">
-					  <label class="col-xs-4 control-label no-padding-right" for="menuName"> 菜单名称 ：<span class="star">*</span></label>
+					  <label class="col-xs-4 control-label no-padding-right" for="menuName"> 菜单名称 ：</label>
 					  <div class="col-xs-6">
 						  <input type="text" name="menuName" id="menuName" placeholder="菜单名称" class="form-control"
 								  required/>
 					  </div>
+					  <span class="star">*</span>
 				  </div>
 
 				  <div class="form-group">
-					  <label class="col-xs-4 control-label no-padding-right" for="menuUrl"> 菜单URL地址：<span class="star">*</span></label>
+					  <label class="col-xs-4 control-label no-padding-right" for="menuUrl"> 菜单URL地址：</label>
 					  <div class="col-xs-6">
 						  <input type="text" name="menuUrl" id="menuUrl" placeholder="菜单URL地址" class="form-control"
 								 required />
 					  </div>
+					  <span class="star">*</span>
 				  </div>
 
 				  <div class="form-group">
-					  <label class="col-xs-4 control-label no-padding-right" for="parentId"> 父级菜单ID：<span class="star">*</span></label>
+					  <label class="col-xs-4 control-label no-padding-right" for="parentId"> 父级菜单ID：</label>
 					  <div class="col-xs-2">
 						  <input type="number" name="parentId" id="parentId" placeholder="数字" class="form-control"
 								step="1" min="0" required />
 					  </div>
+					  <span class="star">*</span>
 				  </div>
 
 				  <div class="form-group">
-					  <label class="col-xs-4 control-label no-padding-right" for="menuOrder"> 菜单顺序： <span class="star">*</span></label>
+					  <label class="col-xs-4 control-label no-padding-right" for="menuOrder"> 菜单顺序： </label>
 					  <div class="col-xs-2">
 						  <input type="number" name="menuOrder" id="menuOrder" placeholder="数字" class="form-control"
 								 step="1" min="0" required />
 					  </div>
+					  <span class="star">*</span>
 				  </div>
 				  <div class="form-group">
 					  <label class="col-xs-4 control-label no-padding-right" for="menuIcon"> 菜单图标：</label>
@@ -100,7 +84,7 @@
 					  </div>
 				  </div>
 				  <div class="form-group">
-					  <label class="col-xs-4 control-label no-padding-right" > 菜单类型：<span class="star">*</span></label>
+					  <label class="col-xs-4 control-label no-padding-right" > 菜单类型：</label>
 					  <div class="col-xs-6">
 						  <label>
 							  <input type="radio" name="menuType" value="1" checked>
@@ -113,15 +97,18 @@
 					  </div>
 				  </div>
 
-				  <div class="form-actions center">
-					  <button class="btn btn-white btn-info btn-bold" type="submit">
-						  <i class="ace-icon fa fa-floppy-o bigger-120 blue"></i>
-						  保存
-					  </button>
-					  <button class="btn btn-white btn-warning btn-round" onclick="top.Dialog.close()">
-						  <i class="ace-icon fa fa-reply "></i>
-						  取消
-					  </button>
+				  <div class="form-group">
+					  <div class="col-xs-4"></div>
+					  <div class="col-xs-6">
+						  <button class="btn btn-white btn-info btn-bold" type="submit">
+							  <i class="ace-icon fa fa-floppy-o bigger-120 blue"></i>
+							  保存
+						  </button>
+						  <button class="btn btn-white btn-warning btn-round" onclick="top.Dialog.close()">
+							  <i class="ace-icon fa fa-reply "></i>
+							  取消
+						  </button>
+					  </div>
 				  </div>
 			  </form>
 		  </div>
@@ -138,11 +125,11 @@
 		        //表单提交成功后的回调
 		        success: function(responseText, statusText, xhr, $form){
 		        	if("suc"==(responseText.msg)){
-		        		top.Dialog.alert("保存成功!",function(){
+		        		top.layer.alert("保存成功!",function(){
 		        			closeWin();
 			             });
 		        	}else{
-		        		top.Dialog.alert("保存失败!"+responseText.message,function(){
+		        		top.layer.alert("保存失败!"+responseText.message,function(){
 		        			window.parent.location.reload();
 			             });
 		        	}
@@ -160,7 +147,7 @@ function closeWin(){
 	//刷新数据
 	window.parent.location.reload();
 	//关闭窗口
-	top.Dialog.close();
+	top.layer.close();
 }
 </script> 
   </body>

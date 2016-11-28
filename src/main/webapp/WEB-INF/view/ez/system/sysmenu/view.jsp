@@ -14,29 +14,17 @@
 	<base href="<%=basePath%>">
 	<!-- jsp文件头和头部 -->
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
-	<!-- page specific plugin styles -->
-	<link rel="stylesheet" href="static/components/bootstrap/dist/css/bootstrap.min.css" />
-
-	<link rel="stylesheet" href="static/components/_mod/jquery-ui.custom/jquery-ui.custom.css" />
-	<link rel="stylesheet" href="static/components/chosen/chosen.css" />
-	<link rel="stylesheet" href="static/components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" />
-	<link rel="stylesheet" href="static/components/bootstrap-timepicker/css/bootstrap-timepicker.css" />
-	<link rel="stylesheet" href="static/components/bootstrap-daterangepicker/daterangepicker.css" />
-	<link rel="stylesheet" href="static/components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" />
-	<link rel="stylesheet" href="static/components/mjolnic-bootstrap-colorpicker/dist/css/bootstrap-colorpicker.css" />
-
 	<style type="text/css">
-		.main-container{
-			padding-top: 20px;
+		body{
+			background-color: #ffffff;
 		}
-		label{
-			text-align: right;
+		.main-container{
+			padding: 20px;
+		}
+		.inputdiv{
+			line-height: 35px;
 			font-weight: normal;
 			font-size: 14px;
-			line-height: 30px;
-		}
-		.form-group div{
-			line-height: 30px;
 		}
 	</style>
   </head>
@@ -49,45 +37,46 @@
 				  <div class="form-group">
 					  <label class="col-xs-4 control-label no-padding-right"> 菜单名称 ：</label>
 					  <div class="col-xs-6">
-						  ${sysmenu.menuName}
+						  <input type="text" value="${sysmenu.menuName}" class="form-control" readonly/>
 					  </div>
 				  </div>
 
 				  <div class="form-group">
 					  <label class="col-xs-4 control-label no-padding-right"> 菜单URL地址：</label>
 					  <div class="col-xs-6">
-						  ${sysmenu.menuUrl}
+						  <input type="text" value="${sysmenu.menuUrl}" class="form-control" readonly/>
 					  </div>
 				  </div>
 
 				  <div class="form-group">
 					  <label class="col-xs-4 control-label no-padding-right"> 父级菜单ID：</label>
-					  <div class="col-xs-2">
-						  ${sysmenu.parentId}
+					  <div class="col-xs-1">
+						  <input type="text" value="${sysmenu.parentId}" class="form-control" readonly/>
 					  </div>
 				  </div>
 
 				  <div class="form-group">
 					  <label class="col-xs-4 control-label no-padding-right"> 菜单顺序： </label>
-					  <div class="col-xs-2">
-						  ${sysmenu.menuOrder}
+					  <div class="col-xs-1">
+						  <input type="text" value="${sysmenu.menuOrder}" class="form-control" readonly/>
 					  </div>
 				  </div>
 				  <div class="form-group">
 					  <label class="col-xs-4 control-label no-padding-right" > 菜单图标：</label>
-					  <div class="col-xs-6">
-						  <i class="ace-ico fa ${sysmenu.menuIcon}"></i>
+					  <div class="col-xs-2">
+						  <input type="text" value="${sysmenu.menuIcon}" class="form-control" readonly>
 					  </div>
+					  <i class="ace-ico fa ${sysmenu.menuIcon} inputdiv"></i>
 				  </div>
 				  <div class="form-group">
 					  <label class="col-xs-4 control-label no-padding-right" > 菜单类型：</label>
-					  <div class="col-xs-6">
+					  <div class="col-xs-6 inputdiv">
 						  <c:choose>
 							  <c:when test="${sysmenu.menuType == 1}">
-								  系统菜单
+								  <input type="radio" checked readonly>系统菜单
 							  </c:when>
 							  <c:otherwise>
-								  业务菜单
+								  <input type="radio" checked readonly>业务菜单
 							  </c:otherwise>
 						  </c:choose>
 					  </div>

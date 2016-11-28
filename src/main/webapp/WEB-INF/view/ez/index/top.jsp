@@ -28,13 +28,6 @@
 	<script src="static/components/html5shiv/dist/html5shiv.min.js"></script>
 	<script src="static/components/respond/dest/respond.min.js"></script>
 	<![endif]-->
-
-	<!--<link rel="stylesheet" href="static/assets/css/datepicker.css" /> 日期框 -->
 	<script type="text/javascript" src="static/assets/js/jquery-2.0.3.min.js"></script>
-	<!--引入弹窗组件start-->
-	<script type="text/javascript" src="plugins/attention/zDialog/zDrag.js"></script>
-	<script type="text/javascript" src="plugins/attention/zDialog/zDialog.js"></script>
-	<!--引入弹窗组件end-->
-	<!--引入提示框组件start-->
-	<script type="text/javascript" src="static/assets/js/jquery.tips.js"></script>
-	<!--引入提示框组件end-->
+	<%--弹出层--%>
+	<script src="plugins/layer/layer.js"></script>
