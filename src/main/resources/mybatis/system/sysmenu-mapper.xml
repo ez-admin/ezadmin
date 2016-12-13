@@ -50,7 +50,10 @@
 		from sys_menu
 		<include refid="querywhere"/>
 		<if test="@Ognl@isNotEmpty(t.sidx) and @Ognl@isNotEmpty(t.sord)">
-		 order by ${t.sidx} ${t.sord}
+		 order by ${t.sidx} ${t.sord},MENU_ORDER ${t.sord}
+		</if>
+		<if test="@Ognl@isEmpty(t.sidx)">
+			ORDER BY getPriority(MENU_ID)
 		</if>
 	</select>
 	

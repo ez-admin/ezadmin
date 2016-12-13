@@ -131,7 +131,8 @@ public class SysMenuController {
 			startPage = Integer.parseInt(currentRecord);
 		}
 		// For sortable
-		String sidx = request.getParameter("order[0][column]");
+		String sidxnum = request.getParameter("order[0][column]");
+		String sidx =request.getParameter("columns["+sidxnum+"][name]");
 		String sord = request.getParameter("order[0][dir]");
 		// For search
 		String searchValue = request.getParameter("search[value]");

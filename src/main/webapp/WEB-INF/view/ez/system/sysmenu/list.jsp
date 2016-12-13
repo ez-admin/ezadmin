@@ -108,14 +108,14 @@
 			},
 			ordering: true,
 			columns: [
-				{ data: null ,class:'center'},
-				{ data: 'menuId',class:'center'},
-				{ data: 'menuName' ,class:'center'},
-				{ data: 'menuUrl'},
-				{ data: 'parentId' ,class:'center'},
-				{ data: 'menuOrder',class:'center'},
-				{ data: 'menuIcon',class:'center'},
-				{ data: 'menuType',class:'center'},
+				{ data: null , class:'center'},
+				{ data: 'menuId',name:'MENU_ID',class:'center'},
+				{ data: 'menuName' ,name:'MENU_NAME',class:'center'},
+				{ data: 'menuUrl',name:'MENU_URL'},
+				{ data: 'parentId' ,name:'PARENT_ID',class:'center'},
+				{ data: 'menuOrder',name:'MENU_ORDER',class:'center'},
+				{ data: 'menuIcon',name:'MENU_ICON',class:'center'},
+				{ data: 'menuType',name:'MENU_TYPE',class:'center'},
 				{ data: null ,class:'center'}
 			],
             //序号
@@ -369,13 +369,16 @@
 			shadeClose: true, //点击遮罩关闭层
 			area : ['800px' , '520px'],
 			//btn: ['保存', '取消'],
-			content: '/ez/system/sysmenu/addUI.do'
+			content: '/ez/system/sysmenu/addUI.do',
+            end:function(){
+                location.reload();
+            }
 		});
 	}
 
 	function closeWin() {
 		location.reload();
-		top.layer.close();
+		top.layer.closeAll();
 	}
 	//查看
 	function viewmenu(menuId){
@@ -398,8 +401,12 @@
 			shadeClose: true, //点击遮罩关闭层
 			area : ['800px' , '520px'],
 			//btn: ['保存', '取消'],
-			content: '/ez/system/sysmenu/getById.do?typeKey=1&sysmenuId='+menuId
+			content: '/ez/system/sysmenu/getById.do?typeKey=1&sysmenuId='+menuId,
+            end:function(){
+                location.reload();
+            }
 		});
+
 	}
 	//删除
 	function deleteone(menuId) {
@@ -408,29 +415,20 @@
 			$.post("/ez/system/sysmenu/deleteById.do",
 					{"ids":menuId},
 					function(result){
-						handleResult(result.status,result.message);
+                        //删除后的提示
+                        if(result.status =="1"){
+                            top.layer.msg('删除成功',{icon: 1});
+                        }else{
+                            top.layer.msg('删除失败',{icon: 2});
+                        }
 					},"json");
 			//关闭
-			layer.close(index);
+			top.layer.close(index);
 			//刷新表格
 			location.reload()
 		});
 	}
-	//删除后的提示
-	function handleResult(result,message){
-		if(result =="1"){
-			top.layer.alert("删除成功！",{icon: 1},function (index1) {
-				//关闭
-				layer.close(index1);
-			});
-		}else{
-			top.layer.alert("删除失败！"+message,{icon: 2},function (index2) {
-				//关闭
-				layer.close(index2);
-			});
 
-		}
-	}
 </script>
 
 </body>

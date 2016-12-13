@@ -358,7 +358,7 @@ String basePath = request.getScheme() + "://"
 									return false;
 								}
 								if (result.status == "true" || result.status == true) {
-									$(".login_info").tips({
+									$(".widget-main").tips({
 										side : 2,
 										msg : '登录成功，正在转到主页...',
 										bg : '#6FB3E0',

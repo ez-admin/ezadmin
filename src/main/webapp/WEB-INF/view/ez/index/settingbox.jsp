@@ -28,12 +28,12 @@
             </div>
             <!-- /section:settings.container -->
             <!-- #section:settings.menu -->
-            <div class="ace-settings-item">
+           <%-- <div class="ace-settings-item">
                 <input type='checkbox' class="ace ace-checkbox-2" id="menusf" name='menusf' onclick="menusf();"  autocomplete="off" />
                 <label class="lbl" >
                     菜单收起
                 </label>
-            </div>
+            </div>--%>
             <!-- /section:settings.menu -->
         </div><!-- /.pull-left -->
         <div class="pull-left width-50">

@@ -384,9 +384,9 @@
                 //减1主要是为了给底部留一条缝隙
                 documentHeight -= 1;
             }
-            //主要由tab-content的padding引起.总高度-头部条高度-tabtitle高度-breadcrumbs高度
+            //主要由tab-content的padding引起.总高度-头部条高度-tabtitle高度
             //和page-content的padding(8+24)及footer的高度.再减去padding的上下高度和footer高度
-            var contentHeight = documentHeight - (parseInt($("#" + htmlID + " > ul").outerHeight(true)) + parseInt($("#" + opt.navbarid).outerHeight(true)))-32-parseInt($(".footer").outerHeight(true))-41;
+            var contentHeight = documentHeight - (parseInt($("#" + htmlID + " > ul").outerHeight(true)) + parseInt($("#" + opt.navbarid).outerHeight(true)))-32-parseInt($(".footer").outerHeight(true));
             $("#" + htmlID + "> div > div").css("height", contentHeight + "px");
 
             //下拉列表的样式调整

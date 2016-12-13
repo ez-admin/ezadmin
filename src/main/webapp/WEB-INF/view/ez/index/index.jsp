@@ -14,6 +14,7 @@
 	<base href="<%=basePath%>">
 	<!-- jsp文件头和头部 -->
 	<%@ include file="top.jsp"%>
+
 	<!-- 即时通讯 -->
 	<link rel="stylesheet" type="text/css" href="plugins/websocketInstantMsg/ext4/resources/css/ext-all.css">
 	<link rel="stylesheet" type="text/css" href="plugins/websocketInstantMsg/css/websocket.css" />
@@ -38,7 +39,7 @@
 		<div class="main-content">
 			<div class="main-content-inner">
 				<!-- #section:basics/content.breadcrumbs -->
-				<div class="breadcrumbs" id="breadcrumbs">
+				<%--<div class="breadcrumbs" id="breadcrumbs">
 					<script type="text/javascript">
 						try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
 					</script>
@@ -49,7 +50,7 @@
 						</li>
 					</ul><!-- /.breadcrumb -->
 					<!-- #section:basics/content.searchbox -->
-					<!--<div class="nav-search" id="nav-search">
+					<div class="nav-search" id="nav-search">
 						<form class="form-search">
 							<span class="input-icon">
 								<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
@@ -57,9 +58,9 @@
 							</span>
 						</form>
 					</div>
-					 /.nav-search -->
+                    <!--/.nav-search -->
 					<!-- /section:basics/content.searchbox -->
-				</div>
+				</div>--%>
 				<!-- /section:basics/content.breadcrumbs -->
 				<div class="page-content">
 					<!--浮动设置框-->
@@ -81,43 +82,45 @@
 
 	<!-- basic scripts -->
 	<!--[if !IE]> -->
-	<script src="static/components/jquery/dist/jquery.js"></script>
+	<script src="/static/components/jquery/dist/jquery.js"></script>
 	<!-- <![endif]-->
 	<!--[if IE]>
-	<script src="static/components/jquery.1x/dist/jquery.js"></script>
+	<script src="/static/components/jquery.1x/dist/jquery.js"></script>
 	<![endif]-->
+
 	<script type="text/javascript">
-		if('ontouchstart' in document.documentElement) document.write("<script src='static/components/_mod/jquery.mobile.custom/jquery.mobile.custom.js'>"+"<"+"/script>");
+		if('ontouchstart' in document.documentElement) document.write("<script src='/static/components/_mod/jquery.mobile.custom/jquery.mobile.custom.js'>"+"<"+"/script>");
 	</script>
-	<script src="static/components/bootstrap/dist/js/bootstrap.js"></script>
+
+	<script src="/static/components/bootstrap/dist/js/bootstrap.js"></script>
 	<!-- ace scripts -->
-	<script src="static/assets/js/src/elements.scroller.js"></script>
-	<script src="static/assets/js/src/elements.colorpicker.js"></script>
-	<script src="static/assets/js/src/elements.fileinput.js"></script>
-	<script src="static/assets/js/src/elements.typeahead.js"></script>
-	<script src="static/assets/js/src/elements.wysiwyg.js"></script>
-	<script src="static/assets/js/src/elements.spinner.js"></script>
-	<script src="static/assets/js/src/elements.treeview.js"></script>
-	<script src="static/assets/js/src/elements.wizard.js"></script>
-	<script src="static/assets/js/src/elements.aside.js"></script>
-	<script src="static/assets/js/src/ace.js"></script>
-	<script src="static/assets/js/src/ace.basics.js"></script>
-	<script src="static/assets/js/src/ace.scrolltop.js"></script>
-	<%--<script src="static/assets/js/src/ace.ajax-content.js"></script>--%>
-	<script src="static/assets/js/src/ace.touch-drag.js"></script>
-	<script src="static/assets/js/src/ace.sidebar.js"></script>
-	<script src="static/assets/js/src/ace.sidebar-scroll-1.js"></script>
-	<script src="static/assets/js/src/ace.submenu-hover.js"></script>
-	<script src="static/assets/js/src/ace.widget-box.js"></script>
-	<script src="static/assets/js/src/ace.settings.js"></script>
-	<script src="static/assets/js/src/ace.settings-rtl.js"></script>
-	<script src="static/assets/js/src/ace.settings-skin.js"></script>
-	<script src="static/assets/js/src/ace.widget-on-reload.js"></script>
-	<script src="static/assets/js/src/ace.searchbox-autocomplete.js"></script>
+	<script src="/static/assets/js/src/elements.scroller.js"></script>
+	<script src="/static/assets/js/src/elements.colorpicker.js"></script>
+	<script src="/static/assets/js/src/elements.fileinput.js"></script>
+	<script src="/static/assets/js/src/elements.typeahead.js"></script>
+	<script src="/static/assets/js/src/elements.wysiwyg.js"></script>
+	<script src="/static/assets/js/src/elements.spinner.js"></script>
+	<script src="/static/assets/js/src/elements.treeview.js"></script>
+	<script src="/static/assets/js/src/elements.wizard.js"></script>
+	<script src="/static/assets/js/src/elements.aside.js"></script>
+	<script src="/static/assets/js/src/ace.js"></script>
+	<script src="/static/assets/js/src/ace.basics.js"></script>
+	<script src="/static/assets/js/src/ace.scrolltop.js"></script>
+	<script src="/static/assets/js/src/ace.ajax-content.js"></script>
+	<script src="/static/assets/js/src/ace.touch-drag.js"></script>
+	<script src="/static/assets/js/src/ace.sidebar.js"></script>
+	<script src="/static/assets/js/src/ace.sidebar-scroll-1.js"></script>
+	<script src="/static/assets/js/src/ace.submenu-hover.js"></script>
+	<script src="/static/assets/js/src/ace.widget-box.js"></script>
+	<script src="/static/assets/js/src/ace.settings.js"></script>
+	<script src="/static/assets/js/src/ace.settings-rtl.js"></script>
+	<script src="/static/assets/js/src/ace.settings-skin.js"></script>
+	<script src="/static/assets/js/src/ace.widget-on-reload.js"></script>
+	<script src="/static/assets/js/src/ace.searchbox-autocomplete.js"></script>
 
 	<!-- 引入 菜单缩放功能-->
-	<script type="text/javascript" src="static/assets/js/jquery.cookie.js"></script>
-	<script type="text/javascript" src="static/assets/js/myjs/menusf.js"></script>
+	<%--<script type="text/javascript" src="static/assets/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="static/assets/js/myjs/menusf.js"></script>--%>
 	<!--引入属于此页面的js -->
 	<script type="text/javascript" src="static/assets/js/myjs/righttab.js"></script>
 	<!--左侧菜单-->
@@ -151,7 +154,7 @@
 					if(a[i].menuUrl =="#"){
 						html+='<a href="#" class="dropdown-toggle" >';
 					}else {
-						html+='<a  target="mainFrame" onclick="siMenu(\''+a[i].menuId+'\',\''+a[i].menuName+'\',\''+a[i].menuUrl+'\',this)" style="cursor:pointer;" class="dropdown-toggle" >';
+						html+='<a  target="mainFrame" onclick="siMenu(\''+a[i].menuId+'\',\''+a[i].menuName+'\',\''+a[i].menuUrl+'\',this);return false" style="cursor:pointer;" class="dropdown-toggle" >';
 					}
 					html+='<i class="menu-icon fa '+ a[i].menuIcon+'"></i><span class="menu-text"> '+a[i].menuName+'</span>';
 					if(a[i].menuUrl =="#"){
