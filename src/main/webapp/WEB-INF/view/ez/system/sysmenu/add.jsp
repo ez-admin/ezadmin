@@ -72,6 +72,7 @@
 					  <div class="col-xs-12 col-sm-8">
 						  <div class="clearfix">
 							  <input type="text" name="menuIcon" id="menuIcon" placeholder="菜单图标" class="col-xs-12 col-sm-6" />
+							  <span class="help-button" title="查看菜单图标" onclick="viewIcons()">?</span>
 						  </div>
 					  </div>
 				  </div>
@@ -127,7 +128,19 @@
 
 
 <script type="text/javascript">
+	function viewIcons() {
+		top.layer.open({
+			type: 2,//iframe层
+			title: '查看菜单图标',
+			maxmin: true,
+			shadeClose: true, //点击遮罩关闭层
+			area : ['800px' , '520px'],
+			//btn: ['保存', '取消'],
+			content: '/ez/system/sysmenu/viewIcons.do'
+		});
+	}
 	jQuery(function($) {
+
 		/*数字点击加减*/
 		$('#parentId').ace_spinner({
 			min: 0,

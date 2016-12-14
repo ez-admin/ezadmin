@@ -71,21 +71,21 @@
 
 <!-- page specific plugin scripts -->
 <!--[if lte IE 8]>
-<script src="static/components/ExplorerCanvas/excanvas.js"></script>
+<script src="/static/components/ExplorerCanvas/excanvas.js"></script>
 <![endif]-->
 
-<script src="static/assets/js/src/ace.js"></script>
-<script src="static/assets/js/src/ace.scrolltop.js"></script>
-<script src="static/assets/js/src/elements.scroller.js"></script>
-<script src="static/components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="/static/assets/js/src/ace.js"></script>
+<script src="/static/assets/js/src/ace.scrolltop.js"></script>
+<script src="/static/assets/js/src/elements.scroller.js"></script>
+<script src="/static/components/bootstrap/dist/js/bootstrap.js"></script>
 <!-- page specific plugin scripts -->
-<script src="static/components/datatables/media/js/jquery.dataTables.js"></script>
-<script src="static/components/_mod/datatables/jquery.dataTables.bootstrap.js"></script>
-<script src="static/components/datatables.net-buttons/js/dataTables.buttons.js"></script>
-<script src="static/components/datatables.net-buttons/js/buttons.flash.js"></script>
-<script src="static/components/datatables.net-buttons/js/buttons.html5.js"></script>
-<script src="static/components/datatables.net-buttons/js/buttons.print.js"></script>
-<script src="static/components/datatables.net-buttons/js/buttons.colVis.js"></script>
+<script src="/static/components/datatables/media/js/jquery.dataTables.js"></script>
+<script src="/static/components/_mod/datatables/jquery.dataTables.bootstrap.js"></script>
+<script src="/static/components/datatables.net-buttons/js/dataTables.buttons.js"></script>
+<script src="/static/components/datatables.net-buttons/js/buttons.flash.js"></script>
+<script src="/static/components/datatables.net-buttons/js/buttons.html5.js"></script>
+<script src="/static/components/datatables.net-buttons/js/buttons.print.js"></script>
+<script src="/static/components/datatables.net-buttons/js/buttons.colVis.js"></script>
 <%--<script src="static/components/datatables.net-select/js/dataTables.select.js"></script>--%>
 
 
@@ -94,7 +94,64 @@
 	jQuery(function($) {
 		//initiate dataTables plugin
 		var myTable = $('#dynamic-table').DataTable( {
-			dom: '<"top"<"tableTools-container">f>rt<"bottom"lip><"clear">',
+			dom: '<"top"<"tableTools-container"B>f>rt<"bottom"lip><"clear">',
+			buttons: [
+				{
+					extend: "colvis",
+					text: "<i class='fa fa-search bigger-110 blue'></i> <span class='hidden'>显示/隐藏列</span>",
+					className: "btn btn-white btn-primary btn-bold",
+					columns: ':not(:first):not(:last)'
+				},
+				{
+					extend: "copy",
+					text: "<i class='fa fa-copy bigger-110 pink'></i> <span class='hidden'>复制当前页到剪贴板</span>",
+					className: "btn btn-white btn-primary btn-bold"
+				},
+				{
+					extend: "csv",
+					text: "<i class='fa fa-database bigger-110 orange'></i> <span class='hidden'>导出CSV格式</span>",
+					className: "btn btn-white btn-primary btn-bold",
+                    title:"菜单"
+				},
+				{
+					extend: "excel",
+					text: "<i class='fa fa-file-excel-o bigger-110 green'></i> <span class='hidden'>导出Excel格式</span>",
+					className: "btn btn-white btn-primary btn-bold",
+                    title:"系统菜单"
+				},
+				{
+					extend: "pdf",
+					text: "<i class='fa fa-file-pdf-o bigger-110 red'></i> <span class='hidden'>导出PDF格式</span>",
+					className: "btn btn-white btn-primary btn-bold",
+                    title:"系统菜单"
+				},
+				{
+					extend: "print",
+					text: "<i class='fa fa-print bigger-110 grey'></i> <span class='hidden'>打印</span>",
+					className: "btn btn-white btn-primary btn-bold",
+                    title:"系统菜单",
+					autoPrint: false,
+					message: '本次打印采用DataTables制作',
+					exportOptions: {
+                        modifier: {
+                            // DataTables core
+                            page:   'all'      // 'all',     'current'
+
+                        },
+                        columns: ':not(:first):not(:last)'
+					}
+				},
+				{
+					extend: "",
+					text: "<i class='fa fa-plus-circle  bigger-110 purple'></i> <span class='hidden'>新增</span>",
+					className: "btn btn-white btn-primary btn-bold",
+					action: function ( e, dt, node, config ) {
+						//alert($("#main-tab",parent.document).height());
+						addmenu();
+					}
+
+				},
+			],
 			ScrollX: "100%",
 			ScrollY: 387,
 			ScrollXInner: "120%",
@@ -119,13 +176,14 @@
 				{ data: null ,class:'center'}
 			],
             //序号
-            "fnDrawCallback": function(){
+            fnDrawCallback: function(){
                 var api = this.api();
                 var startIndex= api.context[0]._iDisplayStart;//获取到本页开始的条数
                 api.column(0).nodes().each(function(cell, i) {
                     cell.innerHTML = startIndex + i + 1;
                 });
             },
+            /*lengthMenu: [[10, 20, 50, -1], [10, 20, 50, "所有"]],*/
 			/*select: {
 				style: 'multi'
 			},*/
@@ -235,7 +293,7 @@
 			}
 		} );
 
-		$.fn.dataTable.Buttons.swfPath = "static/components/datatables.net-buttons-swf/copy_csv_xls_pdf.swf"; //in Ace demo static/components will be replaced by correct assets path
+		/*$.fn.dataTable.Buttons.swfPath = "static/components/datatables.net-buttons-swf/copy_csv_xls_pdf.swf"; //in Ace demo static/components will be replaced by correct assets path
 		$.fn.dataTable.Buttons.defaults.dom.container.className = 'dt-buttons btn-overlap btn-group btn-overlap';
 
 		new $.fn.dataTable.Buttons( myTable, {
@@ -248,7 +306,7 @@
 				},
 				{
 					"extend": "copy",
-					"text": "<i class='fa fa-copy bigger-110 pink'></i> <span class='hidden'>复制到剪贴板</span>",
+					"text": "<i class='fa fa-copy bigger-110 pink'></i> <span class='hidden'>复制当前页到剪贴板</span>",
 					"className": "btn btn-white btn-primary btn-bold"
 				},
 				{
@@ -271,7 +329,13 @@
 					"text": "<i class='fa fa-print bigger-110 grey'></i> <span class='hidden'>打印</span>",
 					"className": "btn btn-white btn-primary btn-bold",
 					autoPrint: false,
-					message: '本次打印采用DataTables制作'
+					message: '本次打印采用DataTables制作',
+					exportOptions: {
+						modifier: {
+							order:  'applied',
+							page: 'all'
+						}
+					}
 				},
 				{
 					"extend": "",
@@ -285,7 +349,7 @@
 				},
 			]
 		} );
-		myTable.buttons().container().appendTo( $('.tableTools-container') );
+		myTable.buttons().container().appendTo( $('.tableTools-container') );*/
 
 		//style the message box
 		var defaultCopyAction = myTable.button(1).action();
@@ -313,7 +377,7 @@
 		}, 500)
 
 
-		myTable.on( 'select', function ( e, dt, type, index ) {
+		/*myTable.on( 'select', function ( e, dt, type, index ) {
 			if ( type === 'row' ) {
 				$( myTable.row( index ).node() ).find('input:checkbox').prop('checked', true);
 			}
@@ -330,7 +394,7 @@
 			e.preventDefault();
 		});
 
-		/********************************/
+		/!********************************!/
 		//add tooltip for small view action buttons in dropdown menu
 		$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
 
@@ -346,7 +410,7 @@
 
 			if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
 			return 'left';
-		}
+		}*/
 
 
 	});

@@ -113,8 +113,9 @@ http://www.springframework.org/schema/context/spring-context-4.2.xsd ">
     <bean id="sqlSessionFactory"
           class="org.mybatis.spring.SqlSessionFactoryBean"
           p:dataSource-ref="dataSource"
-          p:mapperLocations="classpath:mybatis/*/*.xml"
+          p:mapperLocations="classpath:com/*/*/entity/mapper/*.xml"
           p:plugins-ref="pagePlugin"/>
+    <!-- p:mapperLocations="classpath:mybatis/*/*.xml"-->
 
     <!-- 配置sqlSessionTemplate -->
     <bean class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">

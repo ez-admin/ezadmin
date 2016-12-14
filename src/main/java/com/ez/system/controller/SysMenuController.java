@@ -46,7 +46,14 @@ public class SysMenuController {
 	public String addUI(Model model){
 		return "/ez/system/sysmenu/add";
 	}
-	
+    /**
+     * 跳到查看图标页面
+     * @return
+     */
+    @RequestMapping(value="viewIcons")
+    public String viewIcons(Model model){
+        return "/ez/system/sysmenu/viewicons";
+    }
 	/**
 	 * 保存新增
 	 * @param model
@@ -131,11 +138,11 @@ public class SysMenuController {
 			startPage = Integer.parseInt(currentRecord);
 		}
 		// For sortable
-		String sidxnum = request.getParameter("order[0][column]");
-		String sidx =request.getParameter("columns["+sidxnum+"][name]");
+		String sidx =request.getParameter("columns["+request.getParameter("order[0][column]")+"][name]");
 		String sord = request.getParameter("order[0][dir]");
 		// For search
 		String searchValue = request.getParameter("search[value]");
+
         if (!sidx.equals("0")){
             sysmenu.setSidx(sidx);
         }
@@ -240,7 +247,8 @@ public class SysMenuController {
 		WebTool.writeJson(result, response);
 		return null;
 	}
-	
+
+
 	
 }
 
