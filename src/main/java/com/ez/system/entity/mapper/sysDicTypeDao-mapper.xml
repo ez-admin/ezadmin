@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ez.system.dao.SysDicTypeDao">
+
+    <resultMap id="SysDicType" type="com.ez.system.entity.SysDicType">
+        <result property="code" column="CODE"/>
+        <result property="name" column="NAME"/>
+        <result property="remark" column="REMARK"/>
+        <result property="flag" column="FLAG"/>
+    </resultMap>
+    <!-- 获取所有字段 -->
+    <sql id="selectId">
+        CODE,
+        NAME,
+        REMARK,
+        FLAG
+    </sql>
+
+    <select id="query" resultMap="SysDicType" >
+        select
+        <include refid="selectId"/>
+        from sys_dictype
+        <include refid="querywhere"/>
+        <if test="@Ognl@isNotEmpty(t.sidx) and @Ognl@isNotEmpty(t.sord)">
+            order by ${t.sidx} ${t.sord}
+        </if>
+
+    </select>
+
+    <sql id="querywhere">
+        <!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+        <where>
+            <if test="@Ognl@isNotEmpty(t.code)">
+                AND CODE like '%${t.code}%'
+            </if>
+            <if test="@Ognl@isNotEmpty(t.name)">
+                AND NAME like '%${t.name}%'
+            </if>
+            <if test="@Ognl@isNotEmpty(t.remark)">
+                AND REMARK like '%${t.remark}%'
+            </if>
+            <if test="@Ognl@isNotEmpty(t.flag)">
+                AND FLAG like '%${t.flag}%'
+            </if>
+            <if test="@Ognl@isNotEmpty(t.searchValue)">
+                AND CODE like '%${t.searchValue}%'
+                or NAME like '%${t.searchValue}%'
+                or REMARK like '%${t.searchValue}%'
+                or FLAG like '%${t.searchValue}%'
+            </if>
+        </where>
+    </sql>
+
+    <select id="count" parameterType="com.ez.system.entity.SysDicType" resultType="int">
+        select count(0) from sys_dictype
+    </select>
+
+    <!-- 新增字典类型 -->
+    <insert id="add" parameterType="com.ez.system.entity.SysDicType">
+        insert into sys_dictype
+        values(#{code},#{name},#{remark},#{flag})
+    </insert>
+
+    <select id="findByCode" parameterType="String" resultMap="SysDicType">
+        select
+        <include refid="selectId"/>
+        from sys_dictype
+        where code = #{code}
+    </select>
+
+    <update id="modify" parameterType="com.ez.system.entity.SysDicType">
+        update sys_dictype
+        <set>
+            name = #{name},
+            remark = #{remark},
+            flag = #{flag}
+        </set>
+        where code = #{code}
+    </update>
+    <select id="findAll" resultMap="SysDicType" >
+        select
+        <include refid="selectId"/>
+        from sys_dictype
+    </select>
+</mapper>

@@ -10,8 +10,6 @@ package com.ez.system.entity;
 import com.ez.base.BaseEntity;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.List;
 
@@ -165,18 +163,24 @@ public class SysMenu extends BaseEntity implements java.io.Serializable{
 		this.menuList = menuList;
 	}
 
+	@Override
 	public String toString() {
-		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-			.append("MenuId",getMenuId())
-			.append("MenuName",getMenuName())
-			.append("MenuUrl",getMenuUrl())
-			.append("ParentId",getParentId())
-			.append("MenuOrder",getMenuOrder())
-			.append("MenuIcon",getMenuIcon())
-			.append("MenuType",getMenuType())
-			.toString();
+		return "SysMenu{" +
+				"menuId=" + menuId +
+				", menuName='" + menuName + '\'' +
+				", menuUrl='" + menuUrl + '\'' +
+				", parentId='" + parentId + '\'' +
+				", menuOrder='" + menuOrder + '\'' +
+				", menuIcon='" + menuIcon + '\'' +
+				", menuType='" + menuType + '\'' +
+				", menuList=" + menuList +
+				", hasMenu=" + hasMenu +
+				", sidx='" + sidx + '\'' +
+				", sord='" + sord + '\'' +
+				", searchValue='" + searchValue + '\'' +
+				'}';
 	}
-	
+
 	public int hashCode() {
 		return new HashCodeBuilder()
 			.append(getMenuId())

@@ -77,6 +77,7 @@ public class LoginController {
 
 			SysRole sysrole = sysRoleService.getById(user.getRlid());
 			String roleRights = sysrole!=null ? sysrole.getRights() : "";
+			System.out.println("roleRights = " + roleRights);
 			//避免每次拦截用户操作时查询数据库，以下将用户所属角色权限、用户权限限都存入session
 			session.setAttribute(PubConstants.SESSION_ROLE_RIGHTS, roleRights); 		//将角色权限存入session
 
@@ -85,6 +86,7 @@ public class LoginController {
 				if (null != sysrole) {
 					for (SysMenu sysMenu : allmenuList) {
 						sysMenu.setHasMenu(RightsHelper.testRights(roleRights, sysMenu.getMenuId()));
+						System.out.println("sysMenu = " + sysMenu.toString());
 					}
 				}
 				session.setAttribute(PubConstants.SESSION_allmenuList, allmenuList);
@@ -263,7 +265,7 @@ public class LoginController {
 			map.put("edits",sysRole.getEditQx());
 			map.put("chas",sysRole.getChaQx());
 
-			//System.out.println(map);
+			System.out.println("map======="+map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

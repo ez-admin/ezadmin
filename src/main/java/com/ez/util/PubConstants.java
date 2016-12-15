@@ -32,6 +32,8 @@ public class PubConstants {
 
 	public static final String OPTYPE_CHECK = "1";//财务
 	public static final String OPTYPE_GODHAND= "3";//超级管理员
-	
+	//页面处理类型 查看、编辑 - xjh
+	public static final String PAGE_TYPE_VIEW = "VIEW";
+	public static final String PAGE_TYPE_EDIT = "EDIT";
 
 }

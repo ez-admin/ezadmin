@@ -36,7 +36,7 @@ public class SysMenuController {
 	 */
 	@RequestMapping(value="list")
 	public String list(){
-		return "/ez/system/sysmenu/list";
+		return "ez/system/sysMenu/list";
 	}
 	/**
 	 * 跳到新增页面
@@ -44,7 +44,7 @@ public class SysMenuController {
 	 */
 	@RequestMapping(value="addUI")
 	public String addUI(Model model){
-		return "/ez/system/sysmenu/add";
+		return "ez/system/sysMenu/add";
 	}
     /**
      * 跳到查看图标页面
@@ -52,7 +52,7 @@ public class SysMenuController {
      */
     @RequestMapping(value="viewIcons")
     public String viewIcons(Model model){
-        return "/ez/system/sysmenu/viewicons";
+        return "ez/system/sysMenu/viewicons";
     }
 	/**
 	 * 保存新增
@@ -104,7 +104,7 @@ public class SysMenuController {
 	 */
 	@RequestMapping(value="query")
 	public String query(Model model,SysMenu sysmenu,String pageNow, String pageSize){
-		return "/ez/system/sysmenu/list_list";
+		return "ez/system/sysMenu/list_list";
 	}
 	
 	/**
@@ -117,15 +117,6 @@ public class SysMenuController {
     @ResponseBody
 	public Map<String, Object> showlist(Model model,SysMenu sysmenu,HttpServletRequest request){
 		PageView pageView = null;
-//		String pageNow=request.getParameter("pager.pageNo");
-//		String pageSize=request.getParameter("pager.pageSize");
-		/*String pageNow=request.getParameter("page");
-		String pageSize=request.getParameter("rows");
-		if(Common.isEmpty(pageNow)){
-			pageView = new PageView(1);
-		}else{
-			pageView = new PageView(Integer.parseInt(pageSize),Integer.parseInt(pageNow));
-		}*/
 		// For pagination
 		int pageSize = 10;
 		int startPage = 0;
@@ -153,10 +144,7 @@ public class SysMenuController {
 		Map<String, Object> map=new HashMap<String, Object>();
 		pageView = sysMenuService.query(pageView, sysmenu);
 		List<SysMenu> list=pageView.getRecords();
-		/*map.put("rows", list);
-		map.put("page", pageView.getPageNow());
-		map.put("total",pageView.getPageCount());
-		map.put("records", pageView.getRowCount());*/
+
 		map.put("draw",request.getParameter("draw"));
 		map.put("recordsTotal",pageView.getRowCount());
 		map.put("recordsFiltered",pageView.getRowCount());
@@ -196,11 +184,11 @@ public class SysMenuController {
 		SysMenu sysmenu = sysMenuService.getById(sysmenuId);
 		model.addAttribute("sysmenu", sysmenu);
 		if(typeKey == 1){
-			return "/ez/system/sysmenu/edit";
+			return "ez/system/sysMenu/edit";
 		}else if(typeKey == 2){
-			return "/ez/system/sysmenu/view";
+			return "ez/system/sysMenu/view";
 		}else{
-			return "/ez/system/sysmenu/view_1";
+			return "ez/system/sysMenu/view_1";
 		}
 	}
 	
@@ -247,7 +235,6 @@ public class SysMenuController {
 		WebTool.writeJson(result, response);
 		return null;
 	}
-
 
 	
 }

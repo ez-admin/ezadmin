@@ -50,7 +50,7 @@ public class SysUserController {
 	 */
 	@RequestMapping(value="addUI")
 	public String addUI(Model model){
-		return "/ez/system/sysuser/add";
+		return "ez/system/sysuser/add";
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class SysUserController {
 	 */
 	@RequestMapping(value="query")
 	public String query(Model model,SysUser sysuser,String pageNow, String pageSize){
-		return "/ez/system/sysuser/list_list";
+		return "ez/system/sysuser/list_list";
 	}
 	
 	/**
@@ -163,11 +163,11 @@ public class SysUserController {
 		SysUser sysuser = sysUserService.getById(sysuserId);
 		model.addAttribute("sysuser", sysuser);
 		if(typeKey == 1){
-			return "/ez/system/sysuser/edit";
+			return "ez/system/sysuser/edit";
 		}else if(typeKey == 2){
-			return "/ez/system/sysuser/view";
+			return "ez/system/sysuser/view";
 		}else{
-			return "/ez/system/sysuser/view_1";
+			return "ez/system/sysuser/view_1";
 		}
 	}
 	

@@ -6,7 +6,6 @@ import com.ez.system.service.SysRightGlService;
 import com.ez.util.Common;
 import com.ez.util.PageView;
 import com.ez.util.WebTool;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,7 +40,7 @@ public class SysRightGlController {
 	 */
 	@RequestMapping(value="addUI")
 	public String addUI(Model model){
-		return "/ez/system/sysrightgl/add";
+		return "ez/system/sysrightgl/add";
 	}
 	
 	/**
@@ -94,7 +93,7 @@ public class SysRightGlController {
 	 */
 	@RequestMapping(value="query")
 	public String query(Model model,SysRightGl sysrightgl,String pageNow, String pageSize){
-		return "/ez/system/sysrightgl/list_list";
+		return "ez/system/sysrightgl/list_list";
 	}
 	
 	/**

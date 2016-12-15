@@ -168,7 +168,7 @@ public class SSMTest {
 	@Test
 	public void qxh(){
 		//前台传过来的sys_menu中的MENU_ID值
-		String menuIds="1,2,3,4,5,6,7,8,9";
+		String menuIds="1,2,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21";
 		//Tools.str2StrArray(menuIds)用默认的分隔符(,)将字符串转换为字符串数组
 		//sumRights利用BigInteger对权限进行2的权的和计算
 		BigInteger rights = RightsHelper.sumRights(Tools.str2StrArray(menuIds));
@@ -178,12 +178,12 @@ public class SSMTest {
 	@Test
 	public void qxf(){
 		//menuIds可以获取数据库中全部值
-		String[] menuIds={"1","2","3","11","15"};
+		String[] menuIds={"1","2","3","4","5","6","7","8","9"};
 		//"1022"是权限和计算的值，判断是否有值
-		if(Tools.notEmpty("1022")){
+		if(Tools.notEmpty("510")){
 			for(int i=0;i<menuIds.length;i++) {
 				//进行比较，有为true，否则为false
-				if (RightsHelper.testRights("1022", menuIds[i])) {
+				if (RightsHelper.testRights("510", menuIds[i])) {
 					System.out.println("存在");
 				} else {
 					System.out.println("不存在");

@@ -47,7 +47,7 @@ public class SysLogController {
 	 */
 	@RequestMapping(value="addUI")
 	public String addUI(Model model){
-		return "/ez/system/syslog/add";
+		return "ez/system/syslog/add";
 	}
 	
 	/**
@@ -99,7 +99,7 @@ public class SysLogController {
 	 */
 	@RequestMapping(value="query")
 	public String query(Model model, SysLog syslog, String pageNow, String pageSize){
-		return "/ez/system/syslog/list_list";
+		return "ez/system/syslog/list_list";
 	}
 	
 	/**
@@ -160,11 +160,11 @@ public class SysLogController {
 		SysLog syslog = sysLogService.getById(syslogId);
 		model.addAttribute("syslog", syslog);
 		if(typeKey == 1){
-			return "/ez/system/syslog/edit";
+			return "ez/system/syslog/edit";
 		}else if(typeKey == 2){
-			return "/ez/system/syslog/view";
+			return "ez/system/syslog/view";
 		}else{
-			return "/ez/system/syslog/view_1";
+			return "ez/system/syslog/view_1";
 		}
 	}
 	

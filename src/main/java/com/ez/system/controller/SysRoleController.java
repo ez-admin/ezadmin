@@ -46,7 +46,7 @@ public class SysRoleController {
 	 */
 	@RequestMapping(value="addUI")
 	public String addUI(Model model){
-		return "/ez/system/sysrole/add";
+		return "ez/system/sysrole/add";
 	}
 	
 	/**
@@ -99,7 +99,7 @@ public class SysRoleController {
 	 */
 	@RequestMapping(value="query")
 	public String query(Model model,SysRole sysrole,String pageNow, String pageSize){
-		return "/ez/system/sysrole/list_list";
+		return "ez/system/sysrole/list_list";
 	}
 	
 	/**
@@ -160,11 +160,11 @@ public class SysRoleController {
 		SysRole sysrole = sysRoleService.getById(sysroleId);
 		model.addAttribute("sysrole", sysrole);
 		if(typeKey == 1){
-			return "/ez/system/sysrole/edit";
+			return "ez/system/sysrole/edit";
 		}else if(typeKey == 2){
-			return "/ez/system/sysrole/view";
+			return "ez/system/sysrole/view";
 		}else{
-			return "/ez/system/sysrole/view_1";
+			return "ez/system/sysrole/view_1";
 		}
 	}
 	

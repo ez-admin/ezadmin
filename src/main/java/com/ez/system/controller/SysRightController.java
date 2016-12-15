@@ -39,7 +39,7 @@ public class SysRightController {
 	 */
 	@RequestMapping(value="addUI")
 	public String addUI(Model model){
-		return "/ez/system/sysright/add";
+		return "ez/system/sysright/add";
 	}
 	
 	/**
@@ -92,7 +92,7 @@ public class SysRightController {
 	 */
 	@RequestMapping(value="query")
 	public String query(Model model,SysRight sysright,String pageNow, String pageSize){
-		return "/ez/system/sysright/list_list";
+		return "ez/system/sysright/list_list";
 	}
 	
 	/**
@@ -153,11 +153,11 @@ public class SysRightController {
 		SysRight sysright = sysRightService.getById(sysrightId);
 		model.addAttribute("sysright", sysright);
 		if(typeKey == 1){
-			return "/ez/system/sysright/edit";
+			return "ez/system/sysright/edit";
 		}else if(typeKey == 2){
-			return "/ez/system/sysright/view";
+			return "ez/system/sysright/view";
 		}else{
-			return "/ez/system/sysright/view_1";
+			return "ez/system/sysright/view_1";
 		}
 	}
 	
