@@ -88,9 +88,9 @@
 	<script src="/static/components/jquery.1x/dist/jquery.js"></script>
 	<![endif]-->
 
-	<script type="text/javascript">
+	<%--<script type="text/javascript">
 		if('ontouchstart' in document.documentElement) document.write("<script src='/static/components/_mod/jquery.mobile.custom/jquery.mobile.custom.js'>"+"<"+"/script>");
-	</script>
+	</script>--%>
 
 	<script src="/static/components/bootstrap/dist/js/bootstrap.js"></script>
 	<!-- ace scripts -->
@@ -122,7 +122,7 @@
 	<%--<script type="text/javascript" src="static/assets/js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="static/assets/js/myjs/menusf.js"></script>--%>
 	<!--引入属于此页面的js -->
-	<script type="text/javascript" src="static/assets/js/myjs/righttab.js"></script>
+	<script type="text/javascript" src="/static/assets/js/myjs/righttab.js"></script>
 	<!--左侧菜单-->
 	<script>
 		var zNodes=${menulist};
@@ -175,8 +175,7 @@
 			}
 		};
 		var html=new treeMenu(zNodes).init(0);
-		$("#fhindex").after(html);
-
+		$("#fhindex").append(html);
 		//首页
 		$(function () {
 			//首页默认

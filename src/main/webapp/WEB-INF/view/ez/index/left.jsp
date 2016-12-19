@@ -33,15 +33,15 @@
 		</div>
 	</div><!-- /.sidebar-shortcuts -->
 
-	<ul class="nav nav-list">
-		<li class="active" id="fhindex">
+	<ul class="nav nav-list" id="fhindex">
+		<li class="active">
 			<a href="ez/syslogin/index.do">
 				<i class="menu-icon fa fa-tachometer"></i>
 				<span class="menu-text"> 后台首页 </span>
 			</a>
-
 			<b class="arrow"></b>
 		</li>
+
 	</ul><!-- /.nav-list -->
 
 	<!-- #section:basics/sidebar.layout.minimize -->

@@ -14,6 +14,9 @@
 	<base href="<%=basePath%>">
 	<!-- jsp文件头和头部 -->
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
+	<style>
+		th, td { white-space: nowrap; }
+	</style>
 </head>
 
 <div class="main-container">
@@ -22,7 +25,7 @@
 			<div class="col-xs-12">
 				<!-- PAGE CONTENT BEGINS -->
 				<!-- div.dataTables_borderWrap -->
-				<table id="dynamic-table" class="table table-striped table-bordered table-hover">
+				<table id="dynamic-table" class="table table-striped table-bordered table-hover" class="display" cellspacing="0" width="100%">
 					<thead>
 					<tr>
 						<%--<th class="center">
@@ -76,7 +79,7 @@
 
 <script src="/static/assets/js/src/ace.js"></script>
 <script src="/static/assets/js/src/ace.scrolltop.js"></script>
-<script src="/static/assets/js/src/elements.scroller.js"></script>
+<%--<script src="/static/assets/js/src/elements.scroller.js"></script>--%>
 <script src="/static/components/bootstrap/dist/js/bootstrap.js"></script>
 <!-- page specific plugin scripts -->
 <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
@@ -96,7 +99,7 @@
 	jQuery(function($) {
 		//initiate dataTables plugin
 		var myTable = $('#dynamic-table').DataTable( {
-			dom: '<"top"<"tableTools-container"B>f>rt<"bottom"lip><"clear">',
+			dom: '<"top"<"col-xs-6"<"tableTools-container"B>><"col-xs-6"f>>rt<"bottom"lip><"clear">',
 			buttons: [
 				{
 					extend: "colvis",
@@ -159,7 +162,8 @@
                     text: "<i class='fa fa-refresh  bigger-110 purple'></i> <span class='hidden'>刷新</span>",
                     className: "btn btn-white btn-primary btn-bold",
                     action: function () {
-                        location.reload();
+						refresh();
+                        //location.reload();
                     }
 
                 },
@@ -174,11 +178,10 @@
 
 				},
 			],
-			ScrollX: "100%",
+			ScrollX: true,
+
             /*ScrollY: 387,
-			ScrollXInner: "120%",
-			ScrollCollapse: true,*/
-			DisplayLength: 50,
+			DisplayLength: 50,*/
 			processing: true,
 			serverSide: true,
 			ajax: {
@@ -277,27 +280,19 @@
                     }
 			    }
             ],
-			/*"bProcessing": true,
-			 "bServerSide": true,
-			 "sAjaxSource": "http://127.0.0.1/table.php"	,
-			"sScrollY": "200px",
-			"bPaginate": false,
-			"sScrollX": "100%",
-			"sScrollXInner": "120%",
-			"bScrollCollapse": true,
-			"iDisplayLength": 50*/
+
 
 
 			//国际化配置
 			language: {
 				"sProcessing": "处理中...",
-				"sLengthMenu": "每页显示 _MENU_ 项结果，",
-				"sZeroRecords": "对不起，没有查询相关数据！",
+				"sLengthMenu": "显示 _MENU_ 项结果",
+				"sZeroRecords": "没有匹配结果",
 				"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
 				"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
 				"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
 				"sInfoPostFix": "",
-				"sSearch": "在表格中搜索:",
+				"sSearch": "搜索:",
 				"sUrl": "",
 				"sEmptyTable": "表中数据为空",
 				"sLoadingRecords": "载入中...",
@@ -373,6 +368,10 @@
 		} );
 		myTable.buttons().container().appendTo( $('.tableTools-container') );*/
 
+		//refresh tables
+		function refresh() {
+			myTable.draw();
+		}
 		//style the message box
 		var defaultCopyAction = myTable.button(1).action();
 		myTable.button(1).action(function (e, dt, button, config) {
@@ -445,7 +444,7 @@
 			title: '新增菜单',
 			maxmin: true,
 			shadeClose: true, //点击遮罩关闭层
-			area : ['800px' , '520px'],
+			area : ['50%' , '80%'],
 			//btn: ['保存', '取消'],
 			content: '/ez/system/sysmenu/addUI.do',
             end:function(){
@@ -465,7 +464,7 @@
 			title: '查看菜单',
 			maxmin: true,
 			shadeClose: true, //点击遮罩关闭层
-			area : ['800px' , '520px'],
+			area : ['50%' , '80%'],
 			//btn: ['保存', '取消'],
 			content: '/ez/system/sysmenu/getById.do?typeKey=2&sysmenuId='+menuId
 		});
@@ -477,7 +476,8 @@
 			title: '查看菜单',
 			maxmin: true,
 			shadeClose: true, //点击遮罩关闭层
-			area : ['800px' , '520px'],
+			area : ['50%' , '80%'],
+			//area : ['800px' , '520px'],
 			//btn: ['保存', '取消'],
 			content: '/ez/system/sysmenu/getById.do?typeKey=1&sysmenuId='+menuId,
             end:function(){

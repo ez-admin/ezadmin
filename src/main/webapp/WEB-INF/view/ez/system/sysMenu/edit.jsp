@@ -137,7 +137,7 @@
               title: '查看菜单图标',
               maxmin: true,
               shadeClose: true, //点击遮罩关闭层
-              area : ['800px' , '520px'],
+              area : ['50%' , '80%'],
               //btn: ['保存', '取消'],
               content: '/ez/system/sysmenu/viewIcons.do'
           });
