@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="com.ez.system.dao.SysDictionaryDao">
+
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+	<!--<cache type="org.mybatis.caches.ehcache.EhcacheCache" />-->
+
+	<resultMap id="SysDictionary" type="com.ez.system.entity.SysDictionary">
+        <result property="id" column="ID"/>
+        <result property="code" column="CODE"/>
+        <result property="sdvalue" column="SDVALUE"/>
+        <result property="sdkey" column="SDKEY"/>
+        <result property="remark" column="REMARK"/>
+        <result property="name" column="NAME"/>
+	</resultMap>
+	
+	<sql id="selectId">
+		ID,
+		CODE,
+		SDVALUE,
+		SDKEY,
+		REMARK
+    </sql>
+    
+    <select id="findAll" resultMap="SysDictionary" >
+		select
+		<include refid="selectId" />
+		from sys_dictionary
+	</select>
+
+	<select id="query" resultMap="SysDictionary" parameterType="com.ez.system.entity.SysDictionary" >
+		SELECT
+			ID,
+			a.CODE,
+			b.name,
+			SDVALUE,
+			SDKEY,
+			a.REMARK
+		FROM sys_dictionary a
+		LEFT JOIN sys_dictype b on a.CODE=b.code
+		<include refid="querywhere"/>
+	</select>
+
+	<sql id="querywhere">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+			<if test="@Ognl@isNotEmpty(code)">
+				AND a.CODE like '%${code}%'
+			</if>
+			<if test="@Ognl@isNotEmpty(name)">
+				AND b.name like '%${name}%'
+			</if>
+			<if test="@Ognl@isNotEmpty(sdvalue)">
+				AND a.SDVALUE like '%${sdvalue}%'
+			</if>
+			<if test="@Ognl@isNotEmpty(sdkey)">
+				AND a.SDKEY like '%${sdkey}%'
+			</if>
+			<if test="@Ognl@isNotEmpty(remark)">
+				AND a.REMARK like '%${remark}%'
+			</if>
+
+		</where>
+	</sql>
+
+	<sql id="querywhere1">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>	      				
+		       <if test="@Ognl@isNotEmpty(code)">
+					AND CODE like '%${code}%'
+				</if>
+		       <if test="@Ognl@isNotEmpty(sdvalue)">
+					AND SDVALUE like '%${sdvalue}%'
+				</if>
+		       <if test="@Ognl@isNotEmpty(sdkey)">
+					AND SDKEY like '%${sdkey}%'
+				</if>
+		       <if test="@Ognl@isNotEmpty(remark)">
+					AND REMARK like '%${remark}%'
+				</if>
+	       
+		</where>
+	</sql>
+
+	<!-- 总记录数 -->
+	<select id="count" parameterType="com.ez.system.entity.SysDictionary" resultType="int">
+		select count(0) from sys_dictionary
+		<include refid="querywhere1"/>
+	</select>
+	
+	<!-- 新增 -->
+	<insert id="addAll" parameterType="com.ez.system.entity.SysDictionary" >
+	<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="id" >
+        SELECT LAST_INSERT_ID() AS ID   
+    </selectKey>
+		INSERT INTO sys_dictionary (
+        	CODE ,
+        	SDVALUE ,
+        	SDKEY ,
+        	REMARK 
+        ) VALUES (
+        	#{code} ,
+        	#{sdvalue} ,
+        	#{sdkey} ,
+        	#{remark} 
+        )
+	</insert>
+	
+	<!-- 新增Selective -->
+	<insert id="add" parameterType="com.ez.system.entity.SysDictionary">
+	<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="id" >
+	        SELECT LAST_INSERT_ID() AS ID
+	</selectKey>
+		INSERT INTO sys_dictionary 
+		<include refid="addtrim"/>
+	</insert>
+	
+	<sql id="addtrim">
+	<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(code)">
+				CODE,
+			</if>
+			<if test="@Ognl@isNotEmpty(sdvalue)">
+				SDVALUE,
+			</if>
+			<if test="@Ognl@isNotEmpty(sdkey)">
+				SDKEY,
+			</if>
+			<if test="@Ognl@isNotEmpty(remark)">
+				REMARK,
+			</if>
+    </trim>
+    <trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(code)">
+				#{code},
+			</if>
+			<if test="@Ognl@isNotEmpty(sdvalue)">
+				#{sdvalue},
+			</if>
+			<if test="@Ognl@isNotEmpty(sdkey)">
+				#{sdkey},
+			</if>
+			<if test="@Ognl@isNotEmpty(remark)">
+				#{remark},
+			</if>
+    </trim>
+	</sql>
+	
+	<!-- 删 -->
+	<delete id="delete" parameterType="String" >
+		DELETE FROM sys_dictionary WHERE
+        ID = #{id} 
+	</delete>
+
+    <!-- 删 -->
+    <delete id="deleteByCode" parameterType="String">
+        DELETE FROM sys_dictionary WHERE
+        CODE = #{id}
+    </delete>
+
+	<!-- 根据主键查实体 -->
+	<select id="getById" parameterType="String" resultMap="SysDictionary">
+		SELECT <include refid="selectId" />
+		    FROM sys_dictionary 
+	        WHERE 
+        ID = #{id} 
+	</select>
+    <select id="findSdBySdtCode" parameterType="String" resultType="com.ez.system.entity.SysDictionary">
+		select
+		<include refid="selectId" />
+		from sys_dictionary
+        <if test="@Ognl@isNotEmpty(_parameter)">
+            where code = #{_parameter}
+        </if>
+		order by sdvalue
+	</select>
+
+    <!-- 更新all -->
+	<update id="updateAll" parameterType="com.ez.system.entity.SysDictionary" >
+	    UPDATE sys_dictionary SET
+	        CODE = #{code} ,
+	        SDVALUE = #{sdvalue} ,
+	        SDKEY = #{sdkey} ,
+	        REMARK = #{remark} 
+        WHERE 
+	        ID = #{id} 
+	</update>
+	
+	<sql id="updateset">
+	<set>
+		<if test="@Ognl@isNotEmpty(code)">
+			CODE = #{code},
+		</if>
+		<if test="@Ognl@isNotEmpty(sdvalue)">
+			SDVALUE = #{sdvalue},
+		</if>
+		<if test="@Ognl@isNotEmpty(sdkey)">
+			SDKEY = #{sdkey},
+		</if>
+		<if test="@Ognl@isNotEmpty(remark)">
+			REMARK = #{remark},
+		</if>
+    </set>
+	</sql>
+	
+	<!-- 更新Selective -->
+	<update id="modify" parameterType="com.ez.system.entity.SysDictionary">
+	    UPDATE sys_dictionary 
+		<include refid="updateset"/>
+        WHERE 
+	        ID = #{id} 
+	</update>
+	
+	<!-- 查找唯一索引但不是主键的字段Selective -->
+	
+</mapper>
+

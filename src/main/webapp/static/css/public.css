@@ -1,0 +1,61 @@
+/**
+ * Created by chenez on 2016/12/29 21:49.
+ * 用于界面修改时，尽量参考公共样式，避免在页面在写冗长的样式代码
+ */
+.clear{
+    clear: both;
+}
+/*font-size12-30 */
+.fs12 {font-size:12px;}.fs14{font-size:14px;}.fs16{font-size:16px;}.fs18{font-size:18px;}.fs20{font-size:20px;}.fs22{font-size:22px;}.fs24{font-size:24px;}.fs26{font-size:26px;}.fs28{font-size:28px;}.fs30{font-size:30px;}
+/*color*/
+.green{color:#5FB878}.darkgreen{color:#009688}.darkblack{color:#393D49}.blue{color:#1E9FFF}
+.yellow{color:#F7B824}.red{color:#FF5722}.lightblue{color:#01AAED}.lightblack{color:#2F4056}
+
+.layui-form-label-quote{
+    float: left;
+    display: block;
+    padding: 6px 8px 0px 0px;
+    font-weight: normal;
+    font-size: 14px!important;
+}
+.layui-input-quote{
+    display: block;
+    width: 150px;
+    padding-left: 10px;
+    height: 34px;
+    line-height: 34px;
+    border: 1px solid #e6e6e6;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+.layui-form-mid i,.layui-word-aux i{
+    line-height: inherit;
+}
+.layui-input-switch{
+    float: left;
+    width: 60px;
+    margin-right: 10px;
+}
+/*Boostrap table css*/
+body .fixed-table-toolbar:first-child{
+    padding: 5px 5px 0px;
+    margin-bottom: 10px!important;
+    line-height:34px;
+    border-left: 5px solid #009688;
+    border-radius: 0 2px 2px 0;
+    background-color: #f2f2f2;
+}
+body .fixed-table-toolbar:first-child .bs-bars,body .fixed-table-toolbar:first-child .search,body .fixed-table-toolbar:first-child .columns{
+    margin-bottom: 10px!important;
+}
+.clear{
+    clear: both;
+}
+.site-tips {
+    margin-bottom: 10px;
+    padding: 15px;
+    line-height: 22px;
+    border-left: 5px solid #0078AD;
+    background-color: #f2f2f2;
+}

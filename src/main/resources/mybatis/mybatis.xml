@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<settings>    
+        <!-- 全局映射器缓存开关 -->
+        <setting name="cacheEnabled" value="false" />
+    </settings>
+    
+	<typeAliases>
+	<!-- 给实体Bean一个别名-->
+		<!--<typeAlias type="com.ez.system.entity.User" alias="User" />-->
+
+
+	</typeAliases>
+</configuration>
