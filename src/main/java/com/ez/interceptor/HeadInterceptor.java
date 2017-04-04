@@ -14,14 +14,12 @@ public class HeadInterceptor implements Filter {
 	private String loginPage;
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 						 FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
 		HttpServletRequest httpServletRequest=(HttpServletRequest)request;
 		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 		   HttpSession session = httpServletRequest.getSession();

@@ -25,76 +25,32 @@
 		MENU_ICON,
 		MENU_TYPE
     </sql>
+
+	<sql id="selectMenutitle">
+		MENU_ID as id,
+		MENU_NAME as title,
+		MENU_URL as href,
+		PARENT_ID as parentid,
+		MENU_ICON as icon
+	</sql>
     
-    <select id="findAll" resultMap="SysMenu">
+    <select id="findAll" resultMap="SysMenu" >
 		select
 		<include refid="selectId" />
 		from sys_menu
 		where PARENT_ID = '0'
 		order by MENU_ORDER
 	</select>
-	
-	<select id="queryAll" resultMap="SysMenu" parameterType="com.ez.system.entity.SysMenu">
-		select
-		<include refid="selectId" />
-		from sys_menu
-		<include refid="querywhere1"/>
-		<if test="@Ognl@isNotEmpty(sidx) and @Ognl@isNotEmpty(sord)">
-		 order by ${sidx} ${sord}
-		</if>
-	</select>
 
-	<select id="query" resultMap="SysMenu" parameterType="java.util.HashMap">
+
+	<select id="query" resultMap="SysMenu" parameterType="com.ez.system.entity.SysMenu" >
 		select
 		<include refid="selectId" />
 		from sys_menu
 		<include refid="querywhere"/>
-		<if test="@Ognl@isNotEmpty(t.sidx) and @Ognl@isNotEmpty(t.sord)">
-		 order by ${t.sidx} ${t.sord}
-		</if>
-		<if test="@Ognl@isEmpty(t.sidx)">
-			ORDER BY getPriority(MENU_ID)
-		</if>
 	</select>
-	
-	<sql id="querywhere">
-		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
-		<where>
-				<if test="@Ognl@isNotEmpty(t.menuId)">
-					AND MENU_ID like '%${t.menuId}%'
-				</if>
-			   <if test="@Ognl@isNotEmpty(t.menuName)">
-					AND MENU_NAME like '%${t.menuName}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.menuUrl)">
-					AND MENU_URL like '%${t.menuUrl}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.parentId)">
-					AND PARENT_ID like '%${t.parentId}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.menuOrder)">
-					AND MENU_ORDER like '%${t.menuOrder}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.menuIcon)">
-					AND MENU_ICON like '%${t.menuIcon}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.menuType)">
-					AND MENU_TYPE like '%${t.menuType}%'
-			   </if>
-				<if test="@Ognl@isNotEmpty(t.searchValue)">
-					AND MENU_ID like '%${t.searchValue}%'
-                    or MENU_NAME like '%${t.searchValue}%'
-                    or MENU_URL like '%${t.searchValue}%'
-                    or PARENT_ID like '%${t.searchValue}%'
-                    or MENU_ORDER like '%${t.searchValue}%'
-                    or MENU_ICON like '%${t.searchValue}%'
-                    or MENU_TYPE  like '%${t.searchValue}%'
-			   </if>
 
-		</where>
-	</sql>
-	
-		<sql id="querywhere1">
+		<sql id="querywhere">
 		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
 		<where>	      				
 		       <if test="@Ognl@isNotEmpty(menuName)">
@@ -122,7 +78,7 @@
 	<!-- 总记录数 -->
 	<select id="count" parameterType="com.ez.system.entity.SysMenu" resultType="int">
 		select count(0) from sys_menu
-		<include refid="querywhere1"/>
+		<include refid="querywhere"/>
 	</select>
 	
 	<!-- 新增 -->
@@ -212,27 +168,74 @@
 	</delete>
 	
 	<!-- 根据主键查实体 -->
-	<select id="getById" parameterType="String" resultMap="SysMenu">
+	<select id="getById" parameterType="String" resultMap="SysMenu" >
 		SELECT <include refid="selectId" />
 		    FROM sys_menu 
 	        WHERE 
         MENU_ID = #{id} 
 	</select>
-	<select id="findAllByParentid" resultMap="SysMenu">
+	<select id="findAllByParentid" resultMap="SysMenu" >
 		SELECT <include refid="selectId" />
 		FROM sys_menu
 		WHERE
 		PARENT_ID = #{parentId}
+		order by MENU_ORDER
 	</select>
-	<select id="findParentIdList" resultType="java.lang.String">
+	<select id="findParentIdList" resultType="java.lang.String" >
 		SELECT PARENT_ID
 		FROM sys_menu
 		GROUP BY PARENT_ID
 
 	</select>
-	<select id="findAllList" resultMap="SysMenu">
+	<select id="findAllList" resultMap="SysMenu" >
 		SELECT <include refid="selectId" />
 		FROM sys_menu
+	</select>
+	<select id="findFisrtMenu" resultType="com.ez.login.entity.MenuTitle" >
+		SELECT <include refid="selectMenutitle" />
+		FROM sys_menu
+		WHERE
+		PARENT_ID = "0"
+		order by MENU_ORDER
+	</select>
+	<select id="getByParentId" resultType="com.ez.login.entity.MenuTitle" parameterType="String" >
+		SELECT <include refid="selectMenutitle" />
+		FROM sys_menu
+		WHERE
+		PARENT_ID = #{parentId}
+		order by MENU_ORDER
+	</select>
+	<select id="getParentMenu" resultMap="SysMenu" parameterType="com.ez.system.entity.SysMenu" >
+		SELECT <include refid="selectId" />
+		FROM sys_menu
+		WHERE
+		PARENT_ID = "0"
+		<if test="@Ognl@isNotEmpty(menuName)">
+			AND MENU_NAME like '%${menuName}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(menuId)">
+			AND MENU_ID like '%${menuId}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(menuType)">
+			AND MENU_TYPE != '${menuType}'
+		</if>
+		order by MENU_ORDER
+	</select>
+	<select id="getChildrenMenu" resultMap="SysMenu" parameterType="com.ez.system.entity.SysMenu" >
+		SELECT <include refid="selectId" />
+		FROM sys_menu
+		WHERE
+		PARENT_ID = #{parentId}
+		<if test="@Ognl@isNotEmpty(menuName)">
+			AND MENU_NAME like '%${menuName}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(menuId)">
+			AND MENU_ID like '%${menuId}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(menuType)">
+			AND MENU_TYPE != '${menuType}'
+		</if>
+		order by MENU_ORDER
 	</select>
 
 	<!-- 更新all -->
@@ -278,8 +281,6 @@
         WHERE 
 	        MENU_ID = #{menuId} 
 	</update>
-	
 	<!-- 查找唯一索引但不是主键的字段Selective -->
-	
 </mapper>
 

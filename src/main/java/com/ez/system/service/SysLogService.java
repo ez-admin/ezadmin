@@ -1,7 +1,7 @@
 package com.ez.system.service;
 
 import com.ez.system.entity.SysLog;
-import com.ez.util.PageView;
+import com.github.pagehelper.Page;
 
 import java.util.List;
 
@@ -14,21 +14,20 @@ import java.util.List;
 
 public interface SysLogService{
 
-	public PageView query(PageView pageView, SysLog sysLog);
+	List<SysLog> query(Page<SysLog> page, SysLog sysLog);
+
+	List<SysLog> queryAll(SysLog sysLog);
+
+	void add(SysLog sysLog);
 	
-	public List<SysLog> queryAll(SysLog sysLog);
+	void addAll(SysLog sysLog);
 	
-	public void add(SysLog sysLog);
+	void delete(String id);
 	
-	public void addAll(SysLog sysLog);
+	void modify(SysLog sysLog);
 	
-	public void delete(String id);
+	SysLog getById(String id);
 	
-	public void modify(SysLog sysLog);
-	
-	public SysLog getById(String id);
-	
-	public List<SysLog> findAll();
-	
-	
+	List<SysLog> findAll();
+
 }

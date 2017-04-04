@@ -4,19 +4,32 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans  
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:ehcache="http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
 http://www.springframework.org/schema/tx
 http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
 http://www.springframework.org/schema/context  
-http://www.springframework.org/schema/context/spring-context-4.2.xsd ">
-
+http://www.springframework.org/schema/context/spring-context-4.2.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop.xsd
+http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring
+http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.1.xsd">
     <!--上面的xsd最好和当前使用的Spring版本号一致,如果换了Spring版本,这个最好也跟着改-->
 
     <!-- 资料：http://www.cnblogs.com/-bumblebee-/archive/2012/03/23/2413366.html-->
-    <!--基于Spirng注解的自动装配-->
-    <context:annotation-config />
+    <!--基于Spirng注解的自动装配（网上说配置context:component-scan就不需配置context:annotation-config）-->
+    <!--<context:annotation-config />-->
 
+
+
+
+    <!--springBean工具类（暂无使用）-->
+    <!--<bean class="com.ez.util.SpringBeanUtil"></bean>-->
+
+    <!-- 启动对@AspectJ注解的支持 -->
+    <aop:aspectj-autoproxy />
 
     <!-- 引入属性文件 放在最开头,在使用spring之前就引入,里面的变量才能被引用-->
     <context:property-placeholder location="classpath*:properties/*.properties"/>
@@ -27,48 +40,33 @@ http://www.springframework.org/schema/context/spring-context-4.2.xsd ">
     </bean>
     -->
 
-    <!-- 自动扫描(需要自动注入的类，对于那些类上有注解：@Repository、@Service、@Controller、@Component都进行注入) -->
-    <!--因为 Spring MVC 是 Spring 的子容器，所以我们在 Spring MVC 的配置中再指定扫描 Controller 的注解，这里是父容器的配置地方-->
-    <!--注解注入的相关材料可以看：-->
-    <!--http://blog.csdn.net/u012763117/article/details/17253849-->
-    <!--http://casheen.iteye.com/blog/295348-->
-    <!--http://blog.csdn.net/zhang854429783/article/details/6785574-->
-    <context:component-scan base-package="com.ez.**"/>
-
     <!-- 使用阿里的druid配置数据源 start-->
     <!--具体查看官网信息：https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_DruidDataSource%E5%8F%82%E8%80%83%E9%85%8D%E7%BD%AE-->
-    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close" >
         <!--这三个变量读取config.properties的-->
         <property name="url" value="${data_source_url}"/>
         <property name="username" value="${data_source_username}"/>
         <property name="password" value="${data_source_password}"/>
-
         <!-- 初始化连接大小 -->
         <property name="initialSize" value="1"/>
         <!-- 初始化连接池最大使用连接数量 -->
         <property name="maxActive" value="20"/>
         <!-- 初始化连接池最小空闲 -->
         <property name="minIdle" value="1"/>
-
         <!-- 获取连接最大等待时间，单位毫秒-->
         <property name="maxWait" value="60000"/>
-
         <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
         <property name="timeBetweenEvictionRunsMillis" value="60000"/>
         <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
         <property name="minEvictableIdleTimeMillis" value="25200000"/>
-
         <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
         <!--如果用Oracle，则把poolPreparedStatements配置为true，mysql可以配置为false。分库分表较多的数据库，建议配置为false。-->
         <property name="poolPreparedStatements" value="false" />
         <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
-
         <property name="validationQuery" value="${validation_query}"/>
         <property name="testWhileIdle" value="true"/>
         <property name="testOnBorrow" value="false"/>
         <property name="testOnReturn" value="false"/>
-
-
         <!--当程序存在缺陷时，申请的连接忘记关闭，这时候，就存在连接泄漏了。Druid提供了RemoveAbandanded相关配置，用来关闭长时间不使用的连接-->
         <!--配置removeAbandoned对性能会有一些影响，建议怀疑存在泄漏之后再打开。在上面的配置中，如果连接超过30分钟未关闭，就会被强行回收，并且日志记录连接申请时的调用堆栈。-->
         <!--具体查看官网信息：https://github.com/alibaba/druid/wiki/%E8%BF%9E%E6%8E%A5%E6%B3%84%E6%BC%8F%E7%9B%91%E6%B5%8B-->
@@ -78,7 +76,6 @@ http://www.springframework.org/schema/context/spring-context-4.2.xsd ">
         <property name="removeAbandonedTimeout" value="1800"/>
         <!-- 关闭abanded连接时输出错误日志 -->
         <property name="logAbandoned" value="true"/>
-
         <!-- 配置监控统计拦截的filters-->
         <!--官网信息：https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_StatFilter-->
         <!--mergeSql可以合并输出的sql，方便查看，但是在mybatis框架中使用这个则无法监控sql,需要用stat-->
@@ -90,6 +87,18 @@ http://www.springframework.org/schema/context/spring-context-4.2.xsd ">
     </bean>
     <!-- 使用阿里的druid配置数据源 end-->
 
+
+
+    <!-- 自动扫描(需要自动注入的类，对于那些类上有注解：@Repository、@Service、@Controller、@Component都进行注入) -->
+    <!--因为 Spring MVC 是 Spring 的子容器，所以我们在 Spring MVC 的配置中再指定扫描 Controller 的注解，这里是父容器的配置地方-->
+    <!--注解注入的相关材料可以看：-->
+    <!--http://blog.csdn.net/u012763117/article/details/17253849-->
+    <!--http://casheen.iteye.com/blog/295348-->
+    <!--http://blog.csdn.net/zhang854429783/article/details/6785574-->
+    <context:component-scan base-package="com.ez.**.service,com.ez.annotation,com.ez.interceptor"/>
+    <!--<context:component-scan base-package="com.ez.**.service,com.ez.annotation,com.ez.interceptor,com.ez.thread"/>添加扫描线程包-->
+
+
     <!-- 声明事务管理器，基于数据库的事务管理 -->
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
@@ -99,13 +108,18 @@ http://www.springframework.org/schema/context/spring-context-4.2.xsd ">
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
     <!-- 启用注解方式1：开启注解事务 end-->
 
+
+
     <!-- mybatis分页 -->
-    <bean id="pagePlugin" class="com.ez.plugin.plugin.PagePlugin">
+    <bean id="pagePlugin" class="com.github.pagehelper.PageHelper">
+        <!-- 这里的几个配置主要演示如何使用，如果不理解，一定要去掉下面的配置 -->
         <property name="properties">
-            <props>
-                <prop key="dialect">com.ez.plugin.dialect.H2Dialect</prop>
-                <prop key="pageSqlId">.*query.*</prop>
-            </props>
+            <value>
+                reasonable=true<!-- 3.3.0版本可用 - 分页参数合理化，默认false禁用  启用合理化时，如果pageNum<1会查询第一页，如果pageNum>pages会查询最后一页-->
+                supportMethodsArguments=true<!-- 支持通过Mapper接口参数来传递分页参数 -->
+                params=count=countSql
+                autoRuntimeDialect=true<!-- 运行时自动获取dialect -->
+            </value>
         </property>
     </bean>
 
@@ -124,10 +138,41 @@ http://www.springframework.org/schema/context/spring-context-4.2.xsd ">
     <!-- 映射接口直接转换为spring容器的bean -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.*.*.dao"/>
 
+
     <!-- ================ Shiro start ================ -->
+    <!-- 缓存管理器 使用Ehcache实现 -->
+    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:ehcache/ehcache.xml"/>
+    </bean>
+
+    <!-- session管理器 -->
+    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg name="name" value="SHRIOSESSIONID"/>
+    </bean>
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <property name="globalSessionTimeout" value="1800000"/>
+        <property name="deleteInvalidSessions" value="true"/>
+        <property name="sessionValidationSchedulerEnabled" value="true"/>
+        <property name="sessionValidationInterval" value="1800000"/>
+        <property name="sessionIdCookie" ref="sessionIdCookie"/>
+        <property name="sessionDAO" ref="sessionDAO"/>
+    </bean>
+    <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
+        <property name="activeSessionsCacheName" value="shiro-activeSessionCache" />
+        <property name="cacheManager" ref="cacheManager" />
+    </bean>
+    <!-- 定义Shiro安全管理配置 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="ShiroRealm" />
+        <property name="cacheManager" ref="cacheManager"></property>
+       <property name="sessionManager" ref="sessionManager" />
+        <!--<property name="rememberMeManager" ref="rememberMeManager"/>-->
     </bean>
+
+    <!-- CAS认证过滤器 -->
+  <!--  <bean id="casFilter" class="org.apache.shiro.cas.CasFilter">
+        <property name="failureUrl" value="/ez/syslogin/login_toLogin.do"/>
+    </bean>-->
 
     <!-- 項目自定义的Realm -->
     <bean id="ShiroRealm" class="com.ez.interceptor.shiro.ShiroRealm" ></bean>
@@ -145,11 +190,31 @@ http://www.springframework.org/schema/context/spring-context-4.2.xsd ">
         <!-- shiro连接约束配置 -->
         <property name="filterChainDefinitions">
             <value>
-                /static/js/myjs/** 		        	= authc
+                /static/js/** 		        	    = authc
                 /ez/syslogin/login_toLogin.do   	= anon
                 /*.do       					    = authc
             </value>
         </property>
     </bean>
+
+    <!--remember me功能-->
+    <!-- 会话Cookie模板 -->
+    <!--<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="sid"/>
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="-1"/>
+    </bean>
+    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="rememberMe"/>
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="2592000"/>&lt;!&ndash; 30天 &ndash;&gt; &lt;!&ndash;参数-1，表示关闭就失效&ndash;&gt;
+    </bean>
+    &lt;!&ndash; rememberMe管理器 &ndash;&gt;
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>
+        <property name="cookie" ref="rememberMeCookie"/>
+    </bean>-->
+
     <!-- ================ Shiro end ================ -->
+
 </beans>

@@ -34,7 +34,7 @@ public class SysLog extends BaseEntity implements java.io.Serializable{
 	public static final String ALIAS_PARAMS = "参数";
 	public static final String ALIAS_CMPNO = "公司ID";
 	public static final String ALIAS_USERNO = "使用者";
-	public static final String ALIAS_CREATE_DATE = "createDate";
+	public static final String ALIAS_CREATE_DATE = "创建日期";
 	public static final String ALIAS_REQUEST_IP = "请求ip";
 	
 	//date formats
@@ -68,32 +68,22 @@ public class SysLog extends BaseEntity implements java.io.Serializable{
 	private String cmpno;
 	/**使用者编号==>db_column: userno*/
 	private String userno;
-	/**createDate==>db_column: createDate*/
+	/**创建日期==>db_column: createDate*/
 	private String createDate;
 	/**请求ip==>db_column: requestIp*/
 	private String requestIp;
 	//columns END
-	
-	//系统框架字段 start
-	
-	private String sort;
-	private String direction;
-	public String getSort() {
-		return sort;
+	//表外字段
+	/**使用者姓名==>db_column: usernm*/
+	private String usernm;
+
+	public String getUsernm() {
+		return usernm;
 	}
-	
-	public void setSort(String sort) {
-		this.sort = sort;
+
+	public void setUsernm(String usernm) {
+		this.usernm = usernm;
 	}
-	
-	public String getDirection() {
-		return direction;
-	}
-	
-	public void setDirection(String direction) {
-		this.direction = direction;
-	}
-	//系统框架字段 end
 
 	public void setId(Integer value) {
 		this.id = value;

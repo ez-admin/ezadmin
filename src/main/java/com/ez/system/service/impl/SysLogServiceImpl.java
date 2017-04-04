@@ -1,17 +1,13 @@
-/*
- * Powered By [chenen_genetrator]
- * version 1.0
- * Since 2016 - 2016
- */
 
 package com.ez.system.service.impl;
 
 import com.ez.system.dao.SysLogDao;
 import com.ez.system.entity.SysLog;
 import com.ez.system.service.SysLogService;
-import com.ez.util.PageView;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -31,27 +27,27 @@ public class SysLogServiceImpl implements SysLogService {
 	
 	/**
 	 * 分页查询
-	 * @param pageView
+	 * @param page
 	 * @param sysLog
 	 * @return
 	 */
 	//@PreAuthorize("hasRole('ROLE_*')")
 	@Transactional(readOnly=true)
-	public PageView query(PageView pageView, SysLog sysLog) {
-		List<SysLog> list = sysLogDao.query(pageView, sysLog);
-		pageView.setRecords(list);
-		return pageView;
+	public List<SysLog> query(Page<SysLog> page, SysLog sysLog) {
+		PageHelper.startPage(page.getPageNum(),page.getPageSize(),page.getOrderBy());
+		List<SysLog> list = sysLogDao.query(sysLog);
+		return list;
 	}
 	
 	/**
 	 * 不分页查询
-	 * @param SysLog sysLog
+	 * @param sysLog
 	 * @return List<SysLog>
 	 */
 	//@PreAuthorize("hasRole('ROLE_*')")
 	@Transactional(readOnly=true)
 	public List<SysLog> queryAll(SysLog sysLog) {
-		List<SysLog> list = sysLogDao.queryAll(sysLog);
+		List<SysLog> list = sysLogDao.query(sysLog);
 		return list;
 	}
 	
@@ -61,6 +57,7 @@ public class SysLogServiceImpl implements SysLogService {
 	 * @return
 	 */
 	//@PreAuthorize("hasRole('ROLE_*')")
+	@Transactional(propagation= Propagation.NOT_SUPPORTED)
 	public void add(SysLog sysLog) {
 		sysLogDao.add(sysLog);
 	}

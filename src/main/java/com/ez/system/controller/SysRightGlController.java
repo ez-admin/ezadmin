@@ -3,9 +3,9 @@ package com.ez.system.controller;
 
 import com.ez.system.entity.SysRightGl;
 import com.ez.system.service.SysRightGlService;
-import com.ez.util.Common;
-import com.ez.util.PageView;
 import com.ez.util.WebTool;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -95,14 +95,30 @@ public class SysRightGlController {
 	public String query(Model model,SysRightGl sysrightgl,String pageNow, String pageSize){
 		return "ez/system/sysrightgl/list_list";
 	}
-	
+
 	/**
 	 * post方式分页查询
-	 * @param model
+	 * @param offset
+	 * @param limit
 	 * @param sysrightgl
 	 * @return map
 	 */
 	@RequestMapping(value="showlist",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> showlist(int offset, int limit,SysRightGl sysrightgl, HttpServletRequest request){
+		//设置分页参数
+		Page<SysRightGl> page = new Page<SysRightGl>(offset, limit);
+		//page.setOrderBy(sort + " " + direction);
+
+		List<SysRightGl> list = sysRightGlService.query(page, sysrightgl);
+		PageInfo<SysRightGl> pageInfo = new PageInfo<SysRightGl>(list);
+
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("rows", list);
+		map.put("total", pageInfo.getTotal());
+		return map;
+	}
+	/*@RequestMapping(value="showlist",method=RequestMethod.POST)
     @ResponseBody
 	public Map<String, Object> showlist(Model model,SysRightGl sysrightgl,HttpServletRequest request){
 		PageView pageView = null;
@@ -120,7 +136,7 @@ public class SysRightGlController {
 		map.put("pager.pageNo", pageView.getPageNow());
 		map.put("pager.totalRows", pageView.getRowCount());
 		return map;
-	}
+	}*/
 	
 	/**
 	 * 根据id删除

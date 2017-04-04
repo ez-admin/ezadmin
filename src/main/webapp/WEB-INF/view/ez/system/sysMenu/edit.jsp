@@ -1,254 +1,120 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-		 pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="digits" uri="http://www.springframework.org/tags/form" %>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
-%>
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-	<base href="<%=basePath%>">
-	<!-- jsp文件头和头部 -->
-	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
-	<style type="text/css">
-        body{
-            background-color: #ffffff;
-        }
-        .main-container{
-            padding: 20px;
-        }
-	</style>
-  </head>
-  
-  <body>
-  <div class="main-container ace-save-state">
-	  <div class="row">
-		  <div class="col-xs-12">
-			  <form class="form-horizontal" role="form" id="inputForm" action="<%=path%>/ez/system/sysmenu/update.do" method="post">
-                  <input type="hidden" name="menuId" value="${sysmenu.menuId}">
-                  <div class="form-group ">
-                      <label class="col-xs-12 col-sm-4 control-label no-padding-right" for="menuName"> <span class="star">*</span>菜单名称 ：</label>
-                      <div class="col-xs-12 col-sm-8">
-                          <div class="clearfix">
-                              <input type="text" name="menuName" id="menuName" value="${sysmenu.menuName}" placeholder="菜单名称" class="col-xs-12 col-sm-6 required"/>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="space-2"></div>
-
-                  <div class="form-group">
-                      <label class="col-xs-12 col-sm-4 control-label no-padding-right" for="menuUrl"> <span class="star">*</span>菜单URL地址：</label>
-                      <div class="col-xs-12 col-sm-8">
-                          <div class="clearfix">
-                              <input type="text" name="menuUrl" id="menuUrl" value="${sysmenu.menuUrl}" placeholder="菜单URL地址" class="col-xs-12 col-sm-6 required" />
-                          </div>
-                      </div>
-                  </div>
-                  <div class="space-2"></div>
-
-                  <div class="form-group">
-                      <label class="col-xs-12 col-sm-4 control-label no-padding-right" for="parentId"> <span class="star">*</span>父级菜单ID：</label>
-                      <div class="col-xs-12 col-sm-8">
-                          <div class="input-group">
-                              <input type="text" name="parentId" id="parentId" value="${sysmenu.parentId}" />
-                          </div>
-                      </div>
-                  </div>
-                  <div class="space-2"></div>
-
-                  <div class="form-group">
-                      <label class="col-xs-12 col-sm-4 control-label no-padding-right" for="menuOrder"> <span class="star">*</span>菜单顺序： </label>
-                      <div class="col-xs-12 col-sm-8">
-                          <div class="input-group">
-                              <input type="text" name="menuOrder" id="menuOrder" value="${sysmenu.menuOrder}" />
-                          </div>
-                      </div>
-                  </div>
-                  <div class="space-2"></div>
-
-                  <div class="form-group">
-                      <label class="col-xs-12 col-sm-4 control-label no-padding-right" for="menuIcon"> 菜单图标：</label>
-                      <div class="col-xs-12 col-sm-8">
-                          <div class="clearfix">
-                              <input type="text" name="menuIcon" id="menuIcon" value="${sysmenu.menuIcon}" placeholder="菜单图标" class="col-xs-12 col-sm-6" />
-                              <span class="help-button" title="查看菜单图标" onclick="viewIcons()">?</span>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="space-2"></div>
-
-                  <div class="form-group">
-                      <label class="col-xs-12 col-sm-4 control-label no-padding-right" > <span class="star">*</span>菜单类型：</label>
-                      <div class="col-xs-12 col-sm-8">
-                          <div>
-                              <label class="line-height-1 blue">
-                                  <input type="radio" name="menuType" value="1" <c:if test="${sysmenu.menuType == '1' }">checked="checked"</c:if>  class="ace required"  >
-                                  <span class="lbl">系统菜单</span>
-                              </label>
-                          </div>
-                          <div>
-                              <label class="line-height-1 blue">
-                                  <input type="radio" name="menuType" value="2" <c:if test="${sysmenu.menuType == '2' }">checked="checked"</c:if>  class="ace">
-                                  <span class="lbl">业务菜单</span>
-                              </label>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="hr hr-dotted"></div>
-                  <div class="form-group">
-                      <label class="col-xs-12 col-sm-4"></label>
-                      <div class="col-xs-12 col-sm-8">
-                          <button class="btn btn-white btn-info btn-bold" type="submit">
-                              <i class="ace-icon fa fa-floppy-o bigger-120 blue"></i>
-                              保存
-                          </button>
-                          &nbsp;&nbsp;&nbsp;
-                          <button class="btn btn-white btn-warning btn-round" type="reset">
-                              <i class="ace-icon fa fa-reply "></i>
-                              重置
-                          </button>
-                      </div>
-                  </div>
-			  </form>
-		  </div>
-	  </div>
-  </div>
-  <!-- 表单异步提交 -->
-  <script src="/plugins/form/jquery.form.js"></script>
-  <!-- 数字点击加减 -->
-  <script src="/static/components/fuelux/js/spinbox.js"></script>
-  <!-- 表单验证 -->
-  <script src="/static/components/jquery-validation/dist/jquery.validate.min.js"></script>
-  <script src="/static/components/jquery-validation/dist/additional-methods.min.js"></script>
-  <script src="/static/components/jquery-validation/dist/messages_zh.js"></script>
-  <!-- ace scripts -->
-  <script src="/static/assets/js/src/elements.spinner.js"></script>
-  <script src="/static/assets/js/src/ace.js"></script>
-
-  <script type="text/javascript">
-      function viewIcons() {
-          top.layer.open({
-              type: 2,//iframe层
-              title: '查看菜单图标',
-              maxmin: true,
-              shadeClose: true, //点击遮罩关闭层
-              area : ['50%' , '80%'],
-              //btn: ['保存', '取消'],
-              content: '/ez/system/sysmenu/viewIcons.do'
-          });
-      }
-      jQuery(function($) {
-          /*数字点击加减*/
-          $('#parentId').ace_spinner({
-              min: 0,
-              //max: 100,
-              step: 1,
-              icon_up: 'fa fa-plus',
-              icon_down: 'fa fa-minus',
-              btn_up_class:'btn-info' ,
-              btn_down_class:'btn-info'
-          });
-          $('#menuOrder').ace_spinner({
-              min: 0,
-              //max: 100,
-              step: 1,
-              icon_up: 'fa fa-plus',
-              icon_down: 'fa fa-minus',
-              btn_up_class:'btn-info' ,
-              btn_down_class:'btn-info'
-          });
-          /*表单验证*/
-          $('#inputForm').validate({
-              //debug: true, //调试模式取消submit的默认提交功能
-              errorElement: 'div',
-              errorClass: 'help-block',
-              focusInvalid: false,
-              ignore: "",
-              /*rules: {
-               menuName: {
-               required: true
-               },
-               menuUrl: {
-               required: true
-               },
-               parentId: {
-               required: true
-               },
-               menuOrder: {
-               required: true
-               },
-               menuType: {
-               required: true
-               }
-               password: {
-               required: true,
-               minlength: 5
-               },
-               password2: {
-               required: true,
-               minlength: 5,
-               equalTo: "#password"
-               },*/
-
-              /*phone: {
-               required: true,
-               phone: 'required'
-               },
-               url: {
-               required: true,
-               url: true
-               },
-               },*/
-              highlight: function (e) {
-                  $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
-              },
-
-              success: function (e) {
-                  $(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
-                  $(e).remove();
-              },
-              errorPlacement: function (error, element) {
-                  if(element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
-                      var controls = element.closest('div[class*="col-"]');
-                      if(controls.find(':checkbox,:radio').length > 1) controls.append(error);
-                      else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
-                  }
-                  else if(element.is('.select2')) {
-                      error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
-                  }
-                  else if(element.is('.chosen-select')) {
-                      error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'));
-                  }
-                  else error.insertAfter(element.parent());
-              },
-              submitHandler:function(form){
-                  $(form).ajaxSubmit({
-                      //表单提交成功后的回调
-                      success: function(result){
-                          if("suc"==(result.msg)){
-                              closeWin();
-                              top.layer.msg("修改成功!",{icon:1});
-                          }else{
-                              location.reload();
-                              top.layer.msg("修改失败!"+result.message,{icon:2});
-                          }
-                      }
-                  });
-                  //阻止表单默认提交事件
-                  return false;
-              }
-          });
-      });
-
-	function closeWin(){
-		//关闭窗口
-		top.layer.closeAll();
-	}
-</script> 
-  </body>
+         pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/view/ez/index/tablibs.jsp"%>
+<%@ include file="/WEB-INF/view/ez/index/selpath.jsp"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <title>菜单新增</title>
+    <%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
+</head>
+<body>
+<div class="layui-field-box">
+    <form id="formid" class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">菜单名称:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="menuName" value="${sysMenu.menuName}" lay-verify="required" placeholder="请输入菜单名称" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">菜单地址:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="menuUrl" value="${sysMenu.menuUrl}" lay-verify="required" placeholder="请输入菜单URL地址" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <i class="fa fa-star red"></i>
+                <a title="如果有下级菜单请输入#"><span>#</span></a>
+            </div>
+        </div>
+        <input type="hidden" name="menuId"  value="${sysMenu.menuId}" >
+        <input type="hidden" name="parentId"  value="${sysMenu.parentId}" >
+        <div class="layui-form-item">
+            <label class="layui-form-label">菜单顺序:</label>
+            <div class="layui-input-inline">
+                <input type="number" name="menuOrder" value="${sysMenu.menuOrder}"  lay-verify="required"  autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">菜单图标:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="menuIcon" value="${sysMenu.menuIcon}" lay-verify="required" placeholder="请输入菜单图标" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <i class="fa fa-star red"></i>
+                <a href="http://fontawesome.io/icons/" title="查看所有图标" target="_blank">
+                    <i class="fa fa-external-link"></i>
+                </a>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">菜单类型</label>
+            <div class="layui-input-inline">
+                <c:if test="${sysMenu.menuType=='0'}">
+                    <input type="radio" name="menuType" value="0" title="开发者菜单" checked>
+                    <input type="radio" name="menuType" value="1" title="系统菜单" >
+                    <input type="radio" name="menuType" value="2" title="业务菜单">
+                    <input type="radio" name="menuType" value="3" title="前台菜单" >
+                </c:if>
+                <c:if test="${sysMenu.menuType=='1'}">
+                    <input type="radio" name="menuType" value="0" title="开发者菜单" >
+                    <input type="radio" name="menuType" value="1" title="系统菜单" checked>
+                    <input type="radio" name="menuType" value="2" title="业务菜单">
+                    <input type="radio" name="menuType" value="3" title="前台菜单" >
+                </c:if>
+                <c:if test="${sysMenu.menuType=='2'}">
+                    <input type="radio" name="menuType" value="0" title="开发者菜单" >
+                    <input type="radio" name="menuType" value="1" title="系统菜单" >
+                    <input type="radio" name="menuType" value="2" title="业务菜单" checked>
+                    <input type="radio" name="menuType" value="3" title="前台菜单" >
+                </c:if>
+                <c:if test="${sysMenu.menuType=='3'}">
+                    <input type="radio" name="menuType" value="0" title="开发者菜单" >
+                    <input type="radio" name="menuType" value="1" title="系统菜单" >
+                    <input type="radio" name="menuType" value="2" title="业务菜单" >
+                    <input type="radio" name="menuType" value="3" title="前台菜单"  checked>
+                </c:if>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="edit">编辑</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/static/plugins/layui/layui.js" charset="utf-8"></script>
+<script>
+    //Demo
+    layui.use(['layer', 'form','jquery'], function(){
+        var layer = layui.layer
+                ,form = layui.form()
+                ,$ = layui.jquery;
+        //监听提交
+        form.on('submit(edit)', function(data){
+            //layer.msg(JSON.stringify(data.field));
+            $.ajax({
+                url: "/ez/system/sysmenu/update.do",
+                type: "POST",
+                data:$('#formid').serialize(),// 你的formid
+                success: function (result) {
+                    if("suc"==(result.msg)){
+                        //关闭窗口
+                        top.layer.closeAll();
+                        top.layer.msg('保存成功!',{icon: 1});
+                    }else{
+                        top.layer.msg('保存失败——'+result.message,{icon: 2,time: 5000},function () {
+                            location.reload();
+                        });
+                    }
+                }
+            });
+            return false;
+        });
+    });
+</script>
+</body>
 </html>

@@ -12,7 +12,7 @@
     <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
     <!--Windows 可以使用类似：D:/log-->
     <!--Linux 可以使用类似：/opt/tomcat/logs-->
-    <property name="LOG_HOME" value="D:/" />
+    <property name="LOG_HOME" value="D:/ezadmin/testlog" />
 
     <!--======================================================-->
 
@@ -46,7 +46,7 @@
 
     <!--级别：ALL > TRACE > DEBUG > INFO > WARN > ERROR-->
     <!--对特定目录或是类进行指定级别输出，而不使用root的级别-->
-    <logger name="com.youmeek" level="TRACE"/>
+    <logger name="com.ez" level="TRACE"/>
 
     <!--myibatis log configure-->
     <logger name="com.apache.ibatis" level="TRACE"/>

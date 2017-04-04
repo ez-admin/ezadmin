@@ -1,513 +1,384 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
-		 pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
-%>
+         pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/view/ez/index/tablibs.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<base href="<%=basePath%>">
-	<!-- jsp文件头和头部 -->
-	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
-	<style>
-		th, td { white-space: nowrap; }
-	</style>
+    <title>系统字典名称列表</title>
+    <base href="<%=basePath%>">
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="/static/plugins/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="/static/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap-table.css">
+    <style>
+        .clear{
+            clear: both;
+        }
+        .layui-input-quote{
+            display: block;
+            width: 150px;
+            padding-left: 10px;
+            height: 34px;
+            line-height: 34px;
+            border: 1px solid #e6e6e6;
+            background-color: #fff;
+            border-radius: 2px;
+        }
+        .layui-form-mid i,.layui-word-aux i{
+            line-height: inherit;
+        }
+    </style>
 </head>
+<body>
+<blockquote class="layui-elem-quote" style="padding: 8px 15px">
+    <form class="layui-form" id="formSearch">
+        <div class="layui-input-inline">
+            <input id="menuId" name="menuId"  placeholder="请输入菜单ID" type="text" class="layui-input-quote">
+        </div>
+        <div class="layui-input-inline">
+            <input id="menuName" name="menuName" placeholder="请输入菜单名称" type="text" class="layui-input-quote">
+        </div>
+        <button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
+        <c:if test="${QX.add == 1 }">
+        <div id="toolbar" class="btn-group pull-right">
+            <button id="btn_add" type="button" class="layui-btn layui-btn-small">
+                <i class="fa fa-plus"></i>新增一级菜单
+            </button>
+        </div>
+        </c:if>
+        <div class="clear"></div>
+    </form>
+</blockquote>
+<table id="table"></table>
 
-<div class="main-container">
-	<div class="page-content">
-		<div class="row">
-			<div class="col-xs-12">
-				<!-- PAGE CONTENT BEGINS -->
-				<!-- div.dataTables_borderWrap -->
-				<table id="dynamic-table" class="table table-striped table-bordered table-hover" class="display" cellspacing="0" width="100%">
-					<thead>
-					<tr>
-						<%--<th class="center">
-							<label class="pos-rel">
-								<input type="checkbox" class="ace" />
-								<span class="lbl"></span>
-							</label>
-						</th>--%>
-						<th class="sorting_disabled center"></th>
-						<th class="center">菜单ID</th>
-						<th class="center">菜单名称</th>
-						<th class="center">菜单地址</th>
-						<th class="hidden-480 center">父级菜单ID</th>
-						<th class="center">
-							<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
-							菜单排序
-						</th>
-						<th class="hidden-480 center">菜单图标</th>
-						<th class="hidden-480 center">菜单类型</th>
-						<th class="sorting_disabled center">操作</th>
-					</tr>
-					</thead>
+<script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="/static/plugins/layui/lay/dest/layui.all.js"></script>
+<script src="/static/plugins/bootstrap-table/bootstrap.min.js"></script>
+<script src="/static/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="/static/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script>
+    $(function () {
 
-					<tbody>
-					<tr>
-						<th></th>
-						<th>menuId</th>
-						<th>menuName</th>
-						<th>menuUrl</th>
-						<th>parentId</th>
-						<th>menuOrder</th>
-						<th>menuIcon</th>
-						<th>menuType</th>
-						<th></th>
-					</tr>
-					</tbody>
-				</table>
-			<!-- PAGE CONTENT ENDS -->
-			</div><!-- /.col -->
-		</div><!-- /.row -->
-	</div>
-	<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-		<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
-	</a>
-</div>
-
-<!-- page specific plugin scripts -->
-<!--[if lte IE 8]>
-<script src="/static/components/ExplorerCanvas/excanvas.js"></script>
-<![endif]-->
-
-<script src="/static/assets/js/src/ace.js"></script>
-<script src="/static/assets/js/src/ace.scrolltop.js"></script>
-<%--<script src="/static/assets/js/src/elements.scroller.js"></script>--%>
-<script src="/static/components/bootstrap/dist/js/bootstrap.js"></script>
-<!-- page specific plugin scripts -->
-<script src="/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
-<script src="/plugins/datatables/button/dataTables.buttons.min.js"></script>
-<script src="/plugins/datatables/button/buttons.flash.min.js"></script>
-<script src="/plugins/datatables/button/jszip.min.js"></script>
-<script src="/plugins/datatables/button/pdfmake.min.js"></script>
-<script src="/plugins/datatables/button/vfs_fonts.js"></script>
-<script src="/plugins/datatables/button/buttons.html5.min.js"></script>
-<script src="/plugins/datatables/button/buttons.print.min.js"></script>
-<script src="/plugins/datatables/button/buttons.colVis.min.js"></script>
-
-
-<!-- inline scripts related to this page -->
-<script type="text/javascript">
-	jQuery(function($) {
-		//initiate dataTables plugin
-		var myTable = $('#dynamic-table').DataTable( {
-			dom: '<"top"<"col-xs-6"<"tableTools-container"B>><"col-xs-6"f>>rt<"bottom"lip><"clear">',
-			buttons: [
-				{
-					extend: "colvis",
-					text: "<i class='fa fa-search bigger-110 blue'></i> <span class='hidden'>显示/隐藏列</span>",
-					className: "btn btn-white btn-primary btn-bold",
-					columns: ':not(:first):not(:last)'
-				},
-				{
-					extend: "copy",
-					text: "<i class='fa fa-copy bigger-110 pink'></i> <span class='hidden'>复制到剪贴板</span>",
-					className: "btn btn-white btn-primary btn-bold",
-                    exportOptions: {
-                        columns: ':not(:first):not(:last)'
-                    }
-				},
-				{
-					extend: "csv",
-					text: "<i class='fa fa-database bigger-110 orange'></i> <span class='hidden'>导出CSV格式</span>",
-					className: "btn btn-white btn-primary btn-bold",
-                    title:"系统菜单",
-                    exportOptions: {
-                        columns: ':not(:first):not(:last)'
-                    }
-				},
-				{
-					extend: "excel",
-					text: "<i class='fa fa-file-excel-o bigger-110 green'></i> <span class='hidden'>导出Excel格式</span>",
-					className: "btn btn-white btn-primary btn-bold",
-                    title:"系统菜单",
-                    exportOptions: {
-                        columns: ':not(:first):not(:last)'
-                    }
-				},
-				{
-					extend: "pdf",
-					text: "<i class='fa fa-file-pdf-o bigger-110 red'></i> <span class='hidden'>导出PDF格式</span>",
-					className: "btn btn-white btn-primary btn-bold",
-                    title:"系统菜单",
-                    exportOptions: {
-                        columns: ':not(:first):not(:last)'
-                    }
-				},
-				{
-					extend: "print",
-					text: "<i class='fa fa-print bigger-110 grey'></i> <span class='hidden'>打印预览</span>",
-					className: "btn btn-white btn-primary btn-bold",
-                    title:"系统菜单",
-					autoPrint: false,
-					message: '本次打印采用DataTables制作',
-					exportOptions: {
-                        modifier: {
-                            // DataTables core
-                            page:   'current'      // 'all',     'current'
-                        },
-                        columns: ':not(:first):not(:last)'
-					}
-				},
-                {
-                    extend: "",
-                    text: "<i class='fa fa-refresh  bigger-110 purple'></i> <span class='hidden'>刷新</span>",
-                    className: "btn btn-white btn-primary btn-bold",
-                    action: function () {
-						refresh();
-                        //location.reload();
-                    }
-
-                },
-				{
-					extend: "",
-					text: "<i class='fa fa-plus-circle  bigger-110 purple'></i> <span class='hidden'>新增</span>",
-					className: "btn btn-white btn-primary btn-bold",
-					action: function () {
-						//alert($("#main-tab",parent.document).height());
-						addmenu();
-					}
-
-				},
-			],
-			ScrollX: true,
-
-            /*ScrollY: 387,
-			DisplayLength: 50,*/
-			processing: true,
-			serverSide: true,
-			ajax: {
-				url: '/ez/system/sysmenu/showlist.do',
-				type: 'POST'
-			},
-			ordering: true,
-			columns: [
-				{ data: null , class:'center'},
-				{ data: 'menuId',name:'MENU_ID',class:'center'},
-				{ data: 'menuName' ,name:'MENU_NAME',class:'center'},
-				{ data: 'menuUrl',name:'MENU_URL'},
-				{ data: 'parentId' ,name:'PARENT_ID',class:'center'},
-				{ data: 'menuOrder',name:'MENU_ORDER',class:'center'},
-				{ data: 'menuIcon',name:'MENU_ICON',class:'center'},
-				{ data: 'menuType',name:'MENU_TYPE',class:'center'},
-				{ data: null ,class:'center'}
-			],
-            //序号
-            fnDrawCallback: function(){
-                var api = this.api();
-                var startIndex= api.context[0]._iDisplayStart;//获取到本页开始的条数
-                api.column(0).nodes().each(function(cell, i) {
-                    cell.innerHTML = startIndex + i + 1;
-                });
+        //初始化表格
+        $('#table').bootstrapTable({
+            url: 'ez/system/sysmenu/getParentMenu.do',
+            method: 'post',                      //请求方式（*）
+            //toolbar: '#toolbar',                //工具按钮用哪个容器
+            striped: true,                      //是否显示行间隔色
+            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            pagination: true,                   //是否显示分页（*）
+            sortable: true,                     //是否启用排序
+            sortOrder: "asc",                   //排序方式
+            sortName: "MENU_ID",
+            queryParams: queryParams=function(params) {
+                return {
+                    limit: params.limit,   //页面大小
+                    offset: params.offset,  //页码
+                    order: params.order,
+                    ordername: params.sort,
+                    menuId: $("#menuId").val(),
+                    menuName: $("#menuName").val()
+                };
             },
-            /*lengthMenu: [[10, 20, 50, -1], [10, 20, 50, "所有"]],*/
-			/*select: {
-				style: 'multi'
-			},*/
-			columnDefs: [
-                {
-                    //设置第一行不显示
-                    // "visible": false,
-                    //"targets": 0
-                },
-                {targets:6,
-                    render:function (data,type,row,meta) {
-                        return '<i class="ace-icon fa '+ row.menuIcon+' "></i>'
-                    }
-                },
-                {
-                    //指定是第9列
-                    targets: 8,
-                    //data: "menuId",
-                    render: function(data, type, row, meta) {
-                        //渲染 把数据源中的标题和url组成超链接
-                        //return '<a href="' + data + '" target="_blank">' + row.title + '</a>';
-                        return '<div class="hidden-sm hidden-xs action-buttons"> ' +
-                                    '<a class="blue"  href="javascript:void(0)"  onclick="viewmenu('+row.menuId+');return false;"  >' +
-                                        '<i class="ace-icon fa fa-search-plus bigger-130"></i> ' +
-                                        '查看'+
-                                    '</a>' +
-                                    '<a class="green" href="javascript:void(0)" onclick="editmenu('+row.menuId+');return false;">' +
-                                        '<i class="ace-icon fa fa-pencil bigger-130"></i> ' +
-                                        '修改'+
-                                    '</a>' +
-                                        '<a class="red" href="javascript:void(0)" onclick="deleteone('+row.menuId+');return false;">' +
-                                    '<i class="ace-icon fa fa-trash-o bigger-130"></i>' +
-                                        '删除'+
-                                    '</a>' +
-                                '</div>' +
-                                '<div class="hidden-md hidden-lg"> ' +
-                                    '<div class="inline pos-rel"> ' +
-                                        '<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"> ' +
-                                            '<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>' +
-                                        '</button>' +
-                                        '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close"> ' +
-                                            '<li>' +
-                                                '<a href="javascript:void(0)" onclick="viewmenu('+row.menuId+');return false;"  class="tooltip-info pointer" data-rel="tooltip" title="查看"> ' +
-                                                    '<span class="blue"> ' +
-                                                        '<i class="ace-icon fa fa-search-plus bigger-120"></i> ' +
-                                                        '查看'+
-                                                    '</span>' +
-                                                '</a>' +
-                                            '</li>' +
-                                            '<li>' +
-                                                '<a href="javascript:void(0)" onclick="editmenu('+row.menuId+');return false;" class="tooltip-success pointer" data-rel="tooltip" title="修改">' +
-                                                    '<span class="green">' +
-                                                        '<i class="ace-icon fa fa-pencil-square-o bigger-120"></i> ' +
-                                                        '修改'+
-                                                    '</span>' +
-                                                '</a>' +
-                                            '</li>' +
-                                            '<li>' +
-                                                '<a href="javascript:void(0)" onclick="deleteone('+row.menuId+');return false;" class="tooltip-error pointer" data-rel="tooltip" title="删除"> ' +
-                                                    '<span class="red">' +
-                                                        '<i class="ace-icon fa fa-trash-o bigger-120"></i>' +
-                                                        '删除'+
-                                                    '</span>' +
-                                                '</a>' +
-                                            '</li>' +
-                                        '</ul>' +
-                                    '</div>' +
-                                '</div>';
-                    }
-			    }
-            ],
-
-
-
-			//国际化配置
-			language: {
-				"sProcessing": "处理中...",
-				"sLengthMenu": "显示 _MENU_ 项结果",
-				"sZeroRecords": "没有匹配结果",
-				"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-				"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-				"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-				"sInfoPostFix": "",
-				"sSearch": "搜索:",
-				"sUrl": "",
-				"sEmptyTable": "表中数据为空",
-				"sLoadingRecords": "载入中...",
-				"sInfoThousands": ",",
-				"oPaginate": {
-					"sFirst": "首页",
-					"sPrevious": "上页",
-					"sNext": "下页",
-					"sLast": "末页"
-				},
-				"oAria": {
-					"sSortAscending": ": 以升序排列此列",
-					"sSortDescending": ": 以降序排列此列"
-				}
-			}
-		} );
-
-		/*$.fn.dataTable.Buttons.swfPath = "static/components/datatables.net-buttons-swf/copy_csv_xls_pdf.swf"; //in Ace demo static/components will be replaced by correct assets path
-		$.fn.dataTable.Buttons.defaults.dom.container.className = 'dt-buttons btn-overlap btn-group btn-overlap';
-
-		new $.fn.dataTable.Buttons( myTable, {
-			buttons: [
-				{
-					"extend": "colvis",
-					"text": "<i class='fa fa-search bigger-110 blue'></i> <span class='hidden'>显示/隐藏列</span>",
-					"className": "btn btn-white btn-primary btn-bold",
-					columns: ':not(:first):not(:last)'
-				},
-				{
-					"extend": "copy",
-					"text": "<i class='fa fa-copy bigger-110 pink'></i> <span class='hidden'>复制当前页到剪贴板</span>",
-					"className": "btn btn-white btn-primary btn-bold"
-				},
-				{
-					"extend": "csv",
-					"text": "<i class='fa fa-database bigger-110 orange'></i> <span class='hidden'>导出CSV格式</span>",
-					"className": "btn btn-white btn-primary btn-bold"
-				},
-				{
-					"extend": "excel",
-					"text": "<i class='fa fa-file-excel-o bigger-110 green'></i> <span class='hidden'>导出Excel格式</span>",
-					"className": "btn btn-white btn-primary btn-bold"
-				},
-				{
-					"extend": "pdf",
-					"text": "<i class='fa fa-file-pdf-o bigger-110 red'></i> <span class='hidden'>导出PDF格式</span>",
-					"className": "btn btn-white btn-primary btn-bold"
-				},
-				{
-					"extend": "print",
-					"text": "<i class='fa fa-print bigger-110 grey'></i> <span class='hidden'>打印</span>",
-					"className": "btn btn-white btn-primary btn-bold",
-					autoPrint: false,
-					message: '本次打印采用DataTables制作',
-					exportOptions: {
-						modifier: {
-							order:  'applied',
-							page: 'all'
-						}
-					}
-				},
-				{
-					"extend": "",
-					"text": "<i class='fa fa-plus-circle  bigger-110 purple'></i> <span class='hidden'>新增</span>",
-					"className": "btn btn-white btn-primary btn-bold",
-					"action": function ( e, dt, node, config ) {
-						//alert($("#main-tab",parent.document).height());
-						addmenu();
-					}
-
-				},
-			]
-		} );
-		myTable.buttons().container().appendTo( $('.tableTools-container') );*/
-
-		//refresh tables
-		function refresh() {
-			myTable.draw();
-		}
-		//style the message box
-		var defaultCopyAction = myTable.button(1).action();
-		myTable.button(1).action(function (e, dt, button, config) {
-			defaultCopyAction(e, dt, button, config);
-			$('.dt-button-info').addClass('gritter-item-wrapper gritter-info gritter-center white');
-		});
-
-		var defaultColvisAction = myTable.button(0).action();
-		myTable.button(0).action(function (e, dt, button, config) {
-			defaultColvisAction(e, dt, button, config);
-			if($('.dt-button-collection > .dropdown-menu').length == 0) {
-				$('.dt-button-collection')
-						.wrapInner('<ul class="dropdown-menu dropdown-light dropdown-caret dropdown-caret" />')
-						.find('a').attr('href', '#').wrap("<li />")
-			}
-			$('.dt-button-collection').appendTo('.tableTools-container .dt-buttons')
-		});
-		//button 按钮提示框
-		setTimeout(function() {
-			$($('.tableTools-container')).find('a.dt-button').each(function() {
-				var div = $(this).find(' > div').first();
-				if(div.length == 1) div.tooltip({container: 'body', title: div.parent().text(),placement:'bottom'});
-				else $(this).tooltip({container: 'body', title: $(this).text(),placement:'bottom'});
-			});
-		}, 500)
-
-
-		/*myTable.on( 'select', function ( e, dt, type, index ) {
-			if ( type === 'row' ) {
-				$( myTable.row( index ).node() ).find('input:checkbox').prop('checked', true);
-			}
-		} );
-		myTable.on( 'deselect', function ( e, dt, type, index ) {
-			if ( type === 'row' ) {
-				$( myTable.row( index ).node() ).find('input:checkbox').prop('checked', false);
-			}
-		} );
-
-		$(document).on('click', '#dynamic-table .dropdown-toggle', function(e) {
-			e.stopImmediatePropagation();
-			e.stopPropagation();
-			e.preventDefault();
-		});
-
-		/!********************************!/
-		//add tooltip for small view action buttons in dropdown menu
-		$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
-
-		//tooltip placement on right or left
-		function tooltip_placement(context, source) {
-			var $source = $(source);
-			var $parent = $source.closest('table')
-			var off1 = $parent.offset();
-			var w1 = $parent.width();
-
-			var off2 = $source.offset();
-			//var w2 = $source.width();
-
-			if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
-			return 'left';
-		}*/
-
-
-	});
-
-	//新增
-	function addmenu(){
-		top.layer.open({
-			type: 2,//iframe层
-			title: '新增菜单',
-			maxmin: true,
-			shadeClose: true, //点击遮罩关闭层
-			area : ['50%' , '80%'],
-			//btn: ['保存', '取消'],
-			content: '/ez/system/sysmenu/addUI.do',
-            end:function(){
-                location.reload();
+            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+            pageNumber:1,                       //初始化加载第一页，默认第一页
+            pageSize: 10,                       //每页的记录行数（*）
+            pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+            search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+            strictSearch: true,
+            showColumns: false,                  //是否显示所有的列
+            showRefresh: false,                  //是否显示刷新按钮
+            minimumCountColumns: 2,             //最少允许的列数
+            clickToSelect: false,                //是否启用点击选中行
+            height: getHeight(),                //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            uniqueId: "menuId",                     //每一行的唯一标识，一般为主键列
+            showToggle:false,                   //是否显示详细视图和列表视图的切换按钮
+            cardView: false,                    //是否显示详细视图
+            detailView: true,                  //是否显示父子表
+            columns: [{
+                field: 'menuName',
+                title: '菜单名称',
+                align: 'center'
+            }, {
+                field: 'menuIcon',
+                title: '菜单图标',
+                align: 'center',
+                formatter:  menuicon
+            }, {
+                field: 'menuUrl',
+                title: '菜单地址',
+                align: 'center'
+            }, {
+                field: 'menuId',
+                title: '菜单Id',
+                align: 'center'
+            }, {
+                field: 'parentId',
+                title: '父级菜单Id',
+                align: 'center'
+            }, {
+                field: 'menuOrder',
+                title: '菜单顺序',
+                align: 'center'
+            }, {
+                field: 'menuType',
+                title: '菜单类型',
+                align: 'center',
+                formatter: menuTypeFormatter
+            },{
+                filed: '',
+                title: '操作区',
+                align: 'center',
+                events: operateEvents,
+                formatter: operateFormatter
+            } ],
+            //注册加载子表的事件。注意下这里的三个参数！
+            onExpandRow: function (index, row, $detail) {
+                expandTable(index, row, $detail);
             }
-		});
-	}
-
-	function closeWin() {
-		location.reload();
-		top.layer.closeAll();
-	}
-	//查看
-	function viewmenu(menuId){
-		top.layer.open({
-			type: 2,//iframe层
-			title: '查看菜单',
-			maxmin: true,
-			shadeClose: true, //点击遮罩关闭层
-			area : ['50%' , '80%'],
-			//btn: ['保存', '取消'],
-			content: '/ez/system/sysmenu/getById.do?typeKey=2&sysmenuId='+menuId
-		});
-	}
-	//修改
-	function editmenu(menuId) {
-		top.layer.open({
-			type: 2,//iframe层
-			title: '查看菜单',
-			maxmin: true,
-			shadeClose: true, //点击遮罩关闭层
-			area : ['50%' , '80%'],
-			//area : ['800px' , '520px'],
-			//btn: ['保存', '取消'],
-			content: '/ez/system/sysmenu/getById.do?typeKey=1&sysmenuId='+menuId,
-            end:function(){
-                location.reload();
+        });
+        //监听页面的回车事件
+        document.onkeydown = function (e) {
+            var theEvent = window.event || e;
+            var code = theEvent.keyCode || theEvent.which;
+            if (code == 13) {
+                $("#btn_query").click();
             }
-		});
-
-	}
-	//删除
-	function deleteone(menuId) {
-		top.layer.confirm("确定要删除该记录吗？",{icon: 7},function(index){
-			//删除记录
-			$.post("/ez/system/sysmenu/deleteById.do",
-					{"ids":menuId},
-					function(result){
-                        //删除后的提示
-                        if(result.status =="1"){
-                            top.layer.msg('删除成功',{icon: 1});
-                        }else{
-                            top.layer.msg('删除失败',{icon: 2});
-                        }
-					},"json");
-			//关闭
-			top.layer.close(index);
-			//刷新表格
-			location.reload()
-		});
-	}
-
+        };
+        //重置刷新页面
+        $(window).resize(function () {
+            $('#table').bootstrapTable('resetView', {
+                height: getHeight()
+            });
+        });
+    });
+    //创建子表
+    function expandTable(index, row, $detail) {
+        var parentId = row.menuId;
+        var cur_table = $detail.html('<table></table>').find('table');
+        $(cur_table).bootstrapTable({
+            url: 'ez/system/sysmenu/getChildrenMenu.do',
+            method: 'post',                      //请求方式（*）
+            //toolbar: '#toolbar',                //工具按钮用哪个容器
+            striped: true,                      //是否显示行间隔色
+            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            pagination: true,                   //是否显示分页（*）
+            sortable: true,                     //是否启用排序
+            sortOrder: "asc",                   //排序方式
+            sortName: "MENU_ID",
+            queryParams: queryParams=function(params) {
+                return {
+                    limit: params.limit,   //页面大小
+                    offset: params.offset,  //页码
+                    order: params.order,
+                    ordername: params.sort,
+                    menuId: $("#menuId").val(),
+                    menuName: $("#menuName").val(),
+                    parentId: parentId
+                };
+            },
+            dataType:'json',
+            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+            pageNumber:1,                       //初始化加载第一页，默认第一页
+            pageSize: 10,                       //每页的记录行数（*）
+            pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+            search: false,                      //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+            strictSearch: true,
+            showColumns: false,                 //是否显示所有的列
+            showRefresh: false,                 //是否显示刷新按钮
+            minimumCountColumns: 2,             //最少允许的列数
+            clickToSelect: false,               //是否启用点击选中行
+            height: getHeight(),                //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            uniqueId: "menuId",                 //每一行的唯一标识，一般为主键列
+            showToggle:false,                   //是否显示详细视图和列表视图的切换按钮
+            cardView: false,                    //是否显示详细视图
+            detailView: true,                   //是否显示父子表
+            showHeader:true,
+            columns: [{
+                field: 'menuName',
+                title: '菜单名称',
+                align: 'center'
+            }, {
+                field: 'menuIcon',
+                title: '菜单图标',
+                align: 'center',
+                formatter:  menuicon
+            }, {
+                field: 'menuUrl',
+                title: '菜单地址',
+                align: 'center'
+            }, {
+                field: 'menuId',
+                title: '菜单Id',
+                align: 'center'
+            }, {
+                field: 'parentId',
+                title: '父级菜单Id',
+                align: 'center'
+            }, {
+                field: 'menuOrder',
+                title: '菜单顺序',
+                align: 'center'
+            }, {
+                field: 'menuType',
+                title: '菜单类型',
+                align: 'center',
+                formatter: menuTypeFormatter
+            },{
+                filed: '',
+                title: '操作区',
+                align: 'center',
+                events: operateEvents,
+                formatter: operateFormatter
+            } ],
+            //注册加载子表的事件。注意下这里的三个参数！
+            onExpandRow: function (index, row, $detail) {
+                expandTable(index, row, $detail);
+            }
+        });
+    };
+    //刷新
+    $("#btn_query").click(function () {
+        $("#table").bootstrapTable('refresh');
+    });
+    //新增
+    $("#btn_add").click(function () {
+        top.layer.open({
+            type: 2,//iframe层
+            title: '新增一级菜单',
+            maxmin: true,
+            shadeClose: true, //点击遮罩关闭层
+            area : ['600px' , '450px'],
+            content: '/ez/system/sysmenu/addUI.do',
+            end:function(){
+                $("#table").bootstrapTable('refresh');//刷新表格
+            }
+        });
+    });
+    //菜单图标
+    function menuicon(value, row, index) {
+        return [
+            '<i class="fa '+value+'"></i>'
+            /*'<i class="fa '+value+'"></i>'+value*/
+        ].join('');
+    };
+    //菜单类型
+    function menuTypeFormatter(value, row, index){
+        var a="未知类型";
+        if (value==0){
+            a="开发者菜单";
+        }else if(value==1){
+            a="系统菜单";
+        }else if(value==2){
+            a="业务菜单";
+        }
+        return a;
+    };
+    //操作区
+    function operateFormatter(value, row, index) {
+        return [
+            <c:if test="${QX.add == 1 }">
+            '<a class="addSub" href="javascript:void(0)" title="新增子菜单">',
+            '新增子菜单',
+            '</a>    ',
+            </c:if>
+            <c:if test="${QX.cha == 1 }">
+            '<a class="view" href="javascript:void(0)" title="查看">',
+            '查看',
+            '</a>    ',
+            </c:if>
+            <c:if test="${QX.edit == 1 }">
+            '<a class="edit" href="javascript:void(0)" title="修改">',
+            '修改',
+            '</a>    ',
+            </c:if>
+            <c:if test="${QX.del == 1 }">
+            '<a class="remove" href="javascript:void(0)" title="删除">',
+            '删除',
+            '</a>'
+            </c:if>
+        ].join('');
+    }
+    //操作区事件
+    window.operateEvents = {
+        'click .addSub': function (e, value, row, index) {
+            top.layer.open({
+                type: 2,//iframe层
+                title: '新增子菜单',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area : ['600px' , '500px'],
+                content: '/ez/system/sysmenu/addSub.do?parentId='+row.menuId,
+                end:function(){
+                    $("#table").bootstrapTable('refresh');//刷新表格
+                }
+            });
+        },
+        'click .view': function (e, value, row, index) {
+            top.layer.open({
+                type: 2,//iframe层
+                title: '查看',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area : ['600px' , '560px'],
+                content: '/ez/system/sysmenu/getById.do?typeKey=2&sysmenuId='+row.menuId,
+            });
+        },
+        'click .edit': function (e, value, row, index) {
+            top.layer.open({
+                type: 2,//iframe层
+                title: '编辑',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area : ['600px' , '450px'],
+                content: '/ez/system/sysmenu/getById.do?typeKey=1&sysmenuId='+row.menuId,
+                end:function(){
+                    $("#table").bootstrapTable('refresh');//刷新表格
+                }
+            });
+        },
+        'click .remove': function (e, value, row, index) {
+            top.layer.confirm("确认要删除该行的数据吗？",{icon: 7},function(index){
+                //删除记录
+                $.ajax({
+                    url: "/ez/system/sysmenu/deleteById.do",
+                    type: "POST",
+                    async:false,
+                    data: { "ids": row.menuId },
+                    success: function (result) {
+                        handleResult(result.status,result.message);
+                    }
+                });
+                closeWin(index);
+            });
+        }
+    };
+    //删除后的提示
+    function handleResult(status,message){
+        if(status =="1"){
+            top.layer.msg('删除成功！',{icon: 1});
+        }else{
+            top.layer.msg('删除失败！'+message,{icon: 2});
+        }
+    }
+    //关闭弹窗并刷新
+    function closeWin(index){
+        location.reload();
+        //$("#table").bootstrapTable('refresh');
+        top.layer.close(index);
+    }
+    //获取表格高度
+    function getHeight() {
+        return $(window).height() - $('blockquote').outerHeight(true);
+    }
 </script>
-
 </body>
 </html>

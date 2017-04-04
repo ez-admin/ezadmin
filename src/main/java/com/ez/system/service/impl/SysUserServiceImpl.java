@@ -3,8 +3,11 @@ package com.ez.system.service.impl;
 import com.ez.system.dao.SysUserDao;
 import com.ez.system.entity.SysUser;
 import com.ez.system.service.SysUserService;
-import com.ez.util.PageView;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ez.util.PubConstants;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,27 +28,33 @@ public class SysUserServiceImpl implements SysUserService {
 	
 	/**
 	 * 分页查询
-	 * @param pageView
+	 * @param page
 	 * @param sysUser
 	 * @return
 	 */
 	//@PreAuthorize("hasRole('ROLE_*')")
 	@Transactional(readOnly=true)
-	public PageView query(PageView pageView, SysUser sysUser) {
-		List<SysUser> list = sysUserDao.query(pageView, sysUser);
-		pageView.setRecords(list);
-		return pageView;
+	public List<SysUser> query(Page<SysUser> page, SysUser sysUser) {
+		PageHelper.startPage(page.getPageNum(),page.getPageSize(),page.getOrderBy());
+		Session session = SecurityUtils.getSubject().getSession();
+		String USERNAME = session.getAttribute(PubConstants.SESSION_LOGNM).toString();	//获取当前登录者loginname
+		Boolean isAdmin = "admin".equals(USERNAME);
+		if (!isAdmin){//不是超级管理员
+			sysUser.setRlid("1");//查询1开发者角色不等于0的角色
+		}
+		List<SysUser> list = sysUserDao.query(sysUser);
+		return list;
 	}
 	
 	/**
 	 * 不分页查询
-	 * @param SysUser sysUser
+	 * @param sysUser
 	 * @return List<SysUser>
 	 */
 	//@PreAuthorize("hasRole('ROLE_*')")
 	@Transactional(readOnly=true)
 	public List<SysUser> queryAll(SysUser sysUser) {
-		List<SysUser> list = sysUserDao.queryAll(sysUser);
+		List<SysUser> list = sysUserDao.query(sysUser);
 		return list;
 	}
 	
@@ -114,5 +123,15 @@ public class SysUserServiceImpl implements SysUserService {
 	public SysUser getByAll(SysUser sysUser) {
 		return sysUserDao.getByAll(sysUser);
 	}
+
+    @Override
+    public List<SysUser> listByRid(String ids) {
+        return sysUserDao.listByRid(ids);
+    }
+
+    @Override
+    public List<SysUser> listByDptno(String ids) {
+        return sysUserDao.listByDptno(ids);
+    }
 
 }

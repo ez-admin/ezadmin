@@ -4,8 +4,8 @@ package com.ez.system.service.impl;
 import com.ez.system.dao.SysRightGlDao;
 import com.ez.system.entity.SysRightGl;
 import com.ez.system.service.SysRightGlService;
-import com.ez.util.PageView;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,27 +26,27 @@ public class SysRightGlServiceImpl implements SysRightGlService {
 	
 	/**
 	 * 分页查询
-	 * @param pageView
+	 * @param page
 	 * @param sysRightGl
 	 * @return
 	 */
 	//@PreAuthorize("hasRole('ROLE_*')")
 	@Transactional(readOnly=true)
-	public PageView query(PageView pageView, SysRightGl sysRightGl) {
-		List<SysRightGl> list = sysRightGlDao.query(pageView, sysRightGl);
-		pageView.setRecords(list);
-		return pageView;
+	public List<SysRightGl> query(Page<SysRightGl> page, SysRightGl sysRightGl) {
+		PageHelper.startPage(page);
+		List<SysRightGl> list = sysRightGlDao.query(sysRightGl);
+		return list;
 	}
 	
 	/**
 	 * 不分页查询
-	 * @param SysRightGl sysRightGl
+	 * @param sysRightGl
 	 * @return List<SysRightGl>
 	 */
 	//@PreAuthorize("hasRole('ROLE_*')")
 	@Transactional(readOnly=true)
 	public List<SysRightGl> queryAll(SysRightGl sysRightGl) {
-		List<SysRightGl> list = sysRightGlDao.queryAll(sysRightGl);
+		List<SysRightGl> list = sysRightGlDao.query(sysRightGl);
 		return list;
 	}
 	

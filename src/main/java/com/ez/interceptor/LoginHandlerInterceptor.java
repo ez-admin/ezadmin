@@ -25,9 +25,9 @@ public class LoginHandlerInterceptor extends HandlerInterceptorAdapter {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		// TODO Auto-generated method stub
+
 		String path = request.getServletPath();
-		if(path.matches(PubConstants.NO_INTERCEPTOR_PATH)){
+		if(path.matches(PubConstants.NO_INTERCEPTOR_PATH)) {
 			return true;
 		}else{
 			//shiro管理的session

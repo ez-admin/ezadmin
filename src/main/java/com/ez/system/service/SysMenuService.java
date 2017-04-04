@@ -1,8 +1,9 @@
 
 package com.ez.system.service;
 
+import com.ez.login.entity.MenuTitle;
 import com.ez.system.entity.SysMenu;
-import com.ez.util.PageView;
+import com.github.pagehelper.Page;
 
 import java.util.List;
 /**
@@ -14,23 +15,36 @@ import java.util.List;
 
 public interface SysMenuService{
 
-	public PageView query(PageView pageView, SysMenu sysMenu);
-	
-	public List<SysMenu> queryAll(SysMenu sysMenu);
-	
-	public void add(SysMenu sysMenu);
-	
-	public void addAll(SysMenu sysMenu);
-	
-	public void delete(String id);
-	
-	public void modify(SysMenu sysMenu);
-	
-	public SysMenu getById(String id);
-	
-	public List<SysMenu> findAll();
+	List<SysMenu> query(Page<SysMenu> page, SysMenu sysMenu);
 
-	List<String> findParentIdList();
+	List<SysMenu> queryAll(SysMenu sysMenu);
+
+	void add(SysMenu sysMenu);
+	
+	void addAll(SysMenu sysMenu);
+	
+	void delete(String id);
+	
+	void modify(SysMenu sysMenu);
+	
+	SysMenu getById(String id);
+	
+	List<SysMenu> findAll();
 
 	List<SysMenu> findAllList();
+
+    List<MenuTitle> findFisrtMenu();
+
+    String getByParentId(String parentid);
+
+    List<SysMenu> getParentMenu(Page<SysMenu> page, SysMenu sysmenu);
+
+	List<SysMenu> getChildrenMenu(Page<SysMenu> page,SysMenu sysmenu);
+
+    List<SysMenu> getParentMenuAll(SysMenu sysmenu);
+
+	List<SysMenu> getChildrenMenuAll(SysMenu sysmenu);
+
+	List<SysMenu> listAllMenu();
+
 }

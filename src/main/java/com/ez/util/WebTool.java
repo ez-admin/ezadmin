@@ -1,15 +1,14 @@
 package com.ez.util;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
+import java.util.Map;
 
 /**
- * 这是一个分页工具
- * 主要用于显示页码
- *　pagecode　要获得记录的开始索引　即　开始页码
- *  pageNow 　当前页
- *　pageCount 总页数
- *
  *  这个工具类　返回的是页索引　PageIndex
  * @version 1.0v
  */
@@ -63,6 +62,11 @@ public class WebTool {
 		}
 		return msg;
 	}
-	  
+	//获取session中的权限
+	public static Map<String, String> getSessionQx(){
+		Subject currentUser = SecurityUtils.getSubject();  //shiro管理的session
+		Session session = currentUser.getSession();
+		return (Map<String, String>)session.getAttribute(PubConstants.SESSION_QX);
+	}
 
 }

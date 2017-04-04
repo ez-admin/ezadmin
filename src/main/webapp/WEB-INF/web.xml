@@ -2,7 +2,9 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://java.sun.com/xml/ns/javaee"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <!-- Web容器加载顺序ServletContext-context-param-listener-filter-servlet -->
 
+  <!-- 否则Spring会默认从WEB-INF下寻找配置文件,contextConfigLocation属性是Spring内部固定的 -->
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath:spring/applicationContext.xml</param-value>
@@ -12,7 +14,40 @@
     <param-value>classpath:properties/log4j.properties</param-value>
   </context-param>
 
+  <!-- ############################################ listener start  ############################################ -->
+  <!--log4j 监听器-->
+  <listener>
+    <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+  </listener>
+  <!-- 防止Spring内存溢出监听器 -->
+  <!-- 防止发生java.beans.Introspector内存泄露,应将它配置在ContextLoaderListener的前面 -->
+  <listener>
+    <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+  </listener>
+  <!-- Spring监听器 -->
+  <!-- 应用启动时,该监听器被执行,它会读取Spring相关配置文件,其默认会到WEB-INF中查找applicationContext.xml -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <!-- ############################################ listener end  ############################################ -->
+
+
   <!-- ############################################ filter start  ############################################ -->
+  <!-- 编码过滤器 -->
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <async-supported>true</async-supported>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
   <!-- Shiro filter start -->
   <filter>
     <filter-name>shiroFilter</filter-name>
@@ -30,20 +65,7 @@
     <url-pattern>*.do</url-pattern>
   </filter-mapping>
   <!-- Shiro filter end -->
-  <!-- 编码过滤器 -->
-  <filter>
-    <filter-name>encodingFilter</filter-name>
-    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-    <async-supported>true</async-supported>
-    <init-param>
-      <param-name>encoding</param-name>
-      <param-value>UTF-8</param-value>
-    </init-param>
-  </filter>
-  <filter-mapping>
-    <filter-name>encodingFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
+
 
   <!-- druid 数据源，用于采集 web-jdbc 关联监控的数据 -->
   <!-- 具体参考官网：https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_%E9%85%8D%E7%BD%AEWebStatFilter-->
@@ -79,20 +101,6 @@
   </filter-mapping>
   <!-- ############################################ filter end  ############################################ -->
 
-  <!-- ############################################ listener start  ############################################ -->
-  <!--log4j 监听器-->
-  <listener>
-    <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
-  </listener>
-  <!-- Spring监听器 -->
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
-  <!-- 防止Spring内存溢出监听器 -->
-  <listener>
-    <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
-  </listener>
-  <!-- ############################################ filter end  ############################################ -->
 
 
   <!-- ############################################ servlet start  ############################################ -->
@@ -134,6 +142,6 @@
   <!-- 配置404页面 -->
   <error-page>
     <error-code>404</error-code>
-    <location>/404.jsp</location>
+    <location>/error/404.jsp</location>
   </error-page>
 </web-app>

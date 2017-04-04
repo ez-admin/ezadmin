@@ -10,8 +10,6 @@ package com.ez.system.entity;
 import com.ez.base.BaseEntity;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * @author chenez
@@ -42,9 +40,9 @@ public class SysUser extends BaseEntity implements java.io.Serializable{
 	public static final String ALIAS_OPRIGHT = "权限标识";
 	public static final String ALIAS_UPTDATE = "更新日期";
 	public static final String ALIAS_BSBSKND = "开办业务";
-	public static final String ALIAS_INPOSTN = "是否在岗";
-	public static final String ALIAS_CSTMRTYPE = "客户类型";
-	public static final String ALIAS_CMPNO = "公司编号";
+	public static final String ALIAS_LASTLOGIN = "最近一次登陆时间";
+	public static final String ALIAS_LOGINIP = "登陆ip";
+	public static final String ALIAS_LOGINLOCATION = "登陆地区";
 	
 	//date formats
 	
@@ -86,34 +84,14 @@ public class SysUser extends BaseEntity implements java.io.Serializable{
 	private String uptdate;
 	/**开办业务==>db_column: BSBSKND*/
 	private String bsbsknd;
-	/**是否在岗==>db_column: INPOSTN*/
-	private String inpostn;
-	/**客户类型==>db_column: CSTMRTYPE*/
-	private String cstmrtype;
-	/**公司编号==>db_column: CMPNO*/
-	private String cmpno;
+	/**最近一次登陆时间==>db_column: LASTLOGIN*/
+	private String lastlogin;
+	/**登陆ip==>db_column: LOGINIP*/
+	private String loginip;
+	/**登陆地区==>db_column: LOGINLOCATION*/
+	private String loginlocation;
 	//columns END
-	
-	//系统框架字段 start
-	
-	private String sort;
-	private String direction;
-	public String getSort() {
-		return sort;
-	}
-	
-	public void setSort(String sort) {
-		this.sort = sort;
-	}
-	
-	public String getDirection() {
-		return direction;
-	}
-	
-	public void setDirection(String direction) {
-		this.direction = direction;
-	}
-	//系统框架字段 end
+
 
 	public void setUserno(String value) {
 		this.userno = value;
@@ -234,53 +212,57 @@ public class SysUser extends BaseEntity implements java.io.Serializable{
 	public String getBsbsknd() {
 		return this.bsbsknd;
 	}
-	public void setInpostn(String value) {
-		this.inpostn = value;
-	}
-	
-	public String getInpostn() {
-		return this.inpostn;
-	}
-	public void setCstmrtype(String value) {
-		this.cstmrtype = value;
-	}
-	
-	public String getCstmrtype() {
-		return this.cstmrtype;
-	}
-	public void setCmpno(String value) {
-		this.cmpno = value;
-	}
-	
-	public String getCmpno() {
-		return this.cmpno;
+
+	public String getLastlogin() {
+		return lastlogin;
 	}
 
-	public String toString() {
-		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-			.append("Userno",getUserno())
-			.append("Lognm",getLognm())
-			.append("Logpwd",getLogpwd())
-			.append("Dptno",getDptno())
-			.append("Dptnm",getDptnm())
-			.append("Rlid",getRlid())
-			.append("Rlnm",getRlnm())
-			.append("Userrelnm",getUserrelnm())
-			.append("Idnum",getIdnum())
-			.append("Mobile",getMobile())
-			.append("Usericom",getUsericom())
-			.append("Email",getEmail())
-			.append("Optype",getOptype())
-			.append("Isused",getIsused())
-			.append("Opright",getOpright())
-			.append("Uptdate",getUptdate())
-			.append("Bsbsknd",getBsbsknd())
-			.append("Inpostn",getInpostn())
-			.append("Cstmrtype",getCstmrtype())
-			.append("Cmpno",getCmpno())
-			.toString();
+	public void setLastlogin(String lastlogin) {
+		this.lastlogin = lastlogin;
 	}
-	
+
+	public String getLoginip() {
+		return loginip;
+	}
+
+	public void setLoginip(String loginip) {
+		this.loginip = loginip;
+	}
+
+	public String getLoginlocation() {
+		return loginlocation;
+	}
+
+	public void setLoginlocation(String loginlocation) {
+		this.loginlocation = loginlocation;
+	}
+
+	@Override
+	public String toString() {
+		return "SysUser{" +
+				"userno='" + userno + '\'' +
+				", lognm='" + lognm + '\'' +
+				", logpwd='" + logpwd + '\'' +
+				", dptno='" + dptno + '\'' +
+				", dptnm='" + dptnm + '\'' +
+				", rlid='" + rlid + '\'' +
+				", rlnm='" + rlnm + '\'' +
+				", userrelnm='" + userrelnm + '\'' +
+				", idnum='" + idnum + '\'' +
+				", mobile='" + mobile + '\'' +
+				", usericom='" + usericom + '\'' +
+				", email='" + email + '\'' +
+				", optype='" + optype + '\'' +
+				", isused='" + isused + '\'' +
+				", opright='" + opright + '\'' +
+				", uptdate='" + uptdate + '\'' +
+				", bsbsknd='" + bsbsknd + '\'' +
+				", lastlogin='" + lastlogin + '\'' +
+				", loginip='" + loginip + '\'' +
+				", loginlocation='" + loginlocation + '\'' +
+				'}';
+	}
+
 	public int hashCode() {
 		return new HashCodeBuilder()
 			.toHashCode();

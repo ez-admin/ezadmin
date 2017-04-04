@@ -1,158 +1,250 @@
+/*
+ * Powered By [chenen_genetrator]
+ * version 1.0
+ * Since 2016 - 2017
+ */
+
+
 package com.ez.system.controller;
 
-
-import com.ez.json.Entity;
-import com.ez.system.entity.SysDicType;
-import com.ez.system.entity.SysMenu;
-import com.ez.system.service.SysDicTypeService;
-import com.ez.util.PageView;
+import com.ez.annotation.SystemLogController;
+import com.ez.system.entity.SysDictype;
+import com.ez.system.service.SysDictypeService;
+import com.ez.util.Jurisdiction;
 import com.ez.util.PubConstants;
 import com.ez.util.WebTool;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author chenez
+ * @2017-01-10
+ * @Email: chenez 787818013@qq.com
+ * @version 1.0
+ */
 @Controller
-@RequestMapping(value = "/ez/system/sysdictype/")
-public class SysDicTypeController {
+@RequestMapping(value="/ez/system/sysdictype/")
+public class SysDictypeController {
+
+	String menuUrl = "/ez/system/sysdictype/list.do"; //菜单地址(权限用)
+	@Resource
+	private SysDictypeService sysDictypeService;
 	
-	@Autowired
-	private SysDicTypeService sysDicTypeService;
 	
 	/**
-	 * 跳转到list展示页面
+	 * 跳到列表页面
 	 * @return
 	 */
 	@RequestMapping(value="list")
-	public String list(){
-		return "ez/system/sysDicType/list";
-	}
-
-	/**
-	 * 提供list展示界面的数据
-	 * @param model
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value = "query")
-	@ResponseBody
-	public Map<String, Object> getSysDicTypeList(Model model, SysDicType sysDicType, HttpServletRequest request) {
-		PageView pageView = null;
-		// For pagination
-		int pageSize = 10;
-		int startPage = 0;
-		String size = request.getParameter("length");
-		if (!"".equals(size) && size != null) {
-			pageSize = Integer.parseInt(size);
-		}
-		String currentRecord = request.getParameter("start");
-		if (!"".equals(currentRecord) && currentRecord != null) {
-			startPage = Integer.parseInt(currentRecord);
-		}
-		// For sortable
-		String sidx = request.getParameter("columns[" + request.getParameter("order[0][column]") + "][name]");
-		String sord = request.getParameter("order[0][dir]");
-		// For search
-		String searchValue = request.getParameter("search[value]");
-
-		if (!sidx.equals("0")) {
-			sysDicType.setSidx(sidx);
-		}
-		sysDicType.setSord(sord);
-		sysDicType.setSearchValue(searchValue);
-
-		pageView = new PageView(pageSize, startPage);
-		Map<String, Object> map = new HashMap<String, Object>();
-		pageView = sysDicTypeService.query(pageView, sysDicType);
-		List<SysMenu> list = pageView.getRecords();
-
-		map.put("draw", request.getParameter("draw"));
-		map.put("recordsTotal", pageView.getRowCount());
-		map.put("recordsFiltered", pageView.getRowCount());
-		map.put("data", list);
-		return  map;
+	@SystemLogController(description = "跳到字典类型列表页面")
+	public String list(Model model){
+		model.addAttribute(PubConstants.SESSION_QX,WebTool.getSessionQx());
+		return "/ez/system/sysdictype/list";
 	}
 	/**
-	 * 跳转到新增界面
+	 * 跳到新增页面
 	 * @return
 	 */
 	@RequestMapping(value="addUI")
-	public String addUI(){
-		return "ez/system/sysDicType/add";
+	@SystemLogController(description = "跳到字典类型新增页面")
+	public String addUI(Model model){
+		return "/ez/system/sysdictype/add";
 	}
 	
 	/**
-	 * 保存数据
+	 * 保存新增
 	 * @param model
-	 * @param sysDicType
-	 * @param response
+	 * @param sysdictype
 	 * @return
 	 */
 	@RequestMapping(value="add")
-	@ResponseBody
-	public String add(Model model, SysDicType sysDicType, HttpServletResponse response){
-		String result = "{\"msg\":\"suc\"}";
-		SysDicType sd = sysDicTypeService.findByCode(sysDicType.getCode());
-		if(null != sd){
-			result = "{\"msg\":\"fail\"}";
-		}else{
-			sysDicTypeService.add(sysDicType);
-		}
-		WebTool.writeJson(result, response);
-		return null;
-	}
-	
-	@RequestMapping(value="findByCode")
-	public String getById(Model model, String code, String pageType, HttpServletResponse response){
-		SysDicType sysDicType = sysDicTypeService.findByCode(code);
-		model.addAttribute("sysDicType", sysDicType);
-		if(null != pageType){
-			if(PubConstants.PAGE_TYPE_VIEW.equals(pageType)){
-				return "ez/system/sysDicType/view";
-			}else{
-				return "ez/system/sysDicType/edit";
-			}
-		}else{
-			return null;
-		}
-	}
-	
-	@RequestMapping(value = "modify")
-	public String modify(SysDicType sysDicType, HttpServletResponse response){
-		String result = null;
+	@SystemLogController(description = "保存字典类型新增信息")
+	public String add(Model model,SysDictype sysdictype,HttpServletResponse response,HttpServletRequest request){
+		String result="{\"msg\":\"suc\"}";
 		try {
-			sysDicTypeService.modify(sysDicType);
-			result = "{\"msg\":\"suc\"}";
+			if(Jurisdiction.buttonJurisdiction(menuUrl, "add")) {
+				SysDictype checkcodeSysDictype = sysDictypeService.getById(sysdictype.getCode());
+				SysDictype checknameSysDictype = sysDictypeService.getByName(sysdictype.getName());
+				if (checkcodeSysDictype != null) {
+					result = "{\"msg\":\"fail\",\"message\":\"字典类型编码重复,请重新输入!\"}";
+				} else if (checknameSysDictype != null) {
+					result = "{\"msg\":\"fail\",\"message\":\"字符类型名称重复,请重新输入!\"}";
+				} else {
+					if (!"1".equals(sysdictype.getFlag())) {
+						sysdictype.setFlag("0");
+					}
+					sysDictypeService.add(sysdictype);
+				}
+			}else {
+				result="{\"msg\":\"fail\",\"message\":\"您无增加权限！\"}";
+			}
+
 		} catch (Exception e) {
-			result = "{\"msg\":\"fail\"}";
+			result="{\"msg\":\"fail\",\"message\":\"" + WebTool.getErrorMsg(e.getMessage())+"\"}";
+			e.printStackTrace();
+		}
+		 WebTool.writeJson(result, response);
+		 return null;
+	}
+	
+	/**
+	 * post方式分页查询
+	 * @param page
+	 * @param sysdictype
+	 * @return map
+	 */
+	@RequestMapping(value="showlist",method=RequestMethod.POST)
+    @ResponseBody
+	@SystemLogController(description = "跳到分页查询字典类型信息")
+	public Map<String, Object> showlist(SysDictype sysdictype,Page<SysDictype> page){
+		List<SysDictype> list = sysDictypeService.query(page, sysdictype);
+		PageInfo<SysDictype> pageInfo = new PageInfo<SysDictype>(list);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("rows", list);
+		map.put("total", pageInfo.getTotal());
+		return map;
+	}
+	
+	/**
+	 * 根据id删除
+	 * @param model
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping(value="deleteById",method=RequestMethod.POST)
+	@SystemLogController(description = "删除字典类型信息")
+	public String deleteById(Model model,String ids, HttpServletResponse response){
+		String result="{\"status\":1,\"message\":\"删除成功！\"}";
+		try{
+			if(Jurisdiction.buttonJurisdiction(menuUrl, "del")) {
+				sysDictypeService.delete(ids);
+			}else {
+				result="{\"status\":0,\"message\":\"您无删除权限！\"}";
+			}
+		}catch(Exception e){
+			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
+			e.printStackTrace();
 		}
 		WebTool.writeJson(result, response);
 		return null;
 	}
-	@SuppressWarnings("rawtypes")
+	
+	/**
+	 * 查询&修改单条记录
+	 * @param model
+	 * @param sysdictypeId
+	 * @param typeKey
+	 * @return
+	 */
+	@RequestMapping(value="getById")
+	@SystemLogController(description = "跳到查询&修改字典类型单条记录页面")
+	public String getById(Model model,String sysdictypeId,Integer typeKey){
+		SysDictype sysdictype = sysDictypeService.getById(sysdictypeId);
+		model.addAttribute("sysdictype", sysdictype);
+		if(typeKey == 1){
+			return "/ez/system/sysdictype/edit";
+		}else if(typeKey == 2){
+			return "/ez/system/sysdictype/view";
+		}else{
+			return "/ez/system/sysdictype/view_1";
+		}
+	}
+	
+	/**
+	 * 更新修改的信息
+	 * @param request
+	 * @param sysdictype
+	 * @return
+	 */
+	@RequestMapping(value="update",method=RequestMethod.POST)
+	@SystemLogController(description = "更新修改字典类型的信息")
+	public String updateSysDictype(SysDictype sysdictype,HttpServletRequest request,HttpServletResponse response){
+		String result="{\"msg\":\"suc\"}";
+		try {
+			if(Jurisdiction.buttonJurisdiction(menuUrl, "edit")) {
+				String oldname=request.getParameter("oldname");
+				SysDictype checknameSysDictype=sysDictypeService.getByName(sysdictype.getName());
+				if(checknameSysDictype!=null && !oldname.equals(sysdictype.getName())){
+					result="{\"msg\":\"fail\",\"message\":\"字符类型名称重复,请重新输入!\"}";
+				}else {
+					if (!"1".equals(sysdictype.getFlag())){
+						sysdictype.setFlag("0");
+					}
+					sysDictypeService.modify(sysdictype);
+				}
+			}else {
+				result="{\"msg\":\"fail\",\"message\":\"您无修改权限！\"}";
+			}
+		} catch (Exception e) {
+			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
+			e.printStackTrace();
+		}
+		 WebTool.writeJson(result, response);
+		 return null;		
+		
+	}
+	
+	
+	/**
+	 * 批量删除数据
+	 * 
+	 * @param model
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping(value = "deleteAll")
+	@SystemLogController(description = "批量删除字典类型信息")
+	public String deleteAll(String[] ids, Model model, HttpServletResponse response) {
+		String result = "{\"status\":1,\"message\":\"删除成功！\"}";
+		try {
+			if(Jurisdiction.buttonJurisdiction(menuUrl, "del")) {
+				for (String id : ids) {
+					sysDictypeService.delete(id);
+				}
+			}else {
+				result="{\"status\":0,\"message\":\"您无删除权限！\"}";
+			}
+		} catch (Exception e) {
+			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
+			e.printStackTrace();
+		}
+		WebTool.writeJson(result, response);
+		return null;
+	}
+	/**
+	 * 数据字典单选下拉框
+	 * @param code
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping(value="getSdBySdtCode")
 	@ResponseBody
-	public Map<String, List> getSdBySdtCode(Entity entity){
-		//新增时下拉选择框
-		List<SysDicType> sysDicTypes = sysDicTypeService.findAll();
-		List<Entity> list = new ArrayList<Entity>();
-		Map<String,List> resMap = new HashMap<String,List>();
-		for(SysDicType sd : sysDicTypes){
-			entity = new Entity();
-			entity.setKey(sd.getName());
-			entity.setValue(sd.getCode());
-			list.add(entity);
+	public String getSdBySdtCode(String code,String selected,HttpServletResponse response){
+		//字典类型编码
+		List<SysDictype> sysDictypes = sysDictypeService.getSdBySdtCode(code);
+		String result="";
+		for(SysDictype sd : sysDictypes) {
+            if (selected!=null  && selected.equals(sd.getCode())){
+                result+="<option value="+sd.getCode()+" selected >"+sd.getName()+"</option>";
+            }else {
+			    result+="<option value="+sd.getCode()+">"+sd.getName()+"</option>";
+            }
 		}
-		resMap.put("list", list);
-		return resMap;
+		WebTool.writeHtml(result, response);
+		return null;
 	}
+	
 }
+

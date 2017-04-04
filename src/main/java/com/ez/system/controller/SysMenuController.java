@@ -1,11 +1,17 @@
 package com.ez.system.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.ez.annotation.SystemLogController;
 import com.ez.system.entity.SysMenu;
 import com.ez.system.service.SysMenuService;
-import com.ez.util.PageView;
+import com.ez.util.Jurisdiction;
+import com.ez.util.PubConstants;
 import com.ez.util.WebTool;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,7 +32,8 @@ import java.util.Map;
 @Controller
 @RequestMapping(value="/ez/system/sysmenu/")
 public class SysMenuController {
-	
+
+	String menuUrl = "/ez/system/sysmenu/list.do"; //菜单地址(权限用)
 	@Resource
 	private SysMenuService sysMenuService;
 
@@ -35,7 +42,9 @@ public class SysMenuController {
 	 * @return
 	 */
 	@RequestMapping(value="list")
-	public String list(){
+	@SystemLogController(description = "跳到菜单管理列表页面")
+	public String list(Model model){
+		model.addAttribute(PubConstants.SESSION_QX,WebTool.getSessionQx());
 		return "ez/system/sysMenu/list";
 	}
 	/**
@@ -43,16 +52,20 @@ public class SysMenuController {
 	 * @return
 	 */
 	@RequestMapping(value="addUI")
+	@SystemLogController(description = "跳到菜单管理新增页面")
 	public String addUI(Model model){
 		return "ez/system/sysMenu/add";
 	}
     /**
-     * 跳到查看图标页面
+     * 跳到新增子菜单页面
      * @return
      */
-    @RequestMapping(value="viewIcons")
-    public String viewIcons(Model model){
-        return "ez/system/sysMenu/viewicons";
+    @RequestMapping(value="addSub")
+	@SystemLogController(description = "跳到菜单管理新增子菜单页面")
+	public String addSub(Model model,String parentId){
+		SysMenu sysMenu=sysMenuService.getById(parentId);
+		model.addAttribute("sysMenu",sysMenu);
+		return "ez/system/sysMenu/addSub";
     }
 	/**
 	 * 保存新增
@@ -61,10 +74,15 @@ public class SysMenuController {
 	 * @return
 	 */
 	@RequestMapping(value="add")
+	@SystemLogController(description = "保存菜单管理新增信息")
 	public String add(Model model,SysMenu sysmenu,HttpServletResponse response,HttpServletRequest request){
 		String result="{\"msg\":\"suc\"}";
 		try {
-			sysMenuService.add(sysmenu);
+			if(Jurisdiction.buttonJurisdiction(menuUrl, "add")) {
+				sysMenuService.add(sysmenu);
+			}else {
+				result="{\"msg\":\"fail\",\"message\":\"您无增加权限！\"}";
+			}
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" + WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -72,86 +90,33 @@ public class SysMenuController {
 		 WebTool.writeJson(result, response);
 		 return null;
 	}
-	
-	/**
-	 * 保存新增--for 即时编辑
-	 * @param model
-	 * @param response
-	 * @return
-	 */
-	@RequestMapping(value="addnull")
-	public String addnull(Model model,HttpServletResponse response,HttpServletRequest request){
-		String result="";
-		try {
-			SysMenu sysmenu = new SysMenu();
-			sysMenuService.addAll(sysmenu);
-			result="{\"id\":" + sysmenu.getMenuId() + ",\"message\":\"新增成功！\"}";
-		} catch (Exception e) {
-			result="{\"id\":\"0\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
-		 WebTool.writeJson(result, response);
-		 return null;
-	}
-	
-	/**
-	 * 分页查询跳转
-	 * @param model
-	 * @param sysmenu
-	 * @param pageNow
-	 * @param pageSize
-	 * @return
-	 */
-	@RequestMapping(value="query")
-	public String query(Model model,SysMenu sysmenu,String pageNow, String pageSize){
-		return "ez/system/sysMenu/list_list";
-	}
-	
+
 	/**
 	 * post方式分页查询
-	 * @param model
+	 * @param pagemap
 	 * @param sysmenu
 	 * @return map
 	 */
 	@RequestMapping(value="showlist",method=RequestMethod.POST)
-    @ResponseBody
-	public Map<String, Object> showlist(Model model,SysMenu sysmenu,HttpServletRequest request){
-		PageView pageView = null;
-		// For pagination
-		int pageSize = 10;
-		int startPage = 0;
-		String size = request.getParameter("length");
-		if (!"".equals(size) && size != null) {
-			pageSize = Integer.parseInt(size);
-		}
-		String currentRecord = request.getParameter("start");
-		if (!"".equals(currentRecord) && currentRecord != null) {
-			startPage = Integer.parseInt(currentRecord);
-		}
-		// For sortable
-		String sidx =request.getParameter("columns["+request.getParameter("order[0][column]")+"][name]");
-		String sord = request.getParameter("order[0][dir]");
-		// For search
-		String searchValue = request.getParameter("search[value]");
+	@ResponseBody
+	@SystemLogController(description = "获取分页查询菜单管理信息")
+	public Map<String, Object> showlist(SysMenu sysmenu,
+										@RequestBody Map pagemap){
+		String direction=(String)pagemap.get("order");
+		String sort=(String)pagemap.get("ordername");
+		//设置分页参数
+		Page<SysMenu> page = new Page<SysMenu>((Integer)pagemap.get("offset")/(Integer)pagemap.get("limit")+1, (Integer)pagemap.get("limit"));
+		page.setOrderBy(sort + " " + direction);
+		//设置查询条件
 
-        if (!sidx.equals("0")){
-            sysmenu.setSidx(sidx);
-        }
-        sysmenu.setSord(sord);
-        sysmenu.setSearchValue(searchValue);
+		List<SysMenu> list = sysMenuService.query(page, sysmenu);
+		PageInfo<SysMenu> pageInfo = new PageInfo<SysMenu>(list);
 
-		pageView = new PageView(pageSize,startPage);
 		Map<String, Object> map=new HashMap<String, Object>();
-		pageView = sysMenuService.query(pageView, sysmenu);
-		List<SysMenu> list=pageView.getRecords();
-
-		map.put("draw",request.getParameter("draw"));
-		map.put("recordsTotal",pageView.getRowCount());
-		map.put("recordsFiltered",pageView.getRowCount());
-		map.put("data", list);
+		map.put("rows", list);
+		map.put("total", pageInfo.getTotal());
 		return map;
 	}
-	
 	/**
 	 * 根据id删除
 	 * @param model
@@ -159,11 +124,15 @@ public class SysMenuController {
 	 * @return
 	 */
 	@RequestMapping(value="deleteById",method=RequestMethod.POST)
+	@SystemLogController(description = "删除菜单管理信息")
 	public String deleteById(Model model,String ids, HttpServletResponse response){
-		String result=null;
+		String result="{\"status\":1,\"message\":\"删除成功！\"}";
 		try{
-			sysMenuService.delete(ids);
-		    result="{\"status\":1,\"message\":\"删除成功！\"}";
+			if(Jurisdiction.buttonJurisdiction(menuUrl, "del")) {
+				sysMenuService.delete(ids);
+			}else {
+				result="{\"status\":0,\"message\":\"您无删除权限！\"}";
+			}
 		}catch(Exception e){
 			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -180,9 +149,10 @@ public class SysMenuController {
 	 * @return
 	 */
 	@RequestMapping(value="getById")
+	@SystemLogController(description = "查询&修改单条菜单管理记录")
 	public String getById(Model model,String sysmenuId,int typeKey){
-		SysMenu sysmenu = sysMenuService.getById(sysmenuId);
-		model.addAttribute("sysmenu", sysmenu);
+		SysMenu sysMenu = sysMenuService.getById(sysmenuId);
+		model.addAttribute("sysMenu", sysMenu);
 		if(typeKey == 1){
 			return "ez/system/sysMenu/edit";
 		}else if(typeKey == 2){
@@ -199,10 +169,15 @@ public class SysMenuController {
 	 * @return
 	 */
 	@RequestMapping(value="update",method=RequestMethod.POST)
+	@SystemLogController(description = "更新修改的菜单管理信息")
 	public String updateSysMenu(Model model,SysMenu sysmenu,HttpServletResponse response){		
-		String result="{\"msg\":\"suc\"}";;
-		try {			
-			sysMenuService.modify(sysmenu);
+		String result="{\"msg\":\"suc\"}";
+		try {
+			if(Jurisdiction.buttonJurisdiction(menuUrl, "edit")) {
+				sysMenuService.modify(sysmenu);
+			}else {
+				result="{\"msg\":\"fail\",\"message\":\"您无修改权限！\"}";
+			}
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -221,13 +196,17 @@ public class SysMenuController {
 	 * @return
 	 */
 	@RequestMapping(value = "deleteAll")
+	@SystemLogController(description = "批量删除菜单管理信息")
 	public String deleteAll(String[] ids, Model model, HttpServletResponse response) {
-		String result = null;
+		String result = "{\"status\":1,\"message\":\"删除成功！\"}";
 		try {
-			for (String id : ids) {
-				sysMenuService.delete(id);
+			if(Jurisdiction.buttonJurisdiction(menuUrl, "del")) {
+				for (String id : ids) {
+					sysMenuService.delete(id);
+				}
+			}else {
+				result="{\"status\":0,\"message\":\"您无删除权限！\"}";
 			}
-			result = "{\"status\":1,\"message\":\"删除成功！\"}";
 		} catch (Exception e) {
 			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -236,6 +215,90 @@ public class SysMenuController {
 		return null;
 	}
 
-	
+	/**
+	 * 分页查询一级菜单
+	 * @param sysmenu
+	 * @param pagemap
+	 * @return
+	 */
+	@RequestMapping(value="getParentMenu",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> getParentMenu(SysMenu sysmenu,
+										@RequestBody Map pagemap){
+		String direction=(String)pagemap.get("order");
+		String sort=(String)pagemap.get("ordername");
+		//设置分页参数
+		Page<SysMenu> page = new Page<SysMenu>((Integer)pagemap.get("offset")/(Integer)pagemap.get("limit")+1, (Integer)pagemap.get("limit"));
+		page.setOrderBy(sort + " " + direction);
+		//设置查询条件
+		String menuid=(String) pagemap.get("menuId");
+		if (menuid!=null && !"".equals(menuid)){
+			sysmenu.setMenuId(Integer.parseInt(menuid));
+		}
+		sysmenu.setMenuName((String) pagemap.get("menuName"));
+
+		List<SysMenu> list = sysMenuService.getParentMenu(page, sysmenu);
+		PageInfo<SysMenu> pageInfo = new PageInfo<SysMenu>(list);
+
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("rows", list);
+		map.put("total", pageInfo.getTotal());
+		return map;
+	}
+
+	/**
+	 * 分页查询子菜单
+	 * @param sysmenu
+	 * @param pagemap
+	 * @return
+	 */
+	@RequestMapping(value="getChildrenMenu",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> getChildrenMenu(SysMenu sysmenu,
+											   @RequestBody Map pagemap){
+		String direction=(String)pagemap.get("order");
+		String sort=(String)pagemap.get("ordername");
+		//设置分页参数
+		Page<SysMenu> page = new Page<SysMenu>((Integer)pagemap.get("offset")/(Integer)pagemap.get("limit")+1, (Integer)pagemap.get("limit"));
+		page.setOrderBy(sort + " " + direction);
+		//设置查询条件
+		String menuid=(String) pagemap.get("menuId");
+		if (menuid!=null && !"".equals(menuid)){
+			sysmenu.setMenuId(Integer.parseInt(menuid));
+		}
+		sysmenu.setMenuName((String) pagemap.get("menuName"));
+
+		sysmenu.setParentId( pagemap.get("parentId")+"");
+		List<SysMenu> list = sysMenuService.getChildrenMenu(page,sysmenu);
+		PageInfo<SysMenu> pageInfo = new PageInfo<SysMenu>(list);
+
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("rows", list);
+		map.put("total", pageInfo.getTotal());
+		return map;
+	}
+	/**
+	 * 不分页查询一级菜单
+	 * @param sysmenu
+	 * @return
+	 */
+	@RequestMapping(value="getParentMenuAll",method=RequestMethod.POST)
+	@ResponseBody
+	public Object getParentMenuAll(SysMenu sysmenu){
+		List<SysMenu> list = sysMenuService.getParentMenuAll(sysmenu);
+		return JSON.toJSON(list);
+	}
+	/**
+	 * 不分页查询子菜单
+	 * @param sysmenu
+	 * @return
+	 */
+	@RequestMapping(value="getChildrenMenuAll",method=RequestMethod.POST)
+	@ResponseBody
+	public Object getChildrenMenuAll(SysMenu sysmenu){
+		List<SysMenu> list = sysMenuService.getChildrenMenuAll(sysmenu);
+		return JSON.toJSON(list);
+	}
+
 }
 

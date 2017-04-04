@@ -5,7 +5,6 @@
 
 <!-- 不使用namespace的话sql搜索定位会比较方便 -->
 <mapper namespace="com.ez.system.dao.SysRightGlDao">
-
 	<resultMap id="SysRightGl" type="com.ez.system.entity.SysRightGl">
         <result property="glId" column="GL_ID"/>
         <result property="roleId" column="ROLE_ID"/>
@@ -33,56 +32,16 @@ QX4
 		<include refid="selectId" />
 		from sys_right_gl
 	</select>
-	
-	<select id="queryAll" resultMap="SysRightGl" parameterType="com.ez.system.entity.SysRightGl">
-		select
-		<include refid="selectId" />
-		from sys_right_gl
-		<include refid="querywhere1"/>
-		<if test="@Ognl@isNotEmpty(sort) and @Ognl@isNotEmpty(direction)">
-		 order by ${sort} ${direction}
-		</if>
-	</select>
 
-	<select id="query" resultMap="SysRightGl" parameterType="java.util.HashMap">
+
+	<select id="query" resultMap="SysRightGl" parameterType="com.ez.system.entity.SysRightGl">
 		select
 		<include refid="selectId" />
 		from sys_right_gl
 		<include refid="querywhere"/>
-		<if test="@Ognl@isNotEmpty(t.sort) and @Ognl@isNotEmpty(t.direction)">
-		 order by ${t.sort} ${t.direction}
-		</if>
 	</select>
-	
-	<sql id="querywhere">
-		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
-		<where>	      				
-			   <if test="@Ognl@isNotEmpty(t.roleId)">
-					AND ROLE_ID like '%${t.roleId}%'
-			   </if>
-		       <if test="@Ognl@isNotEmpty(t.fxQx)">
-					AND FX_QX = '${t.fxQx}'
-			   </if>
-		       <if test="@Ognl@isNotEmpty(t.fwQx)">
-					AND FW_QX = '${t.fwQx}'
-			   </if>
-		       <if test="@Ognl@isNotEmpty(t.qx1)">
-					AND QX1 = '${t.qx1}'
-			   </if>
-		       <if test="@Ognl@isNotEmpty(t.qx2)">
-					AND QX2 = '${t.qx2}'
-			   </if>
-		       <if test="@Ognl@isNotEmpty(t.qx3)">
-					AND QX3 = '${t.qx3}'
-			   </if>
-		       <if test="@Ognl@isNotEmpty(t.qx4)">
-					AND QX4 = '${t.qx4}'
-			   </if>
-	       
-		</where>
-	</sql>
-	
-		<sql id="querywhere1">
+
+		<sql id="querywhere">
 		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
 		<where>	      				
 		       <if test="@Ognl@isNotEmpty(roleId)">
@@ -113,7 +72,7 @@ QX4
 	<!-- 总记录数 -->
 	<select id="count" parameterType="com.ez.system.entity.SysRightGl" resultType="int">
 		select count(0) from sys_right_gl
-		<include refid="querywhere1"/>
+		<include refid="querywhere"/>
 	</select>
 	
 	<!-- 新增 -->
@@ -142,15 +101,15 @@ QX4
 	
 	<!-- 新增Selective -->
 	<insert id="add" parameterType="com.ez.system.entity.SysRightGl">
-	<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="id" >
-	        SELECT LAST_INSERT_ID() AS ID
-	</selectKey>
 		INSERT INTO sys_right_gl 
 		<include refid="addtrim"/>
 	</insert>
 	
 	<sql id="addtrim">
 	<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(glId)">
+				GL_ID,
+			</if>
 			<if test="@Ognl@isNotEmpty(roleId)">
 				ROLE_ID,
 			</if>
@@ -174,6 +133,9 @@ QX4
 			</if>
     </trim>
     <trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(glId)">
+				#{glId},
+			</if>
 			<if test="@Ognl@isNotEmpty(roleId)">
 				#{roleId},
 			</if>
@@ -199,7 +161,7 @@ QX4
 	</sql>
 	
 	<!-- 删 -->
-	<delete id="deleteById" parameterType="String">
+	<delete id="delete" parameterType="String">
 		DELETE FROM sys_right_gl WHERE
         GL_ID = #{id} 
 	</delete>

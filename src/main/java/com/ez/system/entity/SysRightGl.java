@@ -25,7 +25,7 @@ public class SysRightGl extends BaseEntity implements java.io.Serializable{
 	
 	//alias
 	public static final String TABLE_ALIAS = "*系统管理权限表";
-	public static final String ALIAS_GL_ID = "用户编号";
+	public static final String ALIAS_GL_ID = "角色编号";//原系统角色有父子，取消了，重复了
 	public static final String ALIAS_ROLE_ID = "角色编号";
 	public static final String ALIAS_FX_QX = "fxQx";
 	public static final String ALIAS_FW_QX = "fwQx";
@@ -47,7 +47,7 @@ public class SysRightGl extends BaseEntity implements java.io.Serializable{
 
 	
 	//columns START
-	/**用户编号==>db_column: GL_ID*/
+	/**角色编号==>db_column: GL_ID*/
 	private String glId;
 	/**角色编号==>db_column: ROLE_ID*/
 	private String roleId;
@@ -64,27 +64,6 @@ public class SysRightGl extends BaseEntity implements java.io.Serializable{
 	/**qx4==>db_column: QX4*/
 	private Integer qx4;
 	//columns END
-	
-	//系统框架字段 start
-	
-	private String sort;
-	private String direction;
-	public String getSort() {
-		return sort;
-	}
-	
-	public void setSort(String sort) {
-		this.sort = sort;
-	}
-	
-	public String getDirection() {
-		return direction;
-	}
-	
-	public void setDirection(String direction) {
-		this.direction = direction;
-	}
-	//系统框架字段 end
 
 	public void setGlId(String value) {
 		this.glId = value;

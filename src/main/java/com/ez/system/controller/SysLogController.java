@@ -7,12 +7,13 @@
 
 package com.ez.system.controller;
 
+import com.ez.annotation.SystemLogController;
 import com.ez.system.entity.SysLog;
 import com.ez.system.service.SysLogService;
-import com.ez.util.Common;
-import com.ez.util.PageView;
+import com.ez.util.PubConstants;
 import com.ez.util.WebTool;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,12 +36,23 @@ import java.util.Map;
 @Controller
 @RequestMapping(value="/ez/system/syslog/")
 public class SysLogController {
-	
+
+	String menuUrl = "/ez/system/syslog/list.do"; //菜单地址(权限用)
 	@Resource
 	private SysLogService sysLogService;
-	
-	
-	
+
+
+	/**
+	 * 跳到列表页面
+	 * @return
+	 */
+	@RequestMapping(value="list")
+	@SystemLogController(description = "跳到系统日志列表页面")
+	public String list(Model model){
+		model.addAttribute(PubConstants.SESSION_QX,WebTool.getSessionQx());
+		return "ez/system/syslog/list";
+	}
+
 	/**
 	 * 跳到新增页面
 	 * @return
@@ -104,34 +116,24 @@ public class SysLogController {
 	
 	/**
 	 * post方式分页查询
-	 * @param model
 	 * @param syslog
 	 * @return map
 	 */
 	@RequestMapping(value="showlist",method=RequestMethod.POST)
     @ResponseBody
-	public Map<String, Object> showlist(Model model,SysLog syslog,HttpServletRequest request){
-		PageView pageView = null;
-		String pageNow=request.getParameter("pager.pageNo");
-		String pageSize=request.getParameter("pager.pageSize");
-		if(Common.isEmpty(pageNow)){
-			pageView = new PageView(1);
-		}else{
-			pageView = new PageView(Integer.parseInt(pageSize),Integer.parseInt(pageNow));
-		}
+	public Map<String, Object> showlist(SysLog syslog,Page<SysLog> page,HttpServletRequest request){
+		List<SysLog> list = sysLogService.query(page, syslog);
+		PageInfo<SysLog> pageInfo = new PageInfo<SysLog>(list);
 		Map<String, Object> map=new HashMap<String, Object>();
-		pageView = sysLogService.query(pageView, syslog);
-		List<SysLog> list=pageView.getRecords();
-		map.put("rows", list); 
-		map.put("pager.pageNo", pageView.getPageNow());
-		map.put("pager.totalRows", pageView.getRowCount());
+		map.put("rows", list);
+		map.put("total", pageInfo.getTotal());
 		return map;
 	}
 	
 	/**
 	 * 根据id删除
 	 * @param model
-	 * @param syslogId
+	 * @param ids
 	 * @return
 	 */
 	@RequestMapping(value="deleteById",method=RequestMethod.POST)

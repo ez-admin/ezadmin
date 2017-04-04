@@ -1,88 +1,110 @@
+/*
+ * Powered By [chenen_genetrator]
+ * version 1.0
+ * Since 2016 - 2017
+ */
+
 package com.ez.system.entity;
 
-import java.io.Serializable;
 
-public class SysDicType implements Serializable{
+import com.ez.base.BaseEntity;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+/**
+ * @author chenez
+ * @2017-01-10
+ * @Email: chenez 787818013@qq.com
+ * @version 1.0
+ */
+
+public class SysDictype extends BaseEntity implements java.io.Serializable{
+	private static final long serialVersionUID = 5454155825314635342L;
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2010236402452429290L;
+	//alias
+	public static final String TABLE_ALIAS = "*系统字典表类型";
+	public static final String ALIAS_CODE = "字典类型编号";
+	public static final String ALIAS_NAME = "字典类型名称";
+	public static final String ALIAS_REMARK = "字典备注说明";
+	public static final String ALIAS_FLAG = "字典使用标识，是否使用";
+	
+	//date formats
+	
+	public SysDictype(){
+	}
+
+	public SysDictype(
+		String code
+	){
+		this.code = code;
+	}
+
+	
+	//columns START
+	/**字典类型编号==>db_column: CODE*/
 	private String code;
+	/**字典类型名称==>db_column: NAME*/
 	private String name;
+	/**字典备注说明==>db_column: REMARK*/
 	private String remark;
+	/**字典使用标识，是否使用==>db_column: FLAG*/
 	private String flag;
+	//columns END
 	
-	public SysDicType() {
-		super();
-	}
 
-	public SysDicType(String code, String name, String remark, String flag) {
-		super();
-		this.code = code;
-		this.name = name;
-		this.remark = remark;
-		this.flag = flag;
+	public void setCode(String value) {
+		this.code = value;
 	}
-//系统框架字段 start
-
-	private String sidx;
-	private String sord;
-	private String searchValue;
-
-	public String getSidx() {
-		return sidx;
-	}
-
-	public void setSidx(String sidx) {
-		this.sidx = sidx;
-	}
-
-	public String getSord() {
-		return sord;
-	}
-
-	public void setSord(String sord) {
-		this.sord = sord;
-	}
-
-	public String getSearchValue() {
-		return searchValue;
-	}
-
-	public void setSearchValue(String searchValue) {
-		this.searchValue = searchValue;
-	}
-	//系统框架字段 end
+	
 	public String getCode() {
-		return code;
+		return this.code;
 	}
-
-	public void setCode(String code) {
-		this.code = code;
+	public void setName(String value) {
+		this.name = value;
 	}
-
+	
 	public String getName() {
-		return name;
+		return this.name;
 	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setRemark(String value) {
+		this.remark = value;
 	}
-
+	
 	public String getRemark() {
-		return remark;
+		return this.remark;
 	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
+	public void setFlag(String value) {
+		this.flag = value;
 	}
-
+	
 	public String getFlag() {
-		return flag;
+		return this.flag;
 	}
 
-	public void setFlag(String flag) {
-		this.flag = flag;
+	public String toString() {
+		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+			.append("Code",getCode())
+			.append("Name",getName())
+			.append("Remark",getRemark())
+			.append("Flag",getFlag())
+			.toString();
+	}
+	
+	public int hashCode() {
+		return new HashCodeBuilder()
+			.append(getCode())
+			.toHashCode();
+	}
+	
+	public boolean equals(Object obj) {
+		if(obj instanceof SysDictype == false) return false;
+		if(this == obj) return true;
+		SysDictype other = (SysDictype)obj;
+		return new EqualsBuilder()
+			.append(getCode(),other.getCode())
+			.isEquals();
 	}
 }
+

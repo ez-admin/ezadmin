@@ -1,6 +1,7 @@
 package com.ez.interceptor.shiro;
 
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -23,14 +24,18 @@ public class ShiroRealm extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 
-		 String username = (String)token.getPrincipal();  				//得到用户名 
-	     String password = new String((char[])token.getCredentials()); 	//得到密码
-		
-	     if(null != username && null != password){
-	    	 return new SimpleAuthenticationInfo(username, password, getName());
-	     }else{
-	    	 return null;
-	     }
+		String username = (String)token.getPrincipal();  				//得到用户名
+		String password = new String((char[])token.getCredentials()); 	//得到密码
+		if (!StringUtils.isBlank(username)) {
+			if(null != username && null != password){
+				return new SimpleAuthenticationInfo(username, password, getName());
+			}else{
+				return null;
+			}
+		}else{
+			return null;
+		}
+
 	     
 	}
 	

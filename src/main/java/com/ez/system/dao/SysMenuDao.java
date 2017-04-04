@@ -7,6 +7,7 @@
 package com.ez.system.dao;
 
 import com.ez.base.BaseDao;
+import com.ez.login.entity.MenuTitle;
 import com.ez.system.entity.SysMenu;
 import org.springframework.dao.DataAccessException;
 
@@ -26,4 +27,13 @@ public interface SysMenuDao extends BaseDao<SysMenu> {
 	List<String> findParentIdList() throws DataAccessException;
 
 	List<SysMenu> findAllList() throws DataAccessException;
+
+    List<MenuTitle> findFisrtMenu() throws DataAccessException;
+
+	List<MenuTitle> getByParentId(String parentid) throws DataAccessException;
+
+	List<SysMenu> getParentMenu(SysMenu sysmenu) throws DataAccessException;
+
+	List<SysMenu> getChildrenMenu(SysMenu sysmenu) throws DataAccessException;
+
 }

@@ -13,7 +13,7 @@ public class PageView {
 	 * 分页数据
 	 */
 	private List records;
-	
+
 	/**
 	 * 页码的开始索引类
 	 * 这个类包含，
@@ -22,11 +22,11 @@ public class PageView {
 	 * 这个数是计算出来的
 	 */
 	private PageIndex pageindex;
-	
+
 	/**
 	 * 总页数
 	 * 这个数是计算出来的
-	 * 
+	 *
 	 */
 	private long pageCount;
 
@@ -47,7 +47,7 @@ public class PageView {
 	 * 总记录数
 	 */
 	private long rowCount;
-	
+
 	/**
 	 * 从第几条记录开始
 	 */
@@ -67,7 +67,7 @@ public class PageView {
 	public int getFirstResult(){
 		return (this.pageNow-1)* this.pageSize;
 	}
-	
+
 	public int getPagecode() {
 		return pagecode;
 	}
@@ -75,17 +75,16 @@ public class PageView {
 	public void setPagecode(int pagecode) {
 		this.pagecode = pagecode;
 	}
-	
+
 	/**
 	 * 使用构造函数，，强制必需输入
 	 * 每页显示数量　和　当前页
 	 * @param pageSize　　每页显示数量
-	 * @param startPage　当前页
+	 * @param pageNow　当前页
 	 */
-	public PageView(int pageSize, int startPage){
+	public PageView(int pageSize, int pageNow){
 		this.pageSize = pageSize;
-		this.startPage = startPage;
-		this.pageNow=startPage/pageSize+1;
+		this.pageNow = pageNow;
 	}
 	/**
 	 * 使用构造函数，，强制必需输入
@@ -111,8 +110,8 @@ public class PageView {
 	public void setRowCount(long rowCount) {
 		this.rowCount = rowCount;
 		setPageCount(this.rowCount % this.pageSize == 0?
-					this.rowCount/this.pageSize :
-					this.rowCount/this.pageSize+1
+				this.rowCount/this.pageSize :
+				this.rowCount/this.pageSize+1
 		);
 	}
 
@@ -136,13 +135,13 @@ public class PageView {
 
 	/**
 	 * WebTool这是一个分页工具类
-	 *  
+	 *
 	 *　pagecode　要获得记录的开始索引　即　开始页码
 	 *  pageNow 　当前页
 	 *　pageCount 总页数
 	 *
 	 *  这个工具类　返回的是页索引　PageIndex
-	 *  
+	 *
 	 *  在这个方法中存在一个问题，每页显示数量　和　当前页、、不能为空
 	 *  必需输入
 	 */
@@ -162,7 +161,7 @@ public class PageView {
 	public long getPageCount() {
 		return pageCount;
 	}
-	
+
 	public int getPageSize() {
 		return pageSize;
 	}
@@ -170,7 +169,7 @@ public class PageView {
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 	}
-	
+
 	public long getRowCount() {
 		return rowCount;
 	}

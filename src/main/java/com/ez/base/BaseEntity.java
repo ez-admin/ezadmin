@@ -5,7 +5,7 @@ public class BaseEntity implements java.io.Serializable {
 
 	private static final long serialVersionUID = -7200095849148417467L;
 
-	protected static final String DATE_FORMAT = "yyyyMMdd";
+	protected static final String DATE_FORMAT = "yyyy-MM-dd";
 	
 	protected static final String TIME_FORMAT = "HH:mm:ss";
 	

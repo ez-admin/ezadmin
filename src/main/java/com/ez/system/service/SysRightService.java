@@ -2,7 +2,7 @@
 package com.ez.system.service;
 
 import com.ez.system.entity.SysRight;
-import com.ez.util.PageView;
+import com.github.pagehelper.Page;
 
 import java.util.List;
 
@@ -15,22 +15,21 @@ import java.util.List;
 
 public interface SysRightService{
 
-	public PageView query(PageView pageView, SysRight sysRight);
-	
-	public List<SysRight> queryAll(SysRight sysRight);
-	
-	public void add(SysRight sysRight);
-	
-	public void addAll(SysRight sysRight);
-	
-	public void delete(String id);
-	
-	public void modify(SysRight sysRight);
-	
-	public SysRight getById(String id);
-	
-	public List<SysRight> findAll();
+	List<SysRight> query(Page<SysRight> page, SysRight sysRight);
 
+	List<SysRight> queryAll(SysRight sysRight);
+
+	void add(SysRight sysRight);
+	
+	void addAll(SysRight sysRight);
+	
+	void delete(String id);
+	
+	void modify(SysRight sysRight);
+	
+	SysRight getById(String id);
+	
+	List<SysRight> findAll();
 
 	SysRight findByRid(String roleId);
 }

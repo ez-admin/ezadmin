@@ -48,8 +48,8 @@ public class SysRole extends BaseEntity implements java.io.Serializable{
 	private String roleName;
 	/**rights==>db_column: RIGHTS*/
 	private String rights;
-	/**parentId==>db_column: PARENT_ID*/
-	private String parentId;
+	/**parentId==>db_column: ROLE_TYPE*/
+	private String roleType;
 	/**addQx==>db_column: ADD_QX*/
 	private String addQx;
 	/**delQx==>db_column: DEL_QX*/
@@ -61,27 +61,6 @@ public class SysRole extends BaseEntity implements java.io.Serializable{
 	/**qxId==>db_column: QX_ID*/
 	private String qxId;
 	//columns END
-	
-	//系统框架字段 start
-	
-	private String sort;
-	private String direction;
-	public String getSort() {
-		return sort;
-	}
-	
-	public void setSort(String sort) {
-		this.sort = sort;
-	}
-	
-	public String getDirection() {
-		return direction;
-	}
-	
-	public void setDirection(String direction) {
-		this.direction = direction;
-	}
-	//系统框架字段 end
 
 	public void setRoleId(String value) {
 		this.roleId = value;
@@ -104,13 +83,15 @@ public class SysRole extends BaseEntity implements java.io.Serializable{
 	public String getRights() {
 		return this.rights;
 	}
-	public void setParentId(String value) {
-		this.parentId = value;
+
+	public String getRoleType() {
+		return roleType;
 	}
-	
-	public String getParentId() {
-		return this.parentId;
+
+	public void setRoleType(String roleType) {
+		this.roleType = roleType;
 	}
+
 	public void setAddQx(String value) {
 		this.addQx = value;
 	}
@@ -152,7 +133,7 @@ public class SysRole extends BaseEntity implements java.io.Serializable{
 			.append("RoleId",getRoleId())
 			.append("RoleName",getRoleName())
 			.append("Rights",getRights())
-			.append("ParentId",getParentId())
+			.append("RoleType",getRoleType())
 			.append("AddQx",getAddQx())
 			.append("DelQx",getDelQx())
 			.append("EditQx",getEditQx())

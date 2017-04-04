@@ -1,102 +1,125 @@
+
 package com.ez.system.entity;
 
-import java.io.Serializable;
 
-public class SysDictionary implements Serializable{
+import com.ez.base.BaseEntity;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8985904712818417580L;
-	private int id;
-	private String code;
-	private String sdkey;
-	private String sdvalue;
-	private String remark;
+/**
+ * @author chenez
+ * @2017-01-04
+ * @Email: chenez 787818013@qq.com
+ * @version 1.0
+ */
 
-	//系统框架字段 start
-
-	private String sidx;
-	private String sord;
-	private String searchValue;
-
-	public String getSidx() {
-		return sidx;
-	}
-
-	public void setSidx(String sidx) {
-		this.sidx = sidx;
-	}
-
-	public String getSord() {
-		return sord;
-	}
-
-	public void setSord(String sord) {
-		this.sord = sord;
-	}
-
-	public String getSearchValue() {
-		return searchValue;
-	}
-
-	public void setSearchValue(String searchValue) {
-		this.searchValue = searchValue;
-	}
-	//系统框架字段 end
+public class SysDictionary extends BaseEntity implements java.io.Serializable{
+	private static final long serialVersionUID = 5454155825314635342L;
 	
-	public SysDictionary() {
-		super();
+	//alias
+	public static final String TABLE_ALIAS = "*系统字典表";
+	public static final String ALIAS_ID = "id";
+	public static final String ALIAS_CODE = "字典类型编码";
+	public static final String ALIAS_SDVALUE = "字典VALUE";
+	public static final String ALIAS_SDKEY = "字典KEY";
+	public static final String ALIAS_REMARK = "字典备注";
+	
+	//date formats
+	
+	public SysDictionary(){
 	}
 
-	public SysDictionary(int id, String code, String sdkey, String sdvalue,
-			String remark) {
-		super();
-		this.id = id;
-		this.code = code;
-		this.sdkey = sdkey;
-		this.sdvalue = sdvalue;
-		this.remark = remark;
-	}
-
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
+	public SysDictionary(
+		Integer id
+	){
 		this.id = id;
 	}
 
+	
+	//columns START
+	/**id==>db_column: ID*/
+	private Integer id;
+	/**字典类型编码==>db_column: CODE*/
+	private String code;
+	/**字典VALUE==>db_column: SDVALUE*/
+	private String sdvalue;
+	/**字典KEY==>db_column: SDKEY*/
+	private String sdkey;
+	/**字典备注==>db_column: REMARK*/
+	private String remark;
+	//columns END
+
+	private String name;
+
+	public void setId(Integer value) {
+		this.id = value;
+	}
+	
+	public Integer getId() {
+		return this.id;
+	}
+	public void setCode(String value) {
+		this.code = value;
+	}
+	
 	public String getCode() {
-		return code;
+		return this.code;
 	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	public String getSdkey() {
-		return sdkey;
-	}
-
-	public void setSdkey(String sdkey) {
-		this.sdkey = sdkey;
+	public void setSdvalue(String value) {
+		this.sdvalue = value;
 	}
 
 	public String getSdvalue() {
-		return sdvalue;
+		return this.sdvalue;
 	}
-
-	public void setSdvalue(String sdvalue) {
-		this.sdvalue = sdvalue;
+	public void setSdkey(String value) {
+		this.sdkey = value;
 	}
-
+	
+	public String getSdkey() {
+		return this.sdkey;
+	}
+	public void setRemark(String value) {
+		this.remark = value;
+	}
+	
 	public String getRemark() {
-		return remark;
+		return this.remark;
 	}
 
-	public void setRemark(String remark) {
-		this.remark = remark;
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String toString() {
+		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+			.append("Id",getId())
+			.append("Code",getCode())
+			.append("Sdvalue",getSdvalue())
+			.append("Sdkey",getSdkey())
+			.append("Remark",getRemark())
+			.toString();
 	}
 	
+	public int hashCode() {
+		return new HashCodeBuilder()
+			.append(getId())
+			.toHashCode();
+	}
 	
+	public boolean equals(Object obj) {
+		if(obj instanceof SysDictionary == false) return false;
+		if(this == obj) return true;
+		SysDictionary other = (SysDictionary)obj;
+		return new EqualsBuilder()
+			.append(getId(),other.getId())
+			.isEquals();
+	}
 }
+

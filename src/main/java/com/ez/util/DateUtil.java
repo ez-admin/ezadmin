@@ -2,6 +2,7 @@ package com.ez.util;
 
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,6 +18,32 @@ public class DateUtil {
 
 	private final static SimpleDateFormat sdfTime = new SimpleDateFormat(
 			"yyyy-MM-dd HH:mm:ss");
+
+	/**
+	 * 获取现在时间
+	 *
+	 * @return 返回时间类型 yyyy-MM-dd HH:mm:ss
+	 */
+	public static Date getNowDate() {
+		Date currentTime = new Date();
+		String dateString = sdfTime.format(currentTime);
+		ParsePosition pos = new ParsePosition(8);
+		Date currentTime_1 = sdfTime.parse(dateString, pos);
+		return currentTime_1;
+	}
+
+	/**
+	 * 获取现在时间
+	 *
+	 * @return返回短时间格式 yyyy-MM-dd
+	 */
+	public static Date getNowDateShort() {
+		Date currentTime = new Date();
+		String dateString = sdfDay.format(currentTime);
+		ParsePosition pos = new ParsePosition(8);
+		Date currentTime_2 = sdfDay.parse(dateString, pos);
+		return currentTime_2;
+	}
 
 	/**
 	 * 获取YYYY格式

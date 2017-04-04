@@ -1,312 +1,291 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
-%>
+<%@ include file="/WEB-INF/view/ez/index/tablibs.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<base href="<%=basePath%>">
-	<!-- jsp文件头和头部 -->
+	<title>系统字典类型列表</title>
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
+	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap.min.css">
+	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap-table.css">
+	<script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
+	<script type="text/javascript" src="/static/plugins/layui/lay/dest/layui.all.js"></script>
+	<script src="/static/plugins/bootstrap-table/bootstrap.min.js"></script>
+	<script src="/static/plugins/bootstrap-table/bootstrap-table.js"></script>
+	<script src="/static/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+	<script src="/static/plugins/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
+	<script src="/static/plugins/bootstrap-table/extensions/tableExport/tableExport.js"></script>
 </head>
 
-<div class="main-container">
-	<div class="page-content">
-		<div class="row">
-			<div class="col-xs-12">
-				<!-- PAGE CONTENT BEGINS -->
-				<!-- div.dataTables_borderWrap -->
-				<table id="dynamic-table" class="table table-striped table-bordered table-hover">
-					<thead>
-					<tr>
-						<%--<th class="center">
-							<label class="pos-rel">
-								<input type="checkbox" class="ace" />
-								<span class="lbl"></span>
-							</label>
-						</th>--%>
-						<th class="sorting_disabled center"></th>
-						<th class="center">字典类型编号</th>
-						<th class="center">字典类型名称</th>
-						<th class="center">字典备注说明</th>
-						<th class="hidden-480 center">字典使用状态</th>
-						<th class="sorting_disabled center">操作</th>
-					</tr>
-					</thead>
+<body>
+	<form class="layui-form" id="formSearch">
+		<div class="layui-input-inline">
+			<input id="code" name="code" maxlength="4" placeholder="请输入类型编码" type="text" class="layui-input-quote">
+		</div>
+		<div class="layui-input-inline">
+			<input id="name" name="name" placeholder="请输入类型名称" type="text" class="layui-input-quote">
+		</div>
+		<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
+		<c:if test="${QX.add == 1 }">
+		<button id="btn_add" type="button" class="layui-btn layui-btn-small">
+				<i class="fa fa-plus"></i>新增
+		</button>
+		</c:if>
+		<c:if test="${QX.del == 1 }">
+		<button id="btn_delete" type="button" class="layui-btn layui-btn-small">
+			<i class="fa fa-remove"></i>批量删除
+		</button>
+		</c:if>
+	</form>
+	<table id="table"></table>
 
-					<tbody>
-					<tr>
-						<th></th>
-						<th>code</th>
-						<th>name</th>
-						<th>remark</th>
-						<th>flay</th>
-						<th></th>
-					</tr>
-					</tbody>
-				</table>
-			<!-- PAGE CONTENT ENDS -->
-			</div><!-- /.col -->
-		</div><!-- /.row -->
-	</div>
-	<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-		<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
-	</a>
-</div>
-
-<!-- page specific plugin scripts -->
-<!--[if lte IE 8]>
-<script src="/static/components/ExplorerCanvas/excanvas.js"></script>
-<![endif]-->
-
-<script src="/static/assets/js/src/ace.js"></script>
-<script src="/static/assets/js/src/ace.scrolltop.js"></script>
-<script src="/static/assets/js/src/elements.scroller.js"></script>
-<script src="/static/components/bootstrap/dist/js/bootstrap.js"></script>
-<!-- page specific plugin scripts -->
-<script src="/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
-<script src="/plugins/datatables/button/dataTables.buttons.min.js"></script>
-<script src="/plugins/datatables/button/buttons.flash.min.js"></script>
-<script src="/plugins/datatables/button/jszip.min.js"></script>
-<script src="/plugins/datatables/button/pdfmake.min.js"></script>
-<script src="/plugins/datatables/button/vfs_fonts.js"></script>
-<script src="/plugins/datatables/button/buttons.html5.min.js"></script>
-<script src="/plugins/datatables/button/buttons.print.min.js"></script>
-<script src="/plugins/datatables/button/buttons.colVis.min.js"></script>
-
-
-<!-- inline scripts related to this page -->
-<script type="text/javascript">
-	jQuery(function($) {
-		//initiate dataTables plugin
-		var myTable = $('#dynamic-table').DataTable( {
-			dom: '<"top"<"tableTools-container"B>f>rt<"bottom"lip><"clear">',
-			buttons: [
-				{
-					extend: "colvis",
-					text: "<i class='fa fa-search bigger-110 blue'></i> <span class='hidden'>显示/隐藏列</span>",
-					className: "btn btn-white btn-primary btn-bold",
-					columns: ':not(:first):not(:last)'
-				},
-                {
-                    extend: "",
-                    text: "<i class='fa fa-refresh  bigger-110 purple'></i> <span class='hidden'>刷新</span>",
-                    className: "btn btn-white btn-primary btn-bold",
-                    action: function () {
-                        location.reload();
-                    }
-
-                },
-				{
-					extend: "",
-					text: "<i class='fa fa-plus-circle  bigger-110 purple'></i> <span class='hidden'>新增</span>",
-					className: "btn btn-white btn-primary btn-bold",
-					action: function () {
-						onAdd();
-					}
-
-				},
-			],
-			ScrollX: "100%",
-            /*ScrollY: 387,
-			ScrollXInner: "120%",
-			ScrollCollapse: true,*/
-			DisplayLength: 50,
-			processing: true,
-			serverSide: true,
-			ajax: {
-				url: '/ez/system/sysDicType/query.do',
-				type: 'POST'
-			},
-			ordering: true,
-			columns: [
-				{ data: null , class:'center'},
-				{ data: 'code',name:'code',class:'center'},
-				{ data: 'name' ,name:'name',class:'center'},
-				{ data: 'remark',name:'remark'},
-				{ data: 'flag' ,name:'flag',class:'center'},
-				{ data: null ,class:'center'}
-			],
-            //序号
-            fnDrawCallback: function(){
-                var api = this.api();
-                var startIndex= api.context[0]._iDisplayStart;//获取到本页开始的条数
-                api.column(0).nodes().each(function(cell, i) {
-                    cell.innerHTML = startIndex + i + 1;
-                });
-            },
-            /*lengthMenu: [[10, 20, 50, -1], [10, 20, 50, "所有"]],*/
-			/*select: {
-				style: 'multi'
-			},*/
-			columnDefs: [
-				{
-					targets:4,
-					render: function(data, type, row, meta) {
-						return findKey("1000",row);
-					}
-				},
-                {
-                    //指定是第9列
-                    targets: 5,
-                    //data: "menuId",
-                    render: function(data, type, row, meta) {
-                        //渲染 把数据源中的标题和url组成超链接
-                        //return '<a href="' + data + '" target="_blank">' + row.title + '</a>';
-                        return '<div class="hidden-sm hidden-xs action-buttons"> ' +
-                                    '<a class="blue"  href="javascript:void(0)"  onclick="onView('+row.menuId+');return false;"  >' +
-                                        '<i class="ace-icon fa fa-search-plus bigger-130"></i> ' +
-                                        '查看'+
-                                    '</a>' +
-                                    '<a class="green" href="javascript:void(0)" onclick="onEdit('+row.menuId+');return false;">' +
-                                        '<i class="ace-icon fa fa-pencil bigger-130"></i> ' +
-                                        '修改'+
-                                    '</a>' +
-                                '</div>' +
-                                '<div class="hidden-md hidden-lg"> ' +
-                                    '<div class="inline pos-rel"> ' +
-                                        '<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto"> ' +
-                                            '<i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>' +
-                                        '</button>' +
-                                        '<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close"> ' +
-                                            '<li>' +
-                                                '<a href="javascript:void(0)" onclick="onView('+row.menuId+');return false;"  class="tooltip-info pointer" data-rel="tooltip" title="查看"> ' +
-                                                    '<span class="blue"> ' +
-                                                        '<i class="ace-icon fa fa-search-plus bigger-120"></i> ' +
-                                                        '查看'+
-                                                    '</span>' +
-                                                '</a>' +
-                                            '</li>' +
-                                            '<li>' +
-                                                '<a href="javascript:void(0)" onclick="onEdit('+row.menuId+');return false;" class="tooltip-success pointer" data-rel="tooltip" title="修改">' +
-                                                    '<span class="green">' +
-                                                        '<i class="ace-icon fa fa-pencil-square-o bigger-120"></i> ' +
-                                                        '修改'+
-                                                    '</span>' +
-                                                '</a>' +
-                                            '</li>' +
-                                        '</ul>' +
-                                    '</div>' +
-                                '</div>';
-                    }
-			    }
-            ],
-			//国际化配置
-			language: {
-				"sProcessing": "处理中...",
-				"sLengthMenu": "每页显示 _MENU_ 项结果，",
-				"sZeroRecords": "对不起，没有查询相关数据！",
-				"sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-				"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-				"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-				"sInfoPostFix": "",
-				"sSearch": "在表格中搜索:",
-				"sUrl": "",
-				"sEmptyTable": "表中数据为空",
-				"sLoadingRecords": "载入中...",
-				"sInfoThousands": ",",
-				"oPaginate": {
-					"sFirst": "首页",
-					"sPrevious": "上页",
-					"sNext": "下页",
-					"sLast": "末页"
-				},
-				"oAria": {
-					"sSortAscending": ": 以升序排列此列",
-					"sSortDescending": ": 以降序排列此列"
+<script>
+	$(function () {
+		//初始化表格
+		$('#table').bootstrapTable({
+			url: 'ez/system/sysdictype/showlist.do',
+			method: 'post',                      //请求方式（*）
+			showExport: true,//显示导出按钮
+			exportDataType: "basic",//导出类型
+			toolbar: '#formSearch',                //工具按钮用哪个容器
+			striped: true,                      //是否显示行间隔色
+			cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+			pagination: true,                   //是否显示分页（*）
+			contentType: "application/x-www-form-urlencoded;charset=UTF-8",//请求数据内容格式 默认是 application/json 自己根据格式自行服务端处理
+			sortable: true,                     //是否启用排序
+			sortOrder: "asc",                   //排序方式
+			sortName: "code",
+			queryParams: queryParams=function(params) {
+				/*return {
+					pageNum:params.offset/params.limit+1,
+					pageSize:params.limit,
+					orderBy: params.sort+" "+ params.order,
+					code: $("#code").val(),
+					name: $("#name").val()
+				};*/
+				var pageNum=params.offset/params.limit+1;
+				return $('#formSearch').serialize()+
+						"&pageNum="+pageNum+
+						"&pageSize="+params.limit+
+						"&orderBy="+params.sort+" "+ params.order;
+			},//传递参数（*）
+			sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+			pageNumber:1,                       //初始化加载第一页，默认第一页
+			pageSize: 10,                       //每页的记录行数（*）
+			pageList: [10, 25, 50, 100, 'All'],        //可供选择的每页的行数（*）
+			search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+			strictSearch: true,
+			showColumns: true,                  //是否显示所有的列
+			showRefresh: true,                  //是否显示刷新按钮
+			minimumCountColumns: 2,             //最少允许的列数
+			clickToSelect: false,                //是否启用点击选中行
+			height: getHeight(),                //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+			uniqueId: "code",                     //每一行的唯一标识，一般为主键列
+			showToggle:false,                   //是否显示详细视图和列表视图的切换按钮
+			cardView: false,                    //是否显示详细视图
+			detailView: false,                  //是否显示父子表
+			columns: [{
+				checkbox: true
+			}, {
+				field: '',
+				title: '序号',
+				width:'5%',
+				align:'center',
+				formatter: function (value, row, index) {
+					return index+1;
 				}
-			}
-		} );
-
-		//style the message box
-		var defaultColvisAction = myTable.button(0).action();
-		myTable.button(0).action(function (e, dt, button, config) {
-			defaultColvisAction(e, dt, button, config);
-			if($('.dt-button-collection > .dropdown-menu').length == 0) {
-				$('.dt-button-collection')
-						.wrapInner('<ul class="dropdown-menu dropdown-light dropdown-caret dropdown-caret" />')
-						.find('a').attr('href', '#').wrap("<li />")
-			}
-			$('.dt-button-collection').appendTo('.tableTools-container .dt-buttons')
+			}, {
+				field: 'code',
+				title: '类型编码',
+				width:'10%',
+				align:'center',
+				sortable: true
+			}, {
+				field: 'name',
+				title: '类型名称',
+				width:'15%',
+				align:'center',
+			}, {
+				field: 'remark',
+				title: '字典备注',
+				width:'50%',
+				align:'center'
+			}, {
+				field: 'flag',
+				title: '是否启用',
+				width:'5%',
+				align:'center',
+				formatter:flagFormatter
+			},{
+				filed: '',
+				title: '操作区',
+				width:'15%',
+				align:'center',
+				events: operateEvents,
+				formatter: operateFormatter
+			} ]
 		});
-		//button 按钮提示框
-		setTimeout(function() {
-			$($('.tableTools-container')).find('a.dt-button').each(function() {
-				var div = $(this).find(' > div').first();
-				if(div.length == 1) div.tooltip({container: 'body', title: div.parent().text(),placement:'bottom'});
-				else $(this).tooltip({container: 'body', title: $(this).text(),placement:'bottom'});
+		//监听页面的回车事件
+		document.onkeydown = function (e) {
+			var theEvent = window.event || e;
+			var code = theEvent.keyCode || theEvent.which;
+			if (code == 13) {
+				$("#btn_query").click();
+			}
+		};
+		//页面刷新重置
+		$(window).resize(function () {
+			$('#table').bootstrapTable('resetView', {
+				height: getHeight()
 			});
-		}, 500)
+		});
+		//清除工具栏浮动，让父页面高度撑起了
+		$('<div class="clear"></div>').appendTo("body .fixed-table-toolbar:first-child");
 	});
-
+	//状态显示转换
+	function flagFormatter(value, row, index) {
+		var a='';
+		if(row.flag == 1 ){
+			a="是";
+		} else if( row.flag == 0 ){
+			a="否";
+		}else {
+			a="未知";
+		}
+		return [a].join('');
+	}
+	//操作区
+	function operateFormatter(value, row, index) {
+		return [
+			<c:if test="${QX.cha == 1 }">
+			'<a class="view" href="javascript:void(0)" title="查看">',
+			'查看',
+			'</a>    ',
+			</c:if>
+			<c:if test="${QX.edit == 1 }">
+			'<a class="edit" href="javascript:void(0)" title="修改">',
+			'修改',
+			'</a>    ',
+			</c:if>
+			<c:if test="${QX.del == 1 }">
+			'<a class="remove" href="javascript:void(0)" title="删除">',
+			'删除',
+			'</a>'
+			</c:if>
+		].join('');
+	};
+	//刷新
+	$("#btn_query").click(function () {
+		$("#table").bootstrapTable('refresh');
+	});
 	//新增
-	function onAdd(){
+	$("#btn_add").click(function () {
 		top.layer.open({
 			type: 2,//iframe层
-			title: '新增菜单',
+			title: '新增',
 			maxmin: true,
 			shadeClose: true, //点击遮罩关闭层
-			area : ['800px' , '520px'],
-			//btn: ['保存', '取消'],
-			content: '<%=path%>/ez/system/sysmenu/addUI.do',
-            end:function(){
-                location.reload();
-            }
+			area : ['600px' , '430px'],
+			content: '/ez/system/sysdictype/addUI.do',
+			end:function(){
+				$("#table").bootstrapTable('refresh');//刷新表格
+			}
 		});
+	});
+	//删除
+	$("#btn_delete").click(function () {
+		var arrselections = $("#table").bootstrapTable('getSelections');
+		if (arrselections.length <= 0) {
+			top.layer.msg('请选择有效数据!',{icon: 7});
+			return;
+		}
+		top.layer.confirm("确认要删除选择的数据吗？",{icon: 7},function(index){
+			//删除记录
+			$.ajax({
+				url: "/ez/system/sysdictype/deleteAll.do",
+				type: "POST",
+				//获取所有选中行
+				data: getSelectId(arrselections),
+				success: function (result) {
+					//删除后的提示
+					handleResult(result.status,result.message);
+				}
+			});
+			//关闭
+			closeWin(index);
+		});
+	});
+	//操作区事件
+	window.operateEvents = {
+		'click .view': function (e, value, row, index) {
+			top.layer.open({
+				type: 2,//iframe层
+				title: '查看',
+				maxmin: true,
+				shadeClose: true, //点击遮罩关闭层
+				area : ['600px' , '430px'],
+				content: '/ez/system/sysdictype/getById.do?typeKey=2&sysdictypeId='+row.code,
+			});
+		},
+		'click .edit': function (e, value, row, index) {
+			top.layer.open({
+				type: 2,//iframe层
+				title: '编辑',
+				maxmin: true,
+				shadeClose: true, //点击遮罩关闭层
+				area : ['600px' , '430px'],
+				content: '/ez/system/sysdictype/getById.do?typeKey=1&sysdictypeId='+row.code,
+				end:function(){
+					$("#table").bootstrapTable('refresh');//刷新表格
+				}
+			});
+		},
+		'click .remove': function (e, value, row, index) {
+			top.layer.confirm("确认要删除该行的数据吗？",{icon: 7},function(index){
+				//删除记录
+				$.ajax({
+					url: "/ez/system/sysdictype/deleteById.do",
+					type: "POST",
+					data: { "ids": row.code },
+					success: function (result) {
+						handleResult(result.status,result.message);
+					}
+				});
+				closeWin(index);
+			});
+		}
+	};
+	//获取所有选中行获取选中行的id 格式为 "ids":1,2
+	function getSelectId(arrselections) {
+		var arrselectionsLength = arrselections.length;
+		var ids = "";
+		for(var i = 0;i<arrselectionsLength;i++) {
+			ids += arrselections[i].code ;
+			if(i!=arrselectionsLength-1){
+				ids += ",";
+			}
+		}
+		return {"ids":ids};
 	}
-
-	function closeWin() {
+	//删除后的提示
+	function handleResult(status,message){
+		if(status =="1"){
+			top.layer.msg('删除成功！',{icon: 1});
+		}else{
+			top.layer.msg('删除失败！'+message,{icon: 2});
+		}
+	}
+	//关闭弹窗并刷新
+	function closeWin(index){
 		location.reload();
-		top.layer.closeAll();
+		//$("#table").bootstrapTable('refresh');
+		top.layer.close(index);
 	}
-	//查看
-	function onView(menuId){
-		top.layer.open({
-			type: 2,//iframe层
-			title: '查看菜单',
-			maxmin: true,
-			shadeClose: true, //点击遮罩关闭层
-			area : ['800px' , '520px'],
-			//btn: ['保存', '取消'],
-			content: '<%=path%>/ez/system/sysmenu/getById.do?typeKey=2&sysmenuId='+menuId
-		});
-	}
-	//修改
-	function onEdit(menuId) {
-		top.layer.open({
-			type: 2,//iframe层
-			title: '查看菜单',
-			maxmin: true,
-			shadeClose: true, //点击遮罩关闭层
-			area : ['800px' , '520px'],
-			//btn: ['保存', '取消'],
-			content: '<%=path%>/ez/system/sysmenu/getById.do?typeKey=1&sysmenuId='+menuId,
-            end:function(){
-                location.reload();
-            }
-		});
-
-	}
-	function findKey(code,sdvalue){
-		var sdkey=null;
-		$.ajaxSetup({
-			async : false
-		});
-		$.post("<%=path%>/ez/system/sysDictionary/findKeyByValue.do",
-				{"code":code,"sdvalue":sdvalue},
-				function(result){
-					sdkey = result.sdkey;
-				},"json");
-		return sdkey;
+	//获取表格高度
+	function getHeight() {
+		return $(window).height() - 15;
+		/*return $(window).height() - $('.fixed-table-toolbar').outerHeight(true);*/
 	}
 </script>
-
 </body>
 </html>

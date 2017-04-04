@@ -1,12 +1,15 @@
 package com.ez.system.controller;
 
+import com.ez.annotation.SystemLogController;
 import com.ez.system.entity.SysUser;
+import com.ez.system.service.SysRoleService;
 import com.ez.system.service.SysUserService;
-import com.ez.util.Common;
-import com.ez.util.PageView;
-import com.ez.util.WebTool;
+import com.ez.util.*;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,20 +30,25 @@ import java.util.Map;
 @Controller
 @RequestMapping(value="/ez/system/sysuser/")
 public class SysUserController {
-	
+
+	String menuUrl = "/ez/system/sysuser/list.do"; //菜单地址(权限用)
 	@Resource
 	private SysUserService sysUserService;
+	@Resource
+	private SysRoleService sysRoleService;
+
 
 	/**
-	 * test
+	 * 跳到列表页面
 	 * @return
 	 */
-	@RequestMapping(value="test")
-	public String test(Model model){
-		System.out.println("\"11111111\" = " + "11111111");
-		SysUser sysuser = sysUserService.getById("1000");
-		model.addAttribute("sysuser",sysuser);
-		return "ez/client/showUser";
+	@RequestMapping(value="list/{otype}")
+	@SystemLogController(description = "获取系统用户列表页面")
+	public String list(Model model,
+					   @PathVariable("otype")  String otype){
+		model.addAttribute("otype",otype);
+		model.addAttribute(PubConstants.SESSION_QX,WebTool.getSessionQx());
+		return "/ez/system/sysuser/list";
 	}
 
 
@@ -49,7 +57,8 @@ public class SysUserController {
 	 * @return
 	 */
 	@RequestMapping(value="addUI")
-	public String addUI(Model model){
+	public String addUI(Model model,String optype){
+		model.addAttribute("optype",optype);
 		return "ez/system/sysuser/add";
 	}
 
@@ -61,9 +70,21 @@ public class SysUserController {
 	 */
 	@RequestMapping(value="add")
 	public String add(Model model,SysUser sysuser,HttpServletResponse response,HttpServletRequest request){
-		String result="{\"msg\":\"suc\"}";;
+		String result="{\"msg\":\"suc\"}";
 		try {
-			sysUserService.add(sysuser);
+			if(Jurisdiction.buttonJurisdiction(menuUrl, "add")) {
+				String userno= WaterIdGener.getWaterId();
+				String rolename=sysRoleService.getById(sysuser.getRlid()).getRoleName();
+				sysuser.setUserno(userno);
+				sysuser.setRlnm(rolename);
+				if (!"1".equals(sysuser.getIsused())){
+					sysuser.setIsused("0");
+				}
+				sysuser.setUptdate(FormatDateUtil.getFormatDate("yyyy-MM-dd"));
+				sysUserService.add(sysuser);
+			}else {
+				result="{\"msg\":\"fail\",\"message\":\"您无增加权限！\"}";
+			}
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" + WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -71,66 +92,24 @@ public class SysUserController {
 		 WebTool.writeJson(result, response);
 		 return null;
 	}
-	
-	/**
-	 * 保存新增--for 即时编辑
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value="addnull")
-	public String addnull(Model model,HttpServletResponse response,HttpServletRequest request){
-		String result="";
-		try {
-			SysUser sysuser = new SysUser();
-			sysUserService.addAll(sysuser);
-			result="{\"id\":" + sysuser.getUserno() + ",\"message\":\"新增成功！\"}";
-		} catch (Exception e) {
-			result="{\"id\":\"0\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
-		 WebTool.writeJson(result, response);
-		 return null;
-	}
-	
-	/**
-	 * 分页查询跳转
-	 * @param model
-	 * @param sysuser
-	 * @param pageNow
-	 * @param pageSize
-	 * @return
-	 */
-	@RequestMapping(value="query")
-	public String query(Model model,SysUser sysuser,String pageNow, String pageSize){
-		return "ez/system/sysuser/list_list";
-	}
-	
+
+
 	/**
 	 * post方式分页查询
-	 * @param model
+	 * @param page
 	 * @param sysuser
 	 * @return map
 	 */
 	@RequestMapping(value="showlist",method=RequestMethod.POST)
-    @ResponseBody
-	public Map<String, Object> showlist(Model model,SysUser sysuser,HttpServletRequest request){
-		PageView pageView = null;
-		String pageNow=request.getParameter("pager.pageNo");
-		String pageSize=request.getParameter("pager.pageSize");
-		if(Common.isEmpty(pageNow)){
-			pageView = new PageView(1);
-		}else{
-			pageView = new PageView(Integer.parseInt(pageSize),Integer.parseInt(pageNow));
-		}
+	@ResponseBody
+	public Map<String, Object> showlist(SysUser sysuser, Page<SysUser> page){
+		List<SysUser> list = sysUserService.query(page, sysuser);
+		PageInfo<SysUser> pageInfo = new PageInfo<SysUser>(list);
 		Map<String, Object> map=new HashMap<String, Object>();
-		pageView = sysUserService.query(pageView, sysuser);
-		List<SysUser> list=pageView.getRecords();
-		map.put("rows", list); 
-		map.put("pager.pageNo", pageView.getPageNow());
-		map.put("pager.totalRows", pageView.getRowCount());
+		map.put("rows", list);
+		map.put("total", pageInfo.getTotal());
 		return map;
 	}
-	
 	/**
 	 * 根据id删除
 	 * @param model
@@ -139,10 +118,13 @@ public class SysUserController {
 	 */
 	@RequestMapping(value="deleteById",method=RequestMethod.POST)
 	public String deleteById(Model model,String ids, HttpServletResponse response){
-		String result=null;
+		String result="{\"status\":1,\"message\":\"删除成功！\"}";
 		try{
-			sysUserService.delete(ids);
-		    result="{\"status\":1,\"message\":\"删除成功！\"}";
+			if(Jurisdiction.buttonJurisdiction(menuUrl, "del")) {
+				sysUserService.delete(ids);
+			}else {
+				result="{\"status\":0,\"message\":\"您无删除权限！\"}";
+			}
 		}catch(Exception e){
 			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -154,13 +136,13 @@ public class SysUserController {
 	/**
 	 * 查询&修改单条记录
 	 * @param model
-	 * @param sysuserId
+	 * @param userno
 	 * @param typeKey
 	 * @return
 	 */
 	@RequestMapping(value="getById")
-	public String getById(Model model,String sysuserId,int typeKey){
-		SysUser sysuser = sysUserService.getById(sysuserId);
+	public String getById(Model model,String userno,int typeKey){
+		SysUser sysuser = sysUserService.getById(userno);
 		model.addAttribute("sysuser", sysuser);
 		if(typeKey == 1){
 			return "ez/system/sysuser/edit";
@@ -180,8 +162,16 @@ public class SysUserController {
 	@RequestMapping(value="update",method=RequestMethod.POST)
 	public String updateSysUser(Model model,SysUser sysuser,HttpServletResponse response){		
 		String result="{\"msg\":\"suc\"}";
-		try {			
-			sysUserService.modify(sysuser);
+		try {
+			if(Jurisdiction.buttonJurisdiction(menuUrl, "edit")) {
+				if (!"1".equals(sysuser.getIsused())){
+					sysuser.setIsused("0");
+				}
+				sysuser.setUptdate(FormatDateUtil.getFormatDate("yyyy-MM-dd"));
+				sysUserService.modify(sysuser);
+			}else {
+				result="{\"msg\":\"fail\",\"message\":\"您无修改权限！\"}";
+			}
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -201,12 +191,15 @@ public class SysUserController {
 	 */
 	@RequestMapping(value = "deleteAll")
 	public String deleteAll(String[] ids, Model model, HttpServletResponse response) {
-		String result = null;
+		String result = "{\"status\":1,\"message\":\"删除成功！\"}";
 		try {
-			for (String id : ids) {
-				sysUserService.delete(id);
+			if(Jurisdiction.buttonJurisdiction(menuUrl, "del")) {
+				for (String id : ids) {
+					sysUserService.delete(id);
+				}
+			}else {
+				result="{\"status\":0,\"message\":\"您无删除权限！\"}";
 			}
-			result = "{\"status\":1,\"message\":\"删除成功！\"}";
 		} catch (Exception e) {
 			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();

@@ -5,12 +5,11 @@
 
 <!-- 不使用namespace的话sql搜索定位会比较方便 -->
 <mapper namespace="com.ez.system.dao.SysRoleDao">
-
 	<resultMap id="SysRole" type="com.ez.system.entity.SysRole">
         <result property="roleId" column="ROLE_ID"/>
         <result property="roleName" column="ROLE_NAME"/>
         <result property="rights" column="RIGHTS"/>
-        <result property="parentId" column="PARENT_ID"/>
+        <result property="roleType" column="ROLE_TYPE"/>
         <result property="addQx" column="ADD_QX"/>
         <result property="delQx" column="DEL_QX"/>
         <result property="editQx" column="EDIT_QX"/>
@@ -22,7 +21,7 @@
 		ROLE_ID,
 		ROLE_NAME,
 		RIGHTS,
-		PARENT_ID,
+		ROLE_TYPE,
 		ADD_QX,
 		DEL_QX,
 		EDIT_QX,
@@ -35,59 +34,16 @@
 		<include refid="selectId" />
 		from sys_role
 	</select>
-	
-	<select id="queryAll" resultType="com.ez.system.entity.SysRole" parameterType="com.ez.system.entity.SysRole">
-		select
-		<include refid="selectId" />
-		from sys_role
-		<include refid="querywhere1"/>
-		<if test="@Ognl@isNotEmpty(sort) and @Ognl@isNotEmpty(direction)">
-		 order by ${sort} ${direction}
-		</if>
-	</select>
 
-	<select id="query" resultMap="SysRole" parameterType="java.util.HashMap">
+	<select id="query" resultMap="SysRole" parameterType="com.ez.system.entity.SysRole">
 		select
 		<include refid="selectId" />
 		from sys_role
 		<include refid="querywhere"/>
-		<if test="@Ognl@isNotEmpty(t.sort) and @Ognl@isNotEmpty(t.direction)">
-		 order by ${t.sort} ${t.direction}
-		</if>
+
 	</select>
-	
-	<sql id="querywhere">
-		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
-		<where>	      				
-			   <if test="@Ognl@isNotEmpty(t.roleName)">
-					AND ROLE_NAME like '%${t.roleName}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.rights)">
-					AND RIGHTS like '%${t.rights}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.parentId)">
-					AND PARENT_ID like '%${t.parentId}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.addQx)">
-					AND ADD_QX like '%${t.addQx}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.delQx)">
-					AND DEL_QX like '%${t.delQx}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.editQx)">
-					AND EDIT_QX like '%${t.editQx}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.chaQx)">
-					AND CHA_QX like '%${t.chaQx}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.qxId)">
-					AND QX_ID like '%${t.qxId}%'
-			   </if>
-	       
-		</where>
-	</sql>
-	
-		<sql id="querywhere1">
+
+		<sql id="querywhere">
 		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
 		<where>	      				
 		       <if test="@Ognl@isNotEmpty(roleName)">
@@ -96,8 +52,11 @@
 		       <if test="@Ognl@isNotEmpty(rights)">
 					AND RIGHTS like '%${rights}%'
 				</if>
-		       <if test="@Ognl@isNotEmpty(parentId)">
-					AND PARENT_ID like '%${parentId}%'
+		       <!--<if test="@Ognl@isNotEmpty(roleType)">
+					AND ROLE_TYPE like '%${roleType}%'
+				</if>-->
+				<if test="roleType==0">
+					AND ROLE_TYPE != '${roleType}'
 				</if>
 		       <if test="@Ognl@isNotEmpty(addQx)">
 					AND ADD_QX like '%${addQx}%'
@@ -121,7 +80,7 @@
 	<!-- 总记录数 -->
 	<select id="count" parameterType="com.ez.system.entity.SysRole" resultType="int">
 		select count(0) from sys_role
-		<include refid="querywhere1"/>
+		<include refid="querywhere"/>
 	</select>
 	
 	<!-- 新增 -->
@@ -132,7 +91,7 @@
 		INSERT INTO sys_role (
         	ROLE_NAME ,
         	RIGHTS ,
-        	PARENT_ID ,
+			ROLE_TYPE ,
         	ADD_QX ,
         	DEL_QX ,
         	EDIT_QX ,
@@ -141,7 +100,7 @@
         ) VALUES (
         	#{roleName} ,
         	#{rights} ,
-        	#{parentId} ,
+        	#{roleType} ,
         	#{addQx} ,
         	#{delQx} ,
         	#{editQx} ,
@@ -152,23 +111,26 @@
 	
 	<!-- 新增Selective -->
 	<insert id="add" parameterType="com.ez.system.entity.SysRole">
-	<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="id" >
+	<!--<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="id" >
 	        SELECT LAST_INSERT_ID() AS ID
-	</selectKey>
+	</selectKey>-->
 		INSERT INTO sys_role 
 		<include refid="addtrim"/>
 	</insert>
 	
 	<sql id="addtrim">
 	<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(roleId)">
+				ROLE_ID,
+			</if>
 			<if test="@Ognl@isNotEmpty(roleName)">
 				ROLE_NAME,
 			</if>
 			<if test="@Ognl@isNotEmpty(rights)">
 				RIGHTS,
 			</if>
-			<if test="@Ognl@isNotEmpty(parentId)">
-				PARENT_ID,
+			<if test="@Ognl@isNotEmpty(roleType)">
+				ROLE_TYPE,
 			</if>
 			<if test="@Ognl@isNotEmpty(addQx)">
 				ADD_QX,
@@ -187,14 +149,17 @@
 			</if>
     </trim>
     <trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(roleId)">
+				#{roleId},
+			</if>
 			<if test="@Ognl@isNotEmpty(roleName)">
 				#{roleName},
 			</if>
 			<if test="@Ognl@isNotEmpty(rights)">
 				#{rights},
 			</if>
-			<if test="@Ognl@isNotEmpty(parentId)">
-				#{parentId},
+			<if test="@Ognl@isNotEmpty(roleType)">
+				#{roleType},
 			</if>
 			<if test="@Ognl@isNotEmpty(addQx)">
 				#{addQx},
@@ -215,7 +180,7 @@
 	</sql>
 	
 	<!-- 删 -->
-	<delete id="deleteById" parameterType="String">
+	<delete id="delete" parameterType="String">
 		DELETE FROM sys_role WHERE
         ROLE_ID = #{id} 
 	</delete>
@@ -233,7 +198,7 @@
 	    UPDATE sys_role SET
 	        ROLE_NAME = #{roleName} ,
 	        RIGHTS = #{rights} ,
-	        PARENT_ID = #{parentId} ,
+	        ROLE_TYPE = #{roleType} ,
 	        ADD_QX = #{addQx} ,
 	        DEL_QX = #{delQx} ,
 	        EDIT_QX = #{editQx} ,
@@ -251,8 +216,8 @@
 		<if test="@Ognl@isNotEmpty(rights)">
 			RIGHTS = #{rights},
 		</if>
-		<if test="@Ognl@isNotEmpty(parentId)">
-			PARENT_ID = #{parentId},
+		<if test="@Ognl@isNotEmpty(roleType)">
+			ROLE_TYPE = #{roleType},
 		</if>
 		<if test="@Ognl@isNotEmpty(addQx)">
 			ADD_QX = #{addQx},

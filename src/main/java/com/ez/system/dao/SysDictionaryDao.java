@@ -1,15 +1,23 @@
-package com.ez.system.dao;
 
+package com.ez.system.dao;
 
 import com.ez.base.BaseDao;
 import com.ez.system.entity.SysDictionary;
+import org.springframework.dao.DataAccessException;
+
 import java.util.List;
 
+/**
+ * @author chenez
+ * @2017-01-04
+ * @Email: chenez 787818013@qq.com
+ * @version 1.0
+ */
 public interface SysDictionaryDao extends BaseDao<SysDictionary> {
+	public List<SysDictionary> findAll() throws DataAccessException;
 
-	List<SysDictionary> findSdBySdtCode(String code);
-	List<SysDictionary> findSdBySdtCode2(SysDictionary newDic);
-	List<SysDictionary> findKeyByCodeAndValue(SysDictionary sysDictionary);
-	SysDictionary findByCode(String code);
-	SysDictionary findByCodeAndValue(SysDictionary sysDictionary);
+
+    List<SysDictionary> findSdBySdtCode(String code) throws DataAccessException;
+
+    void deleteByCode(String id) throws DataAccessException;
 }

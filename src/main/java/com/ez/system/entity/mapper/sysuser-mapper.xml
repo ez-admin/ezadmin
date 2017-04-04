@@ -5,7 +5,6 @@
 
 <!-- 不使用namespace的话sql搜索定位会比较方便 -->
 <mapper namespace="com.ez.system.dao.SysUserDao">
-
 	<resultMap id="SysUser" type="com.ez.system.entity.SysUser">
         <result property="userno" column="USERNO"/>
         <result property="lognm" column="LOGNM"/>
@@ -24,9 +23,9 @@
         <result property="opright" column="OPRIGHT"/>
         <result property="uptdate" column="UPTDATE"/>
         <result property="bsbsknd" column="BSBSKND"/>
-        <result property="inpostn" column="INPOSTN"/>
-        <result property="cstmrtype" column="CSTMRTYPE"/>
-        <result property="cmpno" column="CMPNO"/>
+        <result property="lastlogin" column="LASTLOGIN"/>
+        <result property="loginip" column="LOGINIP"/>
+        <result property="loginlocation" column="LOGINLOCATION"/>
 	</resultMap>
 	
 	<sql id="selectId">
@@ -47,9 +46,9 @@
 		OPRIGHT,
 		UPTDATE,
 		BSBSKND,
-		INPOSTN,
-		CSTMRTYPE,
-		CMPNO
+		LASTLOGIN,
+		LOGINIP,
+		LOGINLOCATION
     </sql>
     
     <select id="findAll" resultMap="SysUser">
@@ -57,92 +56,16 @@
 		<include refid="selectId" />
 		from sys_user
 	</select>
-	
-	<select id="queryAll" resultMap="SysUser" parameterType="com.ez.system.entity.SysUser">
-		select
-		<include refid="selectId" />
-		from sys_user
-		<include refid="querywhere1"/>
-		<if test="@Ognl@isNotEmpty(sort) and @Ognl@isNotEmpty(direction)">
-		 order by ${sort} ${direction}
-		</if>
-	</select>
 
-	<select id="query" resultMap="SysUser" parameterType="java.util.HashMap">
+	<select id="query" resultMap="SysUser" parameterType="com.ez.system.entity.SysUser" >
 		select
 		<include refid="selectId" />
 		from sys_user
 		<include refid="querywhere"/>
-		<if test="@Ognl@isNotEmpty(t.sort) and @Ognl@isNotEmpty(t.direction)">
-		 order by ${t.sort} ${t.direction}
-		</if>
+
 	</select>
-	
-	<sql id="querywhere">
-		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
-		<where>	      				
-			   <if test="@Ognl@isNotEmpty(t.lognm)">
-					AND LOGNM like '%${t.lognm}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.logpwd)">
-					AND LOGPWD like '%${t.logpwd}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.dptno)">
-					AND DPTNO like '%${t.dptno}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.dptnm)">
-					AND DPTNM like '%${t.dptnm}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.rlid)">
-					AND RLID like '%${t.rlid}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.rlnm)">
-					AND RLNM like '%${t.rlnm}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.userrelnm)">
-					AND USERRELNM like '%${t.userrelnm}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.idnum)">
-					AND IDNUM like '%${t.idnum}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.mobile)">
-					AND MOBILE like '%${t.mobile}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.usericom)">
-					AND USERICOM like '%${t.usericom}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.email)">
-					AND EMAIL like '%${t.email}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.optype)">
-					AND OPTYPE like '%${t.optype}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.isused)">
-					AND ISUSED like '%${t.isused}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.opright)">
-					AND OPRIGHT like '%${t.opright}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.uptdate)">
-					AND UPTDATE like '%${t.uptdate}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.bsbsknd)">
-					AND BSBSKND like '%${t.bsbsknd}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.inpostn)">
-					AND INPOSTN like '%${t.inpostn}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.cstmrtype)">
-					AND CSTMRTYPE like '%${t.cstmrtype}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.cmpno)">
-					AND CMPNO like '%${t.cmpno}%'
-			   </if>
-	       
-		</where>
-	</sql>
-	
-		<sql id="querywhere1">
+
+		<sql id="querywhere">
 		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
 		<where>	      				
 		       <if test="@Ognl@isNotEmpty(lognm)">
@@ -157,8 +80,8 @@
 		       <if test="@Ognl@isNotEmpty(dptnm)">
 					AND DPTNM like '%${dptnm}%'
 				</if>
-		       <if test="@Ognl@isNotEmpty(rlid)">
-					AND RLID like '%${rlid}%'
+				<if test="rlid==1">
+					AND RLID !='${rlid}'
 				</if>
 		       <if test="@Ognl@isNotEmpty(rlnm)">
 					AND RLNM like '%${rlnm}%'
@@ -193,28 +116,28 @@
 		       <if test="@Ognl@isNotEmpty(bsbsknd)">
 					AND BSBSKND like '%${bsbsknd}%'
 				</if>
-		       <if test="@Ognl@isNotEmpty(inpostn)">
-					AND INPOSTN like '%${inpostn}%'
+		       <if test="@Ognl@isNotEmpty(lastlogin)">
+					AND LASTLOGIN like '%${lastlogin}%'
 				</if>
-		       <if test="@Ognl@isNotEmpty(cstmrtype)">
-					AND CSTMRTYPE like '%${cstmrtype}%'
+		       <if test="@Ognl@isNotEmpty(loginip)">
+					AND LOGINIP like '%${loginip}%'
 				</if>
-		       <if test="@Ognl@isNotEmpty(cmpno)">
-					AND CMPNO like '%${cmpno}%'
+		       <if test="@Ognl@isNotEmpty(loginlocation)">
+					AND LOGINLOCATION like '%${loginlocation}%'
 				</if>
 	       
 		</where>
 	</sql>
 	<!-- 检查密码是否正确 -->
-	<select id="checkpwd" parameterType="com.ez.system.entity.SysUser" resultType="int">
+	<select id="checkpwd" parameterType="com.ez.system.entity.SysUser" resultType="int" >
 		select count(0) from sys_user
 		where LOGNM = #{lognm}
 		AND LOGPWD = #{logpwd}
 	</select>
 	<!-- 总记录数 -->
-	<select id="count" parameterType="com.ez.system.entity.SysUser" resultType="int">
+	<select id="count" parameterType="com.ez.system.entity.SysUser" resultType="int" >
 		select count(0) from sys_user
-		<include refid="querywhere1"/>
+		<include refid="querywhere"/>
 	</select>
 	
 	<!-- 新增 -->
@@ -239,9 +162,9 @@
         	OPRIGHT ,
         	UPTDATE ,
         	BSBSKND ,
-        	INPOSTN ,
-        	CSTMRTYPE ,
-        	CMPNO 
+			LASTLOGIN ,
+			LOGINIP ,
+			LOGINLOCATION
         ) VALUES (
         	#{lognm} ,
         	#{logpwd} ,
@@ -259,23 +182,26 @@
         	#{opright} ,
         	#{uptdate} ,
         	#{bsbsknd} ,
-        	#{inpostn} ,
-        	#{cstmrtype} ,
-        	#{cmpno} 
+        	#{lastlogin} ,
+        	#{loginip} ,
+        	#{loginlocation}
         )
 	</insert>
 	
 	<!-- 新增Selective -->
 	<insert id="add" parameterType="com.ez.system.entity.SysUser">
-	<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="id" >
+	<!--<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="id" >
 	        SELECT LAST_INSERT_ID() AS ID
-	</selectKey>
+	</selectKey>-->
 		INSERT INTO sys_user 
 		<include refid="addtrim"/>
 	</insert>
 	
 	<sql id="addtrim">
 	<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(userno)">
+				userno,
+			</if>
 			<if test="@Ognl@isNotEmpty(lognm)">
 				LOGNM,
 			</if>
@@ -324,17 +250,20 @@
 			<if test="@Ognl@isNotEmpty(bsbsknd)">
 				BSBSKND,
 			</if>
-			<if test="@Ognl@isNotEmpty(inpostn)">
-				INPOSTN,
+			<if test="@Ognl@isNotEmpty(lastlogin)">
+				LASTLOGIN,
 			</if>
-			<if test="@Ognl@isNotEmpty(cstmrtype)">
-				CSTMRTYPE,
+			<if test="@Ognl@isNotEmpty(loginip)">
+				LOGINIP,
 			</if>
-			<if test="@Ognl@isNotEmpty(cmpno)">
-				CMPNO,
+			<if test="@Ognl@isNotEmpty(loginlocation)">
+				LOGINLOCATION,
 			</if>
     </trim>
     <trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(userno)">
+				#{userno},
+			</if>
 			<if test="@Ognl@isNotEmpty(lognm)">
 				#{lognm},
 			</if>
@@ -383,35 +312,45 @@
 			<if test="@Ognl@isNotEmpty(bsbsknd)">
 				#{bsbsknd},
 			</if>
-			<if test="@Ognl@isNotEmpty(inpostn)">
-				#{inpostn},
+			<if test="@Ognl@isNotEmpty(lastlogin)">
+				#{lastlogin},
 			</if>
-			<if test="@Ognl@isNotEmpty(cstmrtype)">
-				#{cstmrtype},
+			<if test="@Ognl@isNotEmpty(loginip)">
+				#{loginip},
 			</if>
-			<if test="@Ognl@isNotEmpty(cmpno)">
-				#{cmpno},
+			<if test="@Ognl@isNotEmpty(loginlocation)">
+				#{loginlocation},
 			</if>
     </trim>
 	</sql>
 	
 	<!-- 删 -->
-	<delete id="deleteById" parameterType="String">
+	<delete id="delete" parameterType="String">
 		DELETE FROM sys_user WHERE
         USERNO = #{id} 
 	</delete>
 	
 	<!-- 根据主键查实体 -->
-	<select id="getById" parameterType="String" resultMap="SysUser">
+	<select id="getById" parameterType="String" resultMap="SysUser" >
 		SELECT <include refid="selectId" />
 		    FROM sys_user 
 	        WHERE 
         USERNO = #{id} 
 	</select>
-	<select id="getByAll" resultMap="SysUser">
+	<select id="getByAll" resultMap="SysUser" parameterType="com.ez.system.entity.SysUser">
 		SELECT <include refid="selectId" />
 		FROM sys_user
 		WHERE LOGNM=#{lognm}
+	</select>
+    <select id="listByRid" resultType="com.ez.system.entity.SysUser" parameterType="String">
+		SELECT <include refid="selectId" />
+		FROM sys_user
+		WHERE RLID = #{ids}
+	</select>
+	<select id="listByDptno" resultType="com.ez.system.entity.SysUser">
+		SELECT <include refid="selectId" />
+		FROM sys_user
+		WHERE DPTNO = #{ids}
 	</select>
 
 	<!-- 更新all -->
@@ -433,9 +372,9 @@
 	        OPRIGHT = #{opright} ,
 	        UPTDATE = #{uptdate} ,
 	        BSBSKND = #{bsbsknd} ,
-	        INPOSTN = #{inpostn} ,
-	        CSTMRTYPE = #{cstmrtype} ,
-	        CMPNO = #{cmpno} 
+	        LASTLOGIN = #{lastlogin} ,
+	        LOGINIP = #{loginip} ,
+	        LOGINLOCATION = #{loginlocation}
         WHERE 
 	        USERNO = #{userno} 
 	</update>
@@ -490,14 +429,14 @@
 		<if test="@Ognl@isNotEmpty(bsbsknd)">
 			BSBSKND = #{bsbsknd},
 		</if>
-		<if test="@Ognl@isNotEmpty(inpostn)">
-			INPOSTN = #{inpostn},
+		<if test="@Ognl@isNotEmpty(lastlogin)">
+			LASTLOGIN = #{lastlogin},
 		</if>
-		<if test="@Ognl@isNotEmpty(cstmrtype)">
-			CSTMRTYPE = #{cstmrtype},
+		<if test="@Ognl@isNotEmpty(loginip)">
+			LOGINIP = #{loginip},
 		</if>
-		<if test="@Ognl@isNotEmpty(cmpno)">
-			CMPNO = #{cmpno},
+		<if test="@Ognl@isNotEmpty(loginlocation)">
+			LOGINLOCATION = #{loginlocation},
 		</if>
     </set>
 	</sql>
@@ -509,7 +448,19 @@
         WHERE 
 	        USERNO = #{userno} 
 	</update>
-	
+	<update id="modifyRole" parameterType="com.ez.system.entity.SysUser">
+		UPDATE sys_user SET
+		RLNM = #{rlnm}
+		WHERE
+		RLID = #{rlid}
+	</update>
+	<update id="modifyOrg" parameterType="com.ez.system.entity.SysUser">
+		UPDATE sys_user SET
+		DPTNM = #{dptnm}
+		WHERE
+		DPTNO = #{dptno}
+	</update>
+
 	<!-- 查找唯一索引但不是主键的字段Selective -->
 	
 </mapper>

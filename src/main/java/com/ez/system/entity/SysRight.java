@@ -77,26 +77,6 @@ public class SysRight extends BaseEntity implements java.io.Serializable{
 	public void setRoleID(String roleID) {
 		this.roleID = roleID;
 	}
-	//系统框架字段 start
-	
-	private String sort;
-	private String direction;
-	public String getSort() {
-		return sort;
-	}
-	
-	public void setSort(String sort) {
-		this.sort = sort;
-	}
-	
-	public String getDirection() {
-		return direction;
-	}
-	
-	public void setDirection(String direction) {
-		this.direction = direction;
-	}
-	//系统框架字段 end
 
 	public void setUid(String value) {
 		this.uid = value;

@@ -7,7 +7,7 @@
 package com.ez.system.service;
 
 import com.ez.system.entity.SysRightGl;
-import com.ez.util.PageView;
+import com.github.pagehelper.Page;
 
 import java.util.List;
 
@@ -20,22 +20,21 @@ import java.util.List;
 
 public interface SysRightGlService{
 
-	public PageView query(PageView pageView, SysRightGl sysRightGl);
-	
-	public List<SysRightGl> queryAll(SysRightGl sysRightGl);
-	
-	public void add(SysRightGl sysRightGl);
-	
-	public void addAll(SysRightGl sysRightGl);
-	
-	public void delete(String id);
-	
-	public void modify(SysRightGl sysRightGl);
-	
-	public SysRightGl getById(String id);
-	
-	public List<SysRightGl> findAll();
+	List<SysRightGl> query(Page<SysRightGl> page, SysRightGl sysRightGl);
 
+	List<SysRightGl> queryAll(SysRightGl sysRightGl);
+
+	void add(SysRightGl sysRightGl);
+	
+	void addAll(SysRightGl sysRightGl);
+	
+	void delete(String id);
+	
+	void modify(SysRightGl sysRightGl);
+	
+	SysRightGl getById(String id);
+	
+	List<SysRightGl> findAll();
 
 	SysRightGl findByRid(String roleId);
 }

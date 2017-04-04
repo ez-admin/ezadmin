@@ -66,37 +66,6 @@ public class SysMenu extends BaseEntity implements java.io.Serializable{
 
 	private boolean hasMenu = false;
 
-	//系统框架字段 start
-	
-	private String sidx;
-	private String sord;
-	private String searchValue;
-
-	public String getSidx() {
-		return sidx;
-	}
-
-	public void setSidx(String sidx) {
-		this.sidx = sidx;
-	}
-
-	public String getSord() {
-		return sord;
-	}
-
-	public void setSord(String sord) {
-		this.sord = sord;
-	}
-
-	public String getSearchValue() {
-		return searchValue;
-	}
-
-	public void setSearchValue(String searchValue) {
-		this.searchValue = searchValue;
-	}
-	//系统框架字段 end
-
 	public void setMenuId(Integer value) {
 		this.menuId = value;
 	}
@@ -175,9 +144,6 @@ public class SysMenu extends BaseEntity implements java.io.Serializable{
 				", menuType='" + menuType + '\'' +
 				", menuList=" + menuList +
 				", hasMenu=" + hasMenu +
-				", sidx='" + sidx + '\'' +
-				", sord='" + sord + '\'' +
-				", searchValue='" + searchValue + '\'' +
 				'}';
 	}
 

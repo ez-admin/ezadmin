@@ -1,7 +1,7 @@
 package com.ez.system.service;
 
 import com.ez.system.entity.SysUser;
-import com.ez.util.PageView;
+import com.github.pagehelper.Page;
 
 import java.util.List;
 
@@ -14,22 +14,25 @@ import java.util.List;
 
 public interface SysUserService{
 
-	public PageView query(PageView pageView, SysUser sysUser);
-	
-	public List<SysUser> queryAll(SysUser sysUser);
-	
-	public void add(SysUser sysUser);
-	
-	public void addAll(SysUser sysUser);
-	
-	public void delete(String id);
-	
-	public void modify(SysUser sysUser);
-	
-	public SysUser getById(String id);
-	
-	public List<SysUser> findAll();
+	List<SysUser> query(Page<SysUser> page, SysUser sysUser);
 
+	List<SysUser> queryAll(SysUser sysUser);
+
+	void add(SysUser sysUser);
+	
+	void addAll(SysUser sysUser);
+	
+	void delete(String id);
+	
+	void modify(SysUser sysUser);
+	
+	SysUser getById(String id);
+	
+	List<SysUser> findAll();
 
 	SysUser getByAll(SysUser sysUser);
+
+    List<SysUser> listByRid(String ids);
+
+    List<SysUser> listByDptno(String ids);
 }

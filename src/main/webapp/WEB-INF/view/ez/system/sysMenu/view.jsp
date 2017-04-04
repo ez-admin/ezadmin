@@ -1,90 +1,99 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
-%>
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-	<base href="<%=basePath%>">
-	<!-- jsp文件头和头部 -->
+<%@ include file="/WEB-INF/view/ez/index/tablibs.jsp"%>
+<%@ include file="/WEB-INF/view/ez/index/selpath.jsp"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<title>菜单新增</title>
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
-	<style type="text/css">
-		body{
-			background-color: #ffffff;
-		}
-		.main-container{
-			padding: 20px;
-		}
-		.inputdiv{
-			line-height: 35px;
-			font-weight: normal;
-			font-size: 14px;
-		}
-	</style>
-  </head>
-  
-  <body>
-  <div class="main-container ace-save-state">
-	  <div class="row">
-		  <div class="col-xs-12">
-			  <form class="form-horizontal" role="form">
-				  <div class="form-group">
-					  <label class="col-xs-4 control-label no-padding-right"> 菜单名称 ：</label>
-					  <div class="col-xs-6">
-						  <input type="text" value="${sysmenu.menuName}" class="form-control" readonly/>
-					  </div>
-				  </div>
-
-				  <div class="form-group">
-					  <label class="col-xs-4 control-label no-padding-right"> 菜单URL地址：</label>
-					  <div class="col-xs-6">
-						  <input type="text" value="${sysmenu.menuUrl}" class="form-control" readonly/>
-					  </div>
-				  </div>
-
-				  <div class="form-group">
-					  <label class="col-xs-4 control-label no-padding-right"> 父级菜单ID：</label>
-					  <div class="col-xs-1">
-						  <input type="text" value="${sysmenu.parentId}" class="form-control" readonly/>
-					  </div>
-				  </div>
-
-				  <div class="form-group">
-					  <label class="col-xs-4 control-label no-padding-right"> 菜单顺序： </label>
-					  <div class="col-xs-1">
-						  <input type="text" value="${sysmenu.menuOrder}" class="form-control" readonly/>
-					  </div>
-				  </div>
-				  <div class="form-group">
-					  <label class="col-xs-4 control-label no-padding-right" > 菜单图标：</label>
-					  <div class="col-xs-2">
-						  <input type="text" value="${sysmenu.menuIcon}" class="form-control" readonly>
-					  </div>
-					  <i class="ace-ico fa ${sysmenu.menuIcon} inputdiv"></i>
-				  </div>
-				  <div class="form-group">
-					  <label class="col-xs-4 control-label no-padding-right" > 菜单类型：</label>
-					  <div class="col-xs-6 inputdiv">
-						  <c:choose>
-							  <c:when test="${sysmenu.menuType == 1}">
-								  <input type="radio" checked readonly>系统菜单
-							  </c:when>
-							  <c:otherwise>
-								  <input type="radio" checked readonly>业务菜单
-							  </c:otherwise>
-						  </c:choose>
-					  </div>
-				  </div>
-			  </form>
-		  </div>
-	  </div>
-  </div>
-
-  </body>
+</head>
+<body>
+<div class="layui-field-box">
+	<form id="formid" class="layui-form">
+		<div class="layui-form-item">
+			<label class="layui-form-label">菜单名称:</label>
+			<div class="layui-input-inline">
+				<input type="text" name="menuName" value="${sysMenu.menuName}" readonly class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">菜单地址:</label>
+			<div class="layui-input-inline">
+				<input type="text" name="menuUrl" value="${sysMenu.menuUrl}" readonly class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">菜单ID:</label>
+			<div class="layui-input-inline">
+				<input type="text" name="menuId" value="${sysMenu.menuId}" readonly class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">父级菜单ID:</label>
+			<div class="layui-input-inline">
+				<input type="text" name="parentId" value="${sysMenu.parentId}" readonly class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">菜单顺序:</label>
+			<div class="layui-input-inline">
+				<input type="text" name="menuOrder" value="${sysMenu.menuOrder}" readonly class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">菜单图标:</label>
+			<div class="layui-input-inline">
+				<input type="text" name="menuIcon" value="${sysMenu.menuIcon}" readonly class="layui-input">
+			</div>
+			<div class="layui-form-mid layui-word-aux">
+				<i class="fa ${sysMenu.menuIcon}"></i>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">菜单类型</label>
+			<div class="layui-input-inline">
+				<c:if test="${sysMenu.menuType=='0'}">
+					<input type="radio" name="menuType" value="0" title="开发者菜单" checked>
+					<input type="radio" name="menuType" value="1" title="系统菜单" disabled>
+					<input type="radio" name="menuType" value="2" title="业务菜单" disabled>
+					<input type="radio" name="menuType" value="3" title="前台菜单" disabled>
+				</c:if>
+				<c:if test="${sysMenu.menuType=='1'}">
+					<input type="radio" name="menuType" value="0" title="开发者菜单" disabled>
+					<input type="radio" name="menuType" value="1" title="系统菜单" checked>
+					<input type="radio" name="menuType" value="2" title="业务菜单" disabled>
+					<input type="radio" name="menuType" value="3" title="前台菜单" disabled>
+				</c:if>
+				<c:if test="${sysMenu.menuType=='2'}">
+					<input type="radio" name="menuType" value="0" title="开发者菜单" disabled>
+					<input type="radio" name="menuType" value="1" title="系统菜单" disabled>
+					<input type="radio" name="menuType" value="2" title="业务菜单" checked>
+					<input type="radio" name="menuType" value="3" title="前台菜单" disabled>
+				</c:if>
+				<c:if test="${sysMenu.menuType=='3'}">
+					<input type="radio" name="menuType" value="0" title="开发者菜单" disabled>
+					<input type="radio" name="menuType" value="1" title="系统菜单" disabled>
+					<input type="radio" name="menuType" value="2" title="业务菜单" disabled>
+					<input type="radio" name="menuType" value="3" title="前台菜单" checked>
+				</c:if>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<button class="layui-btn" onclick="top.layer.closeAll()">关闭</button>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript" src="/static/plugins/layui/layui.js" charset="utf-8"></script>
+<script>
+	//Demo
+	layui.use(['layer', 'form','jquery'], function(){
+		var layer = layui.layer
+				,form = layui.form()
+				,$ = layui.jquery;
+	});
+</script>
+</body>
 </html>

@@ -6,7 +6,7 @@
 <!-- 不使用namespace的话sql搜索定位会比较方便 -->
 <mapper namespace="com.ez.system.dao.SysLogDao">
 
-	<resultMap id="SysLog" type="com.ez.system.entity.SysLog">
+		<resultMap id="SysLog" type="com.ez.system.entity.SysLog">
         <result property="id" column="id"/>
         <result property="mehtoddescription" column="mehtoddescription"/>
         <result property="exceptionCode" column="exceptionCode"/>
@@ -22,82 +22,92 @@
 	
 	<sql id="selectId">
 		id,
-mehtoddescription,
-exceptionCode,
-logtype,
-exceptionDetail,
-method,
-params,
-cmpno,
-userno,
-createDate,
-requestIp
+		mehtoddescription,
+		exceptionCode,
+		logtype,
+		exceptionDetail,
+		method,
+		params,
+		cmpno,
+		userno,
+		createDate,
+		requestIp
     </sql>
+	<sql id="selectId0">
+		a.id,
+		a.mehtoddescription,
+		a.exceptionCode,
+		a.logtype,
+		a.exceptionDetail,
+		a.method,
+		a.params,
+		a.cmpno,
+		a.userno,
+		b.lognm as usernm,
+		a.createDate,
+		a.requestIp
+	</sql>
     
     <select id="findAll" resultType="com.ez.system.entity.SysLog">
 		select
 		<include refid="selectId" />
 		from sys_log
 	</select>
-	
-	<select id="queryAll" resultType="com.ez.system.entity.SysLog" parameterType="com.ez.system.entity.SysLog">
-		select
-		<include refid="selectId" />
-		from sys_log
-		<include refid="querywhere1"/>
-		<if test="@Ognl@isNotEmpty(sort) and @Ognl@isNotEmpty(direction)">
-		 order by ${sort} ${direction}
-		</if>
-	</select>
 
-	<select id="query" resultType="com.ez.system.entity.SysLog" parameterType="java.util.HashMap">
+	<select id="query" resultType="com.ez.system.entity.SysLog" parameterType="com.ez.system.entity.SysLog">
+		select
+		<include refid="selectId0" />
+		from sys_log a
+		LEFT JOIN sys_user b ON a.userno=b.userno
+		<include refid="querywhere0"/>
+	</select>
+	<!--<select id="query" resultType="com.ez.system.entity.SysLog" parameterType="java.util.HashMap">
 		select
 		<include refid="selectId" />
 		from sys_log
 		<include refid="querywhere"/>
-		<if test="@Ognl@isNotEmpty(t.sort) and @Ognl@isNotEmpty(t.direction)">
-		 order by ${t.sort} ${t.direction}
-		</if>
-	</select>
-	
-	<sql id="querywhere">
+	</select>-->
+	<sql id="querywhere0">
 		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
-		<where>	      				
-			   <if test="@Ognl@isNotEmpty(t.mehtoddescription)">
-					AND mehtoddescription like '%${t.mehtoddescription}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.exceptionCode)">
-					AND exceptionCode like '%${t.exceptionCode}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.logtype)">
-					AND logtype like '%${t.logtype}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.exceptionDetail)">
-					AND exceptionDetail like '%${t.exceptionDetail}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.method)">
-					AND method like '%${t.method}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.params)">
-					AND params like '%${t.params}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.cmpno)">
-					AND cmpno like '%${t.cmpno}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.userno)">
-					AND userno like '%${t.userno}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.createDate)">
-					AND createDate like '%${t.createDate}%'
-			   </if>
-			   <if test="@Ognl@isNotEmpty(t.requestIp)">
-					AND requestIp like '%${t.requestIp}%'
-			   </if>
-	       
+		<where>
+			<if test="@Ognl@isNotEmpty(mehtoddescription)">
+				AND a.mehtoddescription like '%${mehtoddescription}%'
+			</if>
+			<if test="@Ognl@isNotEmpty(exceptionCode)">
+				AND a.exceptionCode like '%${exceptionCode}%'
+			</if>
+			<if test="@Ognl@isNotEmpty(logtype)">
+				AND a.logtype like '%${logtype}%'
+			</if>
+			<if test="@Ognl@isNotEmpty(exceptionDetail)">
+				AND a.exceptionDetail like '%${exceptionDetail}%'
+			</if>
+			<if test="@Ognl@isNotEmpty(method)">
+				AND a.method like '%${method}%'
+			</if>
+			<if test="@Ognl@isNotEmpty(params)">
+				AND a.params like '%${params}%'
+			</if>
+			<if test="@Ognl@isNotEmpty(cmpno)">
+				AND a.cmpno like '%${cmpno}%'
+			</if>
+			<if test="@Ognl@isNotEmpty(userno)">
+				AND a.userno like '%${userno}%'
+			</if>
+			<if test="@Ognl@isNotEmpty(usernm)">
+				AND b.lognm like '%${usernm}%'
+			</if>
+			<if test="@Ognl@isNotEmpty(createDate)">
+				AND a.createDate like '%${createDate}%'
+			</if>
+			<if test="@Ognl@isNotEmpty(requestIp)">
+				AND a.requestIp like '%${requestIp}%'
+			</if>
+
 		</where>
 	</sql>
-	
-		<sql id="querywhere1">
+
+		<sql id="querywhere">
 		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
 		<where>	      				
 		       <if test="@Ognl@isNotEmpty(mehtoddescription)">
@@ -137,7 +147,7 @@ requestIp
 	<!-- 总记录数 -->
 	<select id="count" parameterType="com.ez.system.entity.SysLog" resultType="int">
 		select count(0) from sys_log
-		<include refid="querywhere1"/>
+		<include refid="querywhere"/>
 	</select>
 	
 	<!-- 新增 -->

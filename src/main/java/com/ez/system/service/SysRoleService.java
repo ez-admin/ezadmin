@@ -7,7 +7,7 @@
 package com.ez.system.service;
 
 import com.ez.system.entity.SysRole;
-import com.ez.util.PageView;
+import com.github.pagehelper.Page;
 
 import java.util.List;
 
@@ -20,21 +20,20 @@ import java.util.List;
 
 public interface SysRoleService{
 
-	public PageView query(PageView pageView, SysRole sysRole);
+	List<SysRole> query(Page<SysRole> page, SysRole sysRole);
+
+	List<SysRole> queryAll(SysRole sysRole);
+
+	void add(SysRole sysRole);
 	
-	public List<SysRole> queryAll(SysRole sysRole);
+	void addAll(SysRole sysRole);
 	
-	public void add(SysRole sysRole);
+	void delete(String id);
 	
-	public void addAll(SysRole sysRole);
+	void modify(SysRole sysRole);
 	
-	public void delete(String id);
+	SysRole getById(String id);
 	
-	public void modify(SysRole sysRole);
-	
-	public SysRole getById(String id);
-	
-	public List<SysRole> findAll();
-	
-	
+	List<SysRole> findAll();
+
 }
