@@ -6,7 +6,7 @@
 
 package com.ez.system.service;
 
-import com.ez.system.entity.SysDictype;
+import com.ez.system.entity.SysDicType;
 import com.github.pagehelper.Page;
 
 import java.util.List;
@@ -18,25 +18,25 @@ import java.util.List;
  * @version 1.0
  */
 
-public interface SysDictypeService{
+public interface SysDicTypeService {
 
-	List<SysDictype> query(Page<SysDictype> page, SysDictype sysDictype);
+	List<SysDicType> query(Page<SysDicType> page, SysDicType sysDictype);
 
-	List<SysDictype> queryAll(SysDictype sysDictype);
+	List<SysDicType> queryAll(SysDicType sysDictype);
 
-	void add(SysDictype sysDictype);
+	void add(SysDicType sysDictype);
 	
-	void addAll(SysDictype sysDictype);
+	void addAll(SysDicType sysDictype);
 	
 	void delete(String id);
 	
-	void modify(SysDictype sysDictype);
+	void modify(SysDicType sysDictype);
 	
-	SysDictype getById(String id);
+	SysDicType getById(String id);
 	
-	List<SysDictype> findAll();
+	List<SysDicType> findAll();
 
-	List<SysDictype> getSdBySdtCode(String code);
+	List<SysDicType> getSdBySdtCode(String code);
 
-	SysDictype getByName(String name);
+	SysDicType getByName(String name);
 }

@@ -4,12 +4,12 @@
 
 
 <!-- 不使用namespace的话sql搜索定位会比较方便 -->
-<mapper namespace="com.ez.system.dao.SysDictypeDao">
+<mapper namespace="com.ez.system.dao.SysDicTypeDao">
 	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
 	<!--<cache type="org.mybatis.caches.ehcache.EhcacheCache" />-->
 
-	<resultMap id="SysDictype" type="com.ez.system.entity.SysDictype">
+	<resultMap id="SysDictype" type="com.ez.system.entity.SysDicType">
         <result property="code" column="CODE"/>
         <result property="name" column="NAME"/>
         <result property="remark" column="REMARK"/>
@@ -29,7 +29,7 @@ FLAG
 		from sys_dictype
 	</select>
 
-	<select id="query" resultMap="SysDictype" parameterType="com.ez.system.entity.SysDictype">
+	<select id="query" resultMap="SysDictype" parameterType="com.ez.system.entity.SysDicType">
 		select
 		<include refid="selectId" />
 		from sys_dictype
@@ -53,13 +53,13 @@ FLAG
 	</sql>
 
 	<!-- 总记录数 -->
-	<select id="count" parameterType="com.ez.system.entity.SysDictype" resultType="int">
+	<select id="count" parameterType="com.ez.system.entity.SysDicType" resultType="int">
 		select count(0) from sys_dictype
 		<include refid="querywhere"/>
 	</select>
 	
 	<!-- 新增 -->
-	<insert id="addAll" parameterType="com.ez.system.entity.SysDictype">
+	<insert id="addAll" parameterType="com.ez.system.entity.SysDicType">
 	<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="id" >
         SELECT LAST_INSERT_ID() AS ID   
     </selectKey>
@@ -75,7 +75,7 @@ FLAG
 	</insert>
 	
 	<!-- 新增Selective -->
-	<insert id="add" parameterType="com.ez.system.entity.SysDictype">
+	<insert id="add" parameterType="com.ez.system.entity.SysDicType">
 		INSERT INTO sys_dictype 
 		<include refid="addtrim"/>
 	</insert>
@@ -124,7 +124,7 @@ FLAG
 	        WHERE 
         CODE = #{id}
 	</select>
-	<select id="getSdBySdtCode" resultType="com.ez.system.entity.SysDictype" parameterType="String">
+	<select id="getSdBySdtCode" resultType="com.ez.system.entity.SysDicType" parameterType="String">
 		SELECT <include refid="selectId" />
 		FROM sys_dictype
 		<if test="@Ognl@isNotEmpty(code)">
@@ -132,7 +132,7 @@ FLAG
 		</if>
 		order by CODE
 	</select>
-	<select id="getByName" resultType="com.ez.system.entity.SysDictype">
+	<select id="getByName" resultType="com.ez.system.entity.SysDicType">
 		SELECT  <include refid="selectId" />
 		FROM sys_dictype
 		WHERE
@@ -140,7 +140,7 @@ FLAG
 	</select>
 
 	<!-- 更新all -->
-	<update id="updateAll" parameterType="com.ez.system.entity.SysDictype">
+	<update id="updateAll" parameterType="com.ez.system.entity.SysDicType">
 	    UPDATE sys_dictype SET
 	        NAME = #{name} ,
 	        REMARK = #{remark} ,
@@ -164,7 +164,7 @@ FLAG
 	</sql>
 	
 	<!-- 更新Selective -->
-	<update id="modify" parameterType="com.ez.system.entity.SysDictype">
+	<update id="modify" parameterType="com.ez.system.entity.SysDicType">
 	    UPDATE sys_dictype 
 		<include refid="updateset"/>
         WHERE 

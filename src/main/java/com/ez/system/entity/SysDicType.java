@@ -20,7 +20,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @version 1.0
  */
 
-public class SysDictype extends BaseEntity implements java.io.Serializable{
+public class SysDicType extends BaseEntity implements java.io.Serializable{
 	private static final long serialVersionUID = 5454155825314635342L;
 	
 	//alias
@@ -32,10 +32,10 @@ public class SysDictype extends BaseEntity implements java.io.Serializable{
 	
 	//date formats
 	
-	public SysDictype(){
+	public SysDicType(){
 	}
 
-	public SysDictype(
+	public SysDicType(
 		String code
 	){
 		this.code = code;
@@ -99,9 +99,9 @@ public class SysDictype extends BaseEntity implements java.io.Serializable{
 	}
 	
 	public boolean equals(Object obj) {
-		if(obj instanceof SysDictype == false) return false;
+		if(obj instanceof SysDicType == false) return false;
 		if(this == obj) return true;
-		SysDictype other = (SysDictype)obj;
+		SysDicType other = (SysDicType)obj;
 		return new EqualsBuilder()
 			.append(getCode(),other.getCode())
 			.isEquals();

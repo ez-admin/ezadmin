@@ -9,9 +9,9 @@ package com.ez.system.service.impl;
 
 import com.ez.annotation.SystemLogService;
 import com.ez.system.dao.SysDictionaryDao;
-import com.ez.system.dao.SysDictypeDao;
-import com.ez.system.entity.SysDictype;
-import com.ez.system.service.SysDictypeService;
+import com.ez.system.dao.SysDicTypeDao;
+import com.ez.system.entity.SysDicType;
+import com.ez.system.service.SysDicTypeService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
@@ -28,9 +28,9 @@ import java.util.List;
  */
 @Transactional
 @Service("sysDictypeService")
-public class SysDictypeServiceImpl implements SysDictypeService {
+public class SysDictypeServiceImpl implements SysDicTypeService {
 	@Resource
-	private SysDictypeDao sysDictypeDao;
+	private SysDicTypeDao sysDictypeDao;
 	@Resource
 	private SysDictionaryDao sysDictionaryDao;
 	/**
@@ -42,9 +42,9 @@ public class SysDictypeServiceImpl implements SysDictypeService {
 	//@PreAuthorize("hasRole('ROLE_*')")
 	@Transactional(readOnly=true)
 	@SystemLogService(description = "分页查询字典类型异常")
-	public List<SysDictype> query(Page<SysDictype> page, SysDictype sysDictype) {
+	public List<SysDicType> query(Page<SysDicType> page, SysDicType sysDictype) {
 		PageHelper.startPage(page.getPageNum(),page.getPageSize(),page.getOrderBy());
-		List<SysDictype> list = sysDictypeDao.query(sysDictype);
+		List<SysDicType> list = sysDictypeDao.query(sysDictype);
 		return list;
 	}
 	
@@ -56,8 +56,8 @@ public class SysDictypeServiceImpl implements SysDictypeService {
 	//@PreAuthorize("hasRole('ROLE_*')")
 	@Transactional(readOnly=true)
 	@SystemLogService(description = "不分页查询字典类型异常")
-	public List<SysDictype> queryAll(SysDictype sysDictype) {
-		List<SysDictype> list = sysDictypeDao.query(sysDictype);
+	public List<SysDicType> queryAll(SysDicType sysDictype) {
+		List<SysDicType> list = sysDictypeDao.query(sysDictype);
 		return list;
 	}
 	
@@ -68,7 +68,7 @@ public class SysDictypeServiceImpl implements SysDictypeService {
 	 */
 	//@PreAuthorize("hasRole('ROLE_*')")
 	@SystemLogService(description = "新增字典类型异常")
-	public void add(SysDictype sysDictype) {
+	public void add(SysDicType sysDictype) {
 		sysDictypeDao.add(sysDictype);
 	}
 	
@@ -79,7 +79,7 @@ public class SysDictypeServiceImpl implements SysDictypeService {
 	 */
 	//@PreAuthorize("hasRole('ROLE_*')")
 	@SystemLogService(description = "新增所有字典类型异常")
-	public void addAll(SysDictype sysDictype) {
+	public void addAll(SysDicType sysDictype) {
 		sysDictypeDao.addAll(sysDictype);
 	}
 	
@@ -104,7 +104,7 @@ public class SysDictypeServiceImpl implements SysDictypeService {
 	 */
 	//@PreAuthorize("hasRole('ROLE_*')")
 	@Transactional(readOnly=true)
-	public SysDictype getById(String id) {
+	public SysDicType getById(String id) {
 		return sysDictypeDao.getById(id);
 	}
 	
@@ -114,7 +114,7 @@ public class SysDictypeServiceImpl implements SysDictypeService {
 	 * @return
 	 */
 	//@PreAuthorize("hasRole('ROLE_*')")
-	public void modify(SysDictype sysDictype) {
+	public void modify(SysDicType sysDictype) {
 		sysDictypeDao.modify(sysDictype);
 	}
 
@@ -124,17 +124,17 @@ public class SysDictypeServiceImpl implements SysDictypeService {
 	 */
 	//@PreAuthorize("hasRole('ROLE_*')")
 	@Transactional(readOnly=true)
-	public List<SysDictype> findAll() {
+	public List<SysDicType> findAll() {
 		return sysDictypeDao.findAll();
 	}
 
     @Override
-    public List<SysDictype> getSdBySdtCode(String code) {
+    public List<SysDicType> getSdBySdtCode(String code) {
         return sysDictypeDao.getSdBySdtCode(code);
     }
 
 	@Override
-	public SysDictype getByName(String name) {
+	public SysDicType getByName(String name) {
 		return sysDictypeDao.getByName(name);
 	}
 
