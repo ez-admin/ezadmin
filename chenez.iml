@@ -100,5 +100,6 @@
     <orderEntry type="library" name="Maven: asm:asm:3.3" level="project" />
     <orderEntry type="library" name="Maven: asm:asm-commons:3.3" level="project" />
     <orderEntry type="library" name="Maven: asm:asm-tree:3.3" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Tomcat 7.0.40" level="application_server_libraries" />
   </component>
 </module>
