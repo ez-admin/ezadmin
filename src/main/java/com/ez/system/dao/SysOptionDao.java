@@ -8,9 +8,6 @@ package com.ez.system.dao;
 
 import com.ez.base.BaseDao;
 import com.ez.system.entity.SysOption;
-import org.springframework.dao.DataAccessException;
-
-import java.util.List;
 
 /**
  * @author chenez
@@ -19,6 +16,5 @@ import java.util.List;
  * @version 1.0
  */
 public interface SysOptionDao extends BaseDao<SysOption>{
-	List<SysOption> findAll() throws DataAccessException;
 
 }

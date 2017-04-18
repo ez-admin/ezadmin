@@ -19,7 +19,6 @@ import java.util.List;
  * @version 1.0
  */
 public interface SysDicTypeDao extends BaseDao<SysDicType>{
-	public List<SysDicType> findAll() throws DataAccessException;
 	List<SysDicType> getSdBySdtCode(String code) throws DataAccessException;
     SysDicType getByName(String name) throws DataAccessException;
 }

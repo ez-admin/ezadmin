@@ -13,8 +13,5 @@ import java.util.List;
  * @version 1.0
  */
 public interface SysRightDao extends BaseDao<SysRight> {
-	public List<SysRight> findAll() throws DataAccessException;
-
-
 	SysRight findByRid(String roleId) throws DataAccessException;
 }

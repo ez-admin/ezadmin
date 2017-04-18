@@ -77,9 +77,9 @@ optionName
 	
 	<sql id="addtrim">
 		<trim prefix="(" suffix=")" suffixOverrides="," >
-			<if test="@Ognl@isNotEmpty(oid)">
+			<!--<if test="@Ognl@isNotEmpty(oid)">
 				oId,
-			</if>
+			</if>-->
 			<if test="@Ognl@isNotEmpty(optionValue)">
 				optionValue,
 			</if>

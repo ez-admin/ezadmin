@@ -14,7 +14,5 @@ import java.util.List;
  * @version 1.0
  */
 public interface SysLogDao extends BaseDao<SysLog> {
-	public List<SysLog> findAll() throws DataAccessException;
-
 
 }

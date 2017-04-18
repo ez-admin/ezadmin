@@ -127,8 +127,9 @@ public  class SystemLogAspect {
                 params += objType + ";";
             }
         }
-        SysLog log=new SysLog();;
+        SysLog log=new SysLog();
         try {
+
               /*========控制台输出=========*/
             System.out.println("=====异常通知开始=====");
             System.out.println("异常代码:" + e.getClass().getName());
