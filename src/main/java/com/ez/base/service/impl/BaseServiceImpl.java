@@ -17,7 +17,6 @@ import java.util.List;
 public abstract class BaseServiceImpl<T> implements BaseService<T> {
     private BaseDao<T> baseDao ;
     private Class<T> clazz ;
-    @SuppressWarnings("unchecked")
     public BaseServiceImpl() {
         ParameterizedType type = (ParameterizedType) this.getClass().getGenericSuperclass();
         clazz = (Class<T>) type.getActualTypeArguments()[0];
@@ -32,7 +31,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
      * @param t
      * @return
      */
-    @SystemLogService(description = "保存系统设置异常")
+    @SystemLogService(description = "")
     public void add(T t) {
         baseDao.add(t);
     }
@@ -41,7 +40,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
      * @param t
      * @return
      */
-    @SystemLogService(description = "保存系统设置异常")
+    @SystemLogService(description = "")
     public void addAll(T t) {
         baseDao.addAll(t);
     }
@@ -50,7 +49,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
      * @param id
      * @return
      */
-    //@SystemLogService(description = "删除系统设置异常")
+    @SystemLogService(description = "")
     public void delete(String id) {
         baseDao.delete(id);
     }
@@ -59,7 +58,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
      * @param t
      * @return
      */
-    //@SystemLogService(description = "修改系统设置异常")
+    @SystemLogService(description = "")
     public void modify(T t) {
         baseDao.modify(t);
     }
@@ -68,8 +67,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
      * @param id
      * @return
      */
-    //@Transactional(readOnly=true)
-    @SystemLogService(description = "根据id查找系统设置异常")
+    @SystemLogService(description = "")
     public T getById(String id) {
         return baseDao.getById(id);
     }
@@ -80,7 +78,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
      * @return List<T>
      */
     @Transactional(readOnly=true)
-    //@SystemLogService(description = "分页查询系统设置异常")
+    @SystemLogService(description = "")
     public List<T> query(Page<T> page, T t) {
         PageHelper.startPage(page.getPageNum(),page.getPageSize(),page.getOrderBy());
         List<T> list = baseDao.query(t);
@@ -93,7 +91,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
      * @return List<T>
      */
     @Transactional(readOnly=true)
-    //@SystemLogService(description = "不分页查询系统设置异常")
+    @SystemLogService(description = "")
     public List<T> queryAll(T t) {
         List<T> list = baseDao.query(t);
         return list;
@@ -103,7 +101,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
      * @return
      */
     @Transactional(readOnly=true)
-    //@SystemLogService(description = "查找所有系统设置异常")
+    @SystemLogService(description = "")
     public List<T> findAll() {
         return baseDao.findAll();
     }

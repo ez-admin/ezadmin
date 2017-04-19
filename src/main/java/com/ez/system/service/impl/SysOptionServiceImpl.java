@@ -6,14 +6,17 @@
 
 package com.ez.system.service.impl;
 
+import com.ez.annotation.ServiceImplClassDescription;
 import com.ez.base.BaseDao;
 import com.ez.base.service.impl.BaseServiceImpl;
+import com.ez.system.dao.SysOptionDao;
 import com.ez.system.entity.SysOption;
 import com.ez.system.service.SysOptionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.zip.DataFormatException;
 
 /**
  * @author chenez
@@ -23,10 +26,18 @@ import javax.annotation.Resource;
  */
 @Transactional
 @Service("sysOptionService")
+@ServiceImplClassDescription(description = "系统设置")
 public class SysOptionServiceImpl extends BaseServiceImpl<SysOption> implements SysOptionService{
+
     @Resource(name="sysOptionDao")
     public void setDao(BaseDao<SysOption> dao) {
         super.setDao(dao);
     }
+    @Resource
+    private SysOptionDao sysOptionDao;
 
+    @Override
+    public void test() throws DataFormatException {
+        //sysOptionDao.test();
+    }
 }

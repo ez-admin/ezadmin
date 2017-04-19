@@ -9,6 +9,8 @@ package com.ez.system.dao;
 import com.ez.base.BaseDao;
 import com.ez.system.entity.SysOption;
 
+import java.util.zip.DataFormatException;
+
 /**
  * @author chenez
  * @2017-04-18
