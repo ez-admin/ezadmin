@@ -129,7 +129,6 @@ public  class SystemLogAspect {
         }
         SysLog log=new SysLog();
         try {
-
               /*========控制台输出=========*/
             System.out.println("=====异常通知开始=====");
             System.out.println("异常代码:" + e.getClass().getName());
@@ -139,7 +138,14 @@ public  class SystemLogAspect {
             System.out.println("请求IP:" + ip);
             System.out.println("请求参数:" + params);
                /*==========数据库日志=========*/
-            log.setMehtoddescription(getServiceMthodDescription(joinPoint));
+            String mehtodescription=getServiceMthodDescription(joinPoint);
+            String pointway=joinPoint.getSignature().getName();
+            String classname=joinPoint.getTarget().getClass().getName();
+            if ("add".equals(pointway)){
+                mehtodescription="保存"+classname +"异常";
+            }
+
+            log.setMehtoddescription(mehtodescription);
             log.setExceptionCode(e.getClass().getName());
             log.setLogtype(PubConstants.LOGTYPE_EXCEPTION);
             log.setExceptionDetail(e.getMessage());
