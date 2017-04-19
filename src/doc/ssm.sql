@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2017-04-04 22:26:20
+Date: 2017-04-19 21:38:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -824,132 +824,42 @@ CREATE TABLE `sys_log` (
   `requestIp` varchar(20) DEFAULT NULL COMMENT '请求ip',
   PRIMARY KEY (`id`),
   UNIQUE KEY `key_id` (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3329 DEFAULT CHARSET=utf8 COMMENT='系统日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COMMENT='系统日志表';
 
 -- ----------------------------
 -- Records of sys_log
 -- ----------------------------
-INSERT INTO `sys_log` VALUES ('3208', '跳到字典类型列表页面', null, '0', null, 'com.ez.system.controller.SysDictypeController.list()', null, null, '1000', '2017-03-25 22:04:45', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3209', '跳到分页查询字典类型信息', null, '0', null, 'com.ez.system.controller.SysDictypeController.showlist()', null, null, '1000', '2017-03-25 22:04:46', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3210', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-25 22:11:28', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3211', '跳到字典名称列表页面', null, '0', null, 'com.ez.system.controller.SysDictionaryController.list()', null, null, '1000', '2017-03-25 22:11:53', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3212', '跳到分页查询字典名称信息', null, '0', null, 'com.ez.system.controller.SysDictionaryController.showlist()', null, null, '1000', '2017-03-25 22:11:55', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3213', '跳到菜单管理列表页面', null, '0', null, 'com.ez.system.controller.SysMenuController.list()', null, null, '1000', '2017-03-25 22:12:04', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3214', '获取系统用户列表页面', null, '0', null, 'com.ez.system.controller.SysUserController.list()', null, null, '1000', '2017-03-25 22:12:26', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3215', '跳到分页查询组织结构表信息', null, '0', null, 'com.ez.system.controller.SysOrgController.showlist()', null, null, '1000', '2017-03-25 22:12:27', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3216', '获取系统用户列表页面', null, '0', null, 'com.ez.system.controller.SysUserController.list()', null, null, '1000', '2017-03-25 22:12:47', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3217', '跳到分页查询组织结构表信息', null, '0', null, 'com.ez.system.controller.SysOrgController.showlist()', null, null, '1000', '2017-03-25 22:12:48', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3218', '跳到菜单管理列表页面', null, '0', null, 'com.ez.system.controller.SysMenuController.list()', null, null, '1000', '2017-03-25 22:15:35', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3219', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-25 22:19:23', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3220', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-25 22:40:34', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3221', '获取系统用户列表页面', null, '0', null, 'com.ez.system.controller.SysUserController.list()', null, null, '1000', '2017-03-25 22:40:44', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3222', '跳到分页查询组织结构表信息', null, '0', null, 'com.ez.system.controller.SysOrgController.showlist()', null, null, '1000', '2017-03-25 22:40:44', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3223', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-25 22:45:16', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3224', '用户登录系统', null, '0', null, 'LoginController-->login', 'zhangsan;1', null, '2000', '2017-03-25 22:45:39', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3225', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-25 22:49:52', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3226', '获取系统用户列表页面', null, '0', null, 'com.ez.system.controller.SysUserController.list()', null, null, '1000', '2017-03-25 22:50:02', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3227', '跳到分页查询组织结构表信息', null, '0', null, 'com.ez.system.controller.SysOrgController.showlist()', null, null, '1000', '2017-03-25 22:50:02', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3228', '获取系统用户列表页面', null, '0', null, 'com.ez.system.controller.SysUserController.list()', null, null, '1000', '2017-03-25 22:56:32', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3229', '跳到分页查询组织结构表信息', null, '0', null, 'com.ez.system.controller.SysOrgController.showlist()', null, null, '1000', '2017-03-25 22:56:33', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3230', '获取系统用户列表页面', null, '0', null, 'com.ez.system.controller.SysUserController.list()', null, null, '1000', '2017-03-25 22:57:50', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3231', '跳到分页查询组织结构表信息', null, '0', null, 'com.ez.system.controller.SysOrgController.showlist()', null, null, '1000', '2017-03-25 22:57:50', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3232', '跳到菜单管理列表页面', null, '0', null, 'com.ez.system.controller.SysMenuController.list()', null, null, '1000', '2017-03-25 22:58:01', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3233', '获取系统用户列表页面', null, '0', null, 'com.ez.system.controller.SysUserController.list()', null, null, '1000', '2017-03-25 22:58:05', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3234', '跳到分页查询组织结构表信息', null, '0', null, 'com.ez.system.controller.SysOrgController.showlist()', null, null, '1000', '2017-03-25 22:58:05', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3235', '获取系统用户列表页面', null, '0', null, 'com.ez.system.controller.SysUserController.list()', null, null, '1000', '2017-03-25 22:58:26', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3236', '跳到分页查询组织结构表信息', null, '0', null, 'com.ez.system.controller.SysOrgController.showlist()', null, null, '1000', '2017-03-25 22:58:26', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3237', '获取系统用户列表页面', null, '0', null, 'com.ez.system.controller.SysUserController.list()', null, null, '1000', '2017-03-25 22:58:38', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3238', '跳到分页查询组织结构表信息', null, '0', null, 'com.ez.system.controller.SysOrgController.showlist()', null, null, '1000', '2017-03-25 22:58:38', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3239', '获取系统用户列表页面', null, '0', null, 'com.ez.system.controller.SysUserController.list()', null, null, '1000', '2017-03-25 22:59:00', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3240', '跳到分页查询组织结构表信息', null, '0', null, 'com.ez.system.controller.SysOrgController.showlist()', null, null, '1000', '2017-03-25 22:59:01', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3241', '获取角色管理列表页面', null, '0', null, 'com.ez.system.controller.SysRoleController.list()', null, null, '1000', '2017-03-25 23:00:22', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3242', '获取分页查询角色信息', null, '0', null, 'com.ez.system.controller.SysRoleController.showlist()', null, null, '1000', '2017-03-25 23:00:23', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3243', '获取系统用户列表页面', null, '0', null, 'com.ez.system.controller.SysUserController.list()', null, null, '1000', '2017-03-25 23:00:24', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3244', '跳到分页查询组织结构表信息', null, '0', null, 'com.ez.system.controller.SysOrgController.showlist()', null, null, '1000', '2017-03-25 23:00:24', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3245', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-25 23:02:55', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3246', '获取系统用户列表页面', null, '0', null, 'com.ez.system.controller.SysUserController.list()', null, null, '1000', '2017-03-25 23:03:01', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3247', '跳到分页查询组织结构表信息', null, '0', null, 'com.ez.system.controller.SysOrgController.showlist()', null, null, '1000', '2017-03-25 23:03:01', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3248', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-29 22:54:37', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3249', '跳到系统日志列表页面', null, '0', null, 'com.ez.system.controller.SysLogController.list()', null, null, '1000', '2017-03-29 22:54:56', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3250', '获取系统用户列表页面', null, '0', null, 'com.ez.system.controller.SysUserController.list()', null, null, '1000', '2017-03-29 22:54:57', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3251', '跳到分页查询组织结构表信息', null, '0', null, 'com.ez.system.controller.SysOrgController.showlist()', null, null, '1000', '2017-03-29 22:54:58', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3252', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-29 23:03:14', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3253', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-29 23:44:37', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3254', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-29 23:56:00', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3255', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-30 00:01:17', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3256', '用户登录系统', null, '1', '系统登录尝试,admin密码错误!', 'LoginController-->login', 'admin;q', null, null, '2017-03-30 00:19:01', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3257', '用户登录系统', null, '1', '系统登录尝试,admin密码错误!', 'LoginController-->login', 'admin;q', null, null, '2017-03-30 00:19:04', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3258', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-30 00:19:09', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3259', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-30 13:37:01', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3260', '获取系统用户列表页面', null, '0', null, 'com.ez.system.controller.SysUserController.list()', null, null, '1000', '2017-03-30 13:37:05', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3261', '跳到分页查询组织结构表信息', null, '0', null, 'com.ez.system.controller.SysOrgController.showlist()', null, null, '1000', '2017-03-30 13:37:05', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3262', '获取角色管理列表页面', null, '0', null, 'com.ez.system.controller.SysRoleController.list()', null, null, '1000', '2017-03-30 13:37:09', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3263', '获取分页查询角色信息', null, '0', null, 'com.ez.system.controller.SysRoleController.showlist()', null, null, '1000', '2017-03-30 13:37:10', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3264', '跳到组织结构表列表页面', null, '0', null, 'com.ez.system.controller.SysOrgController.list()', null, null, '1000', '2017-03-30 13:37:11', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3265', '跳到分页查询组织结构表信息', null, '0', null, 'com.ez.system.controller.SysOrgController.showlist()', null, null, '1000', '2017-03-30 13:37:11', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3266', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-30 23:57:18', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3267', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-30 23:58:06', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3268', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 00:09:09', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3269', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 00:11:16', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3270', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 00:11:25', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3271', '用户退出系统', null, '0', null, 'com.ez.login.controller.LoginController.login_classic()', null, null, '1000', '2017-03-31 00:12:03', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3272', '用户登录系统', null, '1', '系统登录尝试,admin用户没有登陆认证!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 14:21:00', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3273', '用户登录系统', null, '1', '系统登录尝试,admin用户没有登陆认证!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 14:21:08', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3274', '用户登录系统', null, '1', '系统登录尝试,admin用户没有登陆认证!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 14:21:17', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3275', '用户登录系统', null, '1', '系统登录尝试,admin用户没有登陆认证!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 14:21:39', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3276', '用户登录系统', null, '1', '系统登录尝试,admin用户没有登陆认证!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 14:21:40', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3277', '用户登录系统', null, '1', '系统登录尝试,admin用户没有登陆认证!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 14:21:41', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3278', '用户登录系统', null, '1', '系统登录尝试,admin用户没有登陆认证!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 14:21:41', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3279', '用户登录系统', null, '1', '系统登录尝试,admin用户没有登陆认证!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 14:21:41', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3280', '用户登录系统', null, '1', '系统登录尝试,admin用户没有登陆认证!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 14:21:41', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3281', '用户登录系统', null, '1', '系统登录尝试,admin用户没有登陆认证!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 14:21:41', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3282', '用户登录系统', null, '1', '系统登录尝试,admin用户没有登陆认证!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 14:21:41', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3283', '用户登录系统', null, '1', '系统登录尝试,admin用户没有登陆认证!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 14:23:31', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3284', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 14:27:08', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3285', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 14:57:23', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3286', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 14:57:32', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3287', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 14:59:11', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3288', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 15:31:00', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3289', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 15:46:02', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3290', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 15:50:14', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3291', '用户登录系统', null, '1', '系统登录尝试,admin该用户已经登录!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 15:50:19', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3292', '用户登录系统', null, '1', '系统登录尝试,admin该用户已经登录!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 15:50:21', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3293', '用户登录系统', null, '1', '系统登录尝试,admin该用户已经登录!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 15:50:21', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3294', '用户登录系统', null, '1', '系统登录尝试,admin该用户已经登录!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 15:50:22', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3295', '用户登录系统', null, '1', '系统登录尝试,admin该用户已经登录!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 15:50:22', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3296', '用户登录系统', null, '1', '系统登录尝试,admin该用户已经登录!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 15:54:57', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3297', '用户登录系统', null, '1', '系统登录尝试,admin用户没有登陆认证!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 15:58:19', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3298', '用户登录系统', null, '1', '系统登录尝试,admin用户没有登陆认证!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 15:58:42', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3299', '用户登录系统', null, '1', '系统登录尝试,admin用户没有登陆认证!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 15:58:51', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3300', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 16:00:16', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3301', '用户登录系统', null, '1', '系统登录尝试,admin用户没有登陆认证!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 16:00:24', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3302', '用户登录系统', null, '1', '系统登录尝试,admin用户没有登陆认证!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 16:00:48', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3303', '用户登录系统', null, '1', '系统登录尝试,admin用户没有登陆认证!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 16:00:51', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3304', '用户登录系统', null, '1', '系统登录尝试,admin用户没有登陆认证!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 16:03:04', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3305', '用户登录系统', null, '1', '系统登录尝试null用户名不存在', 'LoginController-->login', 'null;null', null, null, '2017-03-31 16:03:10', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3306', '用户登录系统', null, '1', '系统登录尝试null用户名不存在', 'LoginController-->login', 'null;null', null, null, '2017-03-31 16:03:10', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3307', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 21:48:06', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3308', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 21:48:22', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3309', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 21:48:45', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3310', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 21:49:43', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3311', '用户登录系统', null, '1', '系统登录尝试,admin用户没有登陆认证!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 21:49:54', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3312', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 21:50:01', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3313', '用户登录系统', null, '1', '系统登录尝试,admin用户没有登陆认证!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 21:50:09', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3314', '用户登录系统', null, '1', '系统登录尝试,admin用户没有登陆认证!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 21:50:09', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3315', '用户登录系统', null, '1', '系统登录尝试,admin用户没有登陆认证!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 21:50:10', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3316', '用户登录系统', null, '1', '系统登录尝试,admin用户没有登陆认证!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 21:50:10', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3317', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 21:55:44', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3318', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 21:56:05', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3319', '用户登录系统', null, '1', '系统登录尝试,admin用户没有登陆认证!', 'LoginController-->login', 'admin;1', null, null, '2017-03-31 21:56:14', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3320', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 21:57:19', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3321', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 22:04:03', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3322', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 22:04:19', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3323', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 22:09:46', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3324', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 22:10:07', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3325', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 22:15:22', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3326', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 22:15:36', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3327', '跳到菜单管理列表页面', null, '0', null, 'com.ez.system.controller.SysMenuController.list()', null, null, '1000', '2017-03-31 22:15:46', '127.0.0.1');
-INSERT INTO `sys_log` VALUES ('3328', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-03-31 22:16:21', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('1', '用户登录系统', null, '1', '系统登录尝试,admin密码错误!', 'LoginController-->login', 'admin;a', null, null, '2017-04-19 00:14:35', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('2', '用户登录系统', null, '1', '系统登录尝试,admin密码错误!', 'LoginController-->login', 'admin;a', null, null, '2017-04-19 00:14:37', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('3', '用户登录系统', null, '1', '系统登录尝试,admin密码错误!', 'LoginController-->login', 'admin;a', null, null, '2017-04-19 00:14:39', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('4', '用户登录系统', null, '1', '系统登录尝试,admin密码错误!', 'LoginController-->login', 'admin;a', null, null, '2017-04-19 00:14:39', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('5', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-04-19 00:14:56', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('6', '跳到系统设置列表页面', null, '0', null, 'com.ez.system.controller.SysOptionController.list()', null, null, '1000', '2017-04-19 00:15:00', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('7', '跳到分页查询系统设置信息', null, '0', null, 'com.ez.system.controller.SysOptionController.showlist()', null, null, '1000', '2017-04-19 00:15:00', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('8', '跳到分页查询系统设置信息', null, '0', null, 'com.ez.system.controller.SysOptionController.showlist()', null, null, '1000', '2017-04-19 00:15:21', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('9', '跳到分页查询系统设置信息', null, '0', null, 'com.ez.system.controller.SysOptionController.showlist()', null, null, '1000', '2017-04-19 00:15:24', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('10', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-04-19 14:02:35', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('11', '跳到系统设置列表页面', null, '0', null, 'com.ez.system.controller.SysOptionController.list()', null, null, '1000', '2017-04-19 14:03:06', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('12', '跳到分页查询系统设置信息', null, '0', null, 'com.ez.system.controller.SysOptionController.showlist()', null, null, '1000', '2017-04-19 14:03:07', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('13', '跳到查询&修改系统设置单条记录页面', null, '0', null, 'com.ez.system.controller.SysOptionController.getById()', null, null, '1000', '2017-04-19 14:03:12', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('14', '跳到系统设置列表页面', null, '0', null, 'com.ez.system.controller.SysOptionController.list()', null, null, '1000', '2017-04-19 14:03:39', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('15', '跳到分页查询系统设置信息', null, '0', null, 'com.ez.system.controller.SysOptionController.showlist()', null, null, '1000', '2017-04-19 14:03:39', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('16', '跳到分页查询系统设置信息', null, '0', null, 'com.ez.system.controller.SysOptionController.showlist()', null, null, '1000', '2017-04-19 14:03:40', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('17', '跳到系统设置新增页面', null, '0', null, 'com.ez.system.controller.SysOptionController.addUI()', null, null, '1000', '2017-04-19 14:03:41', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('18', '保存系统设置新增信息', null, '0', null, 'com.ez.system.controller.SysOptionController.add()', null, null, '1000', '2017-04-19 14:03:49', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('19', '保存系统设置异常', 'org.springframework.jdbc.BadSqlGrammarException', '1', '\r\n### Error updating database.  Cause: java.sql.SQLException: Column count doesn\'t match value count at row 1\r\n### The error may involve com.ez.system.dao.SysOptionDao.add-Inline\r\n### The error occurred while setting parameters\r\n### SQL: INSERT INTO sys_option        ( optionValue,             optionName )      values ( ?,             ?,             ? )\r\n### Cause: java.sql.SQLException: Column count doesn\'t match value count at row 1\n; bad SQL grammar []; nested exception is java.sql.SQLException: Column count doesn\'t match value count at row 1', 'com.ez.system.service.impl.SysOptionServiceImpl.add()', 'class com.ez.system.entity.SysOption;', null, '1000', '2017-04-19 02:10:47', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('20', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-04-19 14:45:23', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('21', '跳到系统设置列表页面', null, '0', null, 'com.ez.system.controller.SysOptionController.list()', null, null, '1000', '2017-04-19 14:45:28', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('22', '跳到分页查询系统设置信息', null, '0', null, 'com.ez.system.controller.SysOptionController.showlist()', null, null, '1000', '2017-04-19 14:45:29', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('23', '跳到系统设置新增页面', null, '0', null, 'com.ez.system.controller.SysOptionController.addUI()', null, null, '1000', '2017-04-19 14:45:30', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('24', '保存系统设置新增信息', null, '0', null, 'com.ez.system.controller.SysOptionController.add()', null, null, '1000', '2017-04-19 14:45:33', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('25', '保存异常', 'org.springframework.jdbc.BadSqlGrammarException', '1', '\r\n### Error updating database.  Cause: java.sql.SQLException: Column count doesn\'t match value count at row 1\r\n### The error may involve com.ez.system.dao.SysOptionDao.add-Inline\r\n### The error occurred while setting parameters\r\n### SQL: INSERT INTO sys_option        ( optionValue,             optionName )      values ( ?,             ?,             ? )\r\n### Cause: java.sql.SQLException: Column count doesn\'t match value count at row 1\n; bad SQL grammar []; nested exception is java.sql.SQLException: Column count doesn\'t match value count at row 1', 'com.ez.system.service.impl.SysOptionServiceImpl.add()', 'class com.ez.system.entity.SysOption;', null, '1000', '2017-04-19 02:49:18', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('26', '用户登录系统', null, '0', null, 'LoginController-->login', 'admin;1', null, '1000', '2017-04-19 17:24:18', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('27', '跳到系统设置列表页面', null, '0', null, 'com.ez.system.controller.SysOptionController.list()', null, null, '1000', '2017-04-19 17:24:23', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('28', '跳到分页查询系统设置信息', null, '0', null, 'com.ez.system.controller.SysOptionController.showlist()', null, null, '1000', '2017-04-19 17:24:24', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('29', '跳到系统设置新增页面', null, '0', null, 'com.ez.system.controller.SysOptionController.addUI()', null, null, '1000', '2017-04-19 17:24:26', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('30', '保存系统设置新增信息', null, '0', null, 'com.ez.system.controller.SysOptionController.add()', null, null, '1000', '2017-04-19 17:24:49', '127.0.0.1');
+INSERT INTO `sys_log` VALUES ('31', '保存com.ez.system.service.impl.SysOptionServiceImpl异常', 'org.springframework.jdbc.BadSqlGrammarException', '1', '\r\n### Error updating database.  Cause: java.sql.SQLException: Column count doesn\'t match value count at row 1\r\n### The error may involve com.ez.system.dao.SysOptionDao.add-Inline\r\n### The error occurred while setting parameters\r\n### SQL: INSERT INTO sys_option        ( optionValue,             optionName )      values ( ?,             ?,             ? )\r\n### Cause: java.sql.SQLException: Column count doesn\'t match value count at row 1\n; bad SQL grammar []; nested exception is java.sql.SQLException: Column count doesn\'t match value count at row 1', 'com.ez.system.service.impl.SysOptionServiceImpl.add()', 'class com.ez.system.entity.SysOption;', null, '1000', '2017-04-19 05:27:05', '127.0.0.1');
 
 -- ----------------------------
 -- Table structure for `sys_menu`
@@ -964,7 +874,7 @@ CREATE TABLE `sys_menu` (
   `MENU_ICON` varchar(30) DEFAULT NULL COMMENT '菜单图标',
   `MENU_TYPE` varchar(10) DEFAULT NULL COMMENT '菜单类型 0-开发 1-系统 2-业务',
   PRIMARY KEY (`MENU_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COMMENT='*系统菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COMMENT='*系统菜单表';
 
 -- ----------------------------
 -- Records of sys_menu
@@ -993,6 +903,23 @@ INSERT INTO `sys_menu` VALUES ('21', '会员设置', 'ez/system/sysuser/list/0.d
 INSERT INTO `sys_menu` VALUES ('22', '流程设计', '#', '19', '1', 'fa-list', '1');
 INSERT INTO `sys_menu` VALUES ('23', '流程图', 'ez/sysflow/list.do', '22', '1', 'fa-caret-right', '1');
 INSERT INTO `sys_menu` VALUES ('24', '流程节点', 'ez/sysflowpoint/list.do', '22', '1', 'fa-caret-right', '1');
+INSERT INTO `sys_menu` VALUES ('26', '系统参数', 'ez/system/sysoption/list.do', '7', '2', 'fa-caret-right', '0');
+
+-- ----------------------------
+-- Table structure for `sys_option`
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_option`;
+CREATE TABLE `sys_option` (
+  `oId` varchar(63) NOT NULL COMMENT '参数id',
+  `optionValue` text COMMENT '参数值',
+  `optionName` varchar(100) DEFAULT NULL COMMENT '参数名称',
+  PRIMARY KEY (`oId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='*系统设置';
+
+-- ----------------------------
+-- Records of sys_option
+-- ----------------------------
+INSERT INTO `sys_option` VALUES ('systemName', 'ezadmin管理系统', '后台系统名称');
 
 -- ----------------------------
 -- Table structure for `sys_org`
@@ -1137,7 +1064,7 @@ CREATE TABLE `sys_user` (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1000', 'admin', '1', '0', '组织机构树', '1', '开发管理员', '陈恩泽', null, '18654177028', null, null, '1', '1', '150', '20161020', null, '2017-03-31 22:16:21', '127.0.0.1', null);
+INSERT INTO `sys_user` VALUES ('1000', 'admin', '1', '0', '组织机构树', '1', '开发管理员', '陈恩泽', null, '18654177028', null, null, '1', '1', '150', '20161020', null, '2017-04-19 17:24:18', '127.0.0.1', null);
 INSERT INTO `sys_user` VALUES ('2000', 'zhangsan', '1', '1', '北京新华安徽数据服务有限公司', '2', '超级管理员', '张三', null, null, null, null, '1', '1', '150', '20161101', null, '2017-03-25 22:45:39', '127.0.0.1', null);
 INSERT INTO `sys_user` VALUES ('201703170021049600', 'lisi', '1', '1', '北京新华安徽数据服务有限公司', 'db8571bc865b459db0eb804ee9937ad2', '系统操作员', '李四', null, null, null, null, '1', '1', null, null, null, null, null, null);
 INSERT INTO `sys_user` VALUES ('201703170022271141', 'wangwu', '1', '19', '公司客户会员', '2c6eb574783e455586c22b609a218298', '前台黄金会员', '王五', null, null, null, null, '0', '1', null, null, null, null, null, null);
