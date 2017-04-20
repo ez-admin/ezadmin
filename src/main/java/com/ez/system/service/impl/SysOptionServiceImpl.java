@@ -38,8 +38,9 @@ public class SysOptionServiceImpl extends BaseServiceImpl<SysOption> implements 
     private SysOptionDao sysOptionDao;
 
 
+    /*test
     @Override
     public void test() throws DataFormatException {
-        //sysOptionDao.test();
-    }
+        sysOptionDao.test();
+    }*/
 }

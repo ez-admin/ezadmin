@@ -9,8 +9,6 @@ package com.ez.system.service;
 import com.ez.base.service.BaseService;
 import com.ez.system.entity.SysOption;
 
-import java.util.zip.DataFormatException;
-
 
 /**
  * @author chenez
@@ -20,5 +18,5 @@ import java.util.zip.DataFormatException;
  */
 public interface SysOptionService extends BaseService<SysOption> {
 
-    void test() throws DataFormatException;
+    /*void test();*/
 }
