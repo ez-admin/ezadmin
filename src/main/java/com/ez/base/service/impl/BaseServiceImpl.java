@@ -5,17 +5,18 @@ import com.ez.base.BaseDao;
 import com.ez.base.service.BaseService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
  * Created by chenez on 2017/4/18.
  */
 public abstract class BaseServiceImpl<T> implements BaseService<T> {
-    private BaseDao<T> baseDao ;
+    /*以下是两种方法注入dao*/
+    //method one
+    /*private BaseDao<T> baseDao ;
     private Class<T> clazz ;
     public BaseServiceImpl() {
         ParameterizedType type = (ParameterizedType) this.getClass().getGenericSuperclass();
@@ -24,8 +25,10 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
     @Resource //注入dao
     public void setDao(BaseDao<T> baseDao) {
         this.baseDao = baseDao;
-    }
-
+    }*/
+    //method two
+    @Autowired
+    protected BaseDao<T> baseDao;
     /**
      * 新增操作
      * @param t
