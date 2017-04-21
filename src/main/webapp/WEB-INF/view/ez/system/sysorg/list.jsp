@@ -23,6 +23,9 @@
 		.layui-form-radio { line-height: 19px; }
 		.layui-form-item .layui-input-inline { width: 60%; margin-left: 14px; }
 		.layui-form-mid { padding:0; }
+		.ztree li span {
+			font-size: 12px!important;
+		}
 	</style>
 </head>
 <body>

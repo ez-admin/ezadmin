@@ -151,7 +151,7 @@ public class LoginController {
         //请求的IP
         //String ip = request.getRemoteAddr();
 		String ip = toIpAddr(request);
-        log.setMehtoddescription("用户登录系统");
+        log.setMehtoddescription("登录系统");
         log.setMethod("LoginController-->login");
 
         log.setRequestIp(ip);

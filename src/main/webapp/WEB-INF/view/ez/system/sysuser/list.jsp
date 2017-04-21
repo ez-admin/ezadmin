@@ -19,6 +19,11 @@
 	<script type="text/javascript" src="/static/plugins/zTree/qui/ztree.js"></script>
 	<link href="/static/plugins/zTree/qui/ztree.css" rel="stylesheet" type="text/css"/>
 	<!--树组件end -->
+	<style>
+		.ztree li span {
+			font-size: 12px!important;
+		}
+	</style>
 </head>
 
 <body>
