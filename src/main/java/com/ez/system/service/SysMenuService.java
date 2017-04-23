@@ -47,4 +47,6 @@ public interface SysMenuService{
 
 	List<SysMenu> listAllMenu();
 
+	List<SysMenu> listAllMenuButton();
+
 }

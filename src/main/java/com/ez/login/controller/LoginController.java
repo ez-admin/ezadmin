@@ -142,8 +142,8 @@ public class LoginController {
 			result="{\"status\":false,\"message\":\"用户没有登陆认证!\"}";
 			log.setExceptionDetail("系统登录尝试,"+sysUser.getLognm() + "用户没有登陆认证!");
 		}else if(checkRslt == PubConstants.LOGIN_ISLOGINED){
-			result="{\"status\":false,\"message\":\"该用户已经登录！!\"}";
-			log.setExceptionDetail("系统登录尝试,"+sysUser.getLognm() + "该用户已经登录!");
+			result="{\"status\":false,\"message\":\"该用户已经在其他地方登录!\"}";
+			log.setExceptionDetail("系统登录尝试,"+sysUser.getLognm() + "该用户已经在其他地方登录！");
 		}else{
 			result="{\"status\":false,\"message\":\"请确认登录信息是否输入正确.\"}";
             log.setExceptionDetail("请确认登录信息是否输入正确,"+sysUser.getLognm() + "其他原因导致登录异常");

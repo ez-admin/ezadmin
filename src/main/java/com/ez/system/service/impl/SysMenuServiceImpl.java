@@ -268,6 +268,10 @@ public class SysMenuServiceImpl implements SysMenuService {
 		return list;
 	}
 
+	/**
+	 * 查询到三级菜单
+	 * @return
+	 */
 	@Override
 	public List<SysMenu> listAllMenu() {
 		SysMenu sysMenu=new SysMenu();
@@ -287,6 +291,39 @@ public class SysMenuServiceImpl implements SysMenuService {
 				sysMenu.setParentId(submenu.getMenuId().toString());
 				List<SysMenu> subsubList=sysMenuDao.getChildrenMenu(sysMenu);
 				submenu.setMenuList(subsubList);
+			}
+
+		}
+		return sysMenuList;
+	}
+
+	/**
+	 * 查询到四级菜单，即有按钮的的菜单
+	 * @return
+	 */
+	@Override
+	public List<SysMenu> listAllMenuButton() {
+		SysMenu sysMenu=new SysMenu();
+		Session session = SecurityUtils.getSubject().getSession();
+		String USERNAME = session.getAttribute(PubConstants.SESSION_LOGNM).toString();	//获取当前登录者loginname
+		Boolean isAdmin = "admin".equals(USERNAME);
+		if (!isAdmin){//不是超级管理员
+			sysMenu.setMenuType("0");//查询MenuType不等于0的菜单
+		}
+		List<SysMenu> sysMenuList=sysMenuDao.getParentMenu(sysMenu);
+		for (SysMenu menu: sysMenuList){
+			sysMenu.setParentId(menu.getMenuId().toString());
+			List<SysMenu> subList=sysMenuDao.getChildrenMenu(sysMenu);
+			menu.setMenuList(subList);
+			for (SysMenu submenu: subList){
+				sysMenu.setParentId(submenu.getMenuId().toString());
+				List<SysMenu> subsubList=sysMenuDao.getChildrenMenu(sysMenu);
+				submenu.setMenuList(subsubList);
+				for (SysMenu subsubMenu: subsubList){
+					sysMenu.setParentId(subsubMenu.getMenuId().toString());
+					List<SysMenu> subsubsubList=sysMenuDao.getChildrenMenu(sysMenu);
+					subsubMenu.setMenuList(subsubsubList);
+				}
 			}
 
 		}

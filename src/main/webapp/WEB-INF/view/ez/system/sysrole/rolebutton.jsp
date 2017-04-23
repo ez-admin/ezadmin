@@ -8,6 +8,11 @@
     <%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
     <link rel="stylesheet" href="/static/plugins/zTree/2.6/zTreeStyle.css"/>
     <script type="text/javascript" src="/static/plugins/layui/layui.js" charset="utf-8"></script>
+    <style>
+        .clearfix{
+            clear: both;
+        }
+    </style>
 </head>
 <body>
 <form id="formid" class="layui-form">
@@ -30,11 +35,17 @@
         var setting = {
             showLine: true,
             checkable: true,
-            showIcon :false
+            showIcon :true
         };
         var zn = '${zTreeNodes}';
         var zTreeNodes = eval(zn);
         zTree = $("#tree").zTree(setting, zTreeNodes);
+        //让第四级按钮菜单横向排列
+        $("#tree").find("ul").find("ul").find("ul").find("li").css("float","left");
+        $("#tree").find("ul").find("ul").find("ul").append("<div class='clearfix'></div>");
+        $("#tree").find("ul").find("ul").find("ul").find("li").find("button:first-child").css("background","none");
+        $("#tree").find("ul").find("ul").find("ul").find("li").find("a").find("button:first-child").css("width","0");
+
     });
     //Demo
     layui.use(['layer', 'form','jquery'], function(){

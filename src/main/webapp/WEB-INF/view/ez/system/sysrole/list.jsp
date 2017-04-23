@@ -95,35 +95,11 @@
 				field: 'roleType',
 				title: '角色类型',
 				align: 'center',
-				width:'10%',
+				width:'20%',
 				formatter:roleTypeFormatter
 			}, {
-				field: 'addQx',
-				title: '增加权限',
-				width:'5%',
-				align: 'center' ,
-				formatter:addQxFormatter
-			}, {
-				field: 'delQx',
-				title: '删除权限',
-				align: 'center',
-				width:'5%' ,
-				formatter:delQxFormatter
-			}, {
-				field: 'editQx',
-				title: '修改权限',
-				align: 'center',
-				width:'5%' ,
-				formatter:editQxFormatter
-			}, {
-				field: 'chaQx',
-				title: '查看权限',
-				align: 'center',
-				width:'5%' ,
-				formatter:chaQxFormatter
-			}, {
 				field: 'rights',
-				title: '菜单权限',
+				title: '权限分配',
 				align: 'center',
 				width:'10%',
 				formatter: menuqxFormatter
@@ -131,7 +107,7 @@
 				filed: '',
 				title: '操作区',
 				align: 'center',
-				width:'15%',
+				width:'35%',
 				events: operateEvents,
 				formatter: operateFormatter
 			} ]
@@ -144,13 +120,6 @@
 				$("#btn_query").click();
 			}
 		};
-		//监听查询框的回车事件
-		/*$("#roleName").keydown(function(event){
-			if(event.keyCode==13){
-				$("#roleName").focus();
-				$("#btn_query").click();
-			}
-		});*/
 		//重置刷新页面
 		$(window).resize(function () {
 			$('#table').bootstrapTable('resetView', {
@@ -248,7 +217,7 @@
 			title: Title,
 			maxmin: true,
 			shadeClose: true, //点击遮罩关闭层
-			area : ['340px' , '400px'],
+			area : ['900px' , '600px'],
 			content: '/ez/system/sysrole/roleButton.do?roleId='+roleId+'&msg='+msg,
 			end:function(){
 				$("#table").bootstrapTable('refresh');//刷新表格
@@ -281,6 +250,9 @@
 	function operateFormatter(value, row, index) {
 		if (row.roleId!="1"){
 			return [
+                '<a class="rolebutton" href="javascript:void(0)" title="分配权限">',
+                '分配权限',
+                '</a>    ',
 				<c:if test="${QX.edit == 1 }">
 				'<a class="edit" href="javascript:void(0)" title="修改">',
 				'修改',
@@ -296,6 +268,19 @@
 	};
 	//操作区事件
 	window.operateEvents = {
+        'click .rolebutton': function (e, value, row, index) {
+            top.layer.open({
+                type: 2,//iframe层
+                title: '分配权限',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area : ['900px' , '600px'],
+                content: '/ez/system/sysrole/roleButton.do?roleId='+row.roleId+'&msg=rights',
+                end:function(){
+                    $("#table").bootstrapTable('refresh');//刷新表格
+                }
+            });
+        },
 		'click .edit': function (e, value, row, index) {
 			top.layer.open({
 				type: 2,//iframe层

@@ -73,7 +73,7 @@ public class SysRoleController {
 	/**
 	 * 保存新增
 	 * @param model
-	 * @param sysrole
+	 * @param sysRole
 	 * @return
 	 */
 	@RequestMapping(value="add")
@@ -239,7 +239,7 @@ public class SysRoleController {
 	 */
 	@RequestMapping(value="roleButton")
 	public String roleButton(Model model,String roleId,String msg){
-		List<SysMenu> menuList = sysMenuService.listAllMenu();
+		List<SysMenu> menuList = sysMenuService.listAllMenuButton();
 		SysRole sysRole=sysRoleService.getById(roleId);
 
 		String roleRight = "";
@@ -265,6 +265,14 @@ public class SysRoleController {
 							List<SysMenu> subsubMenuList = sub.getMenuList();
 							for (SysMenu subsub : subsubMenuList){
 								subsub.setHasMenu(RightsHelper.testRights(roleRight, subsub.getMenuId()));
+								if(subsub.isHasMenu()){
+									List<SysMenu> subsubsubMenuList=subsub.getMenuList();
+									if (subsubsubMenuList!=null && subsubsubMenuList.size()>0){
+										for (SysMenu subsubsub : subsubsubMenuList){
+											subsubsub.setHasMenu(RightsHelper.testRights(roleRight, subsubsub.getMenuId()));
+										}
+									}
+								}
 							}
 						}
 					}
