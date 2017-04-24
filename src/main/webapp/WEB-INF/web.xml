@@ -136,9 +136,9 @@
   <!-- ############################################ servlet end  ############################################ -->
 
   <!-- 配置SESSION超时，单位是分钟 -->
-  <session-config>
+  <!--<session-config>
     <session-timeout>30</session-timeout>
-  </session-config>
+  </session-config>-->
   <!-- 配置404页面 -->
   <error-page>
     <error-code>404</error-code>

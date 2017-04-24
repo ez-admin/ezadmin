@@ -75,7 +75,6 @@ public class LoginController {
 			log.setLogtype( PubConstants.LOGTYPE_NORMAL);
 			result="{\"status\":true,\"message\":\"登陆成功\"}";
 			//登陆成功后,向session中写入内容
-			//loginService.setSeesionCntnt(request, sysUser);
 			SysUser user=sysUserService.getByAll(sysUser);
 
 			//shiro管理的session
@@ -116,14 +115,13 @@ public class LoginController {
 			}else {
 				allmenuList = (List<SysMenu>)session.getAttribute(PubConstants.SESSION_allmenuList);
 			}
-
             if(user!=null){
 				log.setUserno(user.getUserno());
 				//add user lastlogintime
 				user.setLoginip(toIpAddr(request));
 				user.setLastlogin(FormatDateUtil.getFormatDate("yyyy-MM-dd HH:mm:ss"));
 				sysUserService.modify(user);
-				WebTool.writeJson(result, response);
+
 			}
 
 		}else if(checkRslt == PubConstants.LOGIN_NOTEXIST){
@@ -158,7 +156,7 @@ public class LoginController {
         log.setParams( sysUser.getLognm()+";"+sysUser.getLogpwd());
         log.setCreateDate(FormatDateUtil.getFormatDate("yyyy-MM-dd HH:mm:ss"));
         syslogService.add(log);
-
+		WebTool.writeJson(result, response);
 		return null;
 	}
 	/**

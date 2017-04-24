@@ -19,6 +19,7 @@
 
 <body>
 	<form class="layui-form" id="formSearch">
+		<shiro:hasPermission name="sysdictype_query">
 		<div class="layui-input-inline">
 			<input id="code" name="code" maxlength="4" placeholder="请输入类型编码" type="text" class="layui-input-quote">
 		</div>
@@ -26,6 +27,7 @@
 			<input id="name" name="name" placeholder="请输入类型名称" type="text" class="layui-input-quote">
 		</div>
 		<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
+		</shiro:hasPermission>
 		<c:if test="${QX.add == 1 }">
 		<button id="btn_add" type="button" class="layui-btn layui-btn-small">
 				<i class="fa fa-plus"></i>新增

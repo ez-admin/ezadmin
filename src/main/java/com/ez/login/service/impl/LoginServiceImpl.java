@@ -92,10 +92,10 @@ public class LoginServiceImpl implements LoginService {
 			//这句是提交申请，验证能不能通过，也就是交给公安局同志了。这里会回调reaml里的一个方法
 			// 回调doGetAuthenticationInfo，进行认证
 			currentUser.login(token);
-			if(null == currentUser){
+			/*if(null == currentUser){
 				checkRslt = PubConstants.LOGIN_ISLOGINED;
 				return checkRslt;
-			}
+			}*/
 
 		} catch (AuthenticationException e) {
 			e.printStackTrace();

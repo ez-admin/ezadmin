@@ -97,16 +97,15 @@ String basePath = request.getScheme() + "://"
             $.post("/ez/syslogin/login.do",
                     {"lognm": username, "logpwd": password},
                     function (result) {
-
                         if (result == null) {
                             layer.msg('登陆失败！', {icon: 2});
                             return false;
-                        }
-                        if (result.status == "true" || result.status == true) {
+                        } else if (result.status == "true" || result.status == true) {
                             layer.msg('登陆成功！', {icon: 1});
                             window.location.href = "/ez/syslogin/index.do";
                         } else {
                             layer.msg(result.message, {icon: 7});
+                            return false;
                         }
 
                     }, "json");
