@@ -10,8 +10,6 @@ package com.ez.system.controller;
 import com.ez.annotation.SystemLogController;
 import com.ez.system.entity.SysOption;
 import com.ez.system.service.SysOptionService;
-import com.ez.util.Jurisdiction;
-import com.ez.util.PubConstants;
 import com.ez.util.WebTool;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -42,7 +40,6 @@ import java.util.Map;
 @RequestMapping(value="/ez/system/sysoption/")
 public class SysOptionController {
 
-	String menuUrl = "/ez/system/sysoption/list.do"; //菜单地址(权限用)
 	@Resource
 	private SysOptionService sysOptionService;
 
@@ -55,13 +52,12 @@ public class SysOptionController {
 
 	/**
 	 * 跳到列表页面
-	 * @param model
+	 * @param
 	 * @return
 	 */
 	@RequestMapping(value="list")
 	@SystemLogController(description = "跳到系统设置列表页面")
-	public String list(Model model){
-		model.addAttribute(PubConstants.SESSION_QX,WebTool.getSessionQx());
+	public String list(){
 		return "/ez/system/sysoption/list";
 	}
 
@@ -86,11 +82,7 @@ public class SysOptionController {
 	public String add(SysOption sysoption,HttpServletResponse response){
 		String result="{\"msg\":\"suc\"}";
 		try {
-			if(Jurisdiction.buttonJurisdiction(menuUrl, "add")){
-				sysOptionService.add(sysoption);
-			}else{
-				result="{\"msg\":\"fail\",\"message\":\"您无增加权限！\"}";
-			}
+			sysOptionService.add(sysoption);
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -128,11 +120,7 @@ public class SysOptionController {
 	public String deleteById(Model model,String ids, HttpServletResponse response){
 		String result="{\"status\":1,\"message\":\"删除成功！\"}";
 		try{
-			if(Jurisdiction.buttonJurisdiction(menuUrl, "del")) {
-				sysOptionService.delete(ids);
-			}else {
-				result="{\"status\":0,\"message\":\"您无删除权限！\"}";
-			}
+			sysOptionService.delete(ids);
 		}catch(Exception e){
 			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -173,11 +161,7 @@ public class SysOptionController {
 	public String updateSysOption(Model model,SysOption sysoption,HttpServletResponse response){
 		String result="{\"msg\":\"suc\"}";
 		try {
-			if(Jurisdiction.buttonJurisdiction(menuUrl, "edit")) {
-				sysOptionService.modify(sysoption);
-			}else {
-				result="{\"msg\":\"fail\",\"message\":\"您无修改权限！\"}";
-			}
+			sysOptionService.modify(sysoption);
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -197,12 +181,8 @@ public class SysOptionController {
 	public String deleteAll(String[] ids, HttpServletResponse response) {
 		String result = "{\"status\":1,\"message\":\"删除成功！\"}";
 		try {
-			if(Jurisdiction.buttonJurisdiction(menuUrl, "del")) {
-				for (String id : ids) {
-					sysOptionService.delete(id);
-				}
-			}else {
-				result="{\"status\":0,\"message\":\"您无删除权限！\"}";
+			for (String id : ids) {
+				sysOptionService.delete(id);
 			}
 		} catch (Exception e) {
 			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";

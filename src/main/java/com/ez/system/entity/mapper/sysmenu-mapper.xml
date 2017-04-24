@@ -237,6 +237,14 @@
 		</if>
 		order by MENU_ORDER
 	</select>
+	<select id="findAllListMenu" resultMap="SysMenu" parameterType="com.ez.system.entity.SysMenu">
+		SELECT <include refid="selectId" />
+		FROM sys_menu
+		<if test="@Ognl@isNotEmpty(menuType)">
+			WHERE MENU_TYPE != '${menuType}'
+		</if>
+		order by MENU_ORDER
+	</select>
 
 	<!-- 更新all -->
 	<update id="updateAll" parameterType="com.ez.system.entity.SysMenu">

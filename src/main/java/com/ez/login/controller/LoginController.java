@@ -43,8 +43,6 @@ public class LoginController {
 	@Resource
 	private SysRoleService sysRoleService;
 
-	@Resource
-	private SysRightService sysRightService;
 
 	@Resource
 	private SysLogService syslogService;
@@ -52,8 +50,6 @@ public class LoginController {
 	@Resource
 	private SysMenuService sysMenuService;
 
-	@Resource
-	private SysRightGlService sysRightGlService;
 	/**
 	 * 访问登录页
 	 * @return
@@ -175,9 +171,6 @@ public class LoginController {
 			if (sysuser != null) {
 				List<SysMenu> allmenuList =(List<SysMenu>)session.getAttribute(PubConstants.SESSION_allmenuList);
 				model.addAttribute("menulist",JSON.toJSONString(allmenuList));
-				if(null == session.getAttribute(PubConstants.SESSION_QX)){
-					session.setAttribute(PubConstants.SESSION_QX, this.getUQX(session));	//按钮权限放到session中
-				}
 			}else {
 				return "ez/index/login";
 			}
@@ -197,51 +190,6 @@ public class LoginController {
 		return null;
 	}
 
-	/**
-	 * 获取用户权限
-	 */
-	public Map<String, String> getUQX(Session session){
-		Map<String, String> map = new HashMap<String, String>();
-		try {
-			SysUser sysUser = (SysUser) session.getAttribute(PubConstants.SESSION_SYSUSER);
-			String ROLE_ID=sysUser.getRlid();
-
-			SysRole sysRole=sysRoleService.getById(ROLE_ID);
-			SysRightGl sysRightGl=sysRightGlService.findByRid(ROLE_ID);
-
-
-			if(null != sysRightGl){
-				map.put("FX_QX", sysRightGl.getFxQx().toString());
-				map.put("FW_QX", sysRightGl.getFwQx().toString());
-				map.put("QX1", sysRightGl.getQx1().toString());
-				map.put("QX2", sysRightGl.getQx2().toString());
-				map.put("QX3", sysRightGl.getQx3().toString());
-				map.put("QX4", sysRightGl.getQx4().toString());
-
-
-				SysRight sysRight=sysRightService.findByRid(ROLE_ID);
-
-				map.put("C1", sysRight.getC1().toString());
-				map.put("C2", sysRight.getC2().toString());
-				map.put("C3", sysRight.getC3().toString());
-				map.put("C4", sysRight.getC4().toString());
-				map.put("Q1", sysRight.getQ1().toString());
-				map.put("Q2", sysRight.getQ2().toString());
-				map.put("Q3", sysRight.getQ3().toString());
-				map.put("Q4", sysRight.getQ4().toString());
-			}
-
-			map.put("adds",sysRole.getAddQx());
-			map.put("dels",sysRole.getDelQx());
-			map.put("edits",sysRole.getEditQx());
-			map.put("chas",sysRole.getChaQx());
-
-			//System.out.println("map======="+map);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return map;
-	}
 	/**
 	 * 进入首页后的默认tab页面
 	 * @return

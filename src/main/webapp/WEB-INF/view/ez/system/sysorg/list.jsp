@@ -53,12 +53,13 @@
 							<input type="text" id="nodePerson" readonly  class="layui-input layui-disabled"/>
 							<input type="hidden" id="userId" />
 						</div>
+						<shiro:hasPermission name="sysorg_query">
 						<div class="layui-form-mid layui-word-aux">
 							<button type="button" class="layui-btn layui-btn-small" onclick="selectUser()">
 								选择负责人
 							</button>
 						</div>
-
+						</shiro:hasPermission>
 					</div>
 					<div class="layui-form-item">
 						<label class="layui-form-label">电话：</label>
@@ -74,10 +75,12 @@
 						</div>
 					</div>
 					<div class="layui-form-item">
+						<shiro:hasPermission name="sysorg_submit">
 						<div class="layui-input-block">
 							<button type="button" class="layui-btn" id="btn_update">提交</button>
 							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 						</div>
+						</shiro:hasPermission>
 					</div>
 				</form>
 			</div>
@@ -101,14 +104,19 @@
 	//树的设置
 	var setting1 = {
 		view: {
+			<shiro:hasPermission name="sysorg_add">
 			addHoverDom: addHoverDom,
+			</shiro:hasPermission>
 			removeHoverDom: removeHoverDom,
 			selectedMulti: false
 		},
 		edit: {
+			enable: false,
+			<shiro:hasPermission name="sysorg_modify">
 			enable: true,
 			renameTitle:"修改",
 			removeTitle:"删除"
+			</shiro:hasPermission>
 		},
 		callback: {
 			onClick: onClick1,
@@ -295,7 +303,6 @@
 					}
 				});												//预期返回的数据类型
 	}
-
 
 	//确认是否删除+删除处理
 	function beforeRemove1(treeId, treeNode) {

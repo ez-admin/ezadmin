@@ -19,6 +19,7 @@
 
 <body>
 	<form class="layui-form" id="formSearch">
+		<shiro:hasPermission name="syslog_query">
 		<div class="layui-input-inline">
 			<input id="mehtoddescription" name="mehtoddescription"  placeholder="请输入方法描述" type="text" class="layui-input-quote">
 		</div>
@@ -26,7 +27,7 @@
 			<input id="usernm" name="usernm" placeholder="请输入操作员" type="text" class="layui-input-quote">
 		</div>
 		<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
-
+		</shiro:hasPermission>
 	</form>
 	<table id="table"></table>
 
@@ -36,7 +37,9 @@
 		$('#table').bootstrapTable({
 			url: 'ez/system/syslog/showlist.do',
 			method: 'post',                      //请求方式（*）
+			<shiro:hasPermission name="syslog_export">
 			showExport: true,//显示导出按钮
+			</shiro:hasPermission>
 			exportDataType: "basic",//导出类型
 			toolbar: '#formSearch',                //工具按钮用哪个容器
 			striped: true,                      //是否显示行间隔色

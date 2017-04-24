@@ -37,7 +37,6 @@ import java.util.Map;
 @RequestMapping(value="/ez/system/syslog/")
 public class SysLogController {
 
-	String menuUrl = "/ez/system/syslog/list.do"; //菜单地址(权限用)
 	@Resource
 	private SysLogService sysLogService;
 
@@ -48,8 +47,7 @@ public class SysLogController {
 	 */
 	@RequestMapping(value="list")
 	@SystemLogController(description = "跳到系统日志列表页面")
-	public String list(Model model){
-		model.addAttribute(PubConstants.SESSION_QX,WebTool.getSessionQx());
+	public String list(){
 		return "ez/system/syslog/list";
 	}
 
@@ -58,7 +56,7 @@ public class SysLogController {
 	 * @return
 	 */
 	@RequestMapping(value="addUI")
-	public String addUI(Model model){
+	public String addUI(){
 		return "ez/system/syslog/add";
 	}
 	
@@ -70,7 +68,7 @@ public class SysLogController {
 	 */
 	@RequestMapping(value="add")
 	public String add(Model model,SysLog syslog,HttpServletResponse response,HttpServletRequest request){
-		String result="{\"msg\":\"suc\"}";;
+		String result="{\"msg\":\"suc\"}";
 		try {
 			sysLogService.add(syslog);
 		} catch (Exception e) {
@@ -154,7 +152,7 @@ public class SysLogController {
 	 * 查询&修改单条记录
 	 * @param model
 	 * @param syslogId
-	 * @param type
+	 * @param typeKey
 	 * @return
 	 */
 	@RequestMapping(value="getById")

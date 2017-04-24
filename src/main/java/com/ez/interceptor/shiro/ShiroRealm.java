@@ -72,7 +72,7 @@ public class ShiroRealm extends AuthorizingRealm {
 
 		System.out.println("========2");
 
-		return null;
+		return info;
 	}
 
 }

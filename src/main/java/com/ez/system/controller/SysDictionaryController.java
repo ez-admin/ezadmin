@@ -4,8 +4,6 @@ import com.ez.annotation.SystemLogController;
 import com.ez.base.AutoCompleteEntity;
 import com.ez.system.entity.SysDictionary;
 import com.ez.system.service.SysDictionaryService;
-import com.ez.util.Jurisdiction;
-import com.ez.util.PubConstants;
 import com.ez.util.WebTool;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -34,7 +32,6 @@ import java.util.Map;
 @RequestMapping(value="/ez/system/sysdictionary/")
 public class SysDictionaryController {
 
-	String menuUrl = "/ez/system/sysdictionary/list.do"; //菜单地址(权限用)
 	@Resource
 	private SysDictionaryService sysDictionaryService;
 	
@@ -45,8 +42,7 @@ public class SysDictionaryController {
 	 */
 	@RequestMapping(value="list")
 	@SystemLogController(description = "跳到字典名称列表页面")
-	public String list(Model model){
-		model.addAttribute(PubConstants.SESSION_QX,WebTool.getSessionQx());
+	public String list(){
 		return "/ez/system/sysdictionary/list";
 	}
 
@@ -71,11 +67,7 @@ public class SysDictionaryController {
 	public String add(Model model, SysDictionary sysdictionary, HttpServletResponse response, HttpServletRequest request){
 		String result="{\"msg\":\"suc\"}";
 		try {
-			if(Jurisdiction.buttonJurisdiction(menuUrl, "add")) {
-				sysDictionaryService.add(sysdictionary);
-			}else {
-				result="{\"msg\":\"fail\",\"message\":\"您无增加权限！\"}";
-			}
+			sysDictionaryService.add(sysdictionary);
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" + WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -111,11 +103,7 @@ public class SysDictionaryController {
 	public String deleteById(Model model,String ids, HttpServletResponse response){
 		String result="{\"status\":1,\"message\":\"删除成功！\"}";
 		try{
-			if(Jurisdiction.buttonJurisdiction(menuUrl, "del")) {
-				sysDictionaryService.delete(ids);
-			}else {
-				result="{\"status\":0,\"message\":\"您无删除权限！\"}";
-			}
+			sysDictionaryService.delete(ids);
 		}catch(Exception e){
 			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -157,11 +145,7 @@ public class SysDictionaryController {
 	public String updateSysDictionary(Model model,SysDictionary sysdictionary,HttpServletResponse response){		
 		String result="{\"msg\":\"suc\"}";
 		try {
-			if(Jurisdiction.buttonJurisdiction(menuUrl, "edit")) {
-				sysDictionaryService.modify(sysdictionary);
-			}else {
-				result="{\"msg\":\"fail\",\"message\":\"您无修改权限！\"}";
-			}
+			sysDictionaryService.modify(sysdictionary);
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -184,14 +168,9 @@ public class SysDictionaryController {
 	public String deleteAll(String[] ids, Model model, HttpServletResponse response) {
 		String result = "{\"status\":1,\"message\":\"删除成功！\"}";
 		try {
-			if(Jurisdiction.buttonJurisdiction(menuUrl, "del")) {
-				for (String id : ids) {
-					sysDictionaryService.delete(id);
-				}
-			}else {
-				result = "{\"status\":0,\"message\":\"您无删除权限！\"}";
+			for (String id : ids) {
+				sysDictionaryService.delete(id);
 			}
-
 		} catch (Exception e) {
 			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();

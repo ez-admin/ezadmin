@@ -10,8 +10,6 @@ package com.ez.system.controller;
 import com.ez.annotation.SystemLogController;
 import com.ez.system.entity.SysDicType;
 import com.ez.system.service.SysDicTypeService;
-import com.ez.util.Jurisdiction;
-import com.ez.util.PubConstants;
 import com.ez.util.WebTool;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -38,7 +36,6 @@ import java.util.Map;
 @RequestMapping(value="/ez/system/sysdictype/")
 public class SysDicTypeController {
 
-    String menuUrl = "/ez/system/sysdictype/list.do"; //菜单地址(权限用)
     @Resource
     private SysDicTypeService sysDictypeService;
 
@@ -49,8 +46,7 @@ public class SysDicTypeController {
      */
     @RequestMapping(value="list")
     @SystemLogController(description = "跳到字典类型列表页面")
-    public String list(Model model){
-        model.addAttribute(PubConstants.SESSION_QX,WebTool.getSessionQx());
+    public String list(){
         return "/ez/system/sysdictype/list";
     }
     /**
@@ -59,7 +55,7 @@ public class SysDicTypeController {
      */
     @RequestMapping(value="addUI")
     @SystemLogController(description = "跳到字典类型新增页面")
-    public String addUI(Model model){
+    public String addUI(){
         return "/ez/system/sysdictype/add";
     }
 
@@ -74,23 +70,18 @@ public class SysDicTypeController {
     public String add(Model model, SysDicType sysdictype, HttpServletResponse response, HttpServletRequest request){
         String result="{\"msg\":\"suc\"}";
         try {
-            if(Jurisdiction.buttonJurisdiction(menuUrl, "add")) {
-                SysDicType checkcodeSysDictype = sysDictypeService.getById(sysdictype.getCode());
-                SysDicType checknameSysDictype = sysDictypeService.getByName(sysdictype.getName());
-                if (checkcodeSysDictype != null) {
-                    result = "{\"msg\":\"fail\",\"message\":\"字典类型编码重复,请重新输入!\"}";
-                } else if (checknameSysDictype != null) {
-                    result = "{\"msg\":\"fail\",\"message\":\"字符类型名称重复,请重新输入!\"}";
-                } else {
-                    if (!"1".equals(sysdictype.getFlag())) {
-                        sysdictype.setFlag("0");
-                    }
-                    sysDictypeService.add(sysdictype);
+            SysDicType checkcodeSysDictype = sysDictypeService.getById(sysdictype.getCode());
+            SysDicType checknameSysDictype = sysDictypeService.getByName(sysdictype.getName());
+            if (checkcodeSysDictype != null) {
+                result = "{\"msg\":\"fail\",\"message\":\"字典类型编码重复,请重新输入!\"}";
+            } else if (checknameSysDictype != null) {
+                result = "{\"msg\":\"fail\",\"message\":\"字符类型名称重复,请重新输入!\"}";
+            } else {
+                if (!"1".equals(sysdictype.getFlag())) {
+                    sysdictype.setFlag("0");
                 }
-            }else {
-                result="{\"msg\":\"fail\",\"message\":\"您无增加权限！\"}";
+                sysDictypeService.add(sysdictype);
             }
-
         } catch (Exception e) {
             result="{\"msg\":\"fail\",\"message\":\"" + WebTool.getErrorMsg(e.getMessage())+"\"}";
             e.printStackTrace();
@@ -128,11 +119,7 @@ public class SysDicTypeController {
     public String deleteById(Model model,String ids, HttpServletResponse response){
         String result="{\"status\":1,\"message\":\"删除成功！\"}";
         try{
-            if(Jurisdiction.buttonJurisdiction(menuUrl, "del")) {
-                sysDictypeService.delete(ids);
-            }else {
-                result="{\"status\":0,\"message\":\"您无删除权限！\"}";
-            }
+            sysDictypeService.delete(ids);
         }catch(Exception e){
             result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
             e.printStackTrace();
@@ -173,19 +160,15 @@ public class SysDicTypeController {
     public String updateSysDictype(SysDicType sysdictype, HttpServletRequest request, HttpServletResponse response){
         String result="{\"msg\":\"suc\"}";
         try {
-            if(Jurisdiction.buttonJurisdiction(menuUrl, "edit")) {
-                String oldname=request.getParameter("oldname");
-                SysDicType checknameSysDictype=sysDictypeService.getByName(sysdictype.getName());
-                if(checknameSysDictype!=null && !oldname.equals(sysdictype.getName())){
-                    result="{\"msg\":\"fail\",\"message\":\"字符类型名称重复,请重新输入!\"}";
-                }else {
-                    if (!"1".equals(sysdictype.getFlag())){
-                        sysdictype.setFlag("0");
-                    }
-                    sysDictypeService.modify(sysdictype);
-                }
+            String oldname=request.getParameter("oldname");
+            SysDicType checknameSysDictype=sysDictypeService.getByName(sysdictype.getName());
+            if(checknameSysDictype!=null && !oldname.equals(sysdictype.getName())){
+                result="{\"msg\":\"fail\",\"message\":\"字符类型名称重复,请重新输入!\"}";
             }else {
-                result="{\"msg\":\"fail\",\"message\":\"您无修改权限！\"}";
+                if (!"1".equals(sysdictype.getFlag())){
+                    sysdictype.setFlag("0");
+                }
+                sysDictypeService.modify(sysdictype);
             }
         } catch (Exception e) {
             result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
@@ -209,12 +192,8 @@ public class SysDicTypeController {
     public String deleteAll(String[] ids, Model model, HttpServletResponse response) {
         String result = "{\"status\":1,\"message\":\"删除成功！\"}";
         try {
-            if(Jurisdiction.buttonJurisdiction(menuUrl, "del")) {
-                for (String id : ids) {
-                    sysDictypeService.delete(id);
-                }
-            }else {
-                result="{\"status\":0,\"message\":\"您无删除权限！\"}";
+            for (String id : ids) {
+                sysDictypeService.delete(id);
             }
         } catch (Exception e) {
             result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";

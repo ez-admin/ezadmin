@@ -36,7 +36,7 @@ public class Jurisdiction {
 				if(!menuList.get(i).isHasMenu()){				//判断有无此菜单权限
 					return false;
 				}else{																//按钮判断
-					Map<String, String> map = (Map<String, String>)session.getAttribute(PubConstants.SESSION_QX);//按钮权限
+					/*Map<String, String> map = (Map<String, String>)session.getAttribute(PubConstants.SESSION_QX);//按钮权限
 					map.remove("add");
 					map.remove("del");
 					map.remove("edit");
@@ -49,7 +49,7 @@ public class Jurisdiction {
 					map.put("edit", (RightsHelper.testRights(map.get("edits"), MENU_ID)) || isAdmin?"1":"0");
 					map.put("cha", (RightsHelper.testRights(map.get("chas"), MENU_ID)) || isAdmin?"1":"0");
 					session.removeAttribute(PubConstants.SESSION_QX);
-					session.setAttribute(PubConstants.SESSION_QX, map);	//重新分配按钮权限
+					session.setAttribute(PubConstants.SESSION_QX, map);	//重新分配按钮权限*/
 				}
 			}
 		}

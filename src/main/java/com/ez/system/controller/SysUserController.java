@@ -31,7 +31,6 @@ import java.util.Map;
 @RequestMapping(value="/ez/system/sysuser/")
 public class SysUserController {
 
-	String menuUrl = "/ez/system/sysuser/list.do"; //菜单地址(权限用)
 	@Resource
 	private SysUserService sysUserService;
 	@Resource
@@ -47,7 +46,6 @@ public class SysUserController {
 	public String list(Model model,
 					   @PathVariable("otype")  String otype){
 		model.addAttribute("otype",otype);
-		model.addAttribute(PubConstants.SESSION_QX,WebTool.getSessionQx());
 		return "/ez/system/sysuser/list";
 	}
 
@@ -72,19 +70,15 @@ public class SysUserController {
 	public String add(Model model,SysUser sysuser,HttpServletResponse response,HttpServletRequest request){
 		String result="{\"msg\":\"suc\"}";
 		try {
-			if(Jurisdiction.buttonJurisdiction(menuUrl, "add")) {
-				String userno= WaterIdGener.getWaterId();
-				String rolename=sysRoleService.getById(sysuser.getRlid()).getRoleName();
-				sysuser.setUserno(userno);
-				sysuser.setRlnm(rolename);
-				if (!"1".equals(sysuser.getIsused())){
-					sysuser.setIsused("0");
-				}
-				sysuser.setUptdate(FormatDateUtil.getFormatDate("yyyy-MM-dd"));
-				sysUserService.add(sysuser);
-			}else {
-				result="{\"msg\":\"fail\",\"message\":\"您无增加权限！\"}";
+			String userno= WaterIdGener.getWaterId();
+			String rolename=sysRoleService.getById(sysuser.getRlid()).getRoleName();
+			sysuser.setUserno(userno);
+			sysuser.setRlnm(rolename);
+			if (!"1".equals(sysuser.getIsused())){
+				sysuser.setIsused("0");
 			}
+			sysuser.setUptdate(FormatDateUtil.getFormatDate("yyyy-MM-dd"));
+			sysUserService.add(sysuser);
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" + WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -120,11 +114,7 @@ public class SysUserController {
 	public String deleteById(Model model,String ids, HttpServletResponse response){
 		String result="{\"status\":1,\"message\":\"删除成功！\"}";
 		try{
-			if(Jurisdiction.buttonJurisdiction(menuUrl, "del")) {
-				sysUserService.delete(ids);
-			}else {
-				result="{\"status\":0,\"message\":\"您无删除权限！\"}";
-			}
+			sysUserService.delete(ids);
 		}catch(Exception e){
 			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -163,15 +153,11 @@ public class SysUserController {
 	public String updateSysUser(Model model,SysUser sysuser,HttpServletResponse response){		
 		String result="{\"msg\":\"suc\"}";
 		try {
-			if(Jurisdiction.buttonJurisdiction(menuUrl, "edit")) {
-				if (!"1".equals(sysuser.getIsused())){
-					sysuser.setIsused("0");
-				}
-				sysuser.setUptdate(FormatDateUtil.getFormatDate("yyyy-MM-dd"));
-				sysUserService.modify(sysuser);
-			}else {
-				result="{\"msg\":\"fail\",\"message\":\"您无修改权限！\"}";
+			if (!"1".equals(sysuser.getIsused())){
+				sysuser.setIsused("0");
 			}
+			sysuser.setUptdate(FormatDateUtil.getFormatDate("yyyy-MM-dd"));
+			sysUserService.modify(sysuser);
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -193,12 +179,8 @@ public class SysUserController {
 	public String deleteAll(String[] ids, Model model, HttpServletResponse response) {
 		String result = "{\"status\":1,\"message\":\"删除成功！\"}";
 		try {
-			if(Jurisdiction.buttonJurisdiction(menuUrl, "del")) {
-				for (String id : ids) {
-					sysUserService.delete(id);
-				}
-			}else {
-				result="{\"status\":0,\"message\":\"您无删除权限！\"}";
+			for (String id : ids) {
+				sysUserService.delete(id);
 			}
 		} catch (Exception e) {
 			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";

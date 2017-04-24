@@ -302,7 +302,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 	 * @return
 	 */
 	@Override
-	public List<SysMenu> listAllMenuButton() {
+	public List<SysMenu> listAllMenuButton(String rights) {
 		SysMenu sysMenu=new SysMenu();
 		Session session = SecurityUtils.getSubject().getSession();
 		String USERNAME = session.getAttribute(PubConstants.SESSION_LOGNM).toString();	//获取当前登录者loginname
@@ -310,23 +310,13 @@ public class SysMenuServiceImpl implements SysMenuService {
 		if (!isAdmin){//不是超级管理员
 			sysMenu.setMenuType("0");//查询MenuType不等于0的菜单
 		}
-		List<SysMenu> sysMenuList=sysMenuDao.getParentMenu(sysMenu);
-		for (SysMenu menu: sysMenuList){
-			sysMenu.setParentId(menu.getMenuId().toString());
-			List<SysMenu> subList=sysMenuDao.getChildrenMenu(sysMenu);
-			menu.setMenuList(subList);
-			for (SysMenu submenu: subList){
-				sysMenu.setParentId(submenu.getMenuId().toString());
-				List<SysMenu> subsubList=sysMenuDao.getChildrenMenu(sysMenu);
-				submenu.setMenuList(subsubList);
-				for (SysMenu subsubMenu: subsubList){
-					sysMenu.setParentId(subsubMenu.getMenuId().toString());
-					List<SysMenu> subsubsubList=sysMenuDao.getChildrenMenu(sysMenu);
-					subsubMenu.setMenuList(subsubsubList);
-				}
+		List<SysMenu> sysMenuList=sysMenuDao.findAllListMenu(sysMenu);
+		if(sysMenuList!=null && sysMenuList.size()>0){
+			for(SysMenu menu: sysMenuList){
+				menu.setHasMenu(RightsHelper.testRights(rights, menu.getMenuId()));
 			}
-
 		}
+
 		return sysMenuList;
 	}
 

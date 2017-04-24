@@ -19,22 +19,24 @@
 
 <body>
 	<form class="layui-form" id="formSearch">
+		<shiro:hasPermission name="sysrole_query">
 		<%--下面一行代码是处理，当只有一个查询框的时候，enter事件会把input框清空：此问题留后人研究--%>
 		<input type="text" style="display: none">
 		<div class="layui-input-inline">
 			<input id="roleName" name="roleName" placeholder="请输入角色名称" type="text" class="layui-input-quote">
 		</div>
 		<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
-		<c:if test="${QX.add == 1 }">
+		</shiro:hasPermission>
+		<shiro:hasPermission name="sysrole_add">
 		<button id="btn_add" type="button" class="layui-btn layui-btn-small">
 				<i class="fa fa-plus"></i>新增
 		</button>
-		</c:if>
-		<c:if test="${QX.del == 1 }">
+		</shiro:hasPermission>
+		<shiro:hasPermission name="sysrole_deleteall">
 		<button id="btn_delete" type="button" class="layui-btn layui-btn-small">
 			<i class="fa fa-remove"></i>批量删除
 		</button>
-		</c:if>
+		</shiro:hasPermission>
 	</form>
 	<table id="table"></table>
 
@@ -44,7 +46,9 @@
 		$('#table').bootstrapTable({
 			url: 'ez/system/sysrole/showlist.do',
 			method: 'post',                      //请求方式（*）
+			<shiro:hasPermission name="sysrole_export">
 			showExport: true,//显示导出按钮
+			</shiro:hasPermission>
 			exportDataType: "basic",//导出类型
 			toolbar: '#formSearch',                //工具按钮用哪个容器
 			striped: true,                      //是否显示行间隔色
@@ -95,14 +99,8 @@
 				field: 'roleType',
 				title: '角色类型',
 				align: 'center',
-				width:'20%',
+				width:'30%',
 				formatter:roleTypeFormatter
-			}, {
-				field: 'rights',
-				title: '权限分配',
-				align: 'center',
-				width:'10%',
-				formatter: menuqxFormatter
 			},{
 				filed: '',
 				title: '操作区',
@@ -170,60 +168,6 @@
 			closeWin(index);
 		});
 	});
-	//增删改查权限
-	function addQxFormatter(value, row, index) {
-		return [
-			<c:if test="${QX.edit == 1 }">
-			'<button class="layui-btn layui-btn-small layui-btn-warm"  onclick="roleButton(\''+row.roleId+'\',\'addQx\')"><i class="fa fa-wrench"></i></button>'
-			</c:if>
-		].join('');
-	}
-	function delQxFormatter(value, row, index) {
-		return [
-			<c:if test="${QX.edit == 1 }">
-			'<button class="layui-btn layui-btn-small layui-btn-warm"  onclick="roleButton(\''+row.roleId+'\',\'delQx\')"><i class="fa fa-wrench"></i></button>'
-			</c:if>
-		].join('');
-	}
-	function editQxFormatter(value, row, index) {
-		return [
-			<c:if test="${QX.edit == 1 }">
-			'<button class="layui-btn layui-btn-small layui-btn-warm"  onclick="roleButton(\''+row.roleId+'\',\'editQx\')"><i class="fa fa-wrench"></i></button>'
-			</c:if>
-		].join('');
-	}
-	function chaQxFormatter(value, row, index) {
-		return [
-			<c:if test="${QX.edit == 1 }">
-			'<button class="layui-btn layui-btn-small layui-btn-warm"  onclick="roleButton(\''+row.roleId+'\',\'chaQx\')"><i class="fa fa-wrench"></i></button>'
-			</c:if>
-		].join('');
-	}
-	function roleButton(roleId, msg) {
-		var Title='授权权限';
-		if(msg == 'addQx'){
-			Title = '授权新增权限';
-		}else if(msg == 'delQx'){
-			Title = '授权删除权限';
-		}else if(msg == 'editQx'){
-			Title = '授权修改权限';
-		}else if(msg == 'chaQx'){
-			Title = '授权查看权限';
-		}else if(msg == 'rights'){
-			Title = '授权菜单权限';
-		};
-		top.layer.open({
-			type: 2,//iframe层
-			title: Title,
-			maxmin: true,
-			shadeClose: true, //点击遮罩关闭层
-			area : ['900px' , '600px'],
-			content: '/ez/system/sysrole/roleButton.do?roleId='+roleId+'&msg='+msg,
-			end:function(){
-				$("#table").bootstrapTable('refresh');//刷新表格
-			}
-		});
-	}
 	//角色类型
 	function roleTypeFormatter(value, row, index) {
 		var a="未知角色";
@@ -238,31 +182,25 @@
 		}
 		return a;
 	}
-	//菜单权限
-	function menuqxFormatter(value, row, index) {
-			return [
-				<c:if test="${QX.edit == 1 }">
-				'<button class="layui-btn layui-btn-small layui-btn-danger" type="button" onclick="roleButton(\''+row.roleId+'\',\'rights\')"><i class="fa fa-pencil"></i></button>'
-				</c:if>
-			].join('');
-	}
 	//操作区
 	function operateFormatter(value, row, index) {
 		if (row.roleId!="1"){
 			return [
+				<shiro:hasPermission name="sysrole_view">
                 '<a class="rolebutton" href="javascript:void(0)" title="分配权限">',
                 '分配权限',
                 '</a>    ',
-				<c:if test="${QX.edit == 1 }">
+				</shiro:hasPermission>
+				<shiro:hasPermission name="sysrole_modify">
 				'<a class="edit" href="javascript:void(0)" title="修改">',
 				'修改',
 				'</a>    ',
-				</c:if>
-				<c:if test="${QX.del == 1 }">
+				</shiro:hasPermission>
+				<shiro:hasPermission name="sysrole_delete">
 				'<a class="remove" href="javascript:void(0)" title="删除">',
 				'删除',
 				'</a>'
-				</c:if>
+				</shiro:hasPermission>
 			].join('');
 		}
 	};
@@ -274,8 +212,8 @@
                 title: '分配权限',
                 maxmin: true,
                 shadeClose: true, //点击遮罩关闭层
-                area : ['900px' , '600px'],
-                content: '/ez/system/sysrole/roleButton.do?roleId='+row.roleId+'&msg=rights',
+                area : ['1100px' , '600px'],
+                content: '/ez/system/sysrole/roleButton.do?roleId='+row.roleId,
                 end:function(){
                     $("#table").bootstrapTable('refresh');//刷新表格
                 }

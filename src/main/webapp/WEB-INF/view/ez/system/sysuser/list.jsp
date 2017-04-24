@@ -49,6 +49,7 @@
 			<input id="userrelnm" name="userrelnm" placeholder="请输入用户姓名" type="text" class="layui-input-quote">
 		</div>
 		<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
+
 		<c:if test="${QX.add == 1 }">
 			<button id="btn_add" type="button" class="layui-btn layui-btn-small">
 				<i class="fa fa-plus"></i>新增

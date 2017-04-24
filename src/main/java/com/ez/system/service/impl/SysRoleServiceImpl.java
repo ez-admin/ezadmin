@@ -6,12 +6,8 @@
 
 package com.ez.system.service.impl;
 
-import com.ez.system.dao.SysRightDao;
-import com.ez.system.dao.SysRightGlDao;
 import com.ez.system.dao.SysRoleDao;
 import com.ez.system.dao.SysUserDao;
-import com.ez.system.entity.SysRight;
-import com.ez.system.entity.SysRightGl;
 import com.ez.system.entity.SysRole;
 import com.ez.system.entity.SysUser;
 import com.ez.system.service.SysRoleService;
@@ -42,10 +38,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 	private SysRoleDao sysRoleDao;
 	@Resource
 	private SysUserDao sysUserDao;
-	@Resource
-	private SysRightDao sysRightDao;
-	@Resource
-	private SysRightGlDao sysRightGlDao;
+
 	/**
 	 * 分页查询
 	 * @param page
@@ -93,36 +86,14 @@ public class SysRoleServiceImpl implements SysRoleService {
 	public void add(SysRole sysRole) {
 		String uuid= UuidUtil.get32UUID();
 		sysRole.setRoleId(uuid);
-		sysRole.setQxId(uuid);
+		/*sysRole.setQxId(uuid);
 		sysRole.setAddQx("1");
 		sysRole.setDelQx("1");
 		sysRole.setEditQx("1");
 		sysRole.setChaQx("1");
-		sysRole.setRights("1");
+		sysRole.setRights("1");*/
 		sysRoleDao.add(sysRole);
 
-		SysRight sysRight=new SysRight();
-		sysRight.setUid(uuid);
-		sysRight.setC1(0);
-		sysRight.setC2(0);
-		sysRight.setC3(0);
-		sysRight.setC4(0);
-		sysRight.setQ1(0);
-		sysRight.setQ2(0);
-		sysRight.setQ3(0);
-		sysRight.setQ4(0);
-		sysRightDao.add(sysRight);
-
-		SysRightGl sysRightGl=new SysRightGl();
-		sysRightGl.setRoleId(uuid);
-		sysRightGl.setGlId(uuid);
-		sysRightGl.setFwQx(0);//发信权限
-		sysRightGl.setFxQx(0);//服务权限
-		sysRightGl.setQx1(0);//操作权限
-		sysRightGl.setQx2(0);//产品权限
-		sysRightGl.setQx3(0);//预留权限
-		sysRightGl.setQx4(0);//预留权限
-		sysRightGlDao.add(sysRightGl);
 
 	}
 	
@@ -144,8 +115,6 @@ public class SysRoleServiceImpl implements SysRoleService {
 	//@PreAuthorize("hasRole('ROLE_*')")
 	public void delete(String id) {
 		sysRoleDao.delete(id);
-		sysRightDao.delete(id);
-		sysRightGlDao.delete(id);
 	}
 	
 	/**

@@ -14,8 +14,6 @@ import com.ez.system.entity.SysOrg;
 import com.ez.system.entity.SysUser;
 import com.ez.system.service.SysOrgService;
 import com.ez.system.service.SysUserService;
-import com.ez.util.Jurisdiction;
-import com.ez.util.PubConstants;
 import com.ez.util.WebTool;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -42,7 +40,6 @@ import java.util.*;
 @RequestMapping(value="/ez/system/sysorg/")
 public class SysOrgController {
 
-	String menuUrl = "/ez/system/sysorg/list.do"; //菜单地址(权限用)
 	@Resource
 	private SysOrgService sysOrgService;
 	@Resource
@@ -55,13 +52,12 @@ public class SysOrgController {
 	}
 	/**
 	 * 跳到列表页面
-	 * @param model
+	 * @param
 	 * @return
 	 */
 	@RequestMapping(value="list")
 	@SystemLogController(description = "跳到组织结构表列表页面")
-	public String list(Model model){
-		model.addAttribute(PubConstants.SESSION_QX,WebTool.getSessionQx());
+	public String list(){
 		return "/ez/system/sysorg/list";
 	}
 	/**
@@ -85,13 +81,9 @@ public class SysOrgController {
 	public String add(SysOrg sysorg,HttpServletResponse response){
 		String result="{\"msg\":\"suc\"}";
 		try {
-			if(Jurisdiction.buttonJurisdiction(menuUrl, "add")){
-				sysOrgService.add(sysorg);
-				SysOrg org=sysOrgService.getById(sysorg.getOrgId()+"");
-				result="{\"msg\":\"suc\",\"organization\":"+JSON.toJSONString(org)+"}";
-			}else{
-				result="{\"msg\":\"fail\",\"message\":\"您无增加权限！\"}";
-			}
+			sysOrgService.add(sysorg);
+			SysOrg org=sysOrgService.getById(sysorg.getOrgId()+"");
+			result="{\"msg\":\"suc\",\"organization\":"+JSON.toJSONString(org)+"}";
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -133,16 +125,11 @@ public class SysOrgController {
 	public String deleteById(Model model,String ids, HttpServletResponse response){
 		String result="{\"status\":1,\"message\":\"删除成功！\"}";
 		try{
-			if(Jurisdiction.buttonJurisdiction(menuUrl, "del")) {
-
-				List<SysUser> sysUserList=sysUserService.listByDptno(ids);
-				if (sysUserList!=null && sysUserList.size()>0){
-					result="{\"status\":0,\"message\":\"该组织部门下仍有用户！\"}";
-				}else {
-					sysOrgService.delete(ids);
-				}
+			List<SysUser> sysUserList=sysUserService.listByDptno(ids);
+			if (sysUserList!=null && sysUserList.size()>0){
+				result="{\"status\":0,\"message\":\"该组织部门下仍有用户！\"}";
 			}else {
-				result="{\"status\":0,\"message\":\"您无删除权限！\"}";
+				sysOrgService.delete(ids);
 			}
 		}catch(Exception e){
 			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
@@ -184,13 +171,9 @@ public class SysOrgController {
 	public String updateSysOrg(Model model,SysOrg sysorg,HttpServletResponse response){
 		String result="{\"msg\":\"suc\"}";
 		try {
-			if(Jurisdiction.buttonJurisdiction(menuUrl, "edit")) {
-				sysOrgService.modify(sysorg);
-				SysOrg org=sysOrgService.getById(sysorg.getOrgId()+"");
-				result="{\"msg\":\"suc\",\"organization\":"+JSON.toJSONString(org)+"}";
-			}else {
-				result="{\"msg\":\"fail\",\"message\":\"您无修改权限！\"}";
-			}
+			sysOrgService.modify(sysorg);
+			SysOrg org=sysOrgService.getById(sysorg.getOrgId()+"");
+			result="{\"msg\":\"suc\",\"organization\":"+JSON.toJSONString(org)+"}";
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();

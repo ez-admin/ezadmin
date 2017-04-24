@@ -18,24 +18,25 @@
 </head>
 <body>
 <form class="layui-form" id="formSearch">
+	<shiro:hasPermission name="sysoption_query">
 	<div class="layui-input-inline">
 		<input id="optionValue" name="optionValue" placeholder="请输入参数值" type="text" class="layui-input-quote" maxlength="65535" autocomplete="off">
 	</div>
 	<div class="layui-input-inline">
 		<input id="optionName" name="optionName" placeholder="请输入参数名称" type="text" class="layui-input-quote" maxlength="100" autocomplete="off">
 	</div>
-
 	<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
-	<c:if test="${QX.add == 1}">
-		<button id="btn_add" type="button" class="layui-btn layui-btn-small">
-			<i class="fa fa-plus"></i>新增
-		</button>
-	</c:if>
-	<c:if test="${QX.del == 1}">
+	</shiro:hasPermission>
+	<shiro:hasPermission name="sysoption_add">
+	<button id="btn_add" type="button" class="layui-btn layui-btn-small">
+		<i class="fa fa-plus"></i>新增
+	</button>
+	</shiro:hasPermission>
+	<shiro:hasPermission name="sysoption_deleteall">
 		<button id="btn_delete" type="button" class="layui-btn layui-btn-small">
 			<i class="fa fa-remove"></i>批量删除
 		</button>
-	</c:if>
+	</shiro:hasPermission>
 </form>
 
 <table id="table"></table>
@@ -45,7 +46,9 @@
 		$('#table').bootstrapTable({
 			url: '/ez/system/sysoption/showlist.do',
 			method: 'post',                      //请求方式（*）
+			<shiro:hasPermission name="sysoption_export">
 			showExport: true,//显示导出按钮
+			</shiro:hasPermission>
 			exportDataType: "basic",//导出类型
 			toolbar: '#formSearch',                //工具按钮用哪个容器
 			striped: true,                      //是否显示行间隔色
@@ -153,21 +156,21 @@
 	//操作区
 	function operateFormatter(value, row, index) {
 		return [
-			<c:if test="${QX.cha == 1}">
+			<shiro:hasPermission name="sysoption_view">
 			'<a class="view" href="javascript:void(0)" title="查看">',
 			'查看',
 			'</a>    ',
-			</c:if>
-			<c:if test="${QX.edit == 1}">
+			</shiro:hasPermission>
+			<shiro:hasPermission name="sysoption_modify">
 			'<a class="edit" href="javascript:void(0)" title="修改">',
 			'修改',
 			'</a>    ',
-			</c:if>
-			<c:if test="${QX.del == 1}">
+			</shiro:hasPermission>
+			<shiro:hasPermission name="sysoption_delete">
 			'<a class="remove" href="javascript:void(0)" title="删除">',
 			'删除',
 			'</a>'
-			</c:if>
+			</shiro:hasPermission>
 		].join('');
 	};
 	//操作区事件

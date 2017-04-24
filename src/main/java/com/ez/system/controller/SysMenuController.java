@@ -4,8 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.ez.annotation.SystemLogController;
 import com.ez.system.entity.SysMenu;
 import com.ez.system.service.SysMenuService;
-import com.ez.util.Jurisdiction;
-import com.ez.util.PubConstants;
 import com.ez.util.WebTool;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -33,7 +31,6 @@ import java.util.Map;
 @RequestMapping(value="/ez/system/sysmenu/")
 public class SysMenuController {
 
-	String menuUrl = "/ez/system/sysmenu/list.do"; //菜单地址(权限用)
 	@Resource
 	private SysMenuService sysMenuService;
 
@@ -43,8 +40,7 @@ public class SysMenuController {
 	 */
 	@RequestMapping(value="list")
 	@SystemLogController(description = "跳到菜单管理列表页面")
-	public String list(Model model){
-		model.addAttribute(PubConstants.SESSION_QX,WebTool.getSessionQx());
+	public String list(){
 		return "ez/system/sysMenu/list";
 	}
 	/**
@@ -78,11 +74,7 @@ public class SysMenuController {
 	public String add(Model model,SysMenu sysmenu,HttpServletResponse response,HttpServletRequest request){
 		String result="{\"msg\":\"suc\"}";
 		try {
-			if(Jurisdiction.buttonJurisdiction(menuUrl, "add")) {
-				sysMenuService.add(sysmenu);
-			}else {
-				result="{\"msg\":\"fail\",\"message\":\"您无增加权限！\"}";
-			}
+			sysMenuService.add(sysmenu);
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" + WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -128,11 +120,7 @@ public class SysMenuController {
 	public String deleteById(Model model,String ids, HttpServletResponse response){
 		String result="{\"status\":1,\"message\":\"删除成功！\"}";
 		try{
-			if(Jurisdiction.buttonJurisdiction(menuUrl, "del")) {
-				sysMenuService.delete(ids);
-			}else {
-				result="{\"status\":0,\"message\":\"您无删除权限！\"}";
-			}
+			sysMenuService.delete(ids);
 		}catch(Exception e){
 			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -173,11 +161,7 @@ public class SysMenuController {
 	public String updateSysMenu(Model model,SysMenu sysmenu,HttpServletResponse response){		
 		String result="{\"msg\":\"suc\"}";
 		try {
-			if(Jurisdiction.buttonJurisdiction(menuUrl, "edit")) {
-				sysMenuService.modify(sysmenu);
-			}else {
-				result="{\"msg\":\"fail\",\"message\":\"您无修改权限！\"}";
-			}
+			sysMenuService.modify(sysmenu);
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -200,12 +184,8 @@ public class SysMenuController {
 	public String deleteAll(String[] ids, Model model, HttpServletResponse response) {
 		String result = "{\"status\":1,\"message\":\"删除成功！\"}";
 		try {
-			if(Jurisdiction.buttonJurisdiction(menuUrl, "del")) {
-				for (String id : ids) {
-					sysMenuService.delete(id);
-				}
-			}else {
-				result="{\"status\":0,\"message\":\"您无删除权限！\"}";
+			for (String id : ids) {
+				sysMenuService.delete(id);
 			}
 		} catch (Exception e) {
 			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";

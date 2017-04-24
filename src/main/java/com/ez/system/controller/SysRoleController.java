@@ -41,7 +41,6 @@ import java.util.Map;
 @RequestMapping(value="/ez/system/sysrole/")
 public class SysRoleController {
 
-	String menuUrl = "/ez/system/sysrole/list.do"; //菜单地址(权限用)
 	@Resource
 	private SysRoleService sysRoleService;
 
@@ -57,7 +56,6 @@ public class SysRoleController {
 	@RequestMapping(value="list")
 	@SystemLogController(description = "获取角色管理列表页面")
 	public String list(Model model){
-		model.addAttribute(PubConstants.SESSION_QX,WebTool.getSessionQx());
 		return "/ez/system/sysrole/list";
 	}
 	
@@ -80,11 +78,7 @@ public class SysRoleController {
 	public String add(Model model,SysRole sysRole,HttpServletResponse response,HttpServletRequest request){
 		String result="{\"msg\":\"suc\"}";
 		try {
-			if(Jurisdiction.buttonJurisdiction(menuUrl, "add")) {
-				sysRoleService.add(sysRole);
-			}else {
-				result="{\"msg\":\"fail\",\"message\":\"您无增加权限！\"}";
-			}
+			sysRoleService.add(sysRole);
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" + WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -136,15 +130,11 @@ public class SysRoleController {
 	public String deleteById(Model model,String ids, HttpServletResponse response){
 		String result="{\"status\":1,\"message\":\"删除成功！\"}";
 		try{
-			if(Jurisdiction.buttonJurisdiction(menuUrl, "del")) {
-				List<SysUser> sysUserList=sysUserService.listByRid(ids);
-				if (sysUserList!=null && sysUserList.size()>0){
-					result="{\"status\":0,\"message\":\"该角色下仍有用户！\"}";
-				}else {
-					sysRoleService.delete(ids);
-				}
+			List<SysUser> sysUserList=sysUserService.listByRid(ids);
+			if (sysUserList!=null && sysUserList.size()>0){
+				result="{\"status\":0,\"message\":\"该角色下仍有用户！\"}";
 			}else {
-				result="{\"status\":0,\"message\":\"您无删除权限！\"}";
+				sysRoleService.delete(ids);
 			}
 		}catch(Exception e){
 			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
@@ -184,11 +174,7 @@ public class SysRoleController {
 	public String updateSysRole(Model model,SysRole sysrole,HttpServletResponse response){		
 		String result="{\"msg\":\"suc\"}";
 		try {
-			if(Jurisdiction.buttonJurisdiction(menuUrl, "edit")) {
-				sysRoleService.modify(sysrole);
-			}else {
-				result="{\"msg\":\"fail\",\"message\":\"您无修改权限！\"}";
-			}
+			sysRoleService.modify(sysrole);
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -210,17 +196,13 @@ public class SysRoleController {
 	public String deleteAll(String[] ids, Model model, HttpServletResponse response) {
 		String result = "{\"status\":1,\"message\":\"删除成功！\"}";
 		try {
-			if(Jurisdiction.buttonJurisdiction(menuUrl, "del")) {
-				for (String id : ids) {
-					List<SysUser> sysUserList=sysUserService.listByRid(id);
-					if (sysUserList!=null && sysUserList.size()>0){
-						result="{\"status\":0,\"message\":\"该角色下仍有用户，请将用户删除再来删除该角色！\"}";
-					}else {
-						sysRoleService.delete(id);
-					}
+			for (String id : ids) {
+				List<SysUser> sysUserList=sysUserService.listByRid(id);
+				if (sysUserList!=null && sysUserList.size()>0){
+					result="{\"status\":0,\"message\":\"该角色下仍有用户，请将用户删除再来删除该角色！\"}";
+				}else {
+					sysRoleService.delete(id);
 				}
-			}else {
-				result="{\"status\":0,\"message\":\"您无删除权限！\"}";
 			}
 		} catch (Exception e) {
 			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
@@ -234,90 +216,37 @@ public class SysRoleController {
 	 * 跳转到相应的增删改查页面
 	 * @param model
 	 * @param roleId
-	 * @param msg
 	 * @return
 	 */
 	@RequestMapping(value="roleButton")
-	public String roleButton(Model model,String roleId,String msg){
-		List<SysMenu> menuList = sysMenuService.listAllMenuButton();
-		SysRole sysRole=sysRoleService.getById(roleId);
+	public String roleButton(Model model,String roleId){
 
-		String roleRight = "";
-		if("addQx".equals(msg)){
-			roleRight = sysRole.getAddQx();
-		}else if("delQx".equals(msg)){
-			roleRight = sysRole.getDelQx();
-		}else if("editQx".equals(msg)){
-			roleRight = sysRole.getEditQx();
-		}else if("chaQx".equals(msg)){
-			roleRight = sysRole.getChaQx();
-		}else if("rights".equals(msg)){
-			roleRight =sysRole.getRights();
-		}
-		if(Tools.notEmpty(roleRight)){
-			for(SysMenu menu : menuList){
-				menu.setHasMenu(RightsHelper.testRights(roleRight, menu.getMenuId()));
-				if(menu.isHasMenu()){
-					List<SysMenu> subMenuList = menu.getMenuList();
-					for(SysMenu sub : subMenuList){
-						sub.setHasMenu(RightsHelper.testRights(roleRight, sub.getMenuId()));
-						if (sub.isHasMenu()){
-							List<SysMenu> subsubMenuList = sub.getMenuList();
-							for (SysMenu subsub : subsubMenuList){
-								subsub.setHasMenu(RightsHelper.testRights(roleRight, subsub.getMenuId()));
-								if(subsub.isHasMenu()){
-									List<SysMenu> subsubsubMenuList=subsub.getMenuList();
-									if (subsubsubMenuList!=null && subsubsubMenuList.size()>0){
-										for (SysMenu subsubsub : subsubsubMenuList){
-											subsubsub.setHasMenu(RightsHelper.testRights(roleRight, subsubsub.getMenuId()));
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+		SysRole sysRole=sysRoleService.getById(roleId);
+		List<SysMenu> menuList = sysMenuService.listAllMenuButton(sysRole.getRights());
 		String json = JSON.toJSON(menuList).toString();
-		json = json.replaceAll("menuId", "id").replaceAll("menuName", "name").replaceAll("menuList", "nodes").replaceAll("hasMenu", "checked");
+		json = json.replaceAll("menuId", "id").replaceAll("menuName", "name").replaceAll("parentId", "pId").replaceAll("hasMenu", "checked");
 
 		model.addAttribute("zTreeNodes",json);
 		model.addAttribute("roleId",roleId);
-		model.addAttribute("msg",msg);
 		return "ez/system/sysrole/rolebutton";
 	}
 	/**
 	 * 保存增删改查的权限信息
 	 * @param ids
 	 * @param sysRole
-	 * @param msg
+	 * @param
 	 * @return
 	 */
 	@RequestMapping(value = "roleQxSave")
-	public String roleQxSave(String ids, SysRole sysRole,String msg,HttpServletResponse response) {
+	public String roleQxSave(String ids, SysRole sysRole,HttpServletResponse response) {
 		String result = "{\"status\":1,\"message\":\"编辑成功！\"}";
 		try {
-			if(Jurisdiction.buttonJurisdiction(menuUrl, "edit")) {
-				String rights="0";
-				if (Tools.notEmpty(ids)){
-					 rights = RightsHelper.sumRights(Tools.str2StrArray(ids)).toString();
-				}
-				if ("addQx".equals(msg)){
-					sysRole.setAddQx(rights);
-				}else if ("delQx".equals(msg)){
-					sysRole.setDelQx(rights);
-				}else if("editQx".equals(msg)){
-					sysRole.setEditQx(rights);
-				}else if("chaQx".equals(msg)){
-					sysRole.setChaQx(rights);
-				}else if("rights".equals(msg)){
-					sysRole.setRights(rights);
-				}
-				sysRoleService.modify(sysRole);
-			}else {
-				result="{\"msg\":\"fail\",\"message\":\"您无修改权限！\"}";
+			String rights="0";
+			if (Tools.notEmpty(ids)){
+				 rights = RightsHelper.sumRights(Tools.str2StrArray(ids)).toString();
 			}
+			sysRole.setRights(rights);
+			sysRoleService.modify(sysRole);
 		} catch (Exception e) {
 			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();

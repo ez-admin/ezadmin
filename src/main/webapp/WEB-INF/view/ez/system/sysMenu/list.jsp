@@ -40,6 +40,7 @@
 <body>
 <blockquote class="layui-elem-quote" style="padding: 8px 15px">
     <form class="layui-form" id="formSearch">
+        <shiro:hasPermission name="sysmenu_query">
         <div class="layui-input-inline">
             <input id="menuId" name="menuId"  placeholder="请输入菜单ID" type="text" class="layui-input-quote">
         </div>
@@ -47,13 +48,14 @@
             <input id="menuName" name="menuName" placeholder="请输入菜单名称" type="text" class="layui-input-quote">
         </div>
         <button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
-        <c:if test="${QX.add == 1 }">
+        </shiro:hasPermission>
+        <shiro:hasPermission name="sysmenu_addfirst">
         <div id="toolbar" class="btn-group pull-right">
             <button id="btn_add" type="button" class="layui-btn layui-btn-small">
                 <i class="fa fa-plus"></i>新增一级菜单
             </button>
         </div>
-        </c:if>
+        </shiro:hasPermission>
         <div class="clear"></div>
     </form>
 </blockquote>
@@ -285,26 +287,26 @@
     //操作区
     function operateFormatter(value, row, index) {
         return [
-            <c:if test="${QX.add == 1 }">
+            <shiro:hasPermission name="sysmenu_addchidren">
             '<a class="addSub" href="javascript:void(0)" title="新增子菜单">',
             '新增子菜单',
             '</a>    ',
-            </c:if>
-            <c:if test="${QX.cha == 1 }">
+            </shiro:hasPermission>
+            <shiro:hasPermission name="sysmenu_view">
             '<a class="view" href="javascript:void(0)" title="查看">',
             '查看',
             '</a>    ',
-            </c:if>
-            <c:if test="${QX.edit == 1 }">
+            </shiro:hasPermission>
+            <shiro:hasPermission name="sysmenu_modify">
             '<a class="edit" href="javascript:void(0)" title="修改">',
             '修改',
             '</a>    ',
-            </c:if>
-            <c:if test="${QX.del == 1 }">
+            </shiro:hasPermission>
+            <shiro:hasPermission name="sysmenu_delete">
             '<a class="remove" href="javascript:void(0)" title="删除">',
             '删除',
             '</a>'
-            </c:if>
+            </shiro:hasPermission>
         ].join('');
     }
     //操作区事件

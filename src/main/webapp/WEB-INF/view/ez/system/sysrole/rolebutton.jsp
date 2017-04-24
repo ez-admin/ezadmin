@@ -6,7 +6,7 @@
 <head>
     <title>菜单权限名称列表</title>
     <%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
-    <link rel="stylesheet" href="/static/plugins/zTree/2.6/zTreeStyle.css"/>
+    <link rel="stylesheet" href="/static/plugins/zTree/3.5.12/css/zTreeStyle/zTreeStyle.min.css"/>
     <script type="text/javascript" src="/static/plugins/layui/layui.js" charset="utf-8"></script>
     <style>
         .clearfix{
@@ -17,7 +17,8 @@
 <body>
 <form id="formid" class="layui-form">
     <div id="zhongxin">
-        <ul id="tree" class="tree" style="overflow:auto;"></ul>
+        <ul id="tree" class="ztree"></ul>
+        <%--<ul id="tree" class="tree" style="overflow:auto;"></ul>--%>
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
@@ -27,24 +28,38 @@
     </div>
 </form>
 <script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
-<script type="text/javascript" src="/static/plugins/zTree/2.6/jquery.ztree-2.6.min.js"></script>
+<script type="text/javascript" src="/static/plugins/zTree/3.5.12/js/jquery.ztree.all-3.5.min.js"></script>
 <script>
     var zTree;
+    //初始化表格
+    var setting = {
+        showLine: true,
+        checkable: true,
+        showIcon :true,
+        check:{enable:true,nocheckInherit:true},
+        view:{selectedMulti:false},
+        data:{simpleData:{enable:true}},
+        callback:{beforeClick:function(id, node){
+            tree.checkNode(node, !node.checked, true, true);
+            return false;
+        }}
+    };
+
+    var zn = '${zTreeNodes}';
+    var zTreeNodes = eval(zn);
     $(function () {
-        //初始化表格
-        var setting = {
-            showLine: true,
-            checkable: true,
-            showIcon :true
-        };
-        var zn = '${zTreeNodes}';
-        var zTreeNodes = eval(zn);
-        zTree = $("#tree").zTree(setting, zTreeNodes);
+        // 初始化树结构
+        zTree = $.fn.zTree.init($("#tree"), setting, zTreeNodes);
+        // 不选择父节点
+        zTree.setting.check.chkboxType = { "Y" : "ps", "N" : "s" };
+        // 默认展开全部节点
+        zTree.expandAll(true);
+
         //让第四级按钮菜单横向排列
         $("#tree").find("ul").find("ul").find("ul").find("li").css("float","left");
         $("#tree").find("ul").find("ul").find("ul").append("<div class='clearfix'></div>");
-        $("#tree").find("ul").find("ul").find("ul").find("li").find("button:first-child").css("background","none");
-        $("#tree").find("ul").find("ul").find("ul").find("li").find("a").find("button:first-child").css("width","0");
+        $("#tree").find("ul").find("ul").find("ul").find("li").find("span:first-child").css("background","none");
+        $("#tree").find("ul").find("ul").find("ul").find("li").find("a").find("span:first-child").css("width","0");
 
     });
     //Demo
@@ -68,8 +83,7 @@
                 }
             };
             var roleId = "${roleId}";
-            var msg = "${msg}";
-            var postData = {"roleId":roleId,"ids":ids,"msg":msg};
+            var postData = {"roleId":roleId,"ids":ids};
             $.ajax({
                 url: "/ez/system/sysrole/roleQxSave.do",
                 type: "POST",

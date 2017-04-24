@@ -34,4 +34,5 @@ public interface SysMenuDao extends BaseDao<SysMenu> {
 
 	List<SysMenu> getChildrenMenu(SysMenu sysmenu) throws DataAccessException;
 
+	List<SysMenu> findAllListMenu(SysMenu sysMenu) throws DataAccessException;
 }
