@@ -23,11 +23,6 @@ public class SysRole extends BaseEntity implements java.io.Serializable{
 	public static final String ALIAS_ROLE_NAME = "roleName";
 	public static final String ALIAS_RIGHTS = "rights";
 	public static final String ALIAS_PARENT_ID = "parentId";
-	public static final String ALIAS_ADD_QX = "addQx";
-	public static final String ALIAS_DEL_QX = "delQx";
-	public static final String ALIAS_EDIT_QX = "editQx";
-	public static final String ALIAS_CHA_QX = "chaQx";
-	public static final String ALIAS_QX_ID = "qxId";
 	
 	//date formats
 	
@@ -50,16 +45,6 @@ public class SysRole extends BaseEntity implements java.io.Serializable{
 	private String rights;
 	/**parentId==>db_column: ROLE_TYPE*/
 	private String roleType;
-	/**addQx==>db_column: ADD_QX*/
-	private String addQx;
-	/**delQx==>db_column: DEL_QX*/
-	private String delQx;
-	/**editQx==>db_column: EDIT_QX*/
-	private String editQx;
-	/**chaQx==>db_column: CHA_QX*/
-	private String chaQx;
-	/**qxId==>db_column: QX_ID*/
-	private String qxId;
 	//columns END
 
 	public void setRoleId(String value) {
@@ -92,53 +77,12 @@ public class SysRole extends BaseEntity implements java.io.Serializable{
 		this.roleType = roleType;
 	}
 
-	public void setAddQx(String value) {
-		this.addQx = value;
-	}
-	
-	public String getAddQx() {
-		return this.addQx;
-	}
-	public void setDelQx(String value) {
-		this.delQx = value;
-	}
-	
-	public String getDelQx() {
-		return this.delQx;
-	}
-	public void setEditQx(String value) {
-		this.editQx = value;
-	}
-	
-	public String getEditQx() {
-		return this.editQx;
-	}
-	public void setChaQx(String value) {
-		this.chaQx = value;
-	}
-	
-	public String getChaQx() {
-		return this.chaQx;
-	}
-	public void setQxId(String value) {
-		this.qxId = value;
-	}
-	
-	public String getQxId() {
-		return this.qxId;
-	}
-
 	public String toString() {
 		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
 			.append("RoleId",getRoleId())
 			.append("RoleName",getRoleName())
 			.append("Rights",getRights())
 			.append("RoleType",getRoleType())
-			.append("AddQx",getAddQx())
-			.append("DelQx",getDelQx())
-			.append("EditQx",getEditQx())
-			.append("ChaQx",getChaQx())
-			.append("QxId",getQxId())
 			.toString();
 	}
 	

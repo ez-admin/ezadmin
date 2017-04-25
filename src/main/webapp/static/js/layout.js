@@ -6,7 +6,8 @@ layui.config({
 		layer = layui.layer,
 		navbar = layui.navbar(),
 		tab = layui.tab({
-			elem: '.layout-nav-card' //设置选项卡容器
+			elem: '.layout-nav-card', //设置选项卡容器
+			contextMenu:true
 		});
 
 	//iframe自适应
@@ -29,10 +30,10 @@ layui.config({
 			var url;
 			switch(id) {
 				case 1:
-					url = 'static/datas/nav_content.json';
+					url = 'datas/nav_content.json';
 					break;
-				case 4:
-					url = 'static/datas/nav_member.json';
+				case 3:
+					url = 'datas/nav_member.json';
 					break;
 				default:
 					break;
@@ -66,28 +67,20 @@ layui.config({
 			//设置navbar
 			navbar.set({
 				elem: '#side', //存在navbar数据的容器ID
-				/*url: url*/
 				url: 'ez/syslogin/moremenu/'+id+".do"
 			});
-
 			//渲染navbar
 			navbar.render();
 			//监听点击事件
 			navbar.on('click(side)', function(data) {
-				if(data!=null){
-					layer.msg(data.field.href);
-					tab.tabAdd(data.field);
-				}else {
-					layer.msg('暂无子菜单!');
-				}
-
+				layer.msg(data.field.href);
+				tab.tabAdd(data.field);
 			});
 		});
 
 	});
 	//模拟点击内容管理
-	//$('.beg-layout-menu').find('a[data-module-id=1]').click();
-	$('.beg-layout-menu').find('li.layui-this').find('a').click();
+	$('.beg-layout-menu').find('a[data-module-id=1]').click();
 
 	element.on('nav(user)', function(data) {
 		var $a = data.children('a');

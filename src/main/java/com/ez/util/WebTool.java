@@ -1,12 +1,7 @@
 package com.ez.util;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.subject.Subject;
-
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
-import java.util.Map;
 
 /**
  *  这个工具类　
@@ -45,12 +40,6 @@ public class WebTool {
 			msg = msgs[msgs.length - 1];
 		}
 		return msg;
-	}
-	//获取session中的权限
-	public static Map<String, String> getSessionQx(){
-		Subject currentUser = SecurityUtils.getSubject();  //shiro管理的session
-		Session session = currentUser.getSession();
-		return (Map<String, String>)session.getAttribute(PubConstants.SESSION_QX);
 	}
 
 }

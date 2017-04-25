@@ -39,10 +39,10 @@
 			<label class="layui-form-label">是否启用</label>
 			<div class="layui-input-block">
 				<c:if test="${sysuser.isused ==1}">
-					<input type="checkbox" name="isused" value="1" lay-skin="switch" checked>
+					<input type="checkbox" name="isused" value="1" lay-skin="switch" lay-text="是|否" checked>
 				</c:if>
 				<c:if test="${sysuser.isused ==0}">
-					<input type="checkbox" name="isused" value="1" lay-skin="switch" >
+					<input type="checkbox" name="isused" value="1" lay-skin="switch" lay-text="是|否" >
 				</c:if>
 			</div>
 		</div>

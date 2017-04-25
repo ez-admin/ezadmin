@@ -7,7 +7,6 @@ import com.ez.login.entity.MenuTitle;
 import com.ez.login.service.LoginService;
 import com.ez.system.entity.SysLog;
 import com.ez.system.entity.SysMenu;
-import com.ez.system.entity.SysRole;
 import com.ez.system.entity.SysUser;
 import com.ez.system.service.SysLogService;
 import com.ez.system.service.SysMenuService;
@@ -83,15 +82,16 @@ public class LoginController {
 			session.setAttribute(PubConstants.SESSION_SYSUSER, user);
 			session.setAttribute(PubConstants.SESSION_LOGNM,user.getLognm());
 
-			SysRole sysrole = sysRoleService.getById(user.getRlid());
-			String roleRights = sysrole!=null ? sysrole.getRights() : "";
+			/*SysRole sysrole = sysRoleService.getById(user.getRlid());
+			String roleRights = sysrole!=null ? sysrole.getRights() : "";*/
 			//System.out.println("roleRights = " + roleRights);
 			//避免每次拦截用户操作时查询数据库，以下将用户所属角色权限、用户权限限都存入session
+			String roleRights = user.getOpright();
 			session.setAttribute(PubConstants.SESSION_ROLE_RIGHTS, roleRights);//将角色权限存入session，暂时弃用
 
 			//一级菜单
 			List<MenuTitle> menuTitleList=sysMenuService.findFisrtMenu();
-			if (null != sysrole && menuTitleList!=null && menuTitleList.size()>0) {
+			if (menuTitleList!=null && menuTitleList.size()>0) {
 				for (int i = 0; i < menuTitleList.size(); i++) {
 					MenuTitle menuTitle=menuTitleList.get(i);
 					menuTitle.setHasMenu(RightsHelper.testRights(roleRights, menuTitle.getId()));
@@ -105,11 +105,9 @@ public class LoginController {
 			//查询所有菜单
 			List<SysMenu> allmenuList=sysMenuService.findAllList();
 			if(null == session.getAttribute(PubConstants.SESSION_allmenuList)) {
-				if (null != sysrole) {
-					for (SysMenu sysMenu : allmenuList) {
-						sysMenu.setHasMenu(RightsHelper.testRights(roleRights, sysMenu.getMenuId()));
-						//System.out.println("sysMenu = " + sysMenu.toString());
-					}
+				for (SysMenu sysMenu : allmenuList) {
+					sysMenu.setHasMenu(RightsHelper.testRights(roleRights, sysMenu.getMenuId()));
+					//System.out.println("sysMenu = " + sysMenu.toString());
 				}
 				session.setAttribute(PubConstants.SESSION_allmenuList, allmenuList);
 			}else {
@@ -220,8 +218,6 @@ public class LoginController {
 		session.removeAttribute(PubConstants.SESSION_SYSUSER);
 		session.removeAttribute(PubConstants.SESSION_ROLE_RIGHTS);
 		session.removeAttribute(PubConstants.SESSION_allmenuList);
-		session.removeAttribute(PubConstants.SESSION_menuList);
-		session.removeAttribute(PubConstants.SESSION_QX);
 		session.removeAttribute(PubConstants.SESSION_LOGNM);
 		//shiro销毁登录
 		Subject subject = SecurityUtils.getSubject();

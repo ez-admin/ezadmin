@@ -12,10 +12,8 @@ public class PubConstants {
 
 	/*session相关配置*/
 	public static final String SESSION_ROLE_RIGHTS = "sessionRoleRights";
-	public static final String SESSION_menuList = "menuList";			//当前菜单（弃用）
 	public static final String SESSION_allmenuList = "allmenuList";		//全部菜单
 	public static final String SESSION_FIRSTMENULIST= "firstmenulist";  //一级菜单
-	public static final String SESSION_QX = "QX";
 	public static final String SESSION_SYSUSER = "sysuser";				//用户对象
 	public static final String SESSION_LOGNM = "lognm";			//用户名
 

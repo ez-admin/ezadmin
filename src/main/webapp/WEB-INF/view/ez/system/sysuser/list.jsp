@@ -42,6 +42,7 @@
 
 	<form class="layui-form" id="formSearch">
 		<input type="hidden" id="userOrgId" name="dptno" />
+		<shiro:hasPermission name="sysuser_query">
 		<div class="layui-input-inline">
 			<input id="lognm" name="lognm" placeholder="请输入登陆账号" type="text" class="layui-input-quote">
 		</div>
@@ -49,17 +50,17 @@
 			<input id="userrelnm" name="userrelnm" placeholder="请输入用户姓名" type="text" class="layui-input-quote">
 		</div>
 		<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
-
-		<c:if test="${QX.add == 1 }">
+		</shiro:hasPermission>
+		<shiro:hasPermission name="sysuser_add">
 			<button id="btn_add" type="button" class="layui-btn layui-btn-small">
 				<i class="fa fa-plus"></i>新增
 			</button>
-		</c:if>
-		<c:if test="${QX.del == 1 }">
+		</shiro:hasPermission>
+		<shiro:hasPermission name="sysuser_deleteall">
 			<button id="btn_delete" type="button" class="layui-btn layui-btn-small">
 				<i class="fa fa-remove"></i>批量删除
 			</button>
-		</c:if>
+		</shiro:hasPermission>
 	</form>
 
 <script>
@@ -85,9 +86,11 @@
 		initTree();
 		//初始化表格
 		$('#table').bootstrapTable({
-			url: 'ez/system/sysuser/showlist.do?optype='+${otype},
+			url: 'ez/system/sysuser/showlist.do?',
 			method: 'post',                      //请求方式（*）
+			<shiro:hasPermission name="sysuser_export">
 			showExport: true,//显示导出按钮
+			</shiro:hasPermission>
 			exportDataType: "basic",//导出类型
 			toolbar: '#formSearch',                //工具按钮用哪个容器
 			striped: true,                      //是否显示行间隔色
@@ -137,7 +140,7 @@
 			}, {
 				field: 'userrelnm',
 				title: '用户姓名',
-				width:'15%',
+				width:'10%',
 				align: 'center'
 			}, {
 				field: 'dptnm',
@@ -163,7 +166,7 @@
 				filed: '',
 				title: '操作区',
 				align: 'center',
-				width:'15%',
+				width:'20%',
 				events: operateEvents,
 				formatter: operateFormatter
 			} ]
@@ -177,12 +180,6 @@
 
 			}
 		};
-		/*//监听查询框的回车事件
-		$("#searchInput").keydown(function(event){
-			if(event.keyCode==13){
-		 		$("#btn_query").click();
-			}
-		});*/
 		//重置刷新页面
 		$(window).resize(function () {
 			$('#table').bootstrapTable('resetView', {
@@ -219,8 +216,8 @@
 			title: '新增',
 			maxmin: true,
 			shadeClose: true, //点击遮罩关闭层
-			area : ['600px' , '540px'],
-			content: '/ez/system/sysuser/addUI.do?optype='+${otype},
+			area : ['800px' , '600px'],
+			content: '/ez/system/sysuser/addUI.do',
 			end:function(){
 				$("#table").bootstrapTable('refresh');//刷新表格
 			}
@@ -253,29 +250,29 @@
 	function operateFormatter(value, row, index) {
 		if (row.userno!="1000") {
 			return [
-				<c:if test="${QX.cha == 1 }">
+				<shiro:hasPermission name="sysuser_view">
 				'<a class="view" href="javascript:void(0)" title="查看">',
 				'查看    ',
 				'</a>',
-				</c:if>
-				<c:if test="${QX.edit == 1 }">
+				</shiro:hasPermission>
+				<shiro:hasPermission name="sysuser_modify">
 				'<a class="edit" href="javascript:void(0)" title="修改">',
 				'修改    ',
 				'</a>',
-				</c:if>
-				<c:if test="${QX.del == 1 }">
+				</shiro:hasPermission>
+				<shiro:hasPermission name="sysuser_delete">
 				'<a class="remove" href="javascript:void(0)" title="删除">',
 				'删除',
 				'</a>'
-				</c:if>
+				</shiro:hasPermission>
 			].join('');
 		}else {
 			return [
-				<c:if test="${QX.cha == 1 }">
+				<shiro:hasPermission name="sysuser_view">
 				'<a class="view" href="javascript:void(0)" title="查看">',
 				'查看',
 				'</a>'
-				</c:if>
+				</shiro:hasPermission>
 			].join('');
 		}
 	};

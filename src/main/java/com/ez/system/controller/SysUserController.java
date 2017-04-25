@@ -1,15 +1,17 @@
 package com.ez.system.controller;
 
 import com.ez.annotation.SystemLogController;
+import com.ez.system.entity.SysRole;
 import com.ez.system.entity.SysUser;
 import com.ez.system.service.SysRoleService;
 import com.ez.system.service.SysUserService;
-import com.ez.util.*;
+import com.ez.util.FormatDateUtil;
+import com.ez.util.WaterIdGener;
+import com.ez.util.WebTool;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,11 +43,9 @@ public class SysUserController {
 	 * 跳到列表页面
 	 * @return
 	 */
-	@RequestMapping(value="list/{otype}")
+	@RequestMapping(value="list")
 	@SystemLogController(description = "获取系统用户列表页面")
-	public String list(Model model,
-					   @PathVariable("otype")  String otype){
-		model.addAttribute("otype",otype);
+	public String list(Model model){
 		return "/ez/system/sysuser/list";
 	}
 
@@ -55,8 +55,9 @@ public class SysUserController {
 	 * @return
 	 */
 	@RequestMapping(value="addUI")
-	public String addUI(Model model,String optype){
-		model.addAttribute("optype",optype);
+	public String addUI(Model model){
+		List<SysRole> sysRoleList=sysRoleService.findAll();
+		model.addAttribute("sysRoleList",sysRoleList);
 		return "ez/system/sysuser/add";
 	}
 

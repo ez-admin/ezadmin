@@ -10,23 +10,13 @@
         <result property="roleName" column="ROLE_NAME"/>
         <result property="rights" column="RIGHTS"/>
         <result property="roleType" column="ROLE_TYPE"/>
-        <result property="addQx" column="ADD_QX"/>
-        <result property="delQx" column="DEL_QX"/>
-        <result property="editQx" column="EDIT_QX"/>
-        <result property="chaQx" column="CHA_QX"/>
-        <result property="qxId" column="QX_ID"/>
 	</resultMap>
 	
 	<sql id="selectId">
 		ROLE_ID,
 		ROLE_NAME,
 		RIGHTS,
-		ROLE_TYPE,
-		ADD_QX,
-		DEL_QX,
-		EDIT_QX,
-		CHA_QX,
-		QX_ID
+		ROLE_TYPE
     </sql>
     
     <select id="findAll" resultMap="SysRole">
@@ -58,22 +48,6 @@
 				<if test="roleType==0">
 					AND ROLE_TYPE != '${roleType}'
 				</if>
-		       <if test="@Ognl@isNotEmpty(addQx)">
-					AND ADD_QX like '%${addQx}%'
-				</if>
-		       <if test="@Ognl@isNotEmpty(delQx)">
-					AND DEL_QX like '%${delQx}%'
-				</if>
-		       <if test="@Ognl@isNotEmpty(editQx)">
-					AND EDIT_QX like '%${editQx}%'
-				</if>
-		       <if test="@Ognl@isNotEmpty(chaQx)">
-					AND CHA_QX like '%${chaQx}%'
-				</if>
-		       <if test="@Ognl@isNotEmpty(qxId)">
-					AND QX_ID like '%${qxId}%'
-				</if>
-	       
 		</where>
 	</sql>
 
@@ -91,21 +65,11 @@
 		INSERT INTO sys_role (
         	ROLE_NAME ,
         	RIGHTS ,
-			ROLE_TYPE ,
-        	ADD_QX ,
-        	DEL_QX ,
-        	EDIT_QX ,
-        	CHA_QX ,
-        	QX_ID 
+			ROLE_TYPE
         ) VALUES (
         	#{roleName} ,
         	#{rights} ,
-        	#{roleType} ,
-        	#{addQx} ,
-        	#{delQx} ,
-        	#{editQx} ,
-        	#{chaQx} ,
-        	#{qxId} 
+        	#{roleType}
         )
 	</insert>
 	
@@ -132,21 +96,7 @@
 			<if test="@Ognl@isNotEmpty(roleType)">
 				ROLE_TYPE,
 			</if>
-			<if test="@Ognl@isNotEmpty(addQx)">
-				ADD_QX,
-			</if>
-			<if test="@Ognl@isNotEmpty(delQx)">
-				DEL_QX,
-			</if>
-			<if test="@Ognl@isNotEmpty(editQx)">
-				EDIT_QX,
-			</if>
-			<if test="@Ognl@isNotEmpty(chaQx)">
-				CHA_QX,
-			</if>
-			<if test="@Ognl@isNotEmpty(qxId)">
-				QX_ID,
-			</if>
+
     </trim>
     <trim prefix=" values (" suffix=")" suffixOverrides="," >
 			<if test="@Ognl@isNotEmpty(roleId)">
@@ -160,21 +110,6 @@
 			</if>
 			<if test="@Ognl@isNotEmpty(roleType)">
 				#{roleType},
-			</if>
-			<if test="@Ognl@isNotEmpty(addQx)">
-				#{addQx},
-			</if>
-			<if test="@Ognl@isNotEmpty(delQx)">
-				#{delQx},
-			</if>
-			<if test="@Ognl@isNotEmpty(editQx)">
-				#{editQx},
-			</if>
-			<if test="@Ognl@isNotEmpty(chaQx)">
-				#{chaQx},
-			</if>
-			<if test="@Ognl@isNotEmpty(qxId)">
-				#{qxId},
 			</if>
     </trim>
 	</sql>
@@ -198,12 +133,7 @@
 	    UPDATE sys_role SET
 	        ROLE_NAME = #{roleName} ,
 	        RIGHTS = #{rights} ,
-	        ROLE_TYPE = #{roleType} ,
-	        ADD_QX = #{addQx} ,
-	        DEL_QX = #{delQx} ,
-	        EDIT_QX = #{editQx} ,
-	        CHA_QX = #{chaQx} ,
-	        QX_ID = #{qxId} 
+	        ROLE_TYPE = #{roleType}
         WHERE 
 	        ROLE_ID = #{roleId} 
 	</update>
@@ -219,21 +149,6 @@
 		<if test="@Ognl@isNotEmpty(roleType)">
 			ROLE_TYPE = #{roleType},
 		</if>
-		<if test="@Ognl@isNotEmpty(addQx)">
-			ADD_QX = #{addQx},
-		</if>
-		<if test="@Ognl@isNotEmpty(delQx)">
-			DEL_QX = #{delQx},
-		</if>
-		<if test="@Ognl@isNotEmpty(editQx)">
-			EDIT_QX = #{editQx},
-		</if>
-		<if test="@Ognl@isNotEmpty(chaQx)">
-			CHA_QX = #{chaQx},
-		</if>
-		<if test="@Ognl@isNotEmpty(qxId)">
-			QX_ID = #{qxId},
-		</if>
     </set>
 	</sql>
 	
@@ -244,8 +159,6 @@
         WHERE 
 	        ROLE_ID = #{roleId} 
 	</update>
-	
-	<!-- 查找唯一索引但不是主键的字段Selective -->
-	
+
 </mapper>
 

@@ -209,7 +209,7 @@ layui.define(['element', 'common'], function(exports) {
 				ulHtml += '</a>';
 				ulHtml += '<dl class="layui-nav-child">'
 				for(var j = 0; j < data[i].children.length; j++) {
-					ulHtml += '<dd>';
+					ulHtml += '<dd title="'+data[i].children[j].title+'">';
 					ulHtml += '<a href="javascript:;" data-url="' + data[i].children[j].href + '">';
 					if(data[i].children[j].icon !== undefined && data[i].children[j].icon !== '') {
 						if(data[i].children[j].icon.indexOf('fa-') !== -1) {

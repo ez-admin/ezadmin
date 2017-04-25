@@ -9,16 +9,7 @@ var navs = [{
 	}, {
 		"title": "表单",
 		"icon": "&#xe63c;",
-		"children":[{
-			"title": "按钮三级1",
-			"icon": "&#xe641;",
-			"href": "button.html"
-		},
-        {
-            "title": "按钮三级2",
-            "icon": "&#xe641;",
-            "href": "button.html"
-        }]
+		"href": "form.html"
 	}, {
 		"title": "表格",
 		"icon": "&#xe63c;",
@@ -27,10 +18,6 @@ var navs = [{
 		"title": "导航",
 		"icon": "&#xe609;",
 		"href": "nav.html"
-	}, {
-		"title": "Tab选项卡",
-		"icon": "&#xe62a;",
-		"href": "tab.html"
 	}, {
 		"title": "辅助性元素",
 		"icon": "&#xe60c;",
@@ -41,13 +28,21 @@ var navs = [{
 	"icon": "fa-cogs",
 	"spread": false,
 	"children": [{
-		"title": "Datatable",
+		"title": "BTable",
 		"icon": "fa-table",
-		"href": "begtable.html"
+		"href": "btable.html"
 	}, {
 		"title": "Navbar组件",
 		"icon": "fa-navicon",
 		"href": "navbar.html"
+	}, {
+		"title": "Tab组件",
+		"icon": "&#xe62a;",
+		"href": "tab.html"
+	}, {
+		"title": "Laytpl+Laypage",
+		"icon": "&#xe628;",
+		"href": "paging.html"
 	}]
 }, {
 	"title": "第三方组件",
@@ -85,4 +80,14 @@ var navs = [{
 	"icon": "fa-stop-circle",
 	"href": "https://www.baidu.com",
 	"spread": false
+}, {
+	"title": "其他",
+	"icon": "fa-stop-circle",
+	"href": "#",
+	"spread": false,
+	"children": [{
+		"title": "子窗体中打开选项卡",
+		"icon": "fa-github",
+		"href": "cop.html"
+	}]
 }];

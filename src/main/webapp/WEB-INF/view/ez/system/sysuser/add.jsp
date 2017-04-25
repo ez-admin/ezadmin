@@ -6,6 +6,9 @@
 <head>
 	<title>用户/会员新增</title>
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
+	<style>
+		.
+	</style>
 </head>
 <body>
 	<div class="layui-field-box">
@@ -27,10 +30,13 @@
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">角色名称:</label>
-				<div class="layui-input-inline">
-					<select name="rlid" id="rlid" lay-verify="required" lay-filter="rlid">
+				<div class="layui-input-inline" style="width: 80%">
+					<c:forEach items="${sysRoleList}" var ="sysrole" >
+					<input type="checkbox"  name="roleId" value="${sysrole.roleId}" title="${sysrole.roleName}" lay-skin="primary">
+					</c:forEach>
+					<%--<select name="rlid" id="rlid" lay-verify="required" lay-filter="rlid">
 						<option value="">请选择</option>
-					</select>
+					</select>--%>
 				</div>
 				<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 			</div>
@@ -43,8 +49,9 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">真实姓名:</label>
 				<div class="layui-input-inline">
-					<input type="text" name="userrelnm" placeholder="请输入真实姓名" autocomplete="off" class="layui-input">
+					<input type="text" name="userrelnm" required placeholder="请输入真实姓名" autocomplete="off" class="layui-input">
 				</div>
+				<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">身份证号:</label>

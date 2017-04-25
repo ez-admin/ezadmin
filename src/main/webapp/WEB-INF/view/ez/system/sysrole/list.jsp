@@ -184,7 +184,7 @@
 	}
 	//操作区
 	function operateFormatter(value, row, index) {
-		if (row.roleId!="1"){
+		/*if (row.roleId!="1"){*/
 			return [
 				<shiro:hasPermission name="sysrole_view">
                 '<a class="rolebutton" href="javascript:void(0)" title="分配权限">',
@@ -202,7 +202,7 @@
 				'</a>'
 				</shiro:hasPermission>
 			].join('');
-		}
+		/*}*/
 	};
 	//操作区事件
 	window.operateEvents = {

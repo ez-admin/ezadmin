@@ -49,7 +49,6 @@ layui.define(['element', 'common'], function(exports) {
 			if(_config.cached) {
 				var cacheNavbar = layui.data(cacheName);
 				if(cacheNavbar.navbar === undefined) {
-					//console.log("navbar.js.url==="+_config.url);
 					$.ajax({
 						type: _config.type,
 						url: _config.url,
@@ -87,7 +86,6 @@ layui.define(['element', 'common'], function(exports) {
 					async: false, //_config.async,
 					dataType: 'json',
 					success: function(result, status, xhr) {
-						//console.log("nabvbar.js.result====="+result);
 						var html = getHtml(result);
 						$container.html(html);
 						element.init();
@@ -211,7 +209,7 @@ layui.define(['element', 'common'], function(exports) {
 				ulHtml += '</a>';
 				ulHtml += '<dl class="layui-nav-child">'
 				for(var j = 0; j < data[i].children.length; j++) {
-					ulHtml += '<dd>';
+					ulHtml += '<dd title="'+data[i].children[j].title+'">';
 					ulHtml += '<a href="javascript:;" data-url="' + data[i].children[j].href + '">';
 					if(data[i].children[j].icon !== undefined && data[i].children[j].icon !== '') {
 						if(data[i].children[j].icon.indexOf('fa-') !== -1) {

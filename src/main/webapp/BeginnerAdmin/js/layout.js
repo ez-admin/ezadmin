@@ -6,13 +6,14 @@ layui.config({
 		layer = layui.layer,
 		navbar = layui.navbar(),
 		tab = layui.tab({
-			elem: '.layout-nav-card' //设置选项卡容器
+			elem: '.layout-nav-card', //设置选项卡容器
+			contextMenu:true
 		});
 
 	//iframe自适应
 	$(window).on('resize', function() {
 		var $content = $('.layout-nav-card .layui-tab-content');
-		$content.height($(this).height() - 147);
+		$content.height($(this).height() - 165);
 		$content.find('iframe').each(function() {
 			$(this).height($content.height());
 		});

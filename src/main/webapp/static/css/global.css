@@ -12,7 +12,7 @@
 .site-tree{width: 220px; min-height: 900px; padding: 5px 0 20px;}
 .site-content{width: 899px; min-height: 900px; padding: 20px 0 10px 20px;}
 
-/* 头部 */
+/* 头部 */admin-side-toggle
 .header{height: 65px; border-bottom: 1px solid #404553;  background-color: #393D49; color: #fff;}
 .logo{position: absolute; left: 0; top: 18px;}
 .logo img{width: 82px; height: 31px;}
@@ -32,7 +32,7 @@
 .layui-layout-admin .header-demo{border-bottom-color: #1AA094; background-color: #fff;}
 .header-demo .logo{left: 40px;}
 .header-demo .layui-nav{top: 0;}
-.header-demo .layui-nav .layui-nav-item{margin: 0 10px; line-height: 70px;}
+.header-demo .layui-nav .layui-nav-item{margin: 0 10px; line-height: 65px;}
 .header-demo .layui-nav .layui-nav-item a{color: #999;}
 .header-demo .layui-nav .layui-this{background-color: #f2f2f2;}
 .header-demo .layui-nav .layui-nav-item a:hover, 
@@ -173,7 +173,7 @@ body .layui-layer-dir .layui-layer-content{padding: 10px; max-height: 280px; ove
 
 
 /* 演示 */
-body .layui-layout-admin .site-demo{bottom: 82px; padding: 0;}
+body .layui-layout-admin .site-demo{bottom: 82px; padding: 0;z-index:-1;}
 body .site-demo-nav .layui-nav-item{line-height: 40px}
 .layui-nav-item .layui-icon{position: relative; /*font-size: 20px;*/}
 .layui-nav-item a cite{padding: 0 10px;}
@@ -261,10 +261,13 @@ body .site-demo-nav .layui-nav-item{line-height: 40px}
 	padding-left: 30px;
 }
 
-.admin-nav-card{
+.admin{
 	border: 0;
 	margin: 0;
 	box-shadow:none;
+}
+.admin-nav-card{
+	margin-top: 5px;
 }
 .admin-nav-card .layui-icon{
 	position: relative;
@@ -326,7 +329,7 @@ body .site-demo-nav .layui-nav-item{line-height: 40px}
 /**/
 .admin-main {margin: 15px;}
 
-.admin-side-toggle{
+.admin-side-toggle,.admin-side-full{
 	position: absolute; cursor: pointer;
     z-index: 19940201;
     left: 200px;
@@ -341,12 +344,29 @@ body .site-demo-nav .layui-nav-item{line-height: 40px}
 .admin-side-toggle:hover{
 	background-color: #5FB878;
 }
+.admin-side-full{
+	left: 240px;
+}
 .admin-login-box{
 	width: 185px; height: 70px; position: relative;
 }
 
 .beg-navbar .layui-nav-child dd a{
 	padding-left: 30px;
+}
+
+
+.admin-contextmenu{
+	position: absolute;line-height: 36px;padding: 5px 0;
+	border: 1px solid #d2d2d2;background-color: white;z-index: 19940201;border-radius: 2px;white-space: nowrap;top:30px;
+	/*width: 100px;height: 200px; */
+}
+.admin-contextmenu ul li{
+	padding: 0 15px;
+}
+.admin-contextmenu ul li:hover{
+	background-color: #eee;
+	cursor: pointer;
 }
 
 
