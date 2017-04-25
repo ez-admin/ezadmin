@@ -82,7 +82,7 @@ public class SysDictionaryController {
 	 */
 	@RequestMapping(value="showlist",method=RequestMethod.POST)
 	@ResponseBody
-	@SystemLogController(description = "跳到分页查询字典名称信息")
+	@SystemLogController(description = "分页查询字典名称信息")
 	public Map<String, Object> showlist(SysDictionary sysdictionary, Page<SysDictionary> page){
 		List<SysDictionary> list = sysDictionaryService.query(page, sysdictionary);
 		PageInfo<SysDictionary> pageInfo = new PageInfo<SysDictionary>(list);

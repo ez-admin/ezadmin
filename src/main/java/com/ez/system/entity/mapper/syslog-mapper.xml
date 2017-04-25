@@ -43,7 +43,7 @@
 		a.params,
 		a.cmpno,
 		a.userno,
-		b.lognm as usernm,
+		b.USERRELNM as usernm,
 		a.createDate,
 		a.requestIp
 	</sql>

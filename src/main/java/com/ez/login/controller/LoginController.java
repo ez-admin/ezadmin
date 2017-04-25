@@ -5,8 +5,14 @@ import com.alibaba.fastjson.JSON;
 import com.ez.annotation.SystemLogController;
 import com.ez.login.entity.MenuTitle;
 import com.ez.login.service.LoginService;
-import com.ez.system.entity.*;
-import com.ez.system.service.*;
+import com.ez.system.entity.SysLog;
+import com.ez.system.entity.SysMenu;
+import com.ez.system.entity.SysRole;
+import com.ez.system.entity.SysUser;
+import com.ez.system.service.SysLogService;
+import com.ez.system.service.SysMenuService;
+import com.ez.system.service.SysRoleService;
+import com.ez.system.service.SysUserService;
 import com.ez.util.FormatDateUtil;
 import com.ez.util.PubConstants;
 import com.ez.util.RightsHelper;
@@ -24,9 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static com.ez.util.Common.toIpAddr;
 

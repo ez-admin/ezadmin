@@ -36,7 +36,7 @@
 			<li class="layui-nav-item">
 				<a href="javascript:;" class="beg-layou-head">
 					<img src="/static/images/0.jpg" />
-					<span>${lognm}</span>
+					<span>${sysuser.userrelnm}</span>
 				</a>
 				<dl class="layui-nav-child">
 					<dd>

@@ -82,37 +82,40 @@
 					return index+1;
 				}
 			}, {
-				field: 'method',
-				title: '方法名称',
-				align: 'center',
-				width: '10%'
-			}, {
 				field: 'mehtoddescription',
-				title: '方法描述',
+				title: '操作描述',
 				align: 'center',
-				width: '15%',
+				width: '25%',
 				sortable: true
 			}, {
-				field: 'exceptionCode',
-				title: '异常代码',
-				width: '15%',
-				align: 'center'
+				field: 'usernm',
+				title: '操作员',
+				align: 'center',
+				width: '10%'
 			}, {
 				field: 'logtype',
 				title: '日志类型',
 				align: 'center',
 				width: '5%',
 				formatter:logTypeFormatter
+			/*}, {
+				field: 'method',
+				title: '方法名称',
+				align: 'center',
+				width: '10%'*/
+
+			}, {
+				field: 'exceptionCode',
+				title: '异常代码',
+				width: '15%',
+				align: 'center'
+
 			}, {
 				field: 'exceptionDetail',
 				title: '异常信息',
 				align: 'center',
 				width: '15%'
-			}, {
-				field: 'usernm',
-				title: '操作员',
-				align: 'center',
-				width: '10%'
+
 			}, {
 				field: 'createDate',
 				title: '操作时间',
