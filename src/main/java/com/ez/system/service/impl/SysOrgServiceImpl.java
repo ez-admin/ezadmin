@@ -11,10 +11,8 @@ import com.ez.json.TreeNode;
 import com.ez.system.dao.SysOrgDao;
 import com.ez.system.dao.SysUserDao;
 import com.ez.system.entity.SysOrg;
-import com.ez.system.entity.SysUser;
 import com.ez.system.service.SysOrgService;
 import com.ez.util.DateUtil;
-import com.ez.util.Tools;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
@@ -147,12 +145,6 @@ public class SysOrgServiceImpl implements SysOrgService {
 	@SystemLogService(description = "修改组织结构表异常")
 	public void modify(SysOrg sysOrg) {
 		sysOrgDao.modify(sysOrg);
-		if (Tools.notEmpty(sysOrg.getOrgId()+"") && Tools.notEmpty(sysOrg.getOrgName())){
-			SysUser sysUser=new SysUser();
-			sysUser.setDptno(sysOrg.getOrgId()+"");
-			sysUser.setDptnm(sysOrg.getOrgName());
-			sysUserDao.modifyOrg(sysUser);
-		}
 	}
 
 	/**
@@ -196,7 +188,7 @@ public class SysOrgServiceImpl implements SysOrgService {
 			}else{
 				node.setDrag(true);
 			}
-			node.setIcon(request.getContextPath() + "/static/plugins/zTree/qui/img/icons/group.png");
+			/*node.setIcon(request.getContextPath() + "/static/plugins/zTree/qui/img/icons/group.png");*/
 			node.setIconClose("");
 			node.setIconOpen("");
 			node.setId(String.valueOf(sysOrg.getOrgId()));

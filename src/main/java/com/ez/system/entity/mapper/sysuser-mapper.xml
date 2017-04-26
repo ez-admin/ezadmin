@@ -10,7 +10,7 @@
         <result property="lognm" column="LOGNM"/>
         <result property="logpwd" column="LOGPWD"/>
         <result property="dptno" column="DPTNO"/>
-        <result property="dptnm" column="DPTNM"/>
+        <result property="companyno" column="COMPANYNO"/>
         <result property="rlid" column="RLID"/>
         <result property="rlnm" column="RLNM"/>
         <result property="userrelnm" column="USERRELNM"/>
@@ -33,7 +33,7 @@
 		LOGNM,
 		LOGPWD,
 		DPTNO,
-		DPTNM,
+		COMPANYNO,
 		RLID,
 		RLNM,
 		USERRELNM,
@@ -75,10 +75,10 @@
 					AND LOGPWD like '%${logpwd}%'
 				</if>
 		       <if test="@Ognl@isNotEmpty(dptno)">
-					AND DPTNO like '%${dptno}%'
-				</if>
-		       <if test="@Ognl@isNotEmpty(dptnm)">
-					AND DPTNM like '%${dptnm}%'
+					AND DPTNO in (select orgId from sys_org where orgPath like CONCAT((SELECT orgPath FROM sys_org WHERE orgId='${dptno}'),'-%') OR orgPath=(SELECT orgPath FROM sys_org WHERE orgId='${dptno}'))
+			   </if>
+		       <if test="@Ognl@isNotEmpty(companyno)">
+					AND COMPANYNO like '%${companyno}%'
 				</if>
 				<if test="rlid==1">
 					AND RLID !='${rlid}'
@@ -142,14 +142,15 @@
 	
 	<!-- 新增 -->
 	<insert id="addAll" parameterType="com.ez.system.entity.SysUser">
-	<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="id" >
+	<!--<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="id" >
         SELECT LAST_INSERT_ID() AS ID   
-    </selectKey>
+    </selectKey>-->
 		INSERT INTO sys_user (
+			USERNO,
         	LOGNM ,
         	LOGPWD ,
         	DPTNO ,
-        	DPTNM ,
+			COMPANYNO ,
         	RLID ,
         	RLNM ,
         	USERRELNM ,
@@ -166,10 +167,11 @@
 			LOGINIP ,
 			LOGINLOCATION
         ) VALUES (
+			#{USERNO},
         	#{lognm} ,
         	#{logpwd} ,
         	#{dptno} ,
-        	#{dptnm} ,
+        	#{companyno} ,
         	#{rlid} ,
         	#{rlnm} ,
         	#{userrelnm} ,
@@ -200,7 +202,7 @@
 	<sql id="addtrim">
 	<trim prefix="(" suffix=")" suffixOverrides="," >
 			<if test="@Ognl@isNotEmpty(userno)">
-				userno,
+				USERNO,
 			</if>
 			<if test="@Ognl@isNotEmpty(lognm)">
 				LOGNM,
@@ -211,8 +213,8 @@
 			<if test="@Ognl@isNotEmpty(dptno)">
 				DPTNO,
 			</if>
-			<if test="@Ognl@isNotEmpty(dptnm)">
-				DPTNM,
+			<if test="@Ognl@isNotEmpty(companyno)">
+				COMPANYNO,
 			</if>
 			<if test="@Ognl@isNotEmpty(rlid)">
 				RLID,
@@ -273,8 +275,8 @@
 			<if test="@Ognl@isNotEmpty(dptno)">
 				#{dptno},
 			</if>
-			<if test="@Ognl@isNotEmpty(dptnm)">
-				#{dptnm},
+			<if test="@Ognl@isNotEmpty(companyno)">
+				#{companyno},
 			</if>
 			<if test="@Ognl@isNotEmpty(rlid)">
 				#{rlid},
@@ -359,7 +361,7 @@
 	        LOGNM = #{lognm} ,
 	        LOGPWD = #{logpwd} ,
 	        DPTNO = #{dptno} ,
-	        DPTNM = #{dptnm} ,
+	        COMPANYNO = #{companyno} ,
 	        RLID = #{rlid} ,
 	        RLNM = #{rlnm} ,
 	        USERRELNM = #{userrelnm} ,
@@ -390,8 +392,8 @@
 		<if test="@Ognl@isNotEmpty(dptno)">
 			DPTNO = #{dptno},
 		</if>
-		<if test="@Ognl@isNotEmpty(dptnm)">
-			DPTNM = #{dptnm},
+		<if test="@Ognl@isNotEmpty(companyno)">
+			COMPANYNO = #{companyno},
 		</if>
 		<if test="@Ognl@isNotEmpty(rlid)">
 			RLID = #{rlid},
@@ -453,12 +455,6 @@
 		RLNM = #{rlnm}
 		WHERE
 		RLID = #{rlid}
-	</update>
-	<update id="modifyOrg" parameterType="com.ez.system.entity.SysUser">
-		UPDATE sys_user SET
-		DPTNM = #{dptnm}
-		WHERE
-		DPTNO = #{dptno}
 	</update>
 
 	<!-- 查找唯一索引但不是主键的字段Selective -->

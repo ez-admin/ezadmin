@@ -115,7 +115,10 @@ layui.define(['element', 'common'], function (exports) {
                 }
             }
             globalTabIdIndex++;
-            var content = '<iframe src="' + data.href + '" data-id="' + globalTabIdIndex + '"></iframe>';
+            //add by chenez
+            var name=data.href.replace(".do","").replace(".html","").replace(/\//g, "");
+            var content = '<iframe src="' + data.href + '" name="' + name + '" data-id="' + globalTabIdIndex + '"></iframe>';
+            //var content = '<iframe src="' + data.href + '" data-id="' + globalTabIdIndex + '"></iframe>';
             var title = '';
             if (data.icon !== undefined) {
                 if (data.icon.indexOf('fa-') !== -1) {

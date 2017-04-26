@@ -193,6 +193,18 @@ public class SysOrgController {
 		model.addAttribute("otype","1");//系统后台操作员
 		return "/ez/system/sysorg/queryuser";
 	}
+	@RequestMapping(value = "getcompanylist")
+	public Map<String, Object> getcompanyList (HttpServletRequest request){
+		List<SysOrg> sysOrgList = sysOrgService.findAll();
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<TreeNode> treeNodes = new ArrayList<TreeNode>();
+		for (SysOrg sysOrg : sysOrgList) {
+			TreeNode node = sysOrgService.convert(sysOrg, request, 1);
+			treeNodes.add(node);
+		}
+		map.put("treeNodes",treeNodes);
+		return map;
+	}
 
 }
 

@@ -73,15 +73,15 @@ website:	http://code.google.com/p/jquerytree/
 .ztree li span.zbutton.ico_open{margin-right:2px; background-position:-110px -16px; vertical-align:top; *vertical-align:middle}
 .ztree li span.zbutton.ico_close{margin-right:2px; background-position:-110px 0; vertical-align:top; *vertical-align:middle}
 .ztree li span.zbutton.ico_docu{margin-right:2px; background-position:-110px -32px; vertical-align:top; *vertical-align:middle}
-
+/*
 .ztree li span.zbutton.edit {background:url(./img/icons/edit.png) no-repeat;padding-left: 5px}
 .ztree li span.zbutton.remove {background:url(./img/icons/delete.png) no-repeat;padding-left: 5px}
 .ztree li span.zbutton.add {background:url(./img/icons/add.png) no-repeat;padding-left: 5px}
-/*
+*/
 .ztree li span.zbutton.edit {margin-right:2px; background-position:-110px -48px; vertical-align:top; *vertical-align:middle}
 .ztree li span.zbutton.remove {margin-right:2px; background-position:-110px -64px; vertical-align:top; *vertical-align:middle}
 .ztree li span.zbutton.add {margin-left:2px; margin-right: -1px; background-position:-144px 0; vertical-align:top; *vertical-align:middle}
-*/
+
 
 .ztree li span.zbutton.firstPage {float:right; margin-left:2px; margin-right: 0; background-position:-144px -16px; vertical-align:top; *vertical-align:middle}
 .ztree li span.zbutton.prevPage {float:right; margin-left:2px; margin-right: 0; background-position:-144px -48px; vertical-align:top; *vertical-align:middle}

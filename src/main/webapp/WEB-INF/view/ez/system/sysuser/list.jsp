@@ -69,7 +69,7 @@
 	var selectTreeNode = null;
 	//定义树节点初始数据
 	var nodes =[
-		{ id:"0", parentId:-1, name:"组织机构树", open:true,icon:"/static/plugins/zTree/qui/img/icons/home2.png"}
+		{ id:"0", parentId:-1, name:"组织机构树", open:true,icon:"/static/plugins/zTree/qui/img/diy/1_open.png"}
 	];
 	//树属性配置
 	var selectionSetting = {

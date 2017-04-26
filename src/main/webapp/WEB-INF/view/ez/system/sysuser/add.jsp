@@ -29,6 +29,22 @@
 				<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 			</div>
 			<div class="layui-form-item">
+				<label class="layui-form-label">所属公司:</label>
+				<div class="layui-input-inline">
+					<div class="selectTree"  name="companyno"
+						 url="/ez/system/sysorg/getcompanylist.do"></div>
+				</div>
+				<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">所属部门:</label>
+				<div class="layui-input-inline">
+					<div class="selectTree"  name="dptno"
+						 url="/ez/system/sysorg/getdptlist.do"></div>
+				</div>
+				<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
+			</div>
+			<div class="layui-form-item">
 				<label class="layui-form-label">角色名称:</label>
 				<div class="layui-input-inline" style="width: 80%">
 					<c:forEach items="${sysRoleList}" var ="sysrole" >
@@ -79,7 +95,9 @@
 			</div>
 		</form>
 	</div>
+	<script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
 	<script type="text/javascript" src="/static/plugins/layui/layui.js" charset="utf-8"></script>
+	<script type="text/javascript" src="/static/js/selectTree.js" charset="utf-8"></script>
 	<script>
 		//Demo
 		layui.use(['layer', 'form','jquery'], function(){

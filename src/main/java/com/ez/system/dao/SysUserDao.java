@@ -28,7 +28,6 @@ public interface SysUserDao extends BaseDao<SysUser> {
 
     List<SysUser> listByRid(String ids) throws DataAccessException;
 
-	void modifyOrg(SysUser sysUser) throws DataAccessException;
 
 	List<SysUser> listByDptno(String ids) throws DataAccessException;
 }

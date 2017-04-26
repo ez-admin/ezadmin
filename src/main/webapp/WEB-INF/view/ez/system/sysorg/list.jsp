@@ -134,7 +134,7 @@
 
 	//定义树节点初始数据
 	var zNodes1 =[
-		{ id:"0", parentId:"-1", name:"组织机构管理", open:true,icon:"/static/plugins/zTree/qui/img/icons/home2.png"}
+		{ id:"0", parentId:"-1", name:"组织机构管理", open:true,icon:"/static/plugins/zTree/qui/img/diy/1_open.png"}
 	];
 
 	//初始化函数
@@ -353,7 +353,7 @@
 			btn.bind("click", function(){
 				var zTree = $.fn.zTree.getZTreeObj("tree-1");
 				var newNode;
-				newNode = zTree.addNodes(treeNode, {id:(100 + newCount), parentId:treeNode.id, name:"新增" + (newCount++),icon:"/static/plugins/zTree/qui/img/icons/group.png"});
+				newNode = zTree.addNodes(treeNode, {id:(100 + newCount), parentId:treeNode.id, name:"新增" + (newCount++)});
 				if (newNode) {
 					zTree.editName(newNode[0]);
 					//设置表单的值
