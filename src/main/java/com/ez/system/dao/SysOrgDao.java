@@ -9,6 +9,8 @@ package com.ez.system.dao;
 import com.ez.base.BaseDao;
 import com.ez.system.entity.SysOrg;
 
+import java.util.List;
+
 /**
  * @author chenez
  * @2017-03-21
@@ -17,4 +19,5 @@ import com.ez.system.entity.SysOrg;
  */
 public interface SysOrgDao extends BaseDao<SysOrg>{
 
+    List<SysOrg> findAllCompany();
 }

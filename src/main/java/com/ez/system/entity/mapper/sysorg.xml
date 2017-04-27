@@ -192,8 +192,14 @@ orgType,
 	        WHERE 
         orgId = #{id} 
 	</select>
+    <select id="findAllCompany" resultMap="SysOrg">
+		SELECT <include refid="selectId" />
+		FROM sys_org
+		WHERE
+		orgType ="0"
+	</select>
 
-	<!-- 更新all -->
+    <!-- 更新all -->
 	<update id="updateAll" parameterType="com.ez.system.entity.SysOrg">
 	    UPDATE sys_org SET
 	        orgName = #{orgName} ,

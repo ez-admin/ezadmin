@@ -41,4 +41,6 @@ public interface SysOrgService{
 	TreeNode convert(SysOrg sysOrg, HttpServletRequest request, int type);
 
 
+	String findAllCompany(String selected);
+	String findAllDpt(String selected);
 }

@@ -266,13 +266,16 @@ public class SysRoleController {
 		//List<SysDictype> sysDictypes = sysDictypeService.getSdBySdtCode(code);
 		List<SysRole> sysRoleList = sysRoleService.findAll();
 		String result="";
-		for(SysRole sd : sysRoleList) {
-			if (selected!=null  && selected.equals(sd.getRoleId())){
-				result+="<option value="+sd.getRoleId()+" selected >"+sd.getRoleName()+"</option>";
-			}else {
-				result+="<option value="+sd.getRoleId()+">"+sd.getRoleName()+"</option>";
+		if (sysRoleList!=null && sysRoleList.size()>0){
+			for(SysRole sd : sysRoleList) {
+				if (selected!=null  && selected.equals(sd.getRoleId())){
+					result+="<option value="+sd.getRoleId()+" selected >"+sd.getRoleName()+"</option>";
+				}else {
+					result+="<option value="+sd.getRoleId()+">"+sd.getRoleName()+"</option>";
+				}
 			}
 		}
+
 		WebTool.writeHtml(result, response);
 		return null;
 	}

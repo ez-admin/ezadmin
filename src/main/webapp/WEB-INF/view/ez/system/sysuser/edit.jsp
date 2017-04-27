@@ -6,11 +6,33 @@
 <head>
 	<title>系统字典名称新增</title>
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
+	<style>
+		.layui-form-select{
+			display: none;
+		}
+		.select2-search {
+			display: none;
+		}
+		.select2-search__field{
+			display: none;
+		}
+		.layui-form-label{
+			width:120px;
+		}
+		.layui-form-onswitch i {
+			left: 26px;
+		}
+		.layui-form-switch {
+			width: 50px;
+		}
+		.select2-container--bootstrap .select2-results>.select2-results__options {
+			max-height: 400px;
+		}
+	</style>
 </head>
 <body>
 <div class="layui-field-box">
 	<form id="formid" class="layui-form">
-		<input type="hidden" name="optype" value="${sysuser.optype}">
 		<input type="hidden" name="userno" value="${sysuser.userno}">
 		<div class="layui-form-item">
 			<label class="layui-form-label">用户名:</label>
@@ -27,6 +49,37 @@
 			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
 		<div class="layui-form-item">
+			<label class="layui-form-label">所属公司:</label>
+			<div class="layui-input-inline" style="width: 400px">
+				<select id="companyno" name="companyno" style="width: 100%" >
+					<option value="">请选择</option>
+				</select>
+			</div>
+			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">所属部门:</label>
+			<div class="layui-input-inline" style="width: 400px">
+				<select id="dptno" name="dptno" style="width: 100%" >
+					<option value="">请选择</option>
+				</select>
+			</div>
+			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">用户类型:</label>
+			<div class="layui-input-block">
+				<c:if test="${sysuser.optype ==0}">
+					<input type="radio" name="optype" value="0" title="系统用户" checked>
+					<input type="radio" name="optype" value="1" title="前台会员" >
+				</c:if>
+				<c:if test="${sysuser.optype ==1}">
+					<input type="radio" name="optype" value="0" title="系统用户" >
+					<input type="radio" name="optype" value="1" title="前台会员" checked>
+				</c:if>
+			</div>
+		</div>
+		<%--<div class="layui-form-item">
 			<label class="layui-form-label">角色名称:</label>
 			<div class="layui-input-inline">
 				<select name="rlid" id="rlid" lay-verify="required" lay-filter="rlid" >
@@ -34,9 +87,9 @@
 				</select>
 			</div>
 			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
-		</div>
+		</div>--%>
 		<div class="layui-form-item">
-			<label class="layui-form-label">是否启用</label>
+			<label class="layui-form-label">是否启用:</label>
 			<div class="layui-input-block">
 				<c:if test="${sysuser.isused ==1}">
 					<input type="checkbox" name="isused" value="1" lay-skin="switch" lay-text="是|否" checked>
@@ -78,27 +131,36 @@
 		</div>
 	</form>
 </div>
+<script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
 <script type="text/javascript" src="/static/plugins/layui/layui.js" charset="utf-8"></script>
+<link rel="stylesheet" href="/static/plugins/select2tree/css/bootstrap.min.css" class="css">
+<link rel="stylesheet" href="/static/plugins/select2tree/css/select2.min.css" class="css">
+<link rel="stylesheet" href="/static/plugins/select2tree/css/select2-bootstrap.min.css" class="css">
+<script type="text/javascript" src="/static/plugins/select2tree/js/select2.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/plugins/select2tree/js/zh-CN.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/plugins/select2tree/js/select2tree.js" charset="utf-8"></script>
 <script>
+	//select2插件
+	$(function() {
+		$("#companyno").append('${companyList}');
+		$("#dptno").append('${dptList}');
+		$("#companyno").select2tree({
+			placeholder: '请选择一个公司',
+			allowClear: true
+		});
+		$("#dptno").select2tree({
+			placeholder: '请选择一个部门',
+			allowClear: true
+		});
+	});
 	//Demo
 	layui.use(['layer', 'form','jquery'], function(){
 		var layer = layui.layer
 				,form = layui.form()
 				,$ = layui.jquery;
-		//后台获取select值
-		$.ajax({url: "/ez/system/sysrole/getSdBySdtCode.do",
-			type: "POST",
-			data:{selected:'${sysuser.rlid}'},
-			dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
-			success: function (result) {
-				$("#rlid").append(result);
-				form.render('select');
-			}
-		});
 		//监听提交
 		form.on('submit(edit)', function(data){
 			//layer.msg(JSON.stringify(data.field));
-            //alert($('#formid').serialize());
 			$.ajax({
 				url: "/ez/system/sysuser/update.do",
 				type: "POST",

@@ -7,7 +7,27 @@
 	<title>用户/会员新增</title>
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
 	<style>
-		.
+		.layui-form-select{
+			display: none;
+		}
+		.select2-search {
+			display: none;
+		}
+		.select2-search__field{
+			display: none;
+		}
+		.layui-form-label{
+			width:120px;
+		}
+		.layui-form-onswitch i {
+			left: 26px;
+		}
+		.layui-form-switch {
+			width: 50px;
+		}
+		.select2-container--bootstrap .select2-results>.select2-results__options {
+			max-height: 400px;
+		}
 	</style>
 </head>
 <body>
@@ -30,34 +50,44 @@
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">所属公司:</label>
-				<div class="layui-input-inline">
-					<div class="selectTree"  name="companyno"
-						 url="/ez/system/sysorg/getcompanylist.do"></div>
+				<div class="layui-input-inline" style="width: 400px">
+					<select id="companyno" name="companyno" style="width: 100%" >
+						<option value="">请选择</option>
+					</select>
 				</div>
 				<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">所属部门:</label>
-				<div class="layui-input-inline">
-					<div class="selectTree"  name="dptno"
-						 url="/ez/system/sysorg/getdptlist.do"></div>
+				<div class="layui-input-inline" style="width: 400px">
+					<select id="dptno" name="dptno" style="width: 100%" >
+						<option value="">请选择</option>
+					</select>
 				</div>
 				<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 			</div>
 			<div class="layui-form-item">
+				<label class="layui-form-label">用户类型:</label>
+				<div class="layui-input-block">
+					<input type="radio" name="optype" value="0" title="系统用户" checked>
+					<input type="radio" name="optype" value="1" title="前台会员">
+				</div>
+			</div>
+			<%--<div class="layui-form-item">
 				<label class="layui-form-label">角色名称:</label>
 				<div class="layui-input-inline" style="width: 80%">
 					<c:forEach items="${sysRoleList}" var ="sysrole" >
 					<input type="checkbox"  name="roleId" value="${sysrole.roleId}" title="${sysrole.roleName}" lay-skin="primary">
 					</c:forEach>
-					<%--<select name="rlid" id="rlid" lay-verify="required" lay-filter="rlid">
+					<select name="rlid" id="rlid" lay-verify="required" lay-filter="rlid">
 						<option value="">请选择</option>
-					</select>--%>
+					</select>
 				</div>
 				<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
-			</div>
+			</div>--%>
+
 			<div class="layui-form-item">
-				<label class="layui-form-label">是否启用</label>
+				<label class="layui-form-label">是否启用:</label>
 				<div class="layui-input-block">
 					<input type="checkbox" name="isused" value="1" lay-skin="switch" lay-text="是|否" checked>
 				</div>
@@ -97,15 +127,33 @@
 	</div>
 	<script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
 	<script type="text/javascript" src="/static/plugins/layui/layui.js" charset="utf-8"></script>
-	<script type="text/javascript" src="/static/js/selectTree.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="/static/plugins/select2tree/css/bootstrap.min.css" class="css">
+	<link rel="stylesheet" href="/static/plugins/select2tree/css/select2.min.css" class="css">
+	<link rel="stylesheet" href="/static/plugins/select2tree/css/select2-bootstrap.min.css" class="css">
+	<script type="text/javascript" src="/static/plugins/select2tree/js/select2.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="/static/plugins/select2tree/js/zh-CN.js" charset="utf-8"></script>
+	<script type="text/javascript" src="/static/plugins/select2tree/js/select2tree.js" charset="utf-8"></script>
 	<script>
+		//select2插件
+		$(function() {
+			$("#companyno").append('${companyList}');
+			$("#dptno").append('${dptList}');
+			$("#companyno").select2tree({
+				placeholder: '请选择一个公司',
+				allowClear: true
+			});
+			$("#dptno").select2tree({
+				placeholder: '请选择一个部门',
+				allowClear: true
+			});
+		});
 		//Demo
 		layui.use(['layer', 'form','jquery'], function(){
 			var layer = layui.layer
 					,form = layui.form()
 					,$ = layui.jquery;
 			//后台获取select值
-			$.ajax({
+			/*$.ajax({
 				url: '/ez/system/sysrole/getSdBySdtCode.do',
 				type: "POST",
 				//data:{code:5606},
@@ -114,7 +162,7 @@
 					$("#rlid").append(result);
 					form.render('select');
 				}
-			});
+			});*/
 			//监听提交
 			form.on('submit(add)', function(data){
 				//layer.msg(JSON.stringify(data.field));

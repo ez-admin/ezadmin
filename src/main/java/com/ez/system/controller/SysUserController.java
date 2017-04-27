@@ -3,6 +3,7 @@ package com.ez.system.controller;
 import com.ez.annotation.SystemLogController;
 import com.ez.system.entity.SysRole;
 import com.ez.system.entity.SysUser;
+import com.ez.system.service.SysOrgService;
 import com.ez.system.service.SysRoleService;
 import com.ez.system.service.SysUserService;
 import com.ez.util.FormatDateUtil;
@@ -37,7 +38,8 @@ public class SysUserController {
 	private SysUserService sysUserService;
 	@Resource
 	private SysRoleService sysRoleService;
-
+	@Resource
+	private SysOrgService sysOrgService;
 
 	/**
 	 * 跳到列表页面
@@ -56,8 +58,12 @@ public class SysUserController {
 	 */
 	@RequestMapping(value="addUI")
 	public String addUI(Model model){
+		String companyList=sysOrgService.findAllCompany(null);
+		String dptList=sysOrgService.findAllDpt(null);
 		List<SysRole> sysRoleList=sysRoleService.findAll();
 		model.addAttribute("sysRoleList",sysRoleList);
+		model.addAttribute("companyList",companyList);
+		model.addAttribute("dptList",dptList);
 		return "ez/system/sysuser/add";
 	}
 
@@ -72,9 +78,7 @@ public class SysUserController {
 		String result="{\"msg\":\"suc\"}";
 		try {
 			String userno= WaterIdGener.getWaterId();
-			String rolename=sysRoleService.getById(sysuser.getRlid()).getRoleName();
 			sysuser.setUserno(userno);
-			sysuser.setRlnm(rolename);
 			if (!"1".equals(sysuser.getIsused())){
 				sysuser.setIsused("0");
 			}
@@ -134,7 +138,11 @@ public class SysUserController {
 	@RequestMapping(value="getById")
 	public String getById(Model model,String userno,int typeKey){
 		SysUser sysuser = sysUserService.getById(userno);
+		String companyList=sysOrgService.findAllCompany(sysuser.getCompanyno());
+		String dptList=sysOrgService.findAllDpt(sysuser.getDptno());
 		model.addAttribute("sysuser", sysuser);
+		model.addAttribute("companyList",companyList);
+		model.addAttribute("dptList",dptList);
 		if(typeKey == 1){
 			return "ez/system/sysuser/edit";
 		}else if(typeKey == 2){
@@ -158,6 +166,7 @@ public class SysUserController {
 				sysuser.setIsused("0");
 			}
 			sysuser.setUptdate(FormatDateUtil.getFormatDate("yyyy-MM-dd"));
+			System.out.println("sysuser = " + sysuser.toString());
 			sysUserService.modify(sysuser);
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
@@ -190,7 +199,7 @@ public class SysUserController {
 		WebTool.writeJson(result, response);
 		return null;
 	}
-	
+
 	
 }
 

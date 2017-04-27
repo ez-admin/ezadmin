@@ -208,6 +208,65 @@ public class SysOrgServiceImpl implements SysOrgService {
 		return node;
     }
 
+    @Override
+    public String findAllCompany(String selected) {
+		String result="";
+		List<SysOrg> sysOrgList =sysOrgDao.findAllCompany();
+		if (sysOrgList!=null && sysOrgList.size()>0){
+			for(SysOrg sysOrg : sysOrgList) {
+				if (selected!=null  && selected.equals(sysOrg.getOrgId().toString())){
+					if (0==sysOrg.getOrgParentid()){
+						result+="<option value=\""+sysOrg.getOrgId()+"\" selected >"+sysOrg.getOrgName()+"</option>";
+					}else {
+						result+="<option value=\""+sysOrg.getOrgId()+"\" parent=\""+sysOrg.getOrgParentid()+"\" selected >"+sysOrg.getOrgName()+"</option>";
+					}
+				}else {
+					if (0==sysOrg.getOrgParentid()){
+						result+="<option value=\""+sysOrg.getOrgId()+"\">"+sysOrg.getOrgName()+"</option>";
+					}else {
+						result+="<option value=\""+sysOrg.getOrgId()+"\" parent=\""+sysOrg.getOrgParentid()+"\" >"+sysOrg.getOrgName()+"</option>";
+					}
+				}
+
+			}
+		}
+		return result;
+    }
+
+	@Override
+	public String findAllDpt(String selected) {
+		String result="";
+		List<SysOrg> sysOrgList =sysOrgDao.findAll();
+		if (sysOrgList!=null && sysOrgList.size()>0){
+			for(SysOrg sysOrg : sysOrgList) {
+				if (selected!=null  && selected.equals(sysOrg.getOrgId().toString())){
+					if (0==sysOrg.getOrgParentid()){
+						result+="<option value=\""+sysOrg.getOrgId()+"\" selected >"+sysOrg.getOrgName()+"</option>";
+					}else {
+						result+="<option value=\""+sysOrg.getOrgId()+"\" parent=\""+sysOrg.getOrgParentid()+"\" selected >"+sysOrg.getOrgName()+"</option>";
+					}
+				}else {
+					if (0==sysOrg.getOrgParentid()){
+						if(null != sysOrg.getOrgType() && 0==sysOrg.getOrgType()){//公司不可以选
+							result+="<option value=\""+sysOrg.getOrgId()+"\"  disabled>"+sysOrg.getOrgName()+"</option>";
+						}else {
+							result+="<option value=\""+sysOrg.getOrgId()+"\">"+sysOrg.getOrgName()+"</option>";
+						}
+					}else {
+						if(null != sysOrg.getOrgType() && 0==sysOrg.getOrgType()){//公司不可以选
+							result+="<option value=\""+sysOrg.getOrgId()+"\" parent=\""+sysOrg.getOrgParentid()+"\" disabled>"+sysOrg.getOrgName()+"</option>";
+						}else {
+							result+="<option value=\""+sysOrg.getOrgId()+"\" parent=\""+sysOrg.getOrgParentid()+"\" >"+sysOrg.getOrgName()+"</option>";
+						}
+					}
+
+				}
+
+			}
+		}
+		return result;
+	}
+
 	private boolean childerExist(Integer orgId) {
 		if(orgId!=null){
 			SysOrg sysOrg=new SysOrg();

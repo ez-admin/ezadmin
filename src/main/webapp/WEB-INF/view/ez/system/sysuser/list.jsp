@@ -135,7 +135,7 @@
 			}, {
 				field: 'lognm',
 				title: '登陆账号',
-				width:'15%',
+				width:'10%',
 				align: 'center'
 			}, {
 				field: 'userrelnm',
@@ -143,15 +143,20 @@
 				width:'10%',
 				align: 'center'
 			}, {
-				field: 'dptnm',
-				title: '部门/组织名称',
-				width:'15%',
+				field: 'companyno',
+				title: '公司名称',
+				width:'10%',
+				align: 'center'
+			}, {
+				field: 'dptno',
+				title: '部门名称',
+				width:'10%',
 				align: 'center'
 			}, {
 				field: 'rlnm',
 				title: '角色名称',
 				align: 'center',
-				width:'20%'
+				width:'15%'
 			}, {
 				field: 'lastlogin',
 				title: '最近一次登陆时间',
@@ -166,7 +171,7 @@
 				filed: '',
 				title: '操作区',
 				align: 'center',
-				width:'20%',
+				width:'25%',
 				events: operateEvents,
 				formatter: operateFormatter
 			} ]
@@ -250,14 +255,17 @@
 	function operateFormatter(value, row, index) {
 		if (row.userno!="1000") {
 			return [
+				'<a class="role" href="javascript:void(0)" title="分配角色">',
+				'分配角色  ',
+				'</a>',
 				<shiro:hasPermission name="sysuser_view">
 				'<a class="view" href="javascript:void(0)" title="查看">',
-				'查看    ',
+				'查看  ',
 				'</a>',
 				</shiro:hasPermission>
 				<shiro:hasPermission name="sysuser_modify">
 				'<a class="edit" href="javascript:void(0)" title="修改">',
-				'修改    ',
+				'修改  ',
 				'</a>',
 				</shiro:hasPermission>
 				<shiro:hasPermission name="sysuser_delete">
