@@ -5,7 +5,7 @@ package com.ez.util;
  * @version V1.0
  * @Title: ${file_name}
  * @Package com.mf.util
- * @Description: ${todo}(开始日期和结束日期的类)
+ * @Description: (开始日期和结束日期的类)
  * @date 2016/3/3 17:39
  */
 public class StartEndDate {

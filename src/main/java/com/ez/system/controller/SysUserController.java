@@ -3,8 +3,10 @@ package com.ez.system.controller;
 import com.ez.annotation.SystemLogController;
 import com.ez.system.entity.SysRole;
 import com.ez.system.entity.SysUser;
+import com.ez.system.entity.SysUserRole;
 import com.ez.system.service.SysOrgService;
 import com.ez.system.service.SysRoleService;
+import com.ez.system.service.SysUserRoleService;
 import com.ez.system.service.SysUserService;
 import com.ez.util.FormatDateUtil;
 import com.ez.util.WaterIdGener;
@@ -40,6 +42,8 @@ public class SysUserController {
 	private SysRoleService sysRoleService;
 	@Resource
 	private SysOrgService sysOrgService;
+	@Resource
+	private SysUserRoleService sysUserRoleService;
 
 	/**
 	 * 跳到列表页面
@@ -60,8 +64,6 @@ public class SysUserController {
 	public String addUI(Model model){
 		String companyList=sysOrgService.findAllCompany(null);
 		String dptList=sysOrgService.findAllDpt(null);
-		List<SysRole> sysRoleList=sysRoleService.findAll();
-		model.addAttribute("sysRoleList",sysRoleList);
 		model.addAttribute("companyList",companyList);
 		model.addAttribute("dptList",dptList);
 		return "ez/system/sysuser/add";
@@ -166,7 +168,6 @@ public class SysUserController {
 				sysuser.setIsused("0");
 			}
 			sysuser.setUptdate(FormatDateUtil.getFormatDate("yyyy-MM-dd"));
-			System.out.println("sysuser = " + sysuser.toString());
 			sysUserService.modify(sysuser);
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
@@ -186,6 +187,7 @@ public class SysUserController {
 	 * @return
 	 */
 	@RequestMapping(value = "deleteAll")
+	@SystemLogController(description = "批量删除角色数据")
 	public String deleteAll(String[] ids, Model model, HttpServletResponse response) {
 		String result = "{\"status\":1,\"message\":\"删除成功！\"}";
 		try {
@@ -200,6 +202,54 @@ public class SysUserController {
 		return null;
 	}
 
+	/**
+	 * 跳转到分配角色页面
+	 * @param model
+	 * @param userno
+	 * @return
+	 */
+	@RequestMapping(value = "assignrolelist")
+	@SystemLogController(description = "跳转到分配角色页面")
+	public String assignroleList (Model model,String userno){
+		List<SysUserRole> sysUserRoleList = sysUserRoleService.findById(userno);
+		List<SysRole> sysRoleList=sysRoleService.findAll();
+		if (null!=sysRoleList && sysRoleList.size()>0){
+			for (SysRole sysRole:sysRoleList){
+				if (null!=sysUserRoleList && sysUserRoleList.size()>0){
+					for (SysUserRole sysUserRole:sysUserRoleList){
+						if (sysRole.getRoleId().equals(sysUserRole.getRoleId())){
+							sysRole.setHasRole(true);
+						}
+					}
+				}
+			}
+		}
+		model.addAttribute("sysRoleList",sysRoleList);
+		model.addAttribute("userno",userno);
+		return "ez/system/sysuser/assignrolelist";
+	}
+
+	/**
+	 * modify the roles and rights of user by chenez 20170430
+	 * @param model
+	 * @param sysUserRole
+	 * @param response
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="assignrole",method=RequestMethod.POST)
+	public String assignrole(Model model,SysUserRole sysUserRole,HttpServletResponse response,HttpServletRequest request){
+		String result="{\"msg\":\"suc\"}";
+		try {
+			String[] roleIds = request.getParameterValues("roleId");
+			sysUserRoleService.assignrole(roleIds,sysUserRole);
+		} catch (Exception e) {
+			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
+			e.printStackTrace();
+		}
+		WebTool.writeJson(result, response);
+		return null;
+	}
 	
 }
 

@@ -47,6 +47,8 @@ public class SysRole extends BaseEntity implements java.io.Serializable{
 	private String roleType;
 	//columns END
 
+	private boolean hasRole = false;
+
 	public void setRoleId(String value) {
 		this.roleId = value;
 	}
@@ -75,6 +77,14 @@ public class SysRole extends BaseEntity implements java.io.Serializable{
 
 	public void setRoleType(String roleType) {
 		this.roleType = roleType;
+	}
+
+	public boolean isHasRole() {
+		return hasRole;
+	}
+
+	public void setHasRole(boolean hasRole) {
+		this.hasRole = hasRole;
 	}
 
 	public String toString() {

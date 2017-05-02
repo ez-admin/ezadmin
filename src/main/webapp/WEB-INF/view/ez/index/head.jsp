@@ -10,7 +10,6 @@
 	<!--一级菜单-->
 	<div class="beg-layout-main beg-layout-menu" id="menu">
 		<ul class="layui-nav beg-layout-nav" lay-filter="">
-
 			<c:forEach items="${firstmenulist}" var ="menu" varStatus="status">
 				<c:choose>
 					<c:when test="${status.first}">

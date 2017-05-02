@@ -67,7 +67,7 @@ layui.config({
 			//设置navbar
 			navbar.set({
 				elem: '#side', //存在navbar数据的容器ID
-				url: 'ez/syslogin/moremenu/'+id+".do"
+				url: 'ez/syslogin/moremenu/'+id+'.do'
 			});
 			//渲染navbar
 			navbar.render();
@@ -85,7 +85,8 @@ layui.config({
 
 	});
 	//模拟点击内容管理
-	$('.beg-layout-menu').find('a[data-module-id=1]').click();
+	//$('.beg-layout-menu').find('a[data-module-id=1]').click();
+	$('.beg-layout-menu').find('li.layui-this').find('a').click();
 
 	element.on('nav(user)', function(data) {
 		var $a = data.children('a');

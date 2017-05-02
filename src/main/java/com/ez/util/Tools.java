@@ -8,6 +8,8 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.apache.struts2.interceptor.DateTextFieldInterceptor.DateWord.s;
+
 public class Tools {
 	
 	/**
@@ -27,7 +29,7 @@ public class Tools {
 	public static boolean notEmpty(String s){
 		return s!=null && !"".equals(s) && !"null".equals(s);
 	}
-	
+
 	/**
 	 * 检测字符串是否为空(null,"","null")
 	 * @param s
@@ -36,7 +38,7 @@ public class Tools {
 	public static boolean isEmpty(String s){
 		return s==null || "".equals(s) || "null".equals(s);
 	}
-	
+
 	/**
 	 * 字符串转换为字符串数组
 	 * @param str 字符串
@@ -141,7 +143,7 @@ public class Tools {
 	
 	/**
 	 * 写txt里的单行内容
-	 * @param filePath  文件路径
+	 * @param fileP  文件路径
 	 * @param content  写入的内容
 	 */
 	public static void writeFile(String fileP,String content){

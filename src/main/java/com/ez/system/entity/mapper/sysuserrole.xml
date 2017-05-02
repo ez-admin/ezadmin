@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="com.ez.system.dao.SysUserRoleDao">
+
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+	<!--<cache type="org.mybatis.caches.ehcache.EhcacheCache" />-->
+
+	<resultMap id="SysUserRole" type="com.ez.system.entity.SysUserRole">
+		<result property="userno" column="userno"/>
+		<result property="roleId" column="ROLE_ID"/>
+	</resultMap>
+	
+	<sql id="selectId">
+		userno,
+ROLE_ID
+    </sql>
+    
+    <select id="findAll" resultMap="SysUserRole">
+		select
+		<include refid="selectId" />
+		from sys_user_role
+	</select>
+	
+	<select id="query" resultMap="SysUserRole" parameterType="com.ez.system.entity.SysUserRole">
+		select
+		<include refid="selectId" />
+		from sys_user_role
+		<include refid="querywhere"/>
+	</select>
+	
+	<sql id="querywhere">
+	<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+	<where>
+	</where>
+	</sql>
+
+	<!-- 总记录数 -->
+	<select id="count" parameterType="com.ez.system.entity.SysUserRole" resultType="int">
+		select count(0) from sys_user_role
+		<include refid="querywhere"/>
+	</select>
+	
+	<!-- 新增 -->
+	<insert id="addAll" parameterType="com.ez.system.entity.SysUserRole">
+		INSERT INTO sys_user_role (
+			userno ,
+			ROLE_ID 
+        ) VALUES (
+			#{userno} ,
+			#{roleId} 
+        )
+	</insert>
+	
+	<!-- 新增Selective -->
+	<insert id="add" parameterType="com.ez.system.entity.SysUserRole">
+		INSERT INTO sys_user_role
+		<include refid="addtrim"/>
+	</insert>
+	
+	<sql id="addtrim">
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(userno)">
+				userno,
+			</if>
+			<if test="@Ognl@isNotEmpty(roleId)">
+				ROLE_ID,
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(userno)">
+				#{userno},
+			</if>
+			<if test="@Ognl@isNotEmpty(roleId)">
+				#{roleId},
+			</if>
+		</trim>
+	</sql>
+	
+	<!-- 删 -->
+	<delete id="delete" parameterType="String">
+		DELETE FROM sys_user_role WHERE
+		userno = #{id}
+	</delete>
+	
+	<!-- 根据主键查实体 -->
+	<select id="getById" parameterType="String" resultMap="SysUserRole">
+		SELECT <include refid="selectId" />
+		    FROM sys_user_role 
+	        WHERE 
+        userno = #{id}
+	</select>
+	<select id="findById"  parameterType="String"  resultMap="SysUserRole">
+		SELECT <include refid="selectId" />
+		FROM sys_user_role
+		WHERE
+		userno = #{id}
+	</select>
+    <select id="findByRoleid" parameterType="String"  resultMap="SysUserRole">
+		SELECT <include refid="selectId" />
+		FROM sys_user_role
+		WHERE
+		roleId = #{ids}
+	</select>
+
+    <!-- 更新all -->
+	<update id="updateAll" parameterType="com.ez.system.entity.SysUserRole">
+	    UPDATE sys_user_role SET
+        WHERE 
+	        userno = #{userno}
+	</update>
+	
+	<sql id="updateset">
+	<set>
+		<if test="@Ognl@isNotEmpty(roleId)">
+			ROLE_ID = #{roleId},
+		</if>
+    </set>
+	</sql>
+	
+	<!-- 更新Selective -->
+	<update id="modify" parameterType="com.ez.system.entity.SysUserRole">
+	    UPDATE sys_user_role 
+		<include refid="updateset"/>
+        WHERE 
+	        userno = #{userno}
+	</update>
+	
+</mapper>
+

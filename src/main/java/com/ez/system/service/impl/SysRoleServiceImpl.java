@@ -9,10 +9,8 @@ package com.ez.system.service.impl;
 import com.ez.system.dao.SysRoleDao;
 import com.ez.system.dao.SysUserDao;
 import com.ez.system.entity.SysRole;
-import com.ez.system.entity.SysUser;
 import com.ez.system.service.SysRoleService;
 import com.ez.util.PubConstants;
-import com.ez.util.Tools;
 import com.ez.util.UuidUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -136,12 +134,6 @@ public class SysRoleServiceImpl implements SysRoleService {
 	//@PreAuthorize("hasRole('ROLE_*')")
 	public void modify(SysRole sysRole) {
 		sysRoleDao.modify(sysRole);
-		if (Tools.notEmpty(sysRole.getRoleName())){
-			SysUser sysUser=new SysUser();
-			sysUser.setRlid(sysRole.getRoleId());
-			sysUser.setRlnm(sysRole.getRoleName());
-			sysUserDao.modifyRole(sysUser);
-		}
 	}
 
 	/**

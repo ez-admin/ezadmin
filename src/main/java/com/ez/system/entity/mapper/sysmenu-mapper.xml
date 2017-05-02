@@ -245,6 +245,10 @@
 		</if>
 		order by MENU_ORDER
 	</select>
+	<select id="findmenuids" resultType="string">
+		SELECT MENU_ID
+		FROM sys_menu
+	</select>
 
 	<!-- 更新all -->
 	<update id="updateAll" parameterType="com.ez.system.entity.SysMenu">

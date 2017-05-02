@@ -11,8 +11,8 @@
         <result property="logpwd" column="LOGPWD"/>
         <result property="dptno" column="DPTNO"/>
         <result property="companyno" column="COMPANYNO"/>
-        <result property="rlid" column="RLID"/>
-        <result property="rlnm" column="RLNM"/>
+        <result property="sex" column="SEX"/>
+        <result property="age" column="AGE"/>
         <result property="userrelnm" column="USERRELNM"/>
         <result property="idnum" column="IDNUM"/>
         <result property="mobile" column="MOBILE"/>
@@ -34,8 +34,10 @@
 		LOGPWD,
 		DPTNO,
 		COMPANYNO,
-		RLID,
-		RLNM,
+		(SELECT orgName FROM sys_org WHERE orgId=DPTNO) DPTNM,
+		(SELECT orgName FROM sys_org WHERE orgId=COMPANYNO) COMPANYNM,
+		SEX,
+		AGE,
 		USERRELNM,
 		IDNUM,
 		MOBILE,
@@ -81,10 +83,13 @@
 					AND COMPANYNO like '%${companyno}%'
 				</if>
 				<if test="rlid==1">
-					AND RLID !='${rlid}'
+					AND userno!='1000'
 				</if>
-		       <if test="@Ognl@isNotEmpty(rlnm)">
-					AND RLNM like '%${rlnm}%'
+		       <if test="@Ognl@isNotEmpty(sex)">
+					AND sex like '%${sex}%'
+				</if>
+				<if test="@Ognl@isNotEmpty(age)">
+					AND age like '%${age}%'
 				</if>
 		       <if test="@Ognl@isNotEmpty(userrelnm)">
 					AND USERRELNM like '%${userrelnm}%'
@@ -151,8 +156,8 @@
         	LOGPWD ,
         	DPTNO ,
 			COMPANYNO ,
-        	RLID ,
-        	RLNM ,
+        	SEX ,
+        	AGE ,
         	USERRELNM ,
         	IDNUM ,
         	MOBILE ,
@@ -172,8 +177,8 @@
         	#{logpwd} ,
         	#{dptno} ,
         	#{companyno} ,
-        	#{rlid} ,
-        	#{rlnm} ,
+        	#{sex} ,
+        	#{age} ,
         	#{userrelnm} ,
         	#{idnum} ,
         	#{mobile} ,
@@ -216,11 +221,11 @@
 			<if test="@Ognl@isNotEmpty(companyno)">
 				COMPANYNO,
 			</if>
-			<if test="@Ognl@isNotEmpty(rlid)">
-				RLID,
+			<if test="@Ognl@isNotEmpty(sex)">
+				SEX,
 			</if>
-			<if test="@Ognl@isNotEmpty(rlnm)">
-				RLNM,
+			<if test="@Ognl@isNotEmpty(age)">
+				AGE,
 			</if>
 			<if test="@Ognl@isNotEmpty(userrelnm)">
 				USERRELNM,
@@ -278,11 +283,11 @@
 			<if test="@Ognl@isNotEmpty(companyno)">
 				#{companyno},
 			</if>
-			<if test="@Ognl@isNotEmpty(rlid)">
-				#{rlid},
+			<if test="@Ognl@isNotEmpty(sex)">
+				#{sex},
 			</if>
-			<if test="@Ognl@isNotEmpty(rlnm)">
-				#{rlnm},
+			<if test="@Ognl@isNotEmpty(age)">
+				#{age},
 			</if>
 			<if test="@Ognl@isNotEmpty(userrelnm)">
 				#{userrelnm},
@@ -362,8 +367,8 @@
 	        LOGPWD = #{logpwd} ,
 	        DPTNO = #{dptno} ,
 	        COMPANYNO = #{companyno} ,
-	        RLID = #{rlid} ,
-	        RLNM = #{rlnm} ,
+	        SEX = #{sex} ,
+	        AGE = #{age} ,
 	        USERRELNM = #{userrelnm} ,
 	        IDNUM = #{idnum} ,
 	        MOBILE = #{mobile} ,
@@ -395,11 +400,11 @@
 		<if test="@Ognl@isNotEmpty(companyno)">
 			COMPANYNO = #{companyno},
 		</if>
-		<if test="@Ognl@isNotEmpty(rlid)">
-			RLID = #{rlid},
+		<if test="@Ognl@isNotEmpty(sex)">
+			SEX = #{sex},
 		</if>
-		<if test="@Ognl@isNotEmpty(rlnm)">
-			RLNM = #{rlnm},
+		<if test="@Ognl@isNotEmpty(age)">
+			AGE = #{age},
 		</if>
 		<if test="@Ognl@isNotEmpty(userrelnm)">
 			USERRELNM = #{userrelnm},
@@ -450,12 +455,7 @@
         WHERE 
 	        USERNO = #{userno} 
 	</update>
-	<update id="modifyRole" parameterType="com.ez.system.entity.SysUser">
-		UPDATE sys_user SET
-		RLNM = #{rlnm}
-		WHERE
-		RLID = #{rlid}
-	</update>
+
 
 	<!-- 查找唯一索引但不是主键的字段Selective -->
 	

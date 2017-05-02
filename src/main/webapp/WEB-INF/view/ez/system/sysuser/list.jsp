@@ -143,20 +143,20 @@
 				width:'10%',
 				align: 'center'
 			}, {
-				field: 'companyno',
+				field: 'companynm',
 				title: '公司名称',
 				width:'10%',
 				align: 'center'
 			}, {
-				field: 'dptno',
+				field: 'dptnm',
 				title: '部门名称',
 				width:'10%',
 				align: 'center'
-			}, {
+			/*}, {
 				field: 'rlnm',
 				title: '角色名称',
 				align: 'center',
-				width:'15%'
+				width:'15%'*/
 			}, {
 				field: 'lastlogin',
 				title: '最近一次登陆时间',
@@ -255,7 +255,7 @@
 	function operateFormatter(value, row, index) {
 		if (row.userno!="1000") {
 			return [
-				'<a class="role" href="javascript:void(0)" title="分配角色">',
+				'<a class="assignrolelist" href="javascript:void(0)" title="分配角色">',
 				'分配角色  ',
 				'</a>',
 				<shiro:hasPermission name="sysuser_view">
@@ -286,13 +286,26 @@
 	};
 	//操作区事件
 	window.operateEvents = {
+		'click .assignrolelist': function (e, value, row, index) {
+			top.layer.open({
+				type: 2,//iframe层
+				title: '分配角色',
+				maxmin: true,
+				shadeClose: true, //点击遮罩关闭层
+				area : ['800px' , '600px'],
+				content: '/ez/system/sysuser/assignrolelist.do?userno='+row.userno,
+				end:function(){
+					$("#table").bootstrapTable('refresh');//刷新表格
+				}
+			});
+		},
 		'click .view': function (e, value, row, index) {
 			top.layer.open({
 				type: 2,//iframe层
 				title: '查看',
 				maxmin: true,
 				shadeClose: true, //点击遮罩关闭层
-				area : ['600px' , '540px'],
+				area : ['800px' , '600px'],
 				content: '/ez/system/sysuser/getById.do?typeKey=2&userno='+row.userno,
 			});
 		},
@@ -302,7 +315,7 @@
 				title: '编辑',
 				maxmin: true,
 				shadeClose: true, //点击遮罩关闭层
-				area : ['600px' , '540px'],
+				area : ['800px' , '600px'],
 				content: '/ez/system/sysuser/getById.do?typeKey=1&userno='+row.userno,
 				end:function(){
 					$("#table").bootstrapTable('refresh');//刷新表格

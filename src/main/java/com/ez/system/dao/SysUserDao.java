@@ -24,8 +24,6 @@ public interface SysUserDao extends BaseDao<SysUser> {
 
 	int checkpwd(SysUser sysUser) throws DataAccessException;
 
-    void modifyRole(SysUser sysUser) throws DataAccessException;
-
     List<SysUser> listByRid(String ids) throws DataAccessException;
 
 

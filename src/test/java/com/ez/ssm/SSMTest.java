@@ -7,10 +7,10 @@ import com.ez.util.RightsHelper;
 import com.ez.util.Tools;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.annotation.Resource;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -19,10 +19,10 @@ import java.util.List;
 public class SSMTest {
 	
 	
-	@Resource
+	@Autowired
 	private SysUserService sysUserService;
 
-	@Resource
+	@Autowired
 	private SysMenuService sysMenuService;
 
 	@Test
@@ -179,12 +179,16 @@ public class SSMTest {
 	@Test
 	public void qxf(){
 		//menuIds可以获取数据库中全部值
-		String[] menuIds={"1","2","3","4","5","6","7","8","9","10"};
+		List<String> findmenuids=sysMenuService.findmenuids();
+		System.out.println("findmenuids = " + findmenuids.toString());
+		String[] menuIds=(String[])findmenuids.toArray(new String[0]);
+		/*String[] menuIds={"1","2","3","4","5","6","7","8","9","10"};*/
+		System.out.println("menuIds = " + menuIds.toString());
 		//"1022"是权限和计算的值，判断是否有值
-		if(Tools.notEmpty("50")){
+		if(Tools.notEmpty("37777760927054076575232")){
 			for(int i=0;i<menuIds.length;i++) {
 				//进行比较，有为true，否则为false
-				if (RightsHelper.testRights("50", menuIds[i])) {
+				if (RightsHelper.testRights("37777760927054076575232", menuIds[i])) {
 					System.out.println("存在");
 				} else {
 					System.out.println("不存在");

@@ -129,7 +129,8 @@ http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcac
           p:dataSource-ref="dataSource"
           p:mapperLocations="classpath:com/ez/*/entity/mapper/*.xml"
           p:plugins-ref="pagePlugin"/>
-    <!-- p:mapperLocations="classpath:mybatis/*/*.xml"-->
+    <!-- p:mapperLocations="classpath:com/ez/system/entity/mapper/sysmenu-mapper.xml"//junit use
+    p:mapperLocations="classpath:mybatis/*/*.xml"-->
 
     <!-- 配置sqlSessionTemplate -->
     <bean class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">

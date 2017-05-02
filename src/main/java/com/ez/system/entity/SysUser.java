@@ -28,8 +28,8 @@ public class SysUser extends BaseEntity implements java.io.Serializable{
 	public static final String ALIAS_LOGPWD = "登陆密码";
 	public static final String ALIAS_DPTNO = "所属部门编号";
 	public static final String ALIAS_COMPANYNO = "所属公司编号";
-	public static final String ALIAS_RLID = "角色编号";
-	public static final String ALIAS_RLNM = "角色名";
+	public static final String ALIAS_SEX = "性别";
+	public static final String ALIAS_AGE = "年龄";
 	public static final String ALIAS_USERRELNM = "用户姓名";
 	public static final String ALIAS_IDNUM = "身份证号";
 	public static final String ALIAS_MOBILE = "手机号码";
@@ -60,10 +60,10 @@ public class SysUser extends BaseEntity implements java.io.Serializable{
 	private String dptno;
 	/**所属公司编号==>db_column: COMPANYNO*/
 	private String companyno;
-	/**角色编号==>db_column: RLID*/
-	private String rlid;
-	/**角色名==>db_column: RLNM*/
-	private String rlnm;
+	/**性别==>db_column: SEX*/
+	private java.lang.Integer sex;
+	/**年龄==>db_column: AGE*/
+	private java.lang.Integer age;
 	/**用户姓名==>db_column: USERRELNM*/
 	private String userrelnm;
 	/**身份证号==>db_column: IDNUM*/
@@ -92,6 +92,9 @@ public class SysUser extends BaseEntity implements java.io.Serializable{
 	private String loginlocation;
 	//columns END
 
+	private String dptnm;
+	private String companynm;
+	private String rlid;
 
 	public void setUserno(String value) {
 		this.userno = value;
@@ -130,20 +133,22 @@ public class SysUser extends BaseEntity implements java.io.Serializable{
 		this.companyno = companyno;
 	}
 
-	public void setRlid(String value) {
-		this.rlid = value;
+	public Integer getSex() {
+		return sex;
 	}
-	
-	public String getRlid() {
-		return this.rlid;
+
+	public void setSex(Integer sex) {
+		this.sex = sex;
 	}
-	public void setRlnm(String value) {
-		this.rlnm = value;
+
+	public Integer getAge() {
+		return age;
 	}
-	
-	public String getRlnm() {
-		return this.rlnm;
+
+	public void setAge(Integer age) {
+		this.age = age;
 	}
+
 	public void setUserrelnm(String value) {
 		this.userrelnm = value;
 	}
@@ -239,6 +244,30 @@ public class SysUser extends BaseEntity implements java.io.Serializable{
 		this.loginlocation = loginlocation;
 	}
 
+	public String getDptnm() {
+		return dptnm;
+	}
+
+	public void setDptnm(String dptnm) {
+		this.dptnm = dptnm;
+	}
+
+	public String getCompanynm() {
+		return companynm;
+	}
+
+	public void setCompanynm(String companynm) {
+		this.companynm = companynm;
+	}
+
+	public String getRlid() {
+		return rlid;
+	}
+
+	public void setRlid(String rlid) {
+		this.rlid = rlid;
+	}
+
 	@Override
 	public String toString() {
 		return "SysUser{" +
@@ -247,8 +276,8 @@ public class SysUser extends BaseEntity implements java.io.Serializable{
 				", logpwd='" + logpwd + '\'' +
 				", dptno='" + dptno + '\'' +
 				", companyno='" + companyno + '\'' +
-				", rlid='" + rlid + '\'' +
-				", rlnm='" + rlnm + '\'' +
+				", sex='" + sex + '\'' +
+				", age='" + age + '\'' +
 				", userrelnm='" + userrelnm + '\'' +
 				", idnum='" + idnum + '\'' +
 				", mobile='" + mobile + '\'' +

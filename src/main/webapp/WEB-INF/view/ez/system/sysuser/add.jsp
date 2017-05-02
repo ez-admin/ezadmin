@@ -33,25 +33,24 @@
 <body>
 	<div class="layui-field-box">
 		<form id="formid" class="layui-form">
-			<input type="hidden" name="optype" value="${optype}">
 			<div class="layui-form-item">
 				<label class="layui-form-label">用户名:</label>
 				<div class="layui-input-inline">
-					<input type="text" name="lognm" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+					<input type="text" name="lognm"  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
 				</div>
 				<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">密码:</label>
 				<div class="layui-input-inline">
-					<input type="text" name="logpwd" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+					<input type="text" name="logpwd" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
 				</div>
 				<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">所属公司:</label>
 				<div class="layui-input-inline" style="width: 400px">
-					<select id="companyno" name="companyno" style="width: 100%" >
+					<select id="companyno" name="companyno" style="width: 100%" lay-verify="required" >
 						<option value="">请选择</option>
 					</select>
 				</div>
@@ -60,7 +59,7 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">所属部门:</label>
 				<div class="layui-input-inline" style="width: 400px">
-					<select id="dptno" name="dptno" style="width: 100%" >
+					<select id="dptno" name="dptno" style="width: 100%" lay-verify="required">
 						<option value="">请选择</option>
 					</select>
 				</div>
@@ -73,18 +72,6 @@
 					<input type="radio" name="optype" value="1" title="前台会员">
 				</div>
 			</div>
-			<%--<div class="layui-form-item">
-				<label class="layui-form-label">角色名称:</label>
-				<div class="layui-input-inline" style="width: 80%">
-					<c:forEach items="${sysRoleList}" var ="sysrole" >
-					<input type="checkbox"  name="roleId" value="${sysrole.roleId}" title="${sysrole.roleName}" lay-skin="primary">
-					</c:forEach>
-					<select name="rlid" id="rlid" lay-verify="required" lay-filter="rlid">
-						<option value="">请选择</option>
-					</select>
-				</div>
-				<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
-			</div>--%>
 
 			<div class="layui-form-item">
 				<label class="layui-form-label">是否启用:</label>
@@ -95,14 +82,29 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">真实姓名:</label>
 				<div class="layui-input-inline">
-					<input type="text" name="userrelnm" required placeholder="请输入真实姓名" autocomplete="off" class="layui-input">
+					<input type="text" name="userrelnm" lay-verify="required" placeholder="请输入真实姓名" autocomplete="off" class="layui-input">
 				</div>
 				<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 			</div>
 			<div class="layui-form-item">
+				<label class="layui-form-label">性别:</label>
+				<div class="layui-input-inline">
+					<select name="sex" id="sex" lay-verify="required" >
+						<option value="">请选择</option>
+					</select>
+				</div>
+				<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">年龄:</label>
+				<div class="layui-input-inline">
+					<input type="number" name="age" autocomplete="off" maxlength="3" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
 				<label class="layui-form-label">身份证号:</label>
 				<div class="layui-input-inline">
-					<input type="text" name="idnum" placeholder="请输入身份证号" autocomplete="off" class="layui-input">
+					<input type="text" name="idnum"  placeholder="请输入身份证号" autocomplete="off" class="layui-input">
 				</div>
 			</div>
 			<div class="layui-form-item">
@@ -153,16 +155,18 @@
 					,form = layui.form()
 					,$ = layui.jquery;
 			//后台获取select值
-			/*$.ajax({
-				url: '/ez/system/sysrole/getSdBySdtCode.do',
+			$.ajax({
+				url: '/ez/system/sysdictionary/getSdBySdtCode.do',
 				type: "POST",
-				//data:{code:5606},
+				data:{code:1002},
 				dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
 				success: function (result) {
-					$("#rlid").append(result);
-					form.render('select');
+					$("#sex").append(result);
+					$("#sex").select2tree({
+						placeholder: '请选择性别'
+					});
 				}
-			});*/
+			});
 			//监听提交
 			form.on('submit(add)', function(data){
 				//layer.msg(JSON.stringify(data.field));

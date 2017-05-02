@@ -174,7 +174,6 @@ public class Common {
 				return data;
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
@@ -295,7 +294,7 @@ public class Common {
 	/**
 	* @author doukang
 	* @Title: getBetweenDays 
-	* @Description: TODO(计算两个日期之间的天数) 
+	* @Description: (计算两个日期之间的天数)
 	* @param time1
 	* @param time2
 	* @return Long 返回类型
@@ -311,7 +310,7 @@ public class Common {
 	/**
 	* @author doukang
 	* @Title: castArrayStrToBd 
-	* @Description: TODO(String[] 数组转换为 BigDecimal[]数组) 
+	* @Description: (String[] 数组转换为 BigDecimal[]数组)
 	* @param oArr
 	* @return BigDecimal[] 返回类型
 	* @date 2016年5月25日 下午2:13:02

@@ -320,4 +320,9 @@ public class SysMenuServiceImpl implements SysMenuService {
 		return sysMenuList;
 	}
 
+    @Override
+    public List<String> findmenuids() {
+        return sysMenuDao.findmenuids();
+    }
+
 }

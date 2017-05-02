@@ -11,11 +11,14 @@ import com.alibaba.fastjson.JSON;
 import com.ez.annotation.SystemLogController;
 import com.ez.system.entity.SysMenu;
 import com.ez.system.entity.SysRole;
-import com.ez.system.entity.SysUser;
+import com.ez.system.entity.SysUserRole;
 import com.ez.system.service.SysMenuService;
 import com.ez.system.service.SysRoleService;
+import com.ez.system.service.SysUserRoleService;
 import com.ez.system.service.SysUserService;
-import com.ez.util.*;
+import com.ez.util.RightsHelper;
+import com.ez.util.Tools;
+import com.ez.util.WebTool;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
@@ -49,6 +52,8 @@ public class SysRoleController {
 
 	@Resource
 	private SysUserService sysUserService;
+	@Resource
+	private SysUserRoleService sysUserRoleService;
 	/**
 	 * 跳到列表页面
 	 * @return
@@ -130,8 +135,8 @@ public class SysRoleController {
 	public String deleteById(Model model,String ids, HttpServletResponse response){
 		String result="{\"status\":1,\"message\":\"删除成功！\"}";
 		try{
-			List<SysUser> sysUserList=sysUserService.listByRid(ids);
-			if (sysUserList!=null && sysUserList.size()>0){
+			List<SysUserRole> sysUserRoleList=sysUserRoleService.findByRoleid(ids);
+			if (sysUserRoleList!=null && sysUserRoleList.size()>0){
 				result="{\"status\":0,\"message\":\"该角色下仍有用户！\"}";
 			}else {
 				sysRoleService.delete(ids);
@@ -197,8 +202,8 @@ public class SysRoleController {
 		String result = "{\"status\":1,\"message\":\"删除成功！\"}";
 		try {
 			for (String id : ids) {
-				List<SysUser> sysUserList=sysUserService.listByRid(id);
-				if (sysUserList!=null && sysUserList.size()>0){
+				List<SysUserRole> sysUserRoleList=sysUserRoleService.findByRoleid(id);
+				if (sysUserRoleList!=null && sysUserRoleList.size()>0){
 					result="{\"status\":0,\"message\":\"该角色下仍有用户，请将用户删除再来删除该角色！\"}";
 				}else {
 					sysRoleService.delete(id);

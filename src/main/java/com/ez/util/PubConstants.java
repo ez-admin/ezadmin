@@ -39,8 +39,8 @@ public class PubConstants {
 	public static final String ROLE_SUPERADMIN = "1";//系统管理角色
 	public static final String ROLE_OPERATOR = "2"; //业务管理角色
 	/*操作员类型*/
-	public static final String OPTYPE_FRONT="0";//前台会员
-	public static final String OPTYPE_SYSTEM="1";//后台用户
+	public static final String OPTYPE_FRONT="1";//系统前台会员
+	public static final String OPTYPE_SYSTEM="0";//系统后台用户
 
 
 	//页面处理类型 查看、编辑 - xjh

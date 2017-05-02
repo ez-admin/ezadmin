@@ -33,7 +33,6 @@
 <body>
 <div class="layui-field-box">
 	<form id="formid" class="layui-form">
-		<input type="hidden" name="optype" value="${optype}">
 		<div class="layui-form-item">
 			<label class="layui-form-label">用户名:</label>
 			<div class="layui-input-inline">
@@ -104,6 +103,22 @@
 			<div class="layui-input-inline">
 				<input type="text" name="userrelnm" value="${sysuser.userrelnm}" readonly class="layui-input">
 			</div>
+			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">性别:</label>
+			<div class="layui-input-inline">
+				<select name="sex" id="sex" lay-verify="required" disabled>
+					<option value="">请选择</option>
+				</select>
+			</div>
+			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">年龄:</label>
+			<div class="layui-input-inline">
+				<input type="number" name="age" value="${sysuser.age}" readonly autocomplete="off" maxlength="3" class="layui-input">
+			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">身份证号:</label>
@@ -152,15 +167,17 @@
 				,form = layui.form()
 				,$ = layui.jquery;
 		//后台获取select值
-		/*$.ajax({url: "/ez/system/sysrole/getSdBySdtCode.do",
+		$.ajax({url: "/ez/system/sysdictionary/getSdBySdtCode.do",
 			type: "POST",
-			data:{selected:'${sysuser.rlid}'},
+			data:{code:1002,selected:'${sysuser.sex}'},
 			dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
 			success: function (result) {
-				$("#rlid").append(result);
-				form.render('select');
+				$("#sex").append(result);
+				$("#sex").select2tree({
+					placeholder: '请选择性别'
+				});
 			}
-		});*/
+		});
 
 	});
 </script>
