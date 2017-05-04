@@ -20,20 +20,25 @@ http://www.springframework.org/schema/context/spring-context-4.2.xsd">
     </bean>
     <!-- session管理器 -->
     <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
-        <!--单位：毫秒 30分钟：此处设置无效，在loginserviceimpl系统登陆成功后里设置session有效时间，此处可留后人解决-->
-        <property name="globalSessionTimeout" value="${session.sessionTimeout}"/>
-        <property name="deleteInvalidSessions" value="true"/>
-        <property name="sessionValidationSchedulerEnabled" value="true"/>
-        <property name="sessionValidationInterval" value="180000"/>
-        <property name="sessionIdCookie" ref="sessionIdCookie"/>
         <property name="sessionDAO" ref="sessionDAO"/>
+        <!--单位：毫秒 30分钟-->
+        <property name="globalSessionTimeout" value="${session.sessionTimeout}"/>
+        <!-- 定时清理失效会话, 清理用户直接关闭浏览器造成的孤立会话   -->
+        <property name="sessionValidationInterval" value="${session.sessionTimeoutClean}"/>
+        <!--  		<property name="sessionValidationSchedulerEnabled" value="false"/> -->
+        <property name="sessionValidationSchedulerEnabled" value="true"/>
+
+        <property name="sessionIdCookie" ref="sessionIdCookie"/>
+        <property name="sessionIdCookieEnabled" value="true"/>
     </bean>
     <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
-        <property name="activeSessionsCacheName" value="shiro-activeSessionCache" />
+        <property name="activeSessionsCacheName" value="activeSessionsCache" />
         <property name="cacheManager" ref="cacheManager" />
     </bean>
+    <!-- 指定本系统SESSIONID, 默认为: JSESSIONID 问题: 与SERVLET容器名冲突, 如JETTY, TOMCAT 等默认JSESSIONID,
+          当跳出SHIRO SERVLET时如ERROR-PAGE容器会为JSESSIONID重新分配值导致登录会话丢失! -->
     <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
-        <constructor-arg name="name" value="SHRIOSESSIONID"/>
+        <constructor-arg name="name" value="ezadmin.session.id"/>
     </bean>
     <!-- 缓存管理器 使用Ehcache实现 -->
     <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
