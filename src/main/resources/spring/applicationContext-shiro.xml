@@ -19,12 +19,12 @@ http://www.springframework.org/schema/context/spring-context-4.2.xsd">
         <!--<property name="rememberMeManager" ref="rememberMeManager"/>-->
     </bean>
     <!-- session管理器 -->
-    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+    <bean id="sessionManager" class="com.ez.interceptor.shiro.session.SessionManager">
         <property name="sessionDAO" ref="sessionDAO"/>
         <!--单位：毫秒 30分钟-->
-        <property name="globalSessionTimeout" value="${session.sessionTimeout}"/>
+        <property name="globalSessionTimeout" value="1800000"/>
         <!-- 定时清理失效会话, 清理用户直接关闭浏览器造成的孤立会话   -->
-        <property name="sessionValidationInterval" value="${session.sessionTimeoutClean}"/>
+        <property name="sessionValidationInterval" value="120000"/>
         <!--  		<property name="sessionValidationSchedulerEnabled" value="false"/> -->
         <property name="sessionValidationSchedulerEnabled" value="true"/>
 

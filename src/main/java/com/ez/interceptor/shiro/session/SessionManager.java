@@ -37,6 +37,8 @@ public class SessionManager extends DefaultWebSessionManager {
 	
 	@Override
 	protected Serializable getSessionId(ServletRequest request, ServletResponse response) {
+
+
 		// 如果参数中包含“__sid”参数，则使用此sid会话。 例如：http://localhost/project?__sid=xxx&__cookie=true
 		String sid = request.getParameter("__sid");
 		if (StringUtils.isNotBlank(sid)) {
