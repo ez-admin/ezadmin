@@ -150,7 +150,7 @@ http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcac
     <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
         <constructor-arg name="name" value="SHRIOSESSIONID"/>
     </bean>
-    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+    <bean id="sessionManager" class="com.ez.interceptor.shiro.session.SessionManager">
         <property name="globalSessionTimeout" value="1800000"/>
         <property name="deleteInvalidSessions" value="true"/>
         <property name="sessionValidationSchedulerEnabled" value="true"/>
