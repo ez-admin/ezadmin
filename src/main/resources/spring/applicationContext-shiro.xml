@@ -19,7 +19,7 @@ http://www.springframework.org/schema/context/spring-context-4.2.xsd">
         <!--<property name="rememberMeManager" ref="rememberMeManager"/>-->
     </bean>
     <!-- session管理器 -->
-    <bean id="sessionManager" class="com.ez.interceptor.shiro.session.SessionManager">
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
         <property name="sessionDAO" ref="sessionDAO"/>
         <!--单位：毫秒 30分钟-->
         <property name="globalSessionTimeout" value="1800000"/>
