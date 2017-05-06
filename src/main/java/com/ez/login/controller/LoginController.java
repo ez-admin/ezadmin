@@ -8,14 +8,8 @@ import com.ez.login.service.LoginService;
 import com.ez.system.entity.SysLog;
 import com.ez.system.entity.SysMenu;
 import com.ez.system.entity.SysUser;
-import com.ez.system.service.SysLogService;
-import com.ez.system.service.SysMenuService;
-import com.ez.system.service.SysRoleService;
-import com.ez.system.service.SysUserService;
-import com.ez.util.FormatDateUtil;
-import com.ez.util.PubConstants;
-import com.ez.util.RightsHelper;
-import com.ez.util.WebTool;
+import com.ez.system.service.*;
+import com.ez.util.*;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -29,6 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import static com.ez.util.Common.toIpAddr;
@@ -44,22 +40,21 @@ public class LoginController {
 	private SysUserService sysUserService;
 
 	@Resource
-	private SysRoleService sysRoleService;
-
-
-	@Resource
 	private SysLogService syslogService;
 
 	@Resource
 	private SysMenuService sysMenuService;
 
+	@Resource
+	private SysOptionService sysOptionService;
 	/**
 	 * 访问登录页
 	 * @return
 	 */
 	@RequestMapping(value="login_toLogin")
 	public String toLogin(Model model){
-		model.addAttribute("SYSNAME",PubConstants.SYSNAME);//读取系统名称
+		String sysname= sysOptionService.getById("systemName").getOptionValue();
+		model.addAttribute(PubConstants.SYSNAME,sysname);//读取系统名称
 		return "ez/index/login";
 	}
 
@@ -79,12 +74,21 @@ public class LoginController {
 			//shiro管理的session
 			Subject currentUser = SecurityUtils.getSubject();//当前用户
 			Session session = currentUser.getSession();
+			//当前用户存入session
 			session.setAttribute(PubConstants.SESSION_SYSUSER, user);
 			session.setAttribute(PubConstants.SESSION_LOGNM,user.getLognm());
 
-			/*SysRole sysrole = sysRoleService.getById(user.getRlid());
-			String roleRights = sysrole!=null ? sysrole.getRights() : "";*/
-			//System.out.println("roleRights = " + roleRights);
+			//系统分页每页显示数
+			String systemBackPageSize=sysOptionService.getById(PubConstants.SESSION_SYSTEMBACKPAGESIZE).getOptionValue();
+			if(null == session.getAttribute(PubConstants.SESSION_SYSTEMBACKPAGESIZE)) {
+				if (Common.isEmpty(systemBackPageSize)){
+					systemBackPageSize="10";//默认10
+				}
+				session.setAttribute(PubConstants.SESSION_SYSTEMBACKPAGESIZE, systemBackPageSize);
+			}else {
+				systemBackPageSize=(String) session.getAttribute(PubConstants.SESSION_SYSTEMBACKPAGESIZE);
+			}
+
 			//避免每次拦截用户操作时查询数据库，以下将用户所属角色权限、用户权限限都存入session
 			String roleRights = user.getOpright();
 			session.setAttribute(PubConstants.SESSION_ROLE_RIGHTS, roleRights);//将角色权限存入session，暂时弃用
@@ -119,9 +123,7 @@ public class LoginController {
 				user.setLoginip(toIpAddr(request));
 				user.setLastlogin(FormatDateUtil.getFormatDate("yyyy-MM-dd HH:mm:ss"));
 				sysUserService.modify(user);
-
 			}
-
 		}else if(checkRslt == PubConstants.LOGIN_NOTEXIST){
 			result="{\"status\":false,\"message\":\"用户名不存在!\"}";
             log.setExceptionDetail("系统登录尝试"+sysUser.getLognm() + "用户名不存在");
@@ -163,16 +165,21 @@ public class LoginController {
 	@RequestMapping(value = "index")
 	public String index(Model model,HttpServletRequest request){
 		try {
-			model.addAttribute("SYSNAME",PubConstants.SYSNAME);//读取系统名称
-
 			//shiro管理的session
 			Subject currentUser = SecurityUtils.getSubject();
 			Session session = currentUser.getSession();
+			//系统名称
+			String sysname = sysOptionService.getById("systemName").getOptionValue();
+			model.addAttribute(PubConstants.SYSNAME,sysname);//读取系统名称
 
+			//获取session里的用户
 			SysUser sysuser = (SysUser)session.getAttribute(PubConstants.SESSION_SYSUSER);
 			if (sysuser != null) {
 				List<SysMenu> allmenuList =(List<SysMenu>)session.getAttribute(PubConstants.SESSION_allmenuList);
 				model.addAttribute("menulist",JSON.toJSONString(allmenuList));
+				//获取系统顶部信息
+				String sysfooter= sysOptionService.getById("systemFooter").getOptionValue();
+				model.addAttribute("footerContent",sysfooter);
 			}else {
 				return "ez/index/login";
 			}
@@ -198,7 +205,6 @@ public class LoginController {
 	 */
 	@RequestMapping(value="tab")
 	public String tab(Model model){
-		model.addAttribute("SYSNAME",PubConstants.SYSNAME);//读取系统名称
 		return "ez/index/main";
 	}
 
@@ -223,7 +229,9 @@ public class LoginController {
 		Subject subject = SecurityUtils.getSubject();
 		subject.logout();
 
-		model.addAttribute("SYSNAME",PubConstants.SYSNAME);//读取系统名称
+		//系统名称
+		String sysname = sysOptionService.getById("systemName").getOptionValue();
+		model.addAttribute(PubConstants.SYSNAME,sysname);//读取系统名称
 		return "ez/index/login";
 	}
 	

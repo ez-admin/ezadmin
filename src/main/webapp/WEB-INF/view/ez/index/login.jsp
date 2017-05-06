@@ -19,7 +19,7 @@ String basePath = request.getScheme() + "://"
 <body class="beg-login-bg">
 <div class="beg-login-box">
     <header>
-        <h1>ezAdmin后台管理系统</h1>
+        <h1>${SYSNAME}</h1>
     </header>
     <div class="beg-login-main">
         <form class="layui-form">

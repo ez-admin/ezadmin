@@ -74,7 +74,7 @@ layui.config({
 			//监听点击事件
 			navbar.on('click(side)', function(data) {
 				if(data!=null){
-					layer.msg(data.field.href);
+					//layer.msg(data.field.href);
 					tab.tabAdd(data.field);
 				}else {
 					layer.msg('暂无子菜单!');

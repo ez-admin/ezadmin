@@ -2,7 +2,7 @@ package com.ez.util;
 
 public class PubConstants {
 	/*系统相关配置*/
-	public static final String SYSNAME = "ez后台管理系统";//系统名称
+	public static final String SYSNAME = "SYSNAME";//系统名称
 	public static final String NO_INTERCEPTOR_PATH = ".*/((login)|(logout)|(code)|(app)|(weixin)|(static)|(main)|(websocket)).*";	//不对匹配该值的访问路径拦截（正则）
 	public static final String LOGIN = "/login_toLogin.do";				//登录地址
 	public static final String LOGININDEX = "/index.do";				//登录成功
@@ -16,6 +16,7 @@ public class PubConstants {
 	public static final String SESSION_FIRSTMENULIST= "firstmenulist";  //一级菜单
 	public static final String SESSION_SYSUSER = "sysuser";				//用户对象
 	public static final String SESSION_LOGNM = "lognm";			//用户名
+	public static final String SESSION_SYSTEMBACKPAGESIZE="systemBackPageSize";//系统分页每页显示数
 
 	/*停用启用开关*/
 	public static final String OPEN = "1";//启用

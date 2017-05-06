@@ -57,7 +57,7 @@
 			contentType: "application/x-www-form-urlencoded;charset=UTF-8",//请求数据内容格式 默认是 application/json 自己根据格式自行服务端处理
 			sortable: true,                     //是否启用排序
 			sortOrder: "asc",                   //排序方式
-			sortName: "oid",
+			sortName: "optionOrder",
 			queryParams: queryParams=function(params) {
 				var pageNum=params.offset/params.limit+1;
 				return $('#formSearch').serialize()+
@@ -67,7 +67,7 @@
 			},//传递参数（*）
 			sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
 			pageNumber:1,                       //初始化加载第一页，默认第一页
-			pageSize: 10,                       //每页的记录行数（*）
+			pageSize: ${systemBackPageSize},                       //每页的记录行数（*）
 			pageList: [10, 25, 50, 100 , 'All'],        //可供选择的每页的行数（*）
 			search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
 			strictSearch: true,

@@ -1,4 +1,5 @@
-﻿<div class="layui-header beg-layout-header">
+﻿<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<div class="layui-header beg-layout-header">
 	<div class="beg-layout-main beg-layout-logo">
 		<a href="ez/syslogin/index.do" target="_blank">
 			<span class="fs22">${SYSNAME}</span>
@@ -39,17 +40,19 @@
 				</a>
 				<dl class="layui-nav-child">
 					<dd>
-						<a href="javascript:;" data-tab="true" data-url='user.html'>
+						<a href="javascript:;" data-tab="true" data-url='ez/system/sysuser/persetting.do'>
 							<i class="fa fa-user-circle" aria-hidden="true"></i>
 							<cite>个人信息</cite>
 						</a>
 					</dd>
+					<shiro:hasPermission name="option_listmodify">
 					<dd>
-						<a href="javascript:;" data-tab="true" data-url="setting.html">
+						<a href="javascript:;" data-tab="true" data-url="ez/system/sysoption/listedit.do">
 							<i class="fa fa-gear" aria-hidden="true"></i>
 							<cite>设置</cite>
 						</a>
 					</dd>
+					</shiro:hasPermission>
 					<dd>
 						<a href="ez/syslogin/logout.do">
 							<i class="fa fa-sign-out" aria-hidden="true"></i>

@@ -4,38 +4,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>系统设置编辑</title>
+	<title>系统参数编辑</title>
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
 	<script type="text/javascript" src="/static/plugins/layui/layui.js" charset="utf-8"></script>
+	<style>
+		.layui-form-label {
+			width: 120px;
+		}
+		.layui-input-block {
+			margin-left: 150px;
+		}
+	</style>
 </head>
 <body>
 <div class="layui-field-box">
+	<blockquote class="layui-elem-quote">
+		<p>温馨提示：部分配置需重新登陆系统生效！</p>
+	</blockquote>
 	<form id="formid" class="layui-form">
-		<input type="hidden" name="oid" value="${sysoption.oid}"/>
+		<c:forEach items="${optionList}" var ="sysoption" varStatus="status">
+		<input type="hidden" value="${sysoption.oid}" name="sysOptionList[${status.index}].oid" >
 		<div class="layui-form-item layui-form-text">
-			<label class="layui-form-label">参数值：</label>
+			<label class="layui-form-label">${sysoption.optionName}：</label>
 			<div class="layui-input-block">
-				<textarea name="optionValue"  placeholder="请输入参数值" class="layui-textarea">${sysoption.optionValue}</textarea>
+				<input type="text" name="sysOptionList[${status.index}].optionValue" value="${sysoption.optionValue}"  placeholder="请输入${sysoption.optionName}" autocomplete="off" class="layui-input">
 			</div>
 		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">参数名称:</label>
-			<div class="layui-input-inline">
-				<input type="text" name="optionName" value="${sysoption.optionName}"  placeholder="请输入参数名称" autocomplete="off" class="layui-input">
+		</c:forEach>
+		<shiro:hasPermission name="option_listmodify">
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+					<button class="layui-btn" lay-submit lay-filter="edit">编辑</button>
+					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				</div>
 			</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">参数排序:</label>
-			<div class="layui-input-inline">
-				<input type="number" name="optionOrder" value="${sysoption.optionOrder}" class="layui-input">
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<div class="layui-input-block">
-				<button class="layui-btn" lay-submit lay-filter="edit">编辑</button>
-				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
-			</div>
-		</div>
+		</shiro:hasPermission>
 	</form>
 </div>
 <script>
@@ -49,7 +52,7 @@
 		form.on('submit(edit)', function(data){
 			//layer.msg(JSON.stringify(data.field));
 			$.ajax({
-				url: "/ez/system/sysoption/update.do",
+				url: "/ez/system/sysoption/updateList.do",
 				type: "POST",
 				data:$('#formid').serialize(),// 你的formid
 				success: function (result) {

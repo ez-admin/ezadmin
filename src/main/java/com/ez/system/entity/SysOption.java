@@ -27,7 +27,8 @@ public class SysOption extends BaseEntity implements java.io.Serializable{
 	public static final String ALIAS_OID = "参数id";
 	public static final String ALIAS_OPTION_VALUE = "参数值";
 	public static final String ALIAS_OPTION_NAME = "参数名称";
-	
+	public static final String ALIAS_OPTION_ORDER = "参数排序";
+
 	//date formats
 	
 	public SysOption(){
@@ -47,6 +48,8 @@ public class SysOption extends BaseEntity implements java.io.Serializable{
 	private String optionValue;
 	/**参数名称==>db_column: optionName*/
 	private String optionName;
+	/**参数排序==>db_column: optionOrder*/
+	private String optionOrder;
 	//columns END
 
 
@@ -72,11 +75,20 @@ public class SysOption extends BaseEntity implements java.io.Serializable{
 		return this.optionName;
 	}
 
+	public String getOptionOrder() {
+		return optionOrder;
+	}
+
+	public void setOptionOrder(String optionOrder) {
+		this.optionOrder = optionOrder;
+	}
+
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
 			.append("Oid",getOid())
 			.append("OptionValue",getOptionValue())
 			.append("OptionName",getOptionName())
+			.append("OptionOrder",getOptionOrder())
 			.toString();
 	}
 	

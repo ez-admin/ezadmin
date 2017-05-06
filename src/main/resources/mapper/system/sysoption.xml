@@ -14,18 +14,21 @@
 		<result property="oid" column="oId"/>
 		<result property="optionValue" column="optionValue"/>
 		<result property="optionName" column="optionName"/>
+		<result property="optionOrder" column="optionOrder"/>
 	</resultMap>
 	
 	<sql id="selectId">
 		oId,
-optionValue,
-optionName
+		optionValue,
+		optionName,
+		optionOrder
     </sql>
     
     <select id="findAll" resultMap="SysOption">
 		select
 		<include refid="selectId" />
 		from sys_option
+		ORDER BY  optionOrder
 	</select>
 	
 	<select id="query" resultMap="SysOption" parameterType="com.ez.system.entity.SysOption">
@@ -45,7 +48,9 @@ optionName
 		<if test="@Ognl@isNotEmpty(optionName)">
 			AND optionName like '%${optionName}%'
 		</if>
-
+		<if test="@Ognl@isNotEmpty(optionOrder)">
+			AND optionOrder like '%${optionOrder}%'
+		</if>
 	</where>
 	</sql>
 
@@ -60,11 +65,13 @@ optionName
 		INSERT INTO sys_option (
 			oId ,
         	optionValue ,
-        	optionName 
+        	optionName ,
+        	optionOrder
         ) VALUES (
 			#{oid} ,
         	#{optionValue} ,
-        	#{optionName} 
+        	#{optionName} ,
+        	#{optionOrder}
 
         )
 	</insert>
@@ -86,6 +93,9 @@ optionName
 			<if test="@Ognl@isNotEmpty(optionName)">
 				optionName,
 			</if>
+			<if test="@Ognl@isNotEmpty(optionOrder)">
+				optionOrder,
+			</if>
 		</trim>
 		<trim prefix=" values (" suffix=")" suffixOverrides="," >
 			<if test="@Ognl@isNotEmpty(oid)">
@@ -96,6 +106,9 @@ optionName
 			</if>
 			<if test="@Ognl@isNotEmpty(optionName)">
 				#{optionName},
+			</if>
+			<if test="@Ognl@isNotEmpty(optionOrder)">
+				#{optionOrder},
 			</if>
 		</trim>
 	</sql>
@@ -118,8 +131,9 @@ optionName
 	<update id="updateAll" parameterType="com.ez.system.entity.SysOption">
 	    UPDATE sys_option SET
 	        optionValue = #{optionValue} ,
-	        optionName = #{optionName} 
-        WHERE 
+	        optionName = #{optionName} ,
+	        optionOrder = #{optionOrder} ,
+        WHERE
 	        oId = #{oid} 
 	</update>
 	
@@ -130,6 +144,9 @@ optionName
 		</if>
 		<if test="@Ognl@isNotEmpty(optionName)">
 			optionName = #{optionName},
+		</if>
+		<if test="@Ognl@isNotEmpty(optionOrder)">
+			optionOrder = #{optionOrder},
 		</if>
     </set>
 	</sql>

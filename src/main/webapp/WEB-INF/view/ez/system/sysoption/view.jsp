@@ -32,6 +32,12 @@
 			</div>
 		</div>
 		<div class="layui-form-item">
+			<label class="layui-form-label">参数排序:</label>
+			<div class="layui-input-inline">
+				<input type="number" name="optionOrder" value="${sysoption.optionOrder}" class="layui-input layui-disabled">
+			</div>
+		</div>
+		<div class="layui-form-item">
 			<div class="layui-input-block">
 				<button class="layui-btn" onclick="top.layer.closeAll()">关闭</button>
 			</div>

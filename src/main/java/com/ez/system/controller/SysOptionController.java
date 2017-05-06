@@ -9,6 +9,7 @@ package com.ez.system.controller;
 
 import com.ez.annotation.SystemLogController;
 import com.ez.system.entity.SysOption;
+import com.ez.system.entity.SysOptionList;
 import com.ez.system.service.SysOptionService;
 import com.ez.util.WebTool;
 import com.github.pagehelper.Page;
@@ -61,6 +62,18 @@ public class SysOptionController {
 		return "/ez/system/sysoption/list";
 	}
 
+	/**
+	 * 跳到列表页面
+	 * @param
+	 * @return
+	 */
+	@RequestMapping(value="listedit")
+	@SystemLogController(description = "跳到系统设置修改列表页面")
+	public String listedit(Model model){
+		List<SysOption> optionList=sysOptionService.findAll();
+		model.addAttribute("optionList",optionList);
+		return "/ez/system/sysoption/listedit";
+	}
 	/**
 	 * 跳到新增页面
 	 * @return
@@ -169,7 +182,30 @@ public class SysOptionController {
 		 WebTool.writeJson(result, response);
 		 return null;		
 	}
-
+	/**
+	 * 更新修改的信息
+	 * @param model
+	 * @param sysOptionList
+	 * @return
+	 */
+	@RequestMapping(value="updateList",method=RequestMethod.POST)
+	@SystemLogController(description = "更新修改系统设置列表的信息")
+	public String updateList(Model model, SysOptionList sysOptionList, HttpServletResponse response){
+		String result="{\"msg\":\"suc\"}";
+		try {
+			List<SysOption> optionList=sysOptionList.getSysOptionList();
+			if (null != optionList && optionList.size()>0){
+				for (SysOption sysOption :optionList){
+					sysOptionService.modify(sysOption);
+				}
+			}
+		} catch (Exception e) {
+			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
+			e.printStackTrace();
+		}
+		WebTool.writeJson(result, response);
+		return null;
+	}
 	/**
 	 * 批量删除数据
 	 * @param response
