@@ -261,13 +261,17 @@
 		DELETE FROM sys_log WHERE
         id = #{id} 
 	</delete>
-	
-	<!-- 根据主键查实体 -->
+    <delete id="deleteThreeMonthBefore" parameterType="String">
+		DELETE FROM sys_log WHERE
+        createDate &lt; #{threeMonthBefore}
+	</delete>
+
+    <!-- 根据主键查实体 -->
 	<select id="getById" parameterType="String" resultType="com.ez.system.entity.SysLog">
 		SELECT <include refid="selectId" />
 		    FROM sys_log 
-	        WHERE 
-        id = #{id} 
+	        WHERE
+		 id = #{id}
 	</select>
 	
 	<!-- 更新all -->

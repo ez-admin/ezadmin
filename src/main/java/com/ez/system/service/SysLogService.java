@@ -30,4 +30,5 @@ public interface SysLogService{
 	
 	List<SysLog> findAll();
 
+    void deleteThreeMonthBefore(String threeMonthBefore);
 }

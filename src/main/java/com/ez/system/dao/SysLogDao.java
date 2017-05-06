@@ -5,6 +5,7 @@ import com.ez.base.BaseDao;
 import com.ez.system.entity.SysLog;
 import org.springframework.dao.DataAccessException;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,4 +16,5 @@ import java.util.List;
  */
 public interface SysLogDao extends BaseDao<SysLog> {
 
+    void deleteThreeMonthBefore(String threeMonthBefore);
 }

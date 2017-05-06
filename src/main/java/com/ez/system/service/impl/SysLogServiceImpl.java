@@ -112,5 +112,10 @@ public class SysLogServiceImpl implements SysLogService {
 	public List<SysLog> findAll() {
 		return sysLogDao.findAll();
 	}
-	
+
+    @Override
+    public void deleteThreeMonthBefore(String threeMonthBefore) {
+		sysLogDao.deleteThreeMonthBefore(threeMonthBefore);
+    }
+
 }

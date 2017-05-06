@@ -2,6 +2,9 @@ package com.ez.interceptor.shiro;
 
 
 import com.ez.system.entity.SysMenu;
+import com.ez.system.entity.SysUser;
+import com.ez.system.entity.SysUserRole;
+import com.ez.system.service.SysUserRoleService;
 import com.ez.util.PubConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -15,6 +18,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -23,8 +27,10 @@ import java.util.List;
  * @author fh
  *  2015-3-6
  */
+@Service
 public class ShiroRealm extends AuthorizingRealm {
 
+	private SysUserRoleService sysUserRoleService;
 	/*
 	 * 登录信息和用户验证信息验证(non-Javadoc)
 	 * @see org.apache.shiro.realm.AuthenticatingRealm#doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)
@@ -69,7 +75,11 @@ public class ShiroRealm extends AuthorizingRealm {
 				}
 			}
 		}
-
+		/*SysUser sysuser = (SysUser)session.getAttribute(PubConstants.SESSION_SYSUSER);
+		List<SysUserRole> sysUserRoleList=sysUserRoleService.findById(sysuser.getUserno());
+		for (SysUserRole role : sysUserRoleList){
+			info.addRole(role.getRoleId());
+		}*/
 		System.out.println("========2");
 
 		return info;

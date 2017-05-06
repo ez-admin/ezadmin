@@ -96,18 +96,15 @@ public class LoginServiceImpl implements LoginService {
 				checkRslt = PubConstants.LOGIN_ISLOGINED;
 				return checkRslt;
 			}*/
-
 		} catch (AuthenticationException e) {
 			e.printStackTrace();
-
 		}
 		//验证是否通过
-		if(currentUser.isAuthenticated()){
+		if(currentUser.isAuthenticated()){//已经登陆过来
 			checkRslt = PubConstants.LOGIN_SUCCESS;
-		}else{
+		}else{//未登录
 			checkRslt = PubConstants.LOGIN_ISAUTHEN;
 		}
-
 		// 登录成功后会跳转到successUrl配置的链接，不用管下面返回的链接。
 		return checkRslt;
 	}
