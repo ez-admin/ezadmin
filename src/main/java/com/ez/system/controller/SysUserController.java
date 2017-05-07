@@ -16,7 +16,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
-import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -255,11 +254,17 @@ public class SysUserController {
 		return null;
 	}
 
+	/**
+	 * 跳转个人信息设置页面
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="persetting")
 	@SystemLogController(description = "跳转个人信息设置页面")
 	public String persetting(Model model){
 		Session session=SecurityUtils.getSubject().getSession();
 		SysUser sysUser=(SysUser)session.getAttribute(PubConstants.SESSION_SYSUSER);
+		SysUser sysuser=sysUserService.getById(sysUser.getUserno());
 		String companyList=sysOrgService.findAllCompany(sysUser.getCompanyno());
 		String dptList=sysOrgService.findAllDpt(sysUser.getDptno());
 		model.addAttribute("sysuser", sysUser);

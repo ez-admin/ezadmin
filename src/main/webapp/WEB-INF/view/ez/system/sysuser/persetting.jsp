@@ -4,7 +4,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-	<title>个人信息修改</title>
+	<title>个人信息设置</title>
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
 	<style>
 		.layui-form-select{
@@ -44,19 +44,21 @@
 			<div class="layui-field-box">
 			<form id="formid" class="layui-form">
 				<input type="hidden" name="userno" value="${sysuser.userno}">
+				<input type="hidden" name="isused" value="${sysuser.isused}">
 				<div class="layui-form-item">
 					<label class="layui-form-label">用户名:</label>
-					<div class="layui-input-inline">
-						<input type="text" name="lognm"  value="${sysuser.lognm}" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
-					</div>
-					<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
-				</div>
-				<div class="layui-form-item">
-					<label class="layui-form-label">密码:</label>
-					<div class="layui-input-inline">
-						<input type="text" name="logpwd" value="${sysuser.logpwd}" lay-verify="required" placeholder="请输入密码" autocomplete="off"  class="layui-input">
-					</div>
-					<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
+					<c:if test="${sysuser.userno == 1000}">
+						<div class="layui-input-inline">
+							<input type="text" name="lognm"  value="${sysuser.lognm}" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input" readonly>
+						</div>
+						<div class="layui-form-mid layui-word-aux"><i class="fa fa-exclamation-triangle red"></i>系统开发人员不可以更改用户名！</div>
+					</c:if>
+					<c:if test="${sysuser.userno != 1000}">
+						<div class="layui-input-inline">
+							<input type="text" name="lognm"  value="${sysuser.lognm}" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+						</div>
+						<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
+					</c:if>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">所属公司:</label>
@@ -75,30 +77,6 @@
 						</select>
 					</div>
 					<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
-				</div>
-				<div class="layui-form-item">
-					<label class="layui-form-label">用户类型:</label>
-					<div class="layui-input-block">
-						<c:if test="${sysuser.optype ==0}">
-							<input type="radio" name="optype" value="0" title="系统用户" checked>
-							<input type="radio" name="optype" value="1" title="前台会员" >
-						</c:if>
-						<c:if test="${sysuser.optype ==1}">
-							<input type="radio" name="optype" value="0" title="系统用户" >
-							<input type="radio" name="optype" value="1" title="前台会员" checked>
-						</c:if>
-					</div>
-				</div>
-				<div class="layui-form-item">
-					<label class="layui-form-label">是否启用:</label>
-					<div class="layui-input-block">
-						<c:if test="${sysuser.isused ==1}">
-							<input type="checkbox" name="isused" value="1" lay-skin="switch" lay-text="是|否" checked>
-						</c:if>
-						<c:if test="${sysuser.isused ==0}">
-							<input type="checkbox" name="isused" value="1" lay-skin="switch" lay-text="是|否" >
-						</c:if>
-					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">真实姓名:</label>
@@ -150,7 +128,37 @@
 		</div>
 		</div>
 		<div class="layui-tab-item">
-			内容2
+			<form id="myform" class="layui-form">
+				<input type="hidden" name="userno" value="${sysuser.userno}">
+				<input type="hidden" name="isused" value="${sysuser.isused}">
+				<div class="layui-form-item">
+					<label class="layui-form-label">原密码:</label>
+					<div class="layui-input-inline">
+						<input type="password" id="oldlogpwd"  lay-verify="required" placeholder="请输入旧密码" autocomplete="off"  class="layui-input">
+					</div>
+					<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">新密码:</label>
+					<div class="layui-input-inline">
+						<input type="password" id="onenewpwd"  lay-verify="required" placeholder="请输入新密码" autocomplete="off"  class="layui-input">
+					</div>
+					<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">新密码确认:</label>
+					<div class="layui-input-inline">
+						<input type="password" id="twonewpwd" name="logpwd"  lay-verify="required" placeholder="请再次输入密码" autocomplete="off"  class="layui-input">
+					</div>
+					<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" lay-submit lay-filter="modify">编辑</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
@@ -196,7 +204,7 @@
 				});
 			}
 		});
-		//监听提交
+		//监听提交个人信息设置
 		form.on('submit(edit)', function(data){
 			//layer.msg(JSON.stringify(data.field));
 			$.ajax({
@@ -209,6 +217,43 @@
 						top.layer.closeAll();
 						top.layer.msg('修改成功!',{icon: 1});
                         location.reload();
+					}else{
+						top.layer.msg('修改失败!'+result.message,{icon: 2},function () {
+							location.reload();
+						});
+					}
+				}
+			});
+			return false;
+		});
+		//监听密码修改设置
+		form.on('submit(modify)', function(data){
+			//layer.msg(JSON.stringify(data.field));
+			var rightoldpwd='${sysuser.logpwd}';
+			var oldpwd=$("#oldlogpwd").val();
+			if (rightoldpwd != oldpwd){
+				top.layer.msg("原密码输入有误，请重新输入",{icon: 2});
+				$("#oldlogpwd").focus();
+				return false;
+			}
+			var onenewpwd=$('#onenewpwd').val();
+			var twonewpwd=$('#twonewpwd').val();
+			if (twonewpwd != onenewpwd){
+				top.layer.msg("新密码两次输入不一致，请重新输入",{icon: 2});
+				$("#twonewpwd").focus();
+				return false;
+			}
+
+			$.ajax({
+				url: "/ez/system/sysuser/update.do",
+				type: "POST",
+				data:$('#myform').serialize(),// 你的formid
+				success: function (result) {
+					if("suc"==(result.msg)){
+						//关闭窗口
+						top.layer.closeAll();
+						top.layer.msg('修改成功!',{icon: 1});
+						location.reload();
 					}else{
 						top.layer.msg('修改失败!'+result.message,{icon: 2},function () {
 							location.reload();
