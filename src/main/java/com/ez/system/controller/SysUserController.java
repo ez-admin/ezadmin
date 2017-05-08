@@ -272,5 +272,22 @@ public class SysUserController {
 		model.addAttribute("dptList",dptList);
 		return "/ez/system/sysuser/persetting";
 	}
+	@RequestMapping(value="usericon")
+	@SystemLogController(description = "设置个人头像")
+	public String usericon(Model model,HttpServletResponse response){
+		String result="{\"msg\":\"suc\"}";
+		try {
+			Session session=SecurityUtils.getSubject().getSession();
+			SysUser sysUser=(SysUser)session.getAttribute(PubConstants.SESSION_SYSUSER);
+			SysUser sysuser=sysUserService.getById(sysUser.getUserno());
+
+		} catch (Exception e) {
+			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
+			e.printStackTrace();
+		}
+		WebTool.writeJson(result, response);
+		return null;
+	}
+
 }
 

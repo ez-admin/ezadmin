@@ -6,7 +6,8 @@
 }
 .beg-layout-container .beg-layout-header{
 	background-color: #FFFFFF;
-	height: 55px;
+	/*height: 55px;*/
+	height: 60px;
 	position: fixed;
 	width: 100%;
 	min-width: 800px;
@@ -79,8 +80,11 @@
 .beg-layout-header .beg-layou-head{
 	
 }
-.beg-layout-header .beg-layou-head img{
+/*.beg-layout-header .beg-layou-head img{
 	width: 40px; height: 40px; border-radius: 100%;    
+}*/
+.avatar-view img{
+	width: 40px; height: 40px; border-radius: 100%;
 }
 
 .beg-layout-container .beg-layout-side{

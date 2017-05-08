@@ -166,7 +166,8 @@
 
 <script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
 <script type="text/javascript" src="/static/plugins/layui/layui.js" charset="utf-8"></script>
-<link rel="stylesheet" href="/static/plugins/select2tree/css/bootstrap.min.css" class="css">
+<%--select2tree plugins--%>
+<link rel="stylesheet" href="/static/plugins/bootstrap3.3.7/css/bootstrap.min.css" class="css">
 <link rel="stylesheet" href="/static/plugins/select2tree/css/select2.min.css" class="css">
 <link rel="stylesheet" href="/static/plugins/select2tree/css/select2-bootstrap.min.css" class="css">
 <script type="text/javascript" src="/static/plugins/select2tree/js/select2.min.js" charset="utf-8"></script>
