@@ -8,12 +8,10 @@ import com.ez.system.service.SysOrgService;
 import com.ez.system.service.SysRoleService;
 import com.ez.system.service.SysUserRoleService;
 import com.ez.system.service.SysUserService;
-import com.ez.util.FormatDateUtil;
-import com.ez.util.PubConstants;
-import com.ez.util.WaterIdGener;
-import com.ez.util.WebTool;
+import com.ez.util.*;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.shiro.SecurityUtils;
@@ -28,10 +26,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.io.FileOutputStream;
+import java.util.*;
 
 /**
  * @author chenez
@@ -317,13 +313,50 @@ public class SysUserController {
 			factory.setSizeThreshold(10000);
 			ServletFileUpload upload = new ServletFileUpload(factory);
 			upload.setHeaderEncoding("utf-8");
-			List<File> items;
+			List<FileItem> items;
 			Map<String,String> map = new HashMap<String, String>();
 			items = upload.parseRequest(request);
 			Iterator iter = items.iterator();
+			while (iter.hasNext()) {
+				FileItem item = (FileItem) iter.next();
+				if (!item.isFormField()) {
+					String fileName = item.getName();
+					if(Tools.notEmpty(fileName)){
+						System.out.println("fileName = " + fileName);
+						int index=fileName.lastIndexOf("\\");
+						if(index!=-1) {
+							fileName=fileName.substring(index+1);
+						}
+						//clntannx.setAnnxname(fileName);
+						String filedName1= UUID.randomUUID()+fileName.substring(fileName.lastIndexOf("."),fileName.length());
+						System.out.println("filedName1 = " + filedName1);
+						FileOutputStream fos;
+						String path=request.getSession().getServletContext().getRealPath("/")+"upload"+File.separator+filedName1;
+						map.put("path",path);
+						/*String path1="/upload/"+filedName1;
+						fos = new FileOutputStream(path);
+						map.put("filename",filedName1);
+						map.put("url",path1);
+						if(item.isInMemory()){
+							fos.write(item.get());
+							fos.close();
+						}else{
+							InputStream is=item.getInputStream();
+							byte[] buffer=new byte[1024];
+							int len;
+							while((len=is.read(buffer))>0){
+								fos.write(buffer,0,len);
+							}
+							is.close();
+							fos.close();
+						}*/
+					} //daishichen end
+				}
+			};
+			String image64=Tools.imageToBase64(map.get("path"));
+			result="{\"msg\":\"suc\",\"img\":\"" +image64+"\"}";
 
-			Session session=SecurityUtils.getSubject().getSession();
-			SysUser sysUser=(SysUser)session.getAttribute(PubConstants.SESSION_SYSUSER);
+
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();

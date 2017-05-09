@@ -171,14 +171,13 @@
 			//上传图片
 			layui.upload({
 				url: '/ez/system/sysuser/headicon.do',
-				before: function(input){
-					//返回的参数item，即为当前的input DOM对象
-					console.log(input);
-					console.log('文件上传中');
-				},
 				success: function(result){
-					console.log(result)
-					console.log('上传完毕');
+				    if(result.msg == "suc"){
+						$("#usericom").val(result.img);
+						$("#headicon").src=result.img;
+					}else{
+                        top.layer.msg('上传失败!'+result.message,{icon: 2});
+					}
 				}
 			});
 			//后台获取select值
