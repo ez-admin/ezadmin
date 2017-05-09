@@ -35,6 +35,10 @@
         .beg-layou-head #usericon,.beg-layou-head #username{
             float: left;
         }
+        .layui-nav-child a{
+            height: 40px;
+            line-height: 40px;
+        }
     </style>
     <%--layui--%>
 	<link rel="stylesheet" href="/static/plugins/layui/css/layui.css" media="all" />

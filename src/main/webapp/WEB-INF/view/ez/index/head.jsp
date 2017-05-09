@@ -38,7 +38,7 @@
 					<div id="usericon">
 						<!-- Current avatar -->
 						<div class="avatar-view"  title="头像设置">
-							<img src="/static/images/0.jpg" alt="Avatar" data-toggle="modal" data-target="#avatar-modal" >
+							<img src="${sysuser.usericom}" alt="Avatar" data-toggle="modal" data-target="#avatar-modal" >
 						</div>
 						<!-- Cropping modal -->
 						<div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1" style="display: none;">

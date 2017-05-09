@@ -28,11 +28,24 @@
 		.select2-container--bootstrap .select2-results>.select2-results__options {
 			max-height: 400px;
 		}
+		#headicon{
+			width: 40px;
+			height: 40px;
+			border-radius: 100%;
+		}
 	</style>
 </head>
 <body>
 	<div class="layui-field-box">
 		<form id="formid" class="layui-form">
+			<div class="layui-form-item">
+				<label class="layui-form-label">头像:</label>
+				<div class="layui-input-inline" >
+					<input type="hidden" name="usericom" id="usericom" value="/static/images/0.jpg">
+					<input type="file" lay-ext="jpg|png|gif" class="layui-upload-file">
+					<img id="headicon" src="/static/images/0.jpg">
+				</div>
+			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">用户名:</label>
 				<div class="layui-input-inline">
@@ -77,12 +90,6 @@
 				<label class="layui-form-label">是否启用:</label>
 				<div class="layui-input-block">
 					<input type="checkbox" name="isused" value="1" lay-skin="switch" lay-text="是|否" checked>
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">头像:</label>
-				<div class="layui-input-inline">
-					<input type="file" name="usericom" class="layui-upload-file" lay-title="上传图片">
 				</div>
 			</div>
 			<div class="layui-form-item">
@@ -161,7 +168,19 @@
 			var layer = layui.layer
 					,form = layui.form()
 					,$ = layui.jquery;
-
+			//上传图片
+			layui.upload({
+				url: '/ez/system/sysuser/headicon.do',
+				before: function(input){
+					//返回的参数item，即为当前的input DOM对象
+					console.log(input);
+					console.log('文件上传中');
+				},
+				success: function(result){
+					console.log(result)
+					console.log('上传完毕');
+				}
+			});
 			//后台获取select值
 			$.ajax({
 				url: '/ez/system/sysdictionary/getSdBySdtCode.do',

@@ -14,6 +14,8 @@ import com.ez.util.WaterIdGener;
 import com.ez.util.WebTool;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.springframework.stereotype.Controller;
@@ -25,7 +27,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -272,6 +276,13 @@ public class SysUserController {
 		model.addAttribute("dptList",dptList);
 		return "/ez/system/sysuser/persetting";
 	}
+
+	/**
+	 * 用户个人设置自己的头像
+	 * @param img
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping(value="usericon")
 	@SystemLogController(description = "设置个人头像")
 	public String usericon(String img,HttpServletResponse response){
@@ -284,9 +295,35 @@ public class SysUserController {
 				sysUser1.setUserno(sysUser.getUserno());
 				sysUser1.setUsericom(img);
 				sysUserService.modify(sysUser1);
+				sysUser.setUsericom(img);
 			}else {
 				result="{\"msg\":\"fail\",\"message\":\"图片数据传输失败，请联系管理员!\"}";
 			}
+		} catch (Exception e) {
+			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
+			e.printStackTrace();
+		}
+		WebTool.writeJson(result, response);
+		return null;
+	}
+	@RequestMapping(value="headicon")
+	@SystemLogController(description = "设置用户头像")
+	public String headicon(HttpServletRequest request,HttpServletResponse response){
+		String result="{\"msg\":\"suc\"}";
+		try {
+			DiskFileItemFactory factory = new DiskFileItemFactory();
+			// 当上传文件太大时，因为虚拟机能使用的内存是有限的，所以此时要通过临时文件来实现上传文件的保存
+			// 此方法是设置是否使用临时文件的临界值（单位：字节）
+			factory.setSizeThreshold(10000);
+			ServletFileUpload upload = new ServletFileUpload(factory);
+			upload.setHeaderEncoding("utf-8");
+			List<File> items;
+			Map<String,String> map = new HashMap<String, String>();
+			items = upload.parseRequest(request);
+			Iterator iter = items.iterator();
+
+			Session session=SecurityUtils.getSubject().getSession();
+			SysUser sysUser=(SysUser)session.getAttribute(PubConstants.SESSION_SYSUSER);
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
