@@ -85,18 +85,19 @@
 <script src="/static/plugins/cropper/js/sitelogo.js"></script>
 <script src="/static/plugins/cropper/js/html2canvas.min.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
+    var layer = layui.layer;
     //做个下简易的验证  大小 格式
     $('#avatarInput').on('change', function(e) {
         var filemaxsize = 1024 * 5;//5M
         var target = $(e.target);
         var Size = target[0].files[0].size / 1024;
         if(Size > filemaxsize) {
-            alert('图片过大，请重新选择!');
+            layer.msg("图片过大，请重新选择！", {icon: 7});
             $(".avatar-wrapper").childre().remove;
             return false;
         }
         if(!this.files[0].type.match(/image.*/)) {
-            alert('请选择正确的图片!')
+            layer.msg("请选择正确的图片！", {icon: 7});
         } else {
             var filename = document.querySelector("#avatar-name");
             var texts = document.querySelector("#avatarInput").value;
@@ -127,7 +128,8 @@
     function imagesAjax(src) {
         var data = {};
         data.img = src;
-        data.jid = $('#jid').val();
+        data.filename = $("#avatar-name").text();
+        console.log(data);
         $.ajax({
             url: "/ez/system/sysuser/usericon.do",
             data: data,
@@ -135,7 +137,11 @@
             dataType: 'json',
             success: function(result) {
                 if(result.msg == 'suc') {
+                    layer.msg('头像设置成功！', {icon: 1});
                     $('.avatar-view img').attr('src',src );
+                }else {
+                    //window.location.reload();
+                    layer.msg('头像设置失败！'+result.message, {icon: 2});
                 }
             }
         });

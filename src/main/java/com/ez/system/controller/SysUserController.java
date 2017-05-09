@@ -274,13 +274,19 @@ public class SysUserController {
 	}
 	@RequestMapping(value="usericon")
 	@SystemLogController(description = "设置个人头像")
-	public String usericon(Model model,HttpServletResponse response){
+	public String usericon(String img,HttpServletResponse response){
 		String result="{\"msg\":\"suc\"}";
 		try {
-			Session session=SecurityUtils.getSubject().getSession();
-			SysUser sysUser=(SysUser)session.getAttribute(PubConstants.SESSION_SYSUSER);
-			SysUser sysuser=sysUserService.getById(sysUser.getUserno());
-
+			if (null!=img){
+				Session session=SecurityUtils.getSubject().getSession();
+				SysUser sysUser=(SysUser)session.getAttribute(PubConstants.SESSION_SYSUSER);
+				SysUser sysUser1=new SysUser();
+				sysUser1.setUserno(sysUser.getUserno());
+				sysUser1.setUsericom(img);
+				sysUserService.modify(sysUser1);
+			}else {
+				result="{\"msg\":\"fail\",\"message\":\"图片数据传输失败，请联系管理员!\"}";
+			}
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
