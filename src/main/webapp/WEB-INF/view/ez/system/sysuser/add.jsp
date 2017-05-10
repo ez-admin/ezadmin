@@ -38,11 +38,18 @@
 <body>
 	<div class="layui-field-box">
 		<form id="formid" class="layui-form">
+			<input type="hidden" name="usericom" id="usericom" value="/static/images/0.jpg">
 			<div class="layui-form-item">
 				<label class="layui-form-label">头像:</label>
+				<%--<div class="site-demo-upload">
+					<img id="headicon" src="/static/images/0.jpg">
+					<div class="site-demo-upbar">
+						<input type="file" name="usericom" class="layui-upload-file" id="usericom">
+					</div>
+				</div>--%>
 				<div class="layui-input-inline" >
-					<input type="hidden" name="usericom" id="usericom" value="/static/images/0.jpg">
-					<input type="file" lay-ext="jpg|png|gif" class="layui-upload-file">
+            		<%--<input type="hidden" name="usericom" id="usericom" value="/static/images/0.jpg">--%>
+					<input type="file" name="file" lay-ext="jpg|png|gif" class="layui-upload-file">
 					<img id="headicon" src="/static/images/0.jpg">
 				</div>
 			</div>
@@ -171,10 +178,13 @@
 			//上传图片
 			layui.upload({
 				url: '/ez/system/sysuser/headicon.do',
+                method: 'post', //上传接口的http类型
 				success: function(result){
+                    console.log(result);
 				    if(result.msg == "suc"){
-						$("#usericom").val(result.img);
-						$("#headicon").src=result.img;
+				        console.log(result.img);
+						$("#usericom").attr("value",result.img);
+						$("#headicon").attr("src",result.img);
 					}else{
                         top.layer.msg('上传失败!'+result.message,{icon: 2});
 					}

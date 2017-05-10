@@ -12,15 +12,20 @@ import com.ez.util.*;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUpload;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FileUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import sun.misc.BASE64Encoder;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -302,61 +307,27 @@ public class SysUserController {
 		WebTool.writeJson(result, response);
 		return null;
 	}
-	@RequestMapping(value="headicon")
+	@RequestMapping(value="headicon",method = RequestMethod.POST)
 	@SystemLogController(description = "设置用户头像")
-	public String headicon(HttpServletRequest request,HttpServletResponse response){
+	public String headicon(@RequestParam("file") MultipartFile file, HttpServletRequest request, HttpServletResponse response){
 		String result="{\"msg\":\"suc\"}";
 		try {
-			DiskFileItemFactory factory = new DiskFileItemFactory();
-			// 当上传文件太大时，因为虚拟机能使用的内存是有限的，所以此时要通过临时文件来实现上传文件的保存
-			// 此方法是设置是否使用临时文件的临界值（单位：字节）
-			factory.setSizeThreshold(10000);
-			ServletFileUpload upload = new ServletFileUpload(factory);
-			upload.setHeaderEncoding("utf-8");
-			List<FileItem> items;
-			Map<String,String> map = new HashMap<String, String>();
-			items = upload.parseRequest(request);
-			Iterator iter = items.iterator();
-			while (iter.hasNext()) {
-				FileItem item = (FileItem) iter.next();
-				if (!item.isFormField()) {
-					String fileName = item.getName();
-					if(Tools.notEmpty(fileName)){
-						System.out.println("fileName = " + fileName);
-						int index=fileName.lastIndexOf("\\");
-						if(index!=-1) {
-							fileName=fileName.substring(index+1);
-						}
-						//clntannx.setAnnxname(fileName);
-						String filedName1= UUID.randomUUID()+fileName.substring(fileName.lastIndexOf("."),fileName.length());
-						System.out.println("filedName1 = " + filedName1);
-						FileOutputStream fos;
-						String path=request.getSession().getServletContext().getRealPath("/")+"upload"+File.separator+filedName1;
-						map.put("path",path);
-						/*String path1="/upload/"+filedName1;
-						fos = new FileOutputStream(path);
-						map.put("filename",filedName1);
-						map.put("url",path1);
-						if(item.isInMemory()){
-							fos.write(item.get());
-							fos.close();
-						}else{
-							InputStream is=item.getInputStream();
-							byte[] buffer=new byte[1024];
-							int len;
-							while((len=is.read(buffer))>0){
-								fos.write(buffer,0,len);
-							}
-							is.close();
-							fos.close();
-						}*/
-					} //daishichen end
-				}
-			};
-			String image64=Tools.imageToBase64(map.get("path"));
-			result="{\"msg\":\"suc\",\"img\":\"" +image64+"\"}";
-
-
+			// 判断文件是否为空
+			if (!file.isEmpty()) {
+				BASE64Encoder encoder = new BASE64Encoder();
+				// 通过base64来转化图片
+				String base64 = encoder.encode(file.getBytes());
+				//文件名称
+				String filename=file.getOriginalFilename();
+				//文件后缀名
+				//String suffix=filename.substring(filename.lastIndexOf(".")+1);
+				String contenttype=file.getContentType();
+				String databefore="data:"+contenttype+";base64,";
+				String data=databefore+base64;
+				//String data="/static/images/icons/test.png";
+				System.out.println("data = " + data);
+				result="{\"msg\":\"suc\",\"img\":\"" +data+"\"}";
+			}
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
