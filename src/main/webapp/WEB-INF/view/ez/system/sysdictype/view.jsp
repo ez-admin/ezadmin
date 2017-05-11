@@ -13,23 +13,23 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">类型编码:</label>
 			<div class="layui-input-inline">
-				<input type="text" value="${sysdictype.code}" name="code" class="layui-input layui-disabled">
+				<input type="text" value="${sysdictype.code}" name="code" class="layui-input" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">类型名称:</label>
 			<div class="layui-input-inline">
-				<input type="text" value="${sysdictype.name}" readonly class="layui-input layui-disabled">
+				<input type="text" value="${sysdictype.name}" readonly class="layui-input" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">是否启用:</label>
 			<div class="layui-input-switch">
 				<c:if test="${sysdictype.flag ==1}">
-					<input type="checkbox" name="flag" lay-skin="switch" disabled checked>
+					<input type="checkbox" name="flag" lay-skin="switch" lay-text="是|否" disabled checked>
 				</c:if>
 				<c:if test="${sysdictype.flag ==0}">
-					<input type="checkbox" name="flag" lay-skin="switch" disabled >
+					<input type="checkbox" name="flag" lay-skin="switch" lay-text="是|否" disabled >
 				</c:if>
 
 			</div>
@@ -37,7 +37,7 @@
 		<div class="layui-form-item layui-form-text">
 			<label class="layui-form-label">备注：</label>
 			<div class="layui-input-block">
-				<textarea name="remark" readonly class="layui-textarea layui-disabled">${sysdictype.remark}</textarea>
+				<textarea name="remark" readonly class="layui-textarea">${sysdictype.remark}</textarea>
 			</div>
 		</div>
 		<div class="layui-form-item">

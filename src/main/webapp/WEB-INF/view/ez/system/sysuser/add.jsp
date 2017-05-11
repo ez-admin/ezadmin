@@ -41,18 +41,10 @@
 			<input type="hidden" name="usericom" id="usericom" value="/static/images/0.jpg">
 			<div class="layui-form-item">
 				<label class="layui-form-label">头像:</label>
-				<%--<div class="site-demo-upload">
-					<img id="headicon" src="/static/images/0.jpg">
-					<div class="site-demo-upbar">
-						<input type="file" name="usericom" class="layui-upload-file" id="usericom">
-					</div>
-				</div>--%>
 				<div class="layui-input-inline" >
-            		<%--<input type="hidden" name="usericom" id="usericom" value="/static/images/0.jpg">--%>
 					<input type="file" name="file" lay-ext="jpg|png|gif" class="layui-upload-file">
-					<img id="headicon" src="/static/images/0.jpg">
+					<img id="headicon" src="/static/images/0.jpg" alt="头像">
 				</div>
-
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">用户名:</label>
@@ -184,14 +176,14 @@
                 method: 'post', //上传接口的http类型
 				before: function(input){
 					//返回的参数item，即为当前的input DOM对象
-					var index = layer.load({time: 30*1000});//30s
+                    top.layer.msg('正在上传，请勿操作！');
 				},
 				success: function(res,input){
-					console.log(input);
 				    if(res.msg == "suc"){
 						$("#usericom").attr("value",res.url);
 						$("#headicon").attr("src",res.url);
-					}else{
+                        top.layer.msg('上传成功！',{icon:1});
+                    }else{
                         top.layer.msg('上传失败!'+res.message,{icon: 2});
 					}
 				}

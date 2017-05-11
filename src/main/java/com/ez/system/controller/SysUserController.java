@@ -152,7 +152,7 @@ public class SysUserController {
 		SysUser sysuser = sysUserService.getById(userno);
 		String companyList=sysOrgService.findAllCompany(sysuser.getCompanyno());
 		String dptList=sysOrgService.findAllDpt(sysuser.getDptno());
-		model.addAttribute("sysuser", sysuser);
+		model.addAttribute("sysUser", sysuser);
 		model.addAttribute("companyList",companyList);
 		model.addAttribute("dptList",dptList);
 		if(typeKey == 1){

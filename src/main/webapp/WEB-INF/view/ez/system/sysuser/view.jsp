@@ -28,22 +28,33 @@
 		.select2-container--bootstrap .select2-results>.select2-results__options {
 			max-height: 400px;
 		}
+		#headicon{
+			width: 40px;
+			height: 40px;
+			border-radius: 100%;
+		}
 	</style>
 </head>
 <body>
 <div class="layui-field-box">
 	<form id="formid" class="layui-form">
 		<div class="layui-form-item">
+			<label class="layui-form-label">头像:</label>
+			<div class="layui-input-inline" >
+				<img id="headicon" src="${sysUser.usericom}" alt="头像">
+			</div>
+		</div>
+		<div class="layui-form-item">
 			<label class="layui-form-label">用户名:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="lognm"  value="${sysuser.lognm}" readonly class="layui-input">
+				<input type="text" name="lognm"  value="${sysUser.lognm}" readonly class="layui-input">
 			</div>
 			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">密码:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="logpwd" value="${sysuser.logpwd}" readonly class="layui-input">
+				<input type="text" name="logpwd" value="${sysUser.logpwd}" readonly class="layui-input">
 			</div>
 			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
@@ -68,11 +79,11 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">用户类型:</label>
 			<div class="layui-input-block">
-				<c:if test="${sysuser.optype ==0}">
+				<c:if test="${sysUser.optype ==0}">
 					<input type="radio" name="optype" value="0" title="系统用户" checked>
 					<input type="radio" name="optype" value="1" title="前台会员" disabled>
 				</c:if>
-				<c:if test="${sysuser.optype ==1}">
+				<c:if test="${sysUser.optype ==1}">
 					<input type="radio" name="optype" value="0" title="系统用户" disabled>
 					<input type="radio" name="optype" value="1" title="前台会员" checked>
 				</c:if>
@@ -90,10 +101,10 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">是否启用:</label>
 			<div class="layui-input-block">
-				<c:if test="${sysuser.isused ==1}">
+				<c:if test="${sysUser.isused ==1}">
 					<input type="checkbox" name="isused" lay-skin="switch" lay-text="是|否" disabled checked>
 				</c:if>
-				<c:if test="${sysuser.isused ==0}">
+				<c:if test="${sysUser.isused ==0}">
 					<input type="checkbox" name="isused" lay-skin="switch" lay-text="是|否" disabled >
 				</c:if>
 			</div>
@@ -101,7 +112,7 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">真实姓名:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="userrelnm" value="${sysuser.userrelnm}" readonly class="layui-input">
+				<input type="text" name="userrelnm" value="${sysUser.userrelnm}" readonly class="layui-input">
 			</div>
 			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
@@ -117,25 +128,25 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">年龄:</label>
 			<div class="layui-input-inline">
-				<input type="number" name="age" value="${sysuser.age}" readonly autocomplete="off" maxlength="3" class="layui-input">
+				<input type="number" name="age" value="${sysUser.age}" readonly autocomplete="off" maxlength="3" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">身份证号:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="idnum" value="${sysuser.idnum}" readonly class="layui-input">
+				<input type="text" name="idnum" value="${sysUser.idnum}" readonly class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">手机号码:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="mobile" value="${sysuser.mobile}" readonly class="layui-input">
+				<input type="text" name="mobile" value="${sysUser.mobile}" readonly class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">邮箱:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="email" value="${sysuser.email}" readonly class="layui-input">
+				<input type="text" name="email" value="${sysUser.email}" readonly class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
@@ -170,7 +181,7 @@
 		//后台获取select值
 		$.ajax({url: "/ez/system/sysdictionary/getSdBySdtCode.do",
 			type: "POST",
-			data:{code:1002,selected:'${sysuser.sex}'},
+			data:{code:1002,selected:'${sysUser.sex}'},
 			dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
 			success: function (result) {
 				$("#sex").append(result);

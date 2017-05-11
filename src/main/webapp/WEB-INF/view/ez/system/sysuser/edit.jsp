@@ -28,23 +28,36 @@
 		.select2-container--bootstrap .select2-results>.select2-results__options {
 			max-height: 400px;
 		}
+		#headicon{
+			width: 40px;
+			height: 40px;
+			border-radius: 100%;
+		}
 	</style>
 </head>
 <body>
 <div class="layui-field-box">
 	<form id="formid" class="layui-form">
-		<input type="hidden" name="userno" value="${sysuser.userno}">
+		<input type="hidden" name="userno" value="${sysUser.userno}">
+		<input type="hidden" name="usericom" id="usericom" value="${sysUser.usericom}">
+		<div class="layui-form-item">
+			<label class="layui-form-label">头像:</label>
+			<div class="layui-input-inline" >
+				<input type="file" name="file" lay-ext="jpg|png|gif" class="layui-upload-file">
+				<img id="headicon" src="${sysUser.usericom}" alt="头像">
+			</div>
+		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">用户名:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="lognm"  value="${sysuser.lognm}" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+				<input type="text" name="lognm"  value="${sysUser.lognm}" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
 			</div>
 			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">密码:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="logpwd" value="${sysuser.logpwd}" lay-verify="required" placeholder="请输入密码" autocomplete="off"  class="layui-input">
+				<input type="text" name="logpwd" value="${sysUser.logpwd}" lay-verify="required" placeholder="请输入密码" autocomplete="off"  class="layui-input">
 			</div>
 			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
@@ -69,11 +82,11 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">用户类型:</label>
 			<div class="layui-input-block">
-				<c:if test="${sysuser.optype ==0}">
+				<c:if test="${sysUser.optype ==0}">
 					<input type="radio" name="optype" value="0" title="系统用户" checked>
 					<input type="radio" name="optype" value="1" title="前台会员" >
 				</c:if>
-				<c:if test="${sysuser.optype ==1}">
+				<c:if test="${sysUser.optype ==1}">
 					<input type="radio" name="optype" value="0" title="系统用户" >
 					<input type="radio" name="optype" value="1" title="前台会员" checked>
 				</c:if>
@@ -82,10 +95,10 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">是否启用:</label>
 			<div class="layui-input-block">
-				<c:if test="${sysuser.isused ==1}">
+				<c:if test="${sysUser.isused ==1}">
 					<input type="checkbox" name="isused" value="1" lay-skin="switch" lay-text="是|否" checked>
 				</c:if>
-				<c:if test="${sysuser.isused ==0}">
+				<c:if test="${sysUser.isused ==0}">
 					<input type="checkbox" name="isused" value="1" lay-skin="switch" lay-text="是|否" >
 				</c:if>
 			</div>
@@ -93,7 +106,7 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">真实姓名:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="userrelnm" value="${sysuser.userrelnm}" lay-verify="required" class="layui-input">
+				<input type="text" name="userrelnm" value="${sysUser.userrelnm}" lay-verify="required" class="layui-input">
 			</div>
             <div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
@@ -109,25 +122,25 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">年龄:</label>
 			<div class="layui-input-inline">
-				<input type="number" name="age" value="${sysuser.age}" autocomplete="off" maxlength="3" class="layui-input">
+				<input type="number" name="age" value="${sysUser.age}" autocomplete="off" maxlength="3" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">身份证号:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="idnum" value="${sysuser.idnum}"  class="layui-input">
+				<input type="text" name="idnum" value="${sysUser.idnum}"  class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">手机号码:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="mobile" value="${sysuser.mobile}" class="layui-input">
+				<input type="text" name="mobile" value="${sysUser.mobile}" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">邮箱:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="email" value="${sysuser.email}" class="layui-input">
+				<input type="text" name="email" value="${sysUser.email}" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
@@ -162,14 +175,34 @@
 		});
 	});
 	//Demo
-	layui.use(['layer', 'form','jquery'], function(){
+	layui.use(['layer', 'form','jquery','upload','element'], function(){
 		var layer = layui.layer
 				,form = layui.form()
+				,element = layui.element()
 				,$ = layui.jquery;
+
+		//上传图片
+		layui.upload({
+			url: '/ez/system/sysuser/headicon.do',
+			method: 'post', //上传接口的http类型
+			before: function(input){
+				//返回的参数item，即为当前的input DOM对象
+				top.layer.msg('正在上传，请勿操作！');
+			},
+			success: function(res,input){
+				if(res.msg == "suc"){
+					$("#usericom").attr("value",res.url);
+					$("#headicon").attr("src",res.url);
+					top.layer.msg('上传成功！',{icon:1});
+				}else{
+					top.layer.msg('上传失败!'+res.message,{icon: 2});
+				}
+			}
+		});
 		//后台获取select值
 		$.ajax({url: "/ez/system/sysdictionary/getSdBySdtCode.do",
 			type: "POST",
-			data:{code:1002,selected:'${sysuser.sex}'},
+			data:{code:1002,selected:'${sysUser.sex}'},
 			dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
 			success: function (result) {
 				$("#sex").append(result);
