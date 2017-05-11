@@ -1,5 +1,6 @@
 package com.ez.system.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.ez.annotation.SystemLogController;
 import com.ez.system.entity.SysRole;
 import com.ez.system.entity.SysUser;
@@ -8,14 +9,12 @@ import com.ez.system.service.SysOrgService;
 import com.ez.system.service.SysRoleService;
 import com.ez.system.service.SysUserRoleService;
 import com.ez.system.service.SysUserService;
-import com.ez.util.*;
+import com.ez.util.FormatDateUtil;
+import com.ez.util.PubConstants;
+import com.ez.util.WaterIdGener;
+import com.ez.util.WebTool;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUpload;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.io.FileUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.springframework.stereotype.Controller;
@@ -30,9 +29,9 @@ import sun.misc.BASE64Encoder;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author chenez
@@ -79,13 +78,13 @@ public class SysUserController {
 
 	/**
 	 * 保存新增
-	 * @param model
 	 * @param sysuser
 	 * @return
 	 */
 	@RequestMapping(value="add")
-	public String add(Model model,SysUser sysuser,HttpServletResponse response,HttpServletRequest request){
-		String result="{\"msg\":\"suc\"}";
+	public String add(SysUser sysuser,HttpServletResponse response){
+		JSONObject jsonObject=new JSONObject();
+		jsonObject.put("msg","suc");
 		try {
 			String userno= WaterIdGener.getWaterId();
 			sysuser.setUserno(userno);
@@ -95,10 +94,11 @@ public class SysUserController {
 			sysuser.setUptdate(FormatDateUtil.getFormatDate("yyyy-MM-dd"));
 			sysUserService.add(sysuser);
 		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" + WebTool.getErrorMsg(e.getMessage())+"\"}";
+			jsonObject.put("msg","fail");
+			jsonObject.put("message",WebTool.getErrorMsg(e.getMessage()));
 			e.printStackTrace();
 		}
-		 WebTool.writeJson(result, response);
+		 WebTool.writeJson(jsonObject.toString(), response);
 		 return null;
 	}
 
@@ -121,20 +121,22 @@ public class SysUserController {
 	}
 	/**
 	 * 根据id删除
-	 * @param model
 	 * @param ids
 	 * @return
 	 */
 	@RequestMapping(value="deleteById",method=RequestMethod.POST)
-	public String deleteById(Model model,String ids, HttpServletResponse response){
-		String result="{\"status\":1,\"message\":\"删除成功！\"}";
+	public String deleteById(String ids, HttpServletResponse response){
+		JSONObject jsonObject=new JSONObject();
+		jsonObject.put("status",1);
+		jsonObject.put("message","删除成功！");
 		try{
 			sysUserService.delete(ids);
 		}catch(Exception e){
-			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
+			jsonObject.put("status",0);
+			jsonObject.put("message",WebTool.getErrorMsg(e.getMessage()));
 			e.printStackTrace();
 		}
-		WebTool.writeJson(result, response);
+		WebTool.writeJson(jsonObject.toString(), response);
 		return null;
 	}
 	
@@ -164,13 +166,13 @@ public class SysUserController {
 	
 	/**
 	 * 更新修改的信息
-	 * @param model
 	 * @param sysuser
 	 * @return
 	 */
 	@RequestMapping(value="update",method=RequestMethod.POST)
-	public String updateSysUser(Model model,SysUser sysuser,HttpServletResponse response){		
-		String result="{\"msg\":\"suc\"}";
+	public String updateSysUser(SysUser sysuser,HttpServletResponse response){
+		JSONObject jsonObject=new JSONObject();
+		jsonObject.put("msg","suc");
 		try {
 			if (!"1".equals(sysuser.getIsused())){
 				sysuser.setIsused("0");
@@ -178,10 +180,11 @@ public class SysUserController {
 			sysuser.setUptdate(FormatDateUtil.getFormatDate("yyyy-MM-dd"));
 			sysUserService.modify(sysuser);
 		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
+			jsonObject.put("msg","fail");
+			jsonObject.put("message",WebTool.getErrorMsg(e.getMessage()));
 			e.printStackTrace();
 		}
-		 WebTool.writeJson(result, response);
+		 WebTool.writeJson(jsonObject.toString(), response);
 		 return null;		
 		
 	}
@@ -189,24 +192,26 @@ public class SysUserController {
 	
 	/**
 	 * 批量删除数据
-	 * 
-	 * @param model
+	 *
 	 * @param ids
 	 * @return
 	 */
 	@RequestMapping(value = "deleteAll")
 	@SystemLogController(description = "批量删除角色数据")
-	public String deleteAll(String[] ids, Model model, HttpServletResponse response) {
-		String result = "{\"status\":1,\"message\":\"删除成功！\"}";
+	public String deleteAll(String[] ids,HttpServletResponse response) {
+		JSONObject jsonObject=new JSONObject();
+		jsonObject.put("status",1);
+		jsonObject.put("message","删除成功！");
 		try {
 			for (String id : ids) {
 				sysUserService.delete(id);
 			}
 		} catch (Exception e) {
-			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
+			jsonObject.put("status",0);
+			jsonObject.put("message",WebTool.getErrorMsg(e.getMessage()));
 			e.printStackTrace();
 		}
-		WebTool.writeJson(result, response);
+		WebTool.writeJson(jsonObject.toString(), response);
 		return null;
 	}
 
@@ -239,23 +244,24 @@ public class SysUserController {
 
 	/**
 	 * modify the roles and rights of user by chenez 20170430
-	 * @param model
 	 * @param sysUserRole
 	 * @param response
 	 * @param request
 	 * @return
 	 */
 	@RequestMapping(value="assignrole",method=RequestMethod.POST)
-	public String assignrole(Model model,SysUserRole sysUserRole,HttpServletResponse response,HttpServletRequest request){
-		String result="{\"msg\":\"suc\"}";
+	public String assignrole(SysUserRole sysUserRole,HttpServletResponse response,HttpServletRequest request){
+		JSONObject jsonObject=new JSONObject();
+		jsonObject.put("msg","suc");
 		try {
 			String[] roleIds = request.getParameterValues("roleId");
 			sysUserRoleService.assignrole(roleIds,sysUserRole);
 		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
+			jsonObject.put("msg","fail");
+			jsonObject.put("message",WebTool.getErrorMsg(e.getMessage()));
 			e.printStackTrace();
 		}
-		WebTool.writeJson(result, response);
+		WebTool.writeJson(jsonObject.toString(), response);
 		return null;
 	}
 
@@ -287,7 +293,8 @@ public class SysUserController {
 	@RequestMapping(value="usericon")
 	@SystemLogController(description = "设置个人头像")
 	public String usericon(String img,HttpServletResponse response){
-		String result="{\"msg\":\"suc\"}";
+		JSONObject jsonObject=new JSONObject();
+		jsonObject.put("msg","suc");
 		try {
 			if (null!=img){
 				Session session=SecurityUtils.getSubject().getSession();
@@ -298,41 +305,38 @@ public class SysUserController {
 				sysUserService.modify(sysUser1);
 				sysUser.setUsericom(img);
 			}else {
-				result="{\"msg\":\"fail\",\"message\":\"图片数据传输失败，请联系管理员!\"}";
+				jsonObject.put("msg","fail");
+				jsonObject.put("message","图片数据传输失败，请联系管理员!");
 			}
 		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
+			jsonObject.put("msg","fail");
+			jsonObject.put("message",WebTool.getErrorMsg(e.getMessage()));
 			e.printStackTrace();
 		}
-		WebTool.writeJson(result, response);
+		WebTool.writeJson(jsonObject.toString(), response);
 		return null;
 	}
 	@RequestMapping(value="headicon",method = RequestMethod.POST)
 	@SystemLogController(description = "设置用户头像")
-	public String headicon(@RequestParam("file") MultipartFile file, HttpServletRequest request, HttpServletResponse response){
-		String result="{\"msg\":\"suc\"}";
+	public String headicon(@RequestParam("file") MultipartFile file,HttpServletResponse response){
+		JSONObject jsonObject=new JSONObject();
+		jsonObject.put("msg","suc");
 		try {
 			// 判断文件是否为空
 			if (!file.isEmpty()) {
 				BASE64Encoder encoder = new BASE64Encoder();
 				// 通过base64来转化图片
 				String base64 = encoder.encode(file.getBytes());
-				//文件名称
-				String filename=file.getOriginalFilename();
-				//文件后缀名
-				//String suffix=filename.substring(filename.lastIndexOf(".")+1);
-				String contenttype=file.getContentType();
-				String databefore="data:"+contenttype+";base64,";
-				String data=databefore+base64;
-				//String data="/static/images/icons/test.png";
-				System.out.println("data = " + data);
-				result="{\"msg\":\"suc\",\"img\":\"" +data+"\"}";
+				//拼装imgsrcurl
+				String dataurl="data:"+file.getContentType()+";base64,"+base64;
+				jsonObject.put("url",dataurl);
 			}
 		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
+			jsonObject.put("msg","fail");
+			jsonObject.put("message",WebTool.getErrorMsg(e.getMessage()));
 			e.printStackTrace();
 		}
-		WebTool.writeJson(result, response);
+		WebTool.writeJson(jsonObject.toString(), response);
 		return null;
 	}
 

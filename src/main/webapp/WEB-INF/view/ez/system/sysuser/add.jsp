@@ -52,6 +52,7 @@
 					<input type="file" name="file" lay-ext="jpg|png|gif" class="layui-upload-file">
 					<img id="headicon" src="/static/images/0.jpg">
 				</div>
+
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">用户名:</label>
@@ -157,7 +158,7 @@
 	<script type="text/javascript" src="/static/plugins/select2tree/js/zh-CN.js" charset="utf-8"></script>
 	<script type="text/javascript" src="/static/plugins/select2tree/js/select2tree.js" charset="utf-8"></script>
 	<script>
-        //select2插件
+		//select2插件
 		$(function() {
 			$("#companyno").append('${companyList}');
 			$("#dptno").append('${dptList}');
@@ -171,22 +172,27 @@
 			});
 		});
 		//Demo
-		layui.use(['layer', 'form','jquery','upload'], function(){
+		layui.use(['layer', 'form','jquery','upload','element'], function(){
 			var layer = layui.layer
 					,form = layui.form()
+					,element = layui.element()
 					,$ = layui.jquery;
+
 			//上传图片
 			layui.upload({
 				url: '/ez/system/sysuser/headicon.do',
                 method: 'post', //上传接口的http类型
-				success: function(result){
-                    console.log(result);
-				    if(result.msg == "suc"){
-				        console.log(result.img);
-						$("#usericom").attr("value",result.img);
-						$("#headicon").attr("src",result.img);
+				before: function(input){
+					//返回的参数item，即为当前的input DOM对象
+					var index = layer.load({time: 30*1000});//30s
+				},
+				success: function(res,input){
+					console.log(input);
+				    if(res.msg == "suc"){
+						$("#usericom").attr("value",res.url);
+						$("#headicon").attr("src",res.url);
 					}else{
-                        top.layer.msg('上传失败!'+result.message,{icon: 2});
+                        top.layer.msg('上传失败!'+res.message,{icon: 2});
 					}
 				}
 			});
