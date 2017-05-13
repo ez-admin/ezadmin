@@ -548,10 +548,10 @@
           <path>${tomcat-path.version}</path>
           <port>${tomcat-port.version}</port>
           <uriEncoding>${tomcat-uri-encoding.version}</uriEncoding>
-          <url>http://localhost:8080/manager/text</url>
+       <!--   <url>http://localhost:8080/manager/text</url>
           <server>tomcat7</server>
           <username>admin</username>
-          <password>admin</password>
+          <password>admin</password>-->
         </configuration>
       </plugin>
 

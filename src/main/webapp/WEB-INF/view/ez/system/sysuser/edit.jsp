@@ -206,9 +206,10 @@
 			dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
 			success: function (result) {
 				$("#sex").append(result);
-				$("#sex").select2tree({
+                form.render('select');
+				/*$("#sex").select2tree({
 					placeholder: '请选择性别'
-				});
+				});*/
 			}
 		});
 		//监听提交

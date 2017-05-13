@@ -7,13 +7,13 @@
 	<title>用户/会员新增</title>
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
 	<style>
-		.layui-form-select{
+		.replaceselect .layui-form-select{
 			display: none;
 		}
-		.select2-search {
+		.replaceselect  .select2-search {
 			display: none;
 		}
-		.select2-search__field{
+		.replaceselect  .select2-search__field{
 			display: none;
 		}
 		.layui-form-label{
@@ -60,7 +60,7 @@
 				</div>
 				<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 			</div>
-			<div class="layui-form-item">
+			<div class="layui-form-item replaceselect">
 				<label class="layui-form-label">所属公司:</label>
 				<div class="layui-input-inline" style="width: 400px">
 					<select id="companyno" name="companyno" style="width: 100%" lay-verify="required" >
@@ -69,7 +69,7 @@
 				</div>
 				<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 			</div>
-			<div class="layui-form-item">
+			<div class="layui-form-item replaceselect" >
 				<label class="layui-form-label">所属部门:</label>
 				<div class="layui-input-inline" style="width: 400px">
 					<select id="dptno" name="dptno" style="width: 100%" lay-verify="required">
@@ -118,6 +118,35 @@
 				<label class="layui-form-label">身份证号:</label>
 				<div class="layui-input-inline">
 					<input type="text" name="idnum"  placeholder="请输入身份证号" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">地区</label>
+				<div class="layui-input-inline">
+					<select name="quiz1">
+						<option value="">请选择省</option>
+						<option value="浙江" selected="">浙江省</option>
+						<option value="你的工号">江西省</option>
+						<option value="你最喜欢的老师">福建省</option>
+					</select>
+				</div>
+				<div class="layui-input-inline">
+					<select name="quiz2">
+						<option value="">请选择市</option>
+						<option value="杭州">杭州</option>
+						<option value="宁波">宁波</option>
+						<option value="温州">温州</option>
+						<option value="温州">台州</option>
+						<option value="温州">绍兴</option>
+					</select>
+				</div>
+				<div class="layui-input-inline">
+					<select name="quiz3">
+						<option value="">请选择县/区</option>
+						<option value="西湖区">西湖区</option>
+						<option value="余杭区">余杭区</option>
+						<option value="拱墅区">临安市</option>
+					</select>
 				</div>
 			</div>
 			<div class="layui-form-item">
@@ -188,7 +217,7 @@
 					}
 				}
 			});
-			//后台获取select值
+			//后台获取sex-select值
 			$.ajax({
 				url: '/ez/system/sysdictionary/getSdBySdtCode.do',
 				type: "POST",
@@ -196,9 +225,10 @@
 				dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
 				success: function (result) {
 					$("#sex").append(result);
-					$("#sex").select2tree({
+                    form.render('select');
+					/*$("#sex").select2tree({
 						placeholder: '请选择性别'
-					});
+					});*/
 				}
 			});
 			//监听提交
