@@ -156,7 +156,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 		//shiro管理的session
 		Subject currentUser = SecurityUtils.getSubject();//当前用户
 		Session session = currentUser.getSession();
-		String roleRights=(String)session.getAttribute(PubConstants.SESSION_ROLE_RIGHTS);
+		String userRights=(String)session.getAttribute(PubConstants.SESSION_ROLE_RIGHTS);
 
 		List<MenuTitle> menuTitleList= sysMenuDao.getByParentId(parentid);
 		if (menuTitleList!=null && menuTitleList.size()>0){
@@ -167,7 +167,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 					menuTitle.setSpread(true);
 				}*/
 				//via rights to judge menu
-				menuTitle.setHasMenu(RightsHelper.testRights(roleRights, menuTitle.getId()));//菜单权限
+				menuTitle.setHasMenu(RightsHelper.testRights(userRights, menuTitle.getId()));//菜单权限
 				if (!menuTitle.isHasMenu()){
 					menuTitleList.remove(i);
 					i=i-1;
@@ -176,9 +176,9 @@ public class SysMenuServiceImpl implements SysMenuService {
 					if (menuTitles!=null && menuTitles.size()>0){
 						for (int j = 0; j < menuTitles.size(); j++) {
 							MenuTitle menutl=menuTitles.get(j);
-							menutl.setHasMenu(RightsHelper.testRights(roleRights, menutl.getId()));
+							menutl.setHasMenu(RightsHelper.testRights(userRights, menutl.getId()));
 							if (!menutl.isHasMenu()){
-								menuTitleList.remove(j);
+								menuTitles.remove(j);
 								j=j-1;
 							}
 						}
@@ -188,55 +188,6 @@ public class SysMenuServiceImpl implements SysMenuService {
 
 			}
 		}
-		/*if (menuTitleList!=null && menuTitleList.size()>0){
-			result = "[";
-			for (int i = 0; i < menuTitleList.size(); i++) {
-				MenuTitle menuTitle=menuTitleList.get(i);
-				menuTitle.setHasMenu(RightsHelper.testRights(roleRights, menuTitle.getId()));
-				if (!menuTitle.isHasMenu()){
-					menuTitleList.remove(i);
-					i=i-1;
-					result=result.substring(0,result.length()-2);
-				}else {
-					result+="{" +"\""+"title"+ "\""+ ":"+"\""+menuTitle.getTitle() + "\"" + ","
-							+"\""+"icon"+ "\""+ ":"+"\""+menuTitle.getIcon() + "\"" + ",";
-					//查看下级菜单 目前系统只支持左侧两级菜单
-					List<MenuTitle> menuTitles= sysMenuDao.getByParentId(menuTitle.getId().toString());
-					if (menuTitles!=null && menuTitles.size()>0){
-
-						result+= "\""+"spread"+ "\""+ ":"+false +",";
-
-						result+="\""+"children"+ "\""+ ":[";
-						for (int j = 0; j < menuTitles.size(); j++) {
-							MenuTitle menutl=menuTitles.get(j);
-							menutl.setHasMenu(RightsHelper.testRights(roleRights, menutl.getId()));
-							if (!menutl.isHasMenu()){
-								menuTitles.remove(j);
-								j=j-1;
-								result=result.substring(0,result.length()-2);
-							}else {
-								result+= "{" +"\""+"title"+ "\""+ ":"+"\""+menutl.getTitle() + "\"" + ","
-										+"\""+"icon"+ "\""+ ":"+"\""+menutl.getIcon() + "\"" + ","
-										+"\""+"href"+ "\""+ ":"+"\""+menutl.getHref() + "\"";
-							}
-							if(j== menuTitles.size()-1){//last one
-								result+="}]";
-							}else {
-								result+="},";
-							}
-						}
-					}else {
-						result+= "\""+"href"+ "\""+ ":"+"\""+menuTitle.getHref() + "\"";
-					}
-				}
-				if (i == menuTitleList.size()-1){
-					result+= "}]";
-				}else {
-					result+= "},";
-				}
-			}
-			System.out.println("result = " + result);
-		}*/
 		result=JSON.toJSONString(menuTitleList);
 		System.out.println("resultmenujson = " + result);
 		return result;

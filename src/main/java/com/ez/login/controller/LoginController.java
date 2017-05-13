@@ -90,15 +90,15 @@ public class LoginController {
 			}
 
 			//避免每次拦截用户操作时查询数据库，以下将用户所属角色权限、用户权限限都存入session
-			String roleRights = user.getOpright();
-			session.setAttribute(PubConstants.SESSION_ROLE_RIGHTS, roleRights);//将角色权限存入session，暂时弃用
+			String userRights = user.getOpright();
+			session.setAttribute(PubConstants.SESSION_ROLE_RIGHTS, userRights);//将角色权限存入session，暂时弃用
 
 			//一级菜单
 			List<MenuTitle> menuTitleList=sysMenuService.findFisrtMenu();
 			if (menuTitleList!=null && menuTitleList.size()>0) {
 				for (int i = 0; i < menuTitleList.size(); i++) {
 					MenuTitle menuTitle=menuTitleList.get(i);
-					menuTitle.setHasMenu(RightsHelper.testRights(roleRights, menuTitle.getId()));
+					menuTitle.setHasMenu(RightsHelper.testRights(userRights, menuTitle.getId()));
 					if (!menuTitle.isHasMenu()){
 						menuTitleList.remove(i);//删除指定索引位置的元素，返回删除的元素
 						i=i-1;
@@ -110,7 +110,7 @@ public class LoginController {
 			List<SysMenu> allmenuList=sysMenuService.findAllList();
 			if(null == session.getAttribute(PubConstants.SESSION_allmenuList)) {
 				for (SysMenu sysMenu : allmenuList) {
-					sysMenu.setHasMenu(RightsHelper.testRights(roleRights, sysMenu.getMenuId()));
+					sysMenu.setHasMenu(RightsHelper.testRights(userRights, sysMenu.getMenuId()));
 					//System.out.println("sysMenu = " + sysMenu.toString());
 				}
 				session.setAttribute(PubConstants.SESSION_allmenuList, allmenuList);
@@ -192,7 +192,7 @@ public class LoginController {
 
 	@RequestMapping(value="moremenu/{parentid}",method= RequestMethod.GET)
 	@ResponseBody
-	public String deleteById(Model model, HttpServletResponse response,
+	public String getByParentId(Model model, HttpServletResponse response,
 							 @PathVariable("parentid")  String parentid){
 		String result=sysMenuService.getByParentId(parentid);
 		WebTool.writeJson(result, response);

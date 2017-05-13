@@ -15,6 +15,7 @@ import com.ez.system.entity.SysMenu;
 import com.ez.system.entity.SysUser;
 import com.ez.system.entity.SysUserRole;
 import com.ez.system.service.SysUserRoleService;
+import com.ez.util.Common;
 import com.ez.util.RightsHelper;
 import com.ez.util.Tools;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,31 +62,8 @@ public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRole> impleme
                     sysMenu.setHasMenu(ishasmenu);
                 }
             }
-            System.out.println("roleRights = " + roleRights);
         }
-        String menulist="";
-        for (int i = 0; i <allmenuList.size() ; i++) {
-            SysMenu sysMenu=allmenuList.get(i);
-            if (sysMenu.isHasMenu()){
-                allmenuList.remove(i);
-                i=i-1;
-                if(i!=allmenuList.size()){
-                    menulist += sysMenu.getMenuId()+",";
-                }else{
-                    menulist += sysMenu.getMenuId();
-                }
-            }
-        }
-        String rights="";
-        if (Tools.notEmpty(menulist)){
-            rights = RightsHelper.sumRights(Tools.str2StrArray(menulist)).toString();
-        }
-        /*int size=allmenuList.size();
-        String[] array = (String[])allmenuList.toArray(new String[size]);
-        String rights = RightsHelper.sumRights(array).toString();*/
-
-        System.out.println("rights = " + rights);
-
+        String rights= Common.listMenutoRight(allmenuList);
         SysUser sysuser=new SysUser();
         sysuser.setUserno(sysUserRole.getUserno());
         sysuser.setOpright(rights);

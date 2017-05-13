@@ -6,11 +6,18 @@
 
 package com.ez.system.service.impl;
 
+import com.ez.system.dao.SysMenuDao;
 import com.ez.system.dao.SysRoleDao;
 import com.ez.system.dao.SysUserDao;
+import com.ez.system.dao.SysUserRoleDao;
+import com.ez.system.entity.SysMenu;
 import com.ez.system.entity.SysRole;
+import com.ez.system.entity.SysUser;
+import com.ez.system.entity.SysUserRole;
 import com.ez.system.service.SysRoleService;
+import com.ez.util.Common;
 import com.ez.util.PubConstants;
+import com.ez.util.RightsHelper;
 import com.ez.util.UuidUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -20,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -36,6 +44,10 @@ public class SysRoleServiceImpl implements SysRoleService {
 	private SysRoleDao sysRoleDao;
 	@Resource
 	private SysUserDao sysUserDao;
+	@Resource
+	private SysUserRoleDao sysUserRoleDao;
+	@Resource
+	private SysMenuDao sysMenuDao;
 
 	/**
 	 * 分页查询
@@ -128,12 +140,45 @@ public class SysRoleServiceImpl implements SysRoleService {
 	
 	/**
 	 * 修改实体类
+	 * 更改角色的权限rights时，由于用户设置了多角色，但每个用户设置了多个角色合并的rights；
+	 * 因此，在更改角色rights时，应当一并更改该角色下的用户的rights
 	 * @param sysRole
 	 * @return
+	 */
+	/**
+	 * Created by chenez on 2017/5/13 20:26
 	 */
 	//@PreAuthorize("hasRole('ROLE_*')")
 	public void modify(SysRole sysRole) {
 		sysRoleDao.modify(sysRole);
+		//查询拥有该角色的用户列表
+		List<SysUserRole> sysUserRoleList=sysUserRoleDao.findByRoleid(sysRole.getRoleId());
+		if (null!=sysUserRoleList && sysUserRoleList.size()>0){
+			for (int i = 0; i < sysUserRoleList.size(); i++) {
+				List<SysMenu> allmenuList=new ArrayList<SysMenu>();
+				//查询每个用户列表下的角色rights
+				SysUserRole sysUserRole=sysUserRoleList.get(i);
+				List<SysUserRole> sysUserRoles=sysUserRoleDao.findById(sysUserRole.getUserno());
+				if (null!=sysUserRoles && sysUserRoles.size()>0){
+					allmenuList=sysMenuDao.findAllList();
+					for (int j = 0; j < sysUserRoles.size(); j++) {
+						//获取每个角色rights
+						String roleRights=sysRoleDao.getById(sysUserRoles.get(j).getRoleId()).getRights();
+						for (SysMenu sysMenu : allmenuList) {
+							Boolean ishasmenu= RightsHelper.testRights(roleRights, sysMenu.getMenuId());
+							if (!sysMenu.isHasMenu()){
+								sysMenu.setHasMenu(ishasmenu);
+							}
+						}
+					}
+				}
+				String rights= Common.listMenutoRight(allmenuList);
+				SysUser sysuser=new SysUser();
+				sysuser.setUserno(sysUserRole.getUserno());
+				sysuser.setOpright(rights);
+				sysUserDao.modify(sysuser);
+			}
+		}
 	}
 
 	/**

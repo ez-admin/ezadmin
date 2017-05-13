@@ -253,7 +253,7 @@
 	});
 	//操作区
 	function operateFormatter(value, row, index) {
-		if (row.userno!="1000") {
+		/*if (row.userno!="1000") {*/
 			return [
 				'<a class="assignrolelist" href="javascript:void(0)" title="分配角色">',
 				'分配角色  ',
@@ -274,7 +274,7 @@
 				'</a>'
 				</shiro:hasPermission>
 			].join('');
-		}else {
+		/*}else {
 			return [
 				<shiro:hasPermission name="sysuser_view">
 				'<a class="view" href="javascript:void(0)" title="查看">',
@@ -282,7 +282,7 @@
 				'</a>'
 				</shiro:hasPermission>
 			].join('');
-		}
+		}*/
 	};
 	//操作区事件
 	window.operateEvents = {

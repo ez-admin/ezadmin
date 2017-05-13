@@ -104,7 +104,7 @@ ROLE_ID
 		SELECT <include refid="selectId" />
 		FROM sys_user_role
 		WHERE
-		roleId = #{ids}
+		ROLE_ID = #{ids}
 	</select>
 
     <!-- 更新all -->

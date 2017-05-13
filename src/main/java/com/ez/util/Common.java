@@ -1,6 +1,8 @@
 package com.ez.util;
 
 
+import com.ez.system.entity.SysMenu;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.math.BigDecimal;
@@ -281,16 +283,6 @@ public class Common {
 		return gc;
 	}
 	
-	public  static Long getOverdueDays(Date endDate){
-		
-		long  diff = (new Date().getTime())-endDate.getTime();
-		
-		 long days = diff / (1000 * 60 * 60 * 24); 
-		 
-		 return days;
-		
-	}
-	
 	/**
 	* @author doukang
 	* @Title: getBetweenDays 
@@ -342,6 +334,32 @@ public class Common {
 		return new BigDecimal(nf.format(num));
 	}
 
+	/**
+	 * Created by chenez on 2017/5/13 21:02
+	 * 把MenuList转为rights权限
+	 * @param sysMenuList
+	 * @return
+	 */
+	public static String listMenutoRight(List<SysMenu> sysMenuList){
+		String menulist="";
+		for (int i = 0; i <sysMenuList.size() ; i++) {
+			SysMenu sysMenu=sysMenuList.get(i);
+			if (sysMenu.isHasMenu()){
+				sysMenuList.remove(i);
+				i=i-1;
+				if(i!=sysMenuList.size()){
+					menulist += sysMenu.getMenuId()+",";
+				}else{
+					menulist += sysMenu.getMenuId();
+				}
+			}
+		}
+		String rights="";
+		if (Tools.notEmpty(menulist)){
+			rights = RightsHelper.sumRights(Tools.str2StrArray(menulist)).toString();
+		}
+		return rights;
+	}
 	public static void main(String[] args) {
 		
 	 

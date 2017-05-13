@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="com.ez.system.dao.SysCityDao">
+
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+	<!--<cache type="org.mybatis.caches.ehcache.EhcacheCache" />-->
+
+	<resultMap id="SysCity" type="com.ez.system.entity.SysCity">
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="url" column="url"/>
+		<result property="leaf" column="leaf"/>
+		<result property="parentId" column="parentId"/>
+	</resultMap>
+	
+	<sql id="selectId">
+		id,
+name,
+url,
+leaf,
+parentId
+    </sql>
+    
+    <select id="findAll" resultMap="SysCity">
+		select
+		<include refid="selectId" />
+		from sys_city
+	</select>
+	
+	<select id="query" resultMap="SysCity" parameterType="com.ez.system.entity.SysCity">
+		select
+		<include refid="selectId" />
+		from sys_city
+		<include refid="querywhere"/>
+	</select>
+	
+	<sql id="querywhere">
+	<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+	<where>
+		<if test="@Ognl@isNotEmpty(name)">
+			AND name like '%${name}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(url)">
+			AND url like '%${url}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(leaf)">
+			AND leaf like '%${leaf}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(parentId)">
+			AND parentId = '${parentId}'
+		</if>
+	</where>
+	</sql>
+
+	<!-- 总记录数 -->
+	<select id="count" parameterType="com.ez.system.entity.SysCity" resultType="int">
+		select count(0) from sys_city
+		<include refid="querywhere"/>
+	</select>
+	
+	<!-- 新增 -->
+	<insert id="addAll" parameterType="com.ez.system.entity.SysCity">
+		<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="id" >
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		INSERT INTO sys_city (
+        	name ,
+        	url ,
+        	leaf ,
+        	parentId 
+        ) VALUES (
+        	#{name} ,
+        	#{url} ,
+        	#{leaf} ,
+        	#{parentId} 
+        )
+	</insert>
+	
+	<!-- 新增Selective -->
+	<insert id="add" parameterType="com.ez.system.entity.SysCity">
+		<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="id" >
+			SELECT LAST_INSERT_ID() AS ID
+		</selectKey>
+		INSERT INTO sys_city
+		<include refid="addtrim"/>
+	</insert>
+	
+	<sql id="addtrim">
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(name)">
+				name,
+			</if>
+			<if test="@Ognl@isNotEmpty(url)">
+				url,
+			</if>
+			<if test="@Ognl@isNotEmpty(leaf)">
+				leaf,
+			</if>
+			<if test="@Ognl@isNotEmpty(parentId)">
+				parentId,
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(name)">
+				#{name},
+			</if>
+			<if test="@Ognl@isNotEmpty(url)">
+				#{url},
+			</if>
+			<if test="@Ognl@isNotEmpty(leaf)">
+				#{leaf},
+			</if>
+			<if test="@Ognl@isNotEmpty(parentId)">
+				#{parentId},
+			</if>
+		</trim>
+	</sql>
+	
+	<!-- 删 -->
+	<delete id="delete" parameterType="String">
+		DELETE FROM sys_city WHERE
+		id = #{id} 
+	</delete>
+	
+	<!-- 根据主键查实体 -->
+	<select id="getById" parameterType="String" resultMap="SysCity">
+		SELECT <include refid="selectId" />
+		    FROM sys_city 
+	        WHERE 
+        id = #{id} 
+	</select>
+	
+	<!-- 更新all -->
+	<update id="updateAll" parameterType="com.ez.system.entity.SysCity">
+	    UPDATE sys_city SET
+	        name = #{name} ,
+	        url = #{url} ,
+	        leaf = #{leaf} ,
+	        parentId = #{parentId} 
+        WHERE 
+	        id = #{id} 
+	</update>
+	
+	<sql id="updateset">
+	<set>
+		<if test="@Ognl@isNotEmpty(name)">
+			name = #{name},
+		</if>
+		<if test="@Ognl@isNotEmpty(url)">
+			url = #{url},
+		</if>
+		<if test="@Ognl@isNotEmpty(leaf)">
+			leaf = #{leaf},
+		</if>
+		<if test="@Ognl@isNotEmpty(parentId)">
+			parentId = #{parentId},
+		</if>
+    </set>
+	</sql>
+	
+	<!-- 更新Selective -->
+	<update id="modify" parameterType="com.ez.system.entity.SysCity">
+	    UPDATE sys_city 
+		<include refid="updateset"/>
+        WHERE 
+	        id = #{id} 
+	</update>
+	
+</mapper>
+
