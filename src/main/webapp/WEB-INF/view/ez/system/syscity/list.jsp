@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>城市信息表列表</title>
+	<title>城市区域列表</title>
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
 	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap.min.css">
 	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap-table.css">
@@ -13,28 +13,26 @@
 <form class="layui-form" id="formSearch">
 	<shiro:hasPermission name="syscity_query">
 	<div class="layui-input-inline">
-		<input id="name" name="name" placeholder="请输入城市名" type="text" class="layui-input-quote" maxlength="20" autocomplete="off">
+		<input id="name" name="name" placeholder="请输入区域名" type="text" class="layui-input-quote" maxlength="20" autocomplete="off">
 	</div>
-	<div class="layui-input-inline">
+	<%--<div class="layui-input-inline">
 		<input id="url" name="url" placeholder="请输入url地址" type="text" class="layui-input-quote" maxlength="50" autocomplete="off">
 	</div>
 	<div class="layui-input-inline">
 		<input id="leaf" name="leaf" placeholder="请输入是否最明细科目（0否1是）" type="text" class="layui-input-quote" maxlength="1" autocomplete="off">
+	</div>--%>
+	<div class="layui-input-inline">
+		<input id="id" name="id" placeholder="请输入区域id" type="text" class="layui-input-quote" maxlength="10" autocomplete="off">
 	</div>
 	<div class="layui-input-inline">
-		<input id="parentId" name="parentId" placeholder="请输入父级id" type="text" class="layui-input-quote" maxlength="10" autocomplete="off">
+		<input id="parentId" name="parentId" placeholder="请输入区域父级id" type="text" class="layui-input-quote" maxlength="10" autocomplete="off">
 	</div>
 
 	<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
 	</shiro:hasPermission>
 	<shiro:hasPermission name="syscity_add">
 		<button id="btn_add" type="button" class="layui-btn layui-btn-small">
-			<i class="fa fa-plus"></i>新增
-		</button>
-	</shiro:hasPermission>
-	<shiro:hasPermission name="syscity_deleteall">
-		<button id="btn_delete" type="button" class="layui-btn layui-btn-small">
-			<i class="fa fa-remove"></i>批量删除
+			<i class="fa fa-plus"></i>新增一级区域
 		</button>
 	</shiro:hasPermission>
 </form>
@@ -91,15 +89,27 @@
 			columns: [
 				{checkbox: true, width:'2%'},
 				{field: '', title: '序号', align: 'center', width:'5%', formatter: function (value, row, index) {return index+1;}},
-				{field: 'name', title: '城市名', align: 'center', width:'17%',sortName:'NAME',sortable: true},
-				{field: 'url', title: 'url地址', align: 'center', width:'17%',sortName:'URL',sortable: true},
-				{field: 'leaf', title: '是否最明细科目（0否1是）', align: 'center', width:'17%',sortName:'LEAF',sortable: true},
-				{field: 'parentId', title: '父级id', align: 'center', width:'17%',sortName:'PARENT_ID',sortable: true},
-				 {
+				{field: 'name', title: '区域名称', align: 'center', width:'17%',sortName:'NAME',sortable: true},
+                {field: 'id', title: '区域id', align: 'center', width:'10%',sortName:'id',sortable: true},
+				{field: 'parentId', title: '父级区域id', align: 'center', width:'10%',sortName:'PARENT_ID',sortable: true},
+                {field: 'leaf', title: '是否最明细区域', align: 'center', width:'10%',sortName:'LEAF',sortable: true,
+                    formatter: function (value, row, index) {
+                        var islated="";
+                        if ( value=="0"){
+                            islated="否";
+                        }else if(value=="1"){
+                            islated="是";
+                        }else {
+                            islated="未知";
+                        }
+                        return islated;
+                    }
+                },
+				{
 					filed: '',
 					title: '操作区',
 					align: 'center',
-					width:'13%',
+					width:'34%',
 					events: operateEvents,
 					formatter: operateFormatter
 				}
@@ -250,7 +260,7 @@
 	}
 	//获取表格高度
 	function getHeight() {
-		return $(window).height()-5;
+		return $(window).height() - 15;
 	}
 </script>
 

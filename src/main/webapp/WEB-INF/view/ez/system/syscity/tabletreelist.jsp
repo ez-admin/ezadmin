@@ -4,60 +4,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>系统设置列表</title>
-	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
-	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap.min.css">
-	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap-table.css">
-	<script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
-	<script type="text/javascript" src="/static/plugins/layui/lay/dest/layui.all.js"></script>
-	<script src="/static/plugins/bootstrap-table/bootstrap.min.js"></script>
-	<script src="/static/plugins/bootstrap-table/bootstrap-table.js"></script>
-	<script src="/static/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-	<script src="/static/plugins/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
-	<script src="/static/plugins/bootstrap-table/extensions/tableExport/tableExport.js"></script>
+	<title>城市区域列表</title>
+	<link rel="stylesheet" href="/static/plugins/treeTable/themes/vsStyle/treeTable.min.css">
+	<script src="/static/plugins/treeTable/jquery.treeTable.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+        $(document).ready(function() {
+            var tpl = $("#treeTableTpl").html().replace(/(\/\/\<!\-\-)|(\/\/\-\->)/g,"");
+            var data = ${fns:toJson(list)}, rootId = "0";
+            addRow("#treeTableList", tpl, data, rootId, true);
+            $("#treeTable").treeTable({expandLevel : 5});
+        });
+        function addRow(list, tpl, data, pid, root){
+            for (var i=0; i<data.length; i++){
+                var row = data[i];
+                if ((${fns:jsGetVal('row.parentId')}) == pid){
+                    $(list).append(Mustache.render(tpl, {
+                        dict: {
+                            type: getDictLabel(${fns:toJson(fns:getDictList('sys_area_type'))}, row.type)
+                        }, pid: (root?0:pid), row: row
+                    }));
+                    addRow(list, tpl, data, row.id);
+                }
+            }
+        }
+	</script>
 </head>
 <body>
 <form class="layui-form" id="formSearch">
-	<shiro:hasPermission name="sysoption_query">
+	<shiro:hasPermission name="syscity_query">
 	<div class="layui-input-inline">
-		<input id="optionValue" name="optionValue" placeholder="请输入参数值" type="text" class="layui-input-quote" maxlength="65535" autocomplete="off">
+		<input id="name" name="name" placeholder="请输入城市名" type="text" class="layui-input-quote" maxlength="20" autocomplete="off">
+	</div>
+<%--	<div class="layui-input-inline">
+		<input id="url" name="url" placeholder="请输入url地址" type="text" class="layui-input-quote" maxlength="50" autocomplete="off">
 	</div>
 	<div class="layui-input-inline">
-		<input id="optionName" name="optionName" placeholder="请输入参数名称" type="text" class="layui-input-quote" maxlength="100" autocomplete="off">
+		<input id="leaf" name="leaf" placeholder="请输入是否最明细科目（0否1是）" type="text" class="layui-input-quote" maxlength="1" autocomplete="off">
+	</div>--%>
+	<div class="layui-input-inline">
+		<input id="id" name="id" placeholder="请输入城市id" type="text" class="layui-input-quote" maxlength="10" autocomplete="off">
 	</div>
+	<div class="layui-input-inline">
+		<input id="parentId" name="parentId" placeholder="请输入父级id" type="text" class="layui-input-quote" maxlength="10" autocomplete="off">
+	</div>
+
 	<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
 	</shiro:hasPermission>
-	<shiro:hasPermission name="sysoption_add">
-	<button id="btn_add" type="button" class="layui-btn layui-btn-small">
-		<i class="fa fa-plus"></i>新增
-	</button>
-	</shiro:hasPermission>
-	<shiro:hasPermission name="sysoption_deleteall">
-		<button id="btn_delete" type="button" class="layui-btn layui-btn-small">
-			<i class="fa fa-remove"></i>批量删除
+	<shiro:hasPermission name="syscity_add">
+		<button id="btn_add" type="button" class="layui-btn layui-btn-small">
+			<i class="fa fa-plus"></i>新增
 		</button>
 	</shiro:hasPermission>
+
 </form>
 
 <table id="table"></table>
+
+<script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="/static/plugins/layui/lay/dest/layui.all.js"></script>
+<script src="/static/plugins/bootstrap-table/bootstrap.min.js"></script>
+<script src="/static/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="/static/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="/static/plugins/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
+<script src="/static/plugins/bootstrap-table/extensions/tableExport/tableExport.js"></script>
 <script>
 	$(function () {
 		//初始化表格
 		$('#table').bootstrapTable({
-			url: '/ez/system/sysoption/showlist.do',
+			url: '/ez/system/syscity/showlist.do',
 			method: 'post',                      //请求方式（*）
-			<shiro:hasPermission name="sysoption_export">
-			showExport: true,//显示导出按钮
+			<shiro:hasPermission name="syscity_export">
+			showExport: true,                   //显示导出按钮
 			</shiro:hasPermission>
-			exportDataType: "basic",//导出类型
-			toolbar: '#formSearch',                //工具按钮用哪个容器
+			exportDataType: "basic",             //导出类型
+			toolbar: '#formSearch',              //工具按钮用哪个容器
 			striped: true,                      //是否显示行间隔色
 			cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
 			pagination: true,                   //是否显示分页（*）
 			contentType: "application/x-www-form-urlencoded;charset=UTF-8",//请求数据内容格式 默认是 application/json 自己根据格式自行服务端处理
-			sortable: true,                     //是否启用排序
-			sortOrder: "asc",                   //排序方式
-			sortName: "optionOrder",
+			sortable: true,                       //是否启用排序
+			sortOrder: "asc",                      //排序方式
+			sortName: "id",
 			queryParams: queryParams=function(params) {
 				var pageNum=params.offset/params.limit+1;
 				return $('#formSearch').serialize()+
@@ -65,26 +92,28 @@
 						"&pageSize="+params.limit+
 						"&orderBy="+params.sort+" "+ params.order;
 			},//传递参数（*）
-			sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
-			pageNumber:1,                       //初始化加载第一页，默认第一页
-			pageSize: ${systemBackPageSize},                       //每页的记录行数（*）
-			pageList: [10, 25, 50, 100 , 'All'],        //可供选择的每页的行数（*）
+			sidePagination: "server",             //分页方式：client客户端分页，server服务端分页（*）
+			pageNumber:1,                         //初始化加载第一页，默认第一页
+			pageSize: ${systemBackPageSize},  //每页的记录行数（*）
+			pageList: [10, 25, 50, 100 , 'All'],  //可供选择的每页的行数（*）
 			search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
 			strictSearch: true,
 			showColumns: true,                  //是否显示所有的列
 			showRefresh: true,                  //是否显示刷新按钮
 			minimumCountColumns: 2,             //最少允许的列数
-			clickToSelect: false,                //是否启用点击选中行
+			clickToSelect: false,               //是否启用点击选中行
 			height: getHeight(),                //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
-			uniqueId: "oid",                     //每一行的唯一标识，一般为主键列
+			uniqueId: "id",                     //每一行的唯一标识，一般为主键列
 			showToggle:false,                   //是否显示详细视图和列表视图的切换按钮
 			cardView: false,                    //是否显示详细视图
 			detailView: false,                  //是否显示父子表
 			columns: [
 				{checkbox: true, width:'2%'},
 				{field: '', title: '序号', align: 'center', width:'5%', formatter: function (value, row, index) {return index+1;}},
-				{field: 'optionValue', title: '参数值', align: 'center', width:'28%',sortName:'OPTION_VALUE',sortable: true},
-				{field: 'optionName', title: '参数名称', align: 'center', width:'28%',sortName:'OPTION_NAME',sortable: true},
+				{field: 'name', title: '城市名', align: 'center', width:'17%',sortName:'NAME',sortable: true},
+				{field: 'url', title: 'url地址', align: 'center', width:'17%',sortName:'URL',sortable: true},
+				{field: 'leaf', title: '是否最明细科目（0否1是）', align: 'center', width:'17%',sortName:'LEAF',sortable: true},
+				{field: 'parentId', title: '父级id', align: 'center', width:'17%',sortName:'PARENT_ID',sortable: true},
 				 {
 					filed: '',
 					title: '操作区',
@@ -124,7 +153,7 @@
 			maxmin: true,
 			shadeClose: true, //点击遮罩关闭层
 			area : ['800px' , '600px'],
-			content: '/ez/system/sysoption/addUI.do',
+			content: '/ez/system/syscity/addUI.do',
 			end:function(){
 				$("#table").bootstrapTable('refresh');//刷新表格
 			}
@@ -140,7 +169,7 @@
 		top.layer.confirm("确认要删除选择的数据吗？",{icon: 7},function(index){
 			//删除记录
 			$.ajax({
-				url: "/ez/system/sysoption/deleteAll.do",
+				url: "/ez/system/syscity/deleteAll.do",
 				type: "POST",
 				//获取所有选中行
 				data: getSelectId(arrselections),
@@ -156,17 +185,17 @@
 	//操作区
 	function operateFormatter(value, row, index) {
 		return [
-			<shiro:hasPermission name="sysoption_view">
+			<shiro:hasPermission name="syscity_view">
 			'<a class="view" href="javascript:void(0)" title="查看">',
 			'查看',
 			'</a>    ',
 			</shiro:hasPermission>
-			<shiro:hasPermission name="sysoption_modify">
+			<shiro:hasPermission name="syscity_modify">
 			'<a class="edit" href="javascript:void(0)" title="修改">',
 			'修改',
 			'</a>    ',
 			</shiro:hasPermission>
-			<shiro:hasPermission name="sysoption_delete">
+			<shiro:hasPermission name="syscity_delete">
 			'<a class="remove" href="javascript:void(0)" title="删除">',
 			'删除',
 			'</a>'
@@ -182,7 +211,7 @@
 				maxmin: true,
 				shadeClose: true, //点击遮罩关闭层
 				area : ['800px' , '600px'],
-				content: '/ez/system/sysoption/getById.do?typeKey=2&sysoptionId='+row.oid,
+				content: '/ez/system/syscity/getById.do?typeKey=2&syscityId='+row.id,
 			});
 		},
 		'click .edit': function (e, value, row, index) {
@@ -192,7 +221,7 @@
 				maxmin: true,
 				shadeClose: true, //点击遮罩关闭层
 				area : ['800px' , '600px'],
-				content: '/ez/system/sysoption/getById.do?typeKey=1&sysoptionId='+row.oid,
+				content: '/ez/system/syscity/getById.do?typeKey=1&syscityId='+row.id,
 				end:function(){
 					$("#table").bootstrapTable('refresh');//刷新表格
 				}
@@ -202,9 +231,9 @@
 			top.layer.confirm("确认要删除该行的数据吗？",{icon: 7},function(index){
 				//删除记录
 				$.ajax({
-					url: "/ez/system/sysoption/deleteById.do",
+					url: "/ez/system/syscity/deleteById.do",
 					type: "POST",
-					data: { "ids": row.oid },
+					data: { "ids": row.id },
 					success: function (result) {
 						handleResult(result.status,result.message);
 					}
@@ -218,7 +247,7 @@
 		var arrselectionsLength = arrselections.length;
 		var ids = "";
 		for(var i = 0;i<arrselectionsLength;i++) {
-			ids += arrselections[i].oid ;
+			ids += arrselections[i].id ;
 			if(i!=arrselectionsLength-1){
 				ids += ",";
 			}
