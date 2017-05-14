@@ -7,7 +7,9 @@
 package com.ez.system.service;
 import com.ez.base.service.BaseService;
 import com.ez.system.entity.*;
+import com.github.pagehelper.Page;
 
+import java.util.List;
 
 
 /**
@@ -17,4 +19,7 @@ import com.ez.system.entity.*;
  * @version 1.0
  */
 public interface SysCityService extends BaseService<SysCity> {
+    List<SysCity> getParentcity(Page<SysCity> page, SysCity syscity);
+
+    List<SysCity> getChildrenMenu(Page<SysCity> page, SysCity syscity);
 }

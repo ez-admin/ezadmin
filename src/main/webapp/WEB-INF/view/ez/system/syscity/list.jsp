@@ -1,41 +1,73 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/ez/index/tablibs.jsp"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path;
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<title>城市区域列表</title>
-	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
+	<base href="<%=basePath%>">
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+
+	<link rel="stylesheet" href="/static/plugins/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="/static/plugins/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap.min.css">
 	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap-table.css">
+	<style>
+		.clear{
+			clear: both;
+		}
+		.layui-input-quote{
+			display: block;
+			width: 150px;
+			padding-left: 10px;
+			height: 34px;
+			line-height: 34px;
+			border: 1px solid #e6e6e6;
+			background-color: #fff;
+			border-radius: 2px;
+		}
+		.layui-form-mid i,.layui-word-aux i{
+			line-height: inherit;
+		}
+	</style>
 </head>
 <body>
-<form class="layui-form" id="formSearch">
-	<shiro:hasPermission name="syscity_query">
-	<div class="layui-input-inline">
-		<input id="name" name="name" placeholder="请输入区域名" type="text" class="layui-input-quote" maxlength="20" autocomplete="off">
-	</div>
-	<%--<div class="layui-input-inline">
-		<input id="url" name="url" placeholder="请输入url地址" type="text" class="layui-input-quote" maxlength="50" autocomplete="off">
-	</div>
-	<div class="layui-input-inline">
-		<input id="leaf" name="leaf" placeholder="请输入是否最明细科目（0否1是）" type="text" class="layui-input-quote" maxlength="1" autocomplete="off">
-	</div>--%>
-	<div class="layui-input-inline">
-		<input id="id" name="id" placeholder="请输入区域id" type="text" class="layui-input-quote" maxlength="10" autocomplete="off">
-	</div>
-	<div class="layui-input-inline">
-		<input id="parentId" name="parentId" placeholder="请输入区域父级id" type="text" class="layui-input-quote" maxlength="10" autocomplete="off">
-	</div>
-
-	<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
-	</shiro:hasPermission>
-	<shiro:hasPermission name="syscity_add">
-		<button id="btn_add" type="button" class="layui-btn layui-btn-small">
-			<i class="fa fa-plus"></i>新增一级区域
-		</button>
-	</shiro:hasPermission>
-</form>
+<blockquote class="layui-elem-quote" style="padding: 8px 15px">
+	<form class="layui-form" id="formSearch">
+		<shiro:hasPermission name="syscity_query">
+		<input type="text" style="display: none"><%--enter事件生效--%>
+		<div class="layui-input-inline">
+			<input id="name" name="name" placeholder="请输入区域名" type="text" class="layui-input-quote" maxlength="20" autocomplete="off">
+		</div>
+		<div class="layui-input-inline">
+			<input id="id" name="id" placeholder="请输入区域id" type="hidden" class="layui-input-quote" maxlength="10" autocomplete="off">
+		</div>
+		<div class="layui-input-inline">
+			<input id="parentId" name="parentId" placeholder="请输入区域父级id" type="hidden" class="layui-input-quote" maxlength="10" autocomplete="off">
+		</div>
+		<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
+		</shiro:hasPermission>
+		<shiro:hasPermission name="syscity_add">
+			<div id="toolbar" class="btn-group pull-right">
+				<button id="btn_add" type="button" class="layui-btn layui-btn-small">
+					<i class="fa fa-plus"></i>新增一级区域
+				</button>
+			</div>
+		</shiro:hasPermission>
+	</form>
+</blockquote>
 
 <table id="table"></table>
 
@@ -50,13 +82,13 @@
 	$(function () {
 		//初始化表格
 		$('#table').bootstrapTable({
-			url: '/ez/system/syscity/showlist.do',
+			url: '/ez/system/syscity/getParentcity.do',
 			method: 'post',                      //请求方式（*）
-			<shiro:hasPermission name="syscity_export">
+			<%--<shiro:hasPermission name="syscity_export">
 			showExport: true,                   //显示导出按钮
 			</shiro:hasPermission>
 			exportDataType: "basic",             //导出类型
-			toolbar: '#formSearch',              //工具按钮用哪个容器
+			toolbar: '#formSearch',              //工具按钮用哪个容器--%>
 			striped: true,                      //是否显示行间隔色
 			cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
 			pagination: true,                   //是否显示分页（*）
@@ -77,22 +109,22 @@
 			pageList: [10, 25, 50, 100 , 'All'],  //可供选择的每页的行数（*）
 			search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
 			strictSearch: true,
-			showColumns: true,                  //是否显示所有的列
-			showRefresh: true,                  //是否显示刷新按钮
+			showColumns: false,                  //是否显示所有的列
+			showRefresh: false,                  //是否显示刷新按钮
 			minimumCountColumns: 2,             //最少允许的列数
 			clickToSelect: false,               //是否启用点击选中行
 			height: getHeight(),                //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
 			uniqueId: "id",                     //每一行的唯一标识，一般为主键列
 			showToggle:false,                   //是否显示详细视图和列表视图的切换按钮
 			cardView: false,                    //是否显示详细视图
-			detailView: false,                  //是否显示父子表
+			detailView: true,                  //是否显示父子表
 			columns: [
-				{checkbox: true, width:'2%'},
-				{field: '', title: '序号', align: 'center', width:'5%', formatter: function (value, row, index) {return index+1;}},
-				{field: 'name', title: '区域名称', align: 'center', width:'17%',sortName:'NAME',sortable: true},
-                {field: 'id', title: '区域id', align: 'center', width:'10%',sortName:'id',sortable: true},
-				{field: 'parentId', title: '父级区域id', align: 'center', width:'10%',sortName:'PARENT_ID',sortable: true},
-                {field: 'leaf', title: '是否最明细区域', align: 'center', width:'10%',sortName:'LEAF',sortable: true,
+				/*{checkbox: true, width:'2%'},*/
+				{field: '', title: '序号', align: 'center',  formatter: function (value, row, index) {return index+1;}},
+				{field: 'name', title: '区域名称', align: 'center', sortName:'name',sortable: true},
+                {field: 'id', title: '区域id', align: 'center', sortName:'id',sortable: true},
+				{field: 'parentId', title: '父级区域id', align: 'center', sortName:'parentId',sortable: true},
+                {field: 'leaf', title: '是否最明细区域', align: 'center', sortName:'leaf',sortable: true,
                     formatter: function (value, row, index) {
                         var islated="";
                         if ( value=="0"){
@@ -109,11 +141,13 @@
 					filed: '',
 					title: '操作区',
 					align: 'center',
-					width:'34%',
 					events: operateEvents,
 					formatter: operateFormatter
-				}
-			]
+                } ],
+            //注册加载子表的事件。注意下这里的三个参数！
+            onExpandRow: function (index, row, $detail) {
+                expandTable(index, row, $detail);
+            }
 		});
 		//监听页面的回车事件
 		document.onkeydown = function (e) {
@@ -132,6 +166,80 @@
 		//清除工具栏浮动，让父页面高度撑起了
 		$('<div class="clear"></div>').appendTo("body .fixed-table-toolbar:first-child");
 	});
+    //创建子表
+    function expandTable(index, row, $detail) {
+        var parentId = row.id;
+        $("#parentId").val(parentId);
+        var cur_table = $detail.html('<table></table>').find('table');
+        $(cur_table).bootstrapTable({
+            url: 'ez/system/syscity/getChildrenMenu.do',
+            method: 'post',                      //请求方式（*）
+            <%--<shiro:hasPermission name="syscity_export">
+            showExport: true,                   //显示导出按钮
+            </shiro:hasPermission>
+            exportDataType: "basic",             //导出类型
+            toolbar: '#formSearch',              //工具按钮用哪个容器--%>
+            striped: true,                      //是否显示行间隔色
+            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            pagination: true,                   //是否显示分页（*）
+            contentType: "application/x-www-form-urlencoded;charset=UTF-8",//请求数据内容格式 默认是 application/json 自己根据格式自行服务端处理
+            sortable: true,                       //是否启用排序
+            sortOrder: "asc",                      //排序方式
+            sortName: "id",
+            queryParams: queryParams=function(params) {
+                var pageNum=params.offset/params.limit+1;
+                return $('#formSearch').serialize()+
+                    "&pageNum="+pageNum+
+                    "&pageSize="+params.limit+
+                    "&orderBy="+params.sort+" "+ params.order;
+            },//传递参数（*）
+            sidePagination: "server",             //分页方式：client客户端分页，server服务端分页（*）
+            pageNumber:1,                         //初始化加载第一页，默认第一页
+            pageSize: ${systemBackPageSize},  //每页的记录行数（*）
+            pageList: [10, 25, 50, 100 , 'All'],  //可供选择的每页的行数（*）
+            search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+            strictSearch: true,
+            showColumns: false,                  //是否显示所有的列
+            showRefresh: false,                  //是否显示刷新按钮
+            minimumCountColumns: 2,             //最少允许的列数
+            clickToSelect: false,               //是否启用点击选中行
+            height: getHeight(),                //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+            showToggle:false,                   //是否显示详细视图和列表视图的切换按钮
+            cardView: false,                    //是否显示详细视图
+            detailView: true,                  //是否显示父子表
+            columns: [
+               /* {checkbox: true, width:'2%'},*/
+                {field: '', title: '序号', align: 'center',  formatter: function (value, row, index) {return index+1;}},
+                {field: 'name', title: '区域名称', align: 'center', sortName:'name',sortable: true},
+                {field: 'id', title: '区域id', align: 'center', sortName:'id',sortable: true},
+                {field: 'parentId', title: '父级区域id', align: 'center', sortName:'parentId',sortable: true},
+                {field: 'leaf', title: '是否最明细区域', align: 'center', sortName:'leaf',sortable: true,
+                    formatter: function (value, row, index) {
+                        var islated="";
+                        if ( value=="0"){
+                            islated="否";
+                        }else if(value=="1"){
+                            islated="是";
+                        }else {
+                            islated="未知";
+                        }
+                        return islated;
+                    }
+                },
+                {
+                    filed: '',
+                    title: '操作区',
+                    align: 'center',
+                    events: operateEvents,
+                    formatter: operateFormatter
+                } ],
+            //注册加载子表的事件。注意下这里的三个参数！
+            onExpandRow: function (index, row, $detail) {
+                expandTable(index, row, $detail);
+            }
+        });
+    };
 	//刷新
 	$("#btn_query").click(function () {
 		$("#table").bootstrapTable('refresh');
@@ -176,15 +284,15 @@
 	//操作区
 	function operateFormatter(value, row, index) {
 		return [
-			<shiro:hasPermission name="syscity_view">
-			'<a class="view" href="javascript:void(0)" title="查看">',
-			'查看',
-			'</a>    ',
+			<shiro:hasPermission name="syscity_addsub">
+			'<a class="addsub" href="javascript:void(0)" title="新增下级区域">',
+			'新增下级区域',
+			'</a>&nbsp;&nbsp;&nbsp;&nbsp;',
 			</shiro:hasPermission>
 			<shiro:hasPermission name="syscity_modify">
 			'<a class="edit" href="javascript:void(0)" title="修改">',
 			'修改',
-			'</a>    ',
+			'</a>&nbsp;&nbsp;&nbsp;&nbsp;',
 			</shiro:hasPermission>
 			<shiro:hasPermission name="syscity_delete">
 			'<a class="remove" href="javascript:void(0)" title="删除">',
@@ -195,10 +303,10 @@
 	};
 	//操作区事件
 	window.operateEvents = {
-		'click .view': function (e, value, row, index) {
+		'click .addsub': function (e, value, row, index) {
 			top.layer.open({
 				type: 2,//iframe层
-				title: '查看',
+				title: '新增下级区域',
 				maxmin: true,
 				shadeClose: true, //点击遮罩关闭层
 				area : ['800px' , '600px'],

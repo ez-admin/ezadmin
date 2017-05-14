@@ -4,6 +4,7 @@ package com.ez.annotation;
 import com.ez.system.entity.SysLog;
 import com.ez.system.entity.SysUser;
 import com.ez.system.service.SysLogService;
+import com.ez.util.Common;
 import com.ez.util.FormatDateUtil;
 import com.ez.util.PubConstants;
 import org.apache.log4j.Logger;
@@ -129,7 +130,7 @@ public  class SystemLogAspect {
         }
         SysLog log=new SysLog();
         try {
-              /*========控制台输出=========*/
+            /*========控制台输出=========*/
             System.out.println("=====异常通知开始=====");
             System.out.println("异常代码:" + e.getClass().getName());
             System.out.println("异常信息:" + e.getMessage());
@@ -137,7 +138,7 @@ public  class SystemLogAspect {
             System.out.println("方法描述:" + getServiceMthodDescription(joinPoint));
             System.out.println("请求IP:" + ip);
             System.out.println("请求参数:" + params);
-               /*==========数据库日志=========*/
+            /*==========数据库日志=========*/
             log.setMehtoddescription(getServiceImplClassDescription(joinPoint));
             log.setExceptionCode(e.getClass().getName());
             log.setLogtype(PubConstants.LOGTYPE_EXCEPTION);
@@ -163,10 +164,10 @@ public  class SystemLogAspect {
             logger.error(ex.getStackTrace());
         }
          /*==========记录本地异常日志==========*/
-        logger.error("\"异常方法:{}异常代码:{}异常信息:{}参数:{}\"");
-        logger.error(joinPoint.getTarget().getClass().getName() + joinPoint.getSignature().getName()+ e.getClass().getName());
+        logger.error("异常方法:["+joinPoint.getTarget().getClass().getName() +"],异常代码:["+ joinPoint.getSignature().getName()+ e.getClass().getName()+"],异常信息:["+e.getMessage() +"]参数:["+ params+"]");
+        /*logger.error(joinPoint.getTarget().getClass().getName() + joinPoint.getSignature().getName()+ e.getClass().getName());
         logger.error( e.getMessage());
-        logger.error(params);
+        logger.error(params);*/
     }
 
 
@@ -228,27 +229,33 @@ public  class SystemLogAspect {
      */
     public  static String getServiceImplClassDescription(JoinPoint joinPoint)  throws Exception {
         String description = "";
-        String serviceimplclassdescription = joinPoint.getTarget().getClass().getAnnotation(ServiceImplClassDescription. class).description()+"时异常";
-        String methodName=joinPoint.getSignature().getName();
-        if ("add".equals(methodName)){
-            description="新增"+serviceimplclassdescription;
-        }else if("addAll".equals(methodName)){
-            description="批量新增"+serviceimplclassdescription;
-        }else if ("delete".equals(methodName)){
-            description="删除"+serviceimplclassdescription;
-        }else if ("modify".equals(methodName)){
-            description="修改"+serviceimplclassdescription;
-        }else if ("getById".equals(methodName)){
-            description="根据主键查找"+serviceimplclassdescription;
-        }else if ("query".equals(methodName)){
-            description="分页查询"+serviceimplclassdescription;
-        }else if ("queryAll".equals(methodName)){
-            description="不分页查询"+serviceimplclassdescription;
-        }else if ("findAll".equals(methodName)){
-            description="查找所有"+serviceimplclassdescription;
-        }else {
+        String serviceimpldescription=joinPoint.getTarget().getClass().getAnnotation(ServiceImplClassDescription. class).description();
+        if (Common.isEmpty(serviceimpldescription)){
             description = getServiceMthodDescription(joinPoint);
+        }else {
+            String serviceimplclassdescription = serviceimpldescription+"时异常";
+            String methodName=joinPoint.getSignature().getName();
+            if ("add".equals(methodName)){
+                description="新增"+serviceimplclassdescription;
+            }else if("addAll".equals(methodName)){
+                description="批量新增"+serviceimplclassdescription;
+            }else if ("delete".equals(methodName)){
+                description="删除"+serviceimplclassdescription;
+            }else if ("modify".equals(methodName)){
+                description="修改"+serviceimplclassdescription;
+            }else if ("getById".equals(methodName)){
+                description="根据主键查找"+serviceimplclassdescription;
+            }else if ("query".equals(methodName)){
+                description="分页查询"+serviceimplclassdescription;
+            }else if ("queryAll".equals(methodName)){
+                description="不分页查询"+serviceimplclassdescription;
+            }else if ("findAll".equals(methodName)){
+                description="查找所有"+serviceimplclassdescription;
+            }else {
+                description = getServiceMthodDescription(joinPoint);
+            }
         }
+
         return description;
     }
 }

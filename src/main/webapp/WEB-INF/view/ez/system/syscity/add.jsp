@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>城市信息表新增</title>
+	<title>城市区域新增</title>
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
 </head>
 <body>
@@ -24,15 +24,16 @@
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">是否最明细科目（0否1是）:</label>
+			<label class="layui-form-label">是否最明细科目:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="leaf" placeholder="请输入是否最明细科目（0否1是）" autocomplete="off" class="layui-input">
+				<input type="checkbox" name="leaf" lay-skin="switch" lay-text="是|否"  value="1">
+				<%--<input type="text" name="leaf" placeholder="请输入是否最明细科目（0否1是）" autocomplete="off" class="layui-input">--%>
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">父级id:</label>
 			<div class="layui-input-inline">
-				<input type="number" name="parentId" value="1"  maxlength="10"  autocomplete="off" class="layui-input">
+				<input type="number" name="parentId" value="0" readonly class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">

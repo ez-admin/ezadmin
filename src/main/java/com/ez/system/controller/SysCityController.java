@@ -8,6 +8,7 @@
 package com.ez.system.controller;
 
 import com.ez.annotation.SystemLogController;
+import com.ez.util.Common;
 import com.ez.util.WebTool;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -56,7 +57,7 @@ public class SysCityController {
 	 * @return
 	 */
 	@RequestMapping(value="list")
-	@SystemLogController(description = "跳到城市信息表列表页面")
+	@SystemLogController(description = "跳到城市区域列表页面")
 	public String list(Model model){
 		return "/ez/system/syscity/list";
 	}
@@ -66,7 +67,7 @@ public class SysCityController {
 	 * @return
 	 */
 	@RequestMapping(value="addUI")
-	@SystemLogController(description = "跳到城市信息表新增页面")
+	@SystemLogController(description = "跳到城市区域新增页面")
 	public String addUI(){
 		return "/ez/system/syscity/add";
 	}
@@ -78,7 +79,7 @@ public class SysCityController {
 	 * @return
 	 */
 	@RequestMapping(value="add")
-	@SystemLogController(description = "保存城市信息表新增信息")
+	@SystemLogController(description = "保存城市区域新增信息")
 	public String add(SysCity syscity,HttpServletResponse response){
 		String result="{\"msg\":\"suc\"}";
 		try {
@@ -99,7 +100,7 @@ public class SysCityController {
 	 */
 	@RequestMapping(value="showlist",method=RequestMethod.POST)
     @ResponseBody
-	@SystemLogController(description = "跳到分页查询城市信息表信息")
+	@SystemLogController(description = "跳到分页查询城市区域信息")
 	public Map<String, Object> showlist(Page<SysCity> page,SysCity syscity){
 		List<SysCity> list = sysCityService.query(page, syscity);
 		PageInfo<SysCity> pageInfo = new PageInfo<SysCity>(list);
@@ -108,7 +109,43 @@ public class SysCityController {
 		map.put("total", pageInfo.getTotal());
 		return map;
 	}
-	
+	/**
+	 * post方式分页查询
+	 * @param page
+	 * @param syscity
+	 * @return map
+	 */
+	@RequestMapping(value="getParentcity",method=RequestMethod.POST)
+	@ResponseBody
+	@SystemLogController(description = "跳到分页查询一级城市区域信息")
+	public Map<String, Object> getParentcity(Page<SysCity> page,SysCity syscity){
+		List<SysCity> list = sysCityService.getParentcity(page, syscity);
+		if (!Common.isEmpty(syscity.getName())){
+			list = sysCityService.query(page, syscity);
+		}
+		PageInfo<SysCity> pageInfo = new PageInfo<SysCity>(list);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("rows", list);
+		map.put("total", pageInfo.getTotal());
+		return map;
+	}
+	/**
+	 * post方式分页查询
+	 * @param page
+	 * @param syscity
+	 * @return map
+	 */
+	@RequestMapping(value="getChildrenMenu",method=RequestMethod.POST)
+	@ResponseBody
+	@SystemLogController(description = "跳到分页查询下级城市区域信息")
+	public Map<String, Object> getChildrenMenu(Page<SysCity> page,SysCity syscity){
+		List<SysCity> list = sysCityService.getChildrenMenu(page, syscity);
+		PageInfo<SysCity> pageInfo = new PageInfo<SysCity>(list);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("rows", list);
+		map.put("total", pageInfo.getTotal());
+		return map;
+	}
 	/**
 	 * 根据id删除
 	 * @param model
@@ -116,7 +153,7 @@ public class SysCityController {
 	 * @return
 	 */
 	@RequestMapping(value="deleteById",method=RequestMethod.POST)
-	@SystemLogController(description = "删除城市信息表信息")
+	@SystemLogController(description = "删除城市区域信息")
 	public String deleteById(Model model,String ids, HttpServletResponse response){
 		String result="{\"status\":1,\"message\":\"删除成功！\"}";
 		try{
@@ -137,7 +174,7 @@ public class SysCityController {
 	 * @return
 	 */
 	@RequestMapping(value="getById")
-	@SystemLogController(description = "跳到查询&修改城市信息表单条记录页面")
+	@SystemLogController(description = "跳到查询&修改城市区域单条记录页面")
 	public String getById(Model model,String syscityId,int typeKey){
 		SysCity syscity = sysCityService.getById(syscityId);
 		model.addAttribute("syscity", syscity);
@@ -157,7 +194,7 @@ public class SysCityController {
 	 * @return
 	 */
 	@RequestMapping(value="update",method=RequestMethod.POST)
-	@SystemLogController(description = "更新修改城市信息表的信息")
+	@SystemLogController(description = "更新修改城市区域的信息")
 	public String updateSysCity(Model model,SysCity syscity,HttpServletResponse response){
 		String result="{\"msg\":\"suc\"}";
 		try {
@@ -177,7 +214,7 @@ public class SysCityController {
 	 * @return
 	 */
 	@RequestMapping(value = "deleteAll")
-	@SystemLogController(description = "批量删除城市信息表信息")
+	@SystemLogController(description = "批量删除城市区域信息")
 	public String deleteAll(String[] ids, HttpServletResponse response) {
 		String result = "{\"status\":1,\"message\":\"删除成功！\"}";
 		try {
@@ -191,6 +228,6 @@ public class SysCityController {
 		WebTool.writeJson(result, response);
 		return null;
 	}
-	
+
 }
 

@@ -134,7 +134,39 @@ parentId
 	        WHERE 
         id = #{id} 
 	</select>
-	
+    <select id="getParentcity" resultMap="SysCity" parameterType="com.ez.system.entity.SysCity">
+		SELECT <include refid="selectId" />
+		FROM sys_city
+		WHERE
+		parentId = "0"
+		<if test="@Ognl@isNotEmpty(name)">
+			AND name like '%${name}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(id)">
+			AND id like '%${id}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(parentId)">
+			AND parentId like '%${parentId}%'
+		</if>
+		ORDER BY id
+	</select>
+	<select id="getChildrenMenu" resultMap="SysCity" parameterType="com.ez.system.entity.SysCity">
+		SELECT <include refid="selectId" />
+		FROM sys_city
+		WHERE
+		parentId = ${parentId}
+		<if test="@Ognl@isNotEmpty(name)">
+			AND name like '%${name}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(id)">
+			AND id like '%${id}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(parentId)">
+			AND parentId like '%${parentId}%'
+		</if>
+		ORDER BY id
+	</select>
+
 	<!-- 更新all -->
 	<update id="updateAll" parameterType="com.ez.system.entity.SysCity">
 	    UPDATE sys_city SET

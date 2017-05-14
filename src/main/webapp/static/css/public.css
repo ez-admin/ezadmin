@@ -2,9 +2,6 @@
  * Created by chenez on 2016/12/29 21:49.
  * 用于界面修改时，尽量参考公共样式，避免在页面在写冗长的样式代码
  */
-.clear{
-    clear: both;
-}
 /*font-size12-30 */
 .fs12 {font-size:12px;}.fs14{font-size:14px;}.fs16{font-size:16px;}.fs18{font-size:18px;}.fs20{font-size:20px;}.fs22{font-size:22px;}.fs24{font-size:24px;}.fs26{font-size:26px;}.fs28{font-size:28px;}.fs30{font-size:30px;}
 /*color*/

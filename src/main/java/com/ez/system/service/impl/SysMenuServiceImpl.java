@@ -189,7 +189,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 			}
 		}
 		result=JSON.toJSONString(menuTitleList);
-		System.out.println("resultmenujson = " + result);
+		//System.out.println("resultmenujson = " + result);
 		return result;
 	}
 
