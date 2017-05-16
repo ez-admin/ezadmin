@@ -8,6 +8,8 @@
 package com.ez.system.controller;
 
 import com.ez.annotation.SystemLogController;
+import com.ez.system.entity.SysCity;
+import com.ez.system.service.SysCityService;
 import com.ez.util.Common;
 import com.ez.util.WebTool;
 import com.github.pagehelper.Page;
@@ -28,8 +30,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.ez.system.entity.*;
-import com.ez.system.service.*;
 
 /**
  * @author chenez
@@ -130,20 +130,53 @@ public class SysCityController {
 		return map;
 	}
 	/**
+	 * post方式不分页查询
+	 * @param page
+	 * @param syscity
+	 * @return map
+	 */
+	@RequestMapping(value="getParentcityList",method=RequestMethod.POST)
+	@ResponseBody
+	@SystemLogController(description = "跳到不分页查询一级城市区域信息")
+	public Map<String, Object> getParentcityList(Page<SysCity> page,SysCity syscity){
+		List<SysCity> list = sysCityService.getParentcityList(page,syscity);
+		if (!Common.isEmpty(syscity.getName())){
+			list = sysCityService.queryList(page,syscity);
+		}
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("rows", list);
+		return map;
+	}
+	/**
 	 * post方式分页查询
 	 * @param page
 	 * @param syscity
 	 * @return map
 	 */
-	@RequestMapping(value="getChildrenMenu",method=RequestMethod.POST)
+	@RequestMapping(value="getChildrencity",method=RequestMethod.POST)
 	@ResponseBody
 	@SystemLogController(description = "跳到分页查询下级城市区域信息")
-	public Map<String, Object> getChildrenMenu(Page<SysCity> page,SysCity syscity){
-		List<SysCity> list = sysCityService.getChildrenMenu(page, syscity);
+	public Map<String, Object> getChildrencity(Page<SysCity> page,SysCity syscity){
+		List<SysCity> list = sysCityService.getChildrenCity(page, syscity);
 		PageInfo<SysCity> pageInfo = new PageInfo<SysCity>(list);
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("rows", list);
 		map.put("total", pageInfo.getTotal());
+		return map;
+	}
+	/**
+	 * post方式不分页查询
+	 * @param page
+	 * @param syscity
+	 * @return map
+	 */
+	@RequestMapping(value="getChildrencityList",method=RequestMethod.POST)
+	@ResponseBody
+	@SystemLogController(description = "跳到不分页查询下级城市区域信息")
+	public Map<String, Object> getChildrencityList(Page<SysCity> page,SysCity syscity){
+		List<SysCity> list = sysCityService.getChildrenCityList(page,syscity);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("rows", list);
 		return map;
 	}
 	/**

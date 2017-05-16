@@ -21,5 +21,11 @@ import java.util.List;
 public interface SysCityService extends BaseService<SysCity> {
     List<SysCity> getParentcity(Page<SysCity> page, SysCity syscity);
 
-    List<SysCity> getChildrenMenu(Page<SysCity> page, SysCity syscity);
+    List<SysCity> getChildrenCity(Page<SysCity> page, SysCity syscity);
+
+    List<SysCity> getParentcityList(Page<SysCity> page,SysCity syscity);
+
+    List<SysCity> queryList(Page<SysCity> page,SysCity syscity);
+
+    List<SysCity> getChildrenCityList(Page<SysCity> page,SysCity syscity);
 }

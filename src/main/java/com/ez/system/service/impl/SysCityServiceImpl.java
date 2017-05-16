@@ -36,9 +36,30 @@ public class SysCityServiceImpl extends BaseServiceImpl<SysCity> implements SysC
 	}
 
 	@Override
-	public List<SysCity> getChildrenMenu(Page<SysCity> page, SysCity syscity) {
+	public List<SysCity> getChildrenCity(Page<SysCity> page, SysCity syscity) {
 		PageHelper.startPage(page.getPageNum(),page.getPageSize(),page.getOrderBy());
-		List<SysCity> list=sysCityDao.getChildrenMenu(syscity);
+		List<SysCity> list=sysCityDao.getChildrenCity(syscity);
+		return list;
+	}
+
+	@Override
+	public List<SysCity> getParentcityList(Page<SysCity> page,SysCity syscity) {
+		PageHelper.orderBy(page.getOrderBy());
+		List<SysCity> list=sysCityDao.getParentcity(syscity);
+		return list;
+	}
+
+	@Override
+	public List<SysCity> queryList(Page<SysCity> page,SysCity syscity) {
+		PageHelper.orderBy(page.getOrderBy());
+		List<SysCity> list=sysCityDao.query(syscity);
+		return list;
+	}
+
+	@Override
+	public List<SysCity> getChildrenCityList(Page<SysCity> page,SysCity syscity) {
+		PageHelper.orderBy(page.getOrderBy());
+		List<SysCity> list=sysCityDao.getChildrenCity(syscity);
 		return list;
 	}
 }

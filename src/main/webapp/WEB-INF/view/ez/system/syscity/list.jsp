@@ -51,12 +51,12 @@
 		<div class="layui-input-inline">
 			<input id="name" name="name" placeholder="请输入区域名" type="text" class="layui-input-quote" maxlength="20" autocomplete="off">
 		</div>
-		<div class="layui-input-inline">
-			<input id="id" name="id" placeholder="请输入区域id" type="hidden" class="layui-input-quote" maxlength="10" autocomplete="off">
+		<%--<div class="layui-input-inline">
+			<input id="id" name="id" placeholder="请输入区域id" type="text" class="layui-input-quote" maxlength="10" autocomplete="off">
 		</div>
 		<div class="layui-input-inline">
-			<input id="parentId" name="parentId" placeholder="请输入区域父级id" type="hidden" class="layui-input-quote" maxlength="10" autocomplete="off">
-		</div>
+			<input id="parentId" name="parentId" placeholder="请输入区域父级id" type="text" class="layui-input-quote" maxlength="10" autocomplete="off">
+		</div>--%>
 		<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
 		</shiro:hasPermission>
 		<shiro:hasPermission name="syscity_add">
@@ -82,7 +82,7 @@
 	$(function () {
 		//初始化表格
 		$('#table').bootstrapTable({
-			url: '/ez/system/syscity/getParentcity.do',
+			url: '/ez/system/syscity/getParentcityList.do',
 			method: 'post',                      //请求方式（*）
 			<%--<shiro:hasPermission name="syscity_export">
 			showExport: true,                   //显示导出按钮
@@ -91,18 +91,22 @@
 			toolbar: '#formSearch',              //工具按钮用哪个容器--%>
 			striped: true,                      //是否显示行间隔色
 			cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
-			pagination: true,                   //是否显示分页（*）
+			pagination: false,                   //是否显示分页（*）
 			contentType: "application/x-www-form-urlencoded;charset=UTF-8",//请求数据内容格式 默认是 application/json 自己根据格式自行服务端处理
 			sortable: true,                       //是否启用排序
 			sortOrder: "asc",                      //排序方式
 			sortName: "id",
-			queryParams: queryParams=function(params) {
+            queryParams: queryParams=function(params) {
+                return "&name="+$("#name").val()+
+                    "&orderBy="+params.sort+" "+ params.order;
+            },
+			/*queryParams: queryParams=function(params) {
 				var pageNum=params.offset/params.limit+1;
 				return $('#formSearch').serialize()+
 						"&pageNum="+pageNum+
 						"&pageSize="+params.limit+
 						"&orderBy="+params.sort+" "+ params.order;
-			},//传递参数（*）
+			},*///传递参数（*）
 			sidePagination: "server",             //分页方式：client客户端分页，server服务端分页（*）
 			pageNumber:1,                         //初始化加载第一页，默认第一页
 			pageSize: ${systemBackPageSize},  //每页的记录行数（*）
@@ -113,7 +117,7 @@
 			showRefresh: false,                  //是否显示刷新按钮
 			minimumCountColumns: 2,             //最少允许的列数
 			clickToSelect: false,               //是否启用点击选中行
-			height: getHeight(),                //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+			//height: getHeight(),                //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
 			uniqueId: "id",                     //每一行的唯一标识，一般为主键列
 			showToggle:false,                   //是否显示详细视图和列表视图的切换按钮
 			cardView: false,                    //是否显示详细视图
@@ -124,7 +128,7 @@
 				{field: 'name', title: '区域名称', align: 'center', sortName:'name',sortable: true},
                 {field: 'id', title: '区域id', align: 'center', sortName:'id',sortable: true},
 				{field: 'parentId', title: '父级区域id', align: 'center', sortName:'parentId',sortable: true},
-                {field: 'leaf', title: '是否最明细区域', align: 'center', sortName:'leaf',sortable: true,
+                /*{field: 'leaf', title: '是否最明细区域', align: 'center', sortName:'leaf',sortable: true,
                     formatter: function (value, row, index) {
                         var islated="";
                         if ( value=="0"){
@@ -136,7 +140,7 @@
                         }
                         return islated;
                     }
-                },
+                },*/
 				{
 					filed: '',
 					title: '操作区',
@@ -169,10 +173,9 @@
     //创建子表
     function expandTable(index, row, $detail) {
         var parentId = row.id;
-        $("#parentId").val(parentId);
         var cur_table = $detail.html('<table></table>').find('table');
         $(cur_table).bootstrapTable({
-            url: 'ez/system/syscity/getChildrenMenu.do',
+            url: 'ez/system/syscity/getChildrencityList.do',
             method: 'post',                      //请求方式（*）
             <%--<shiro:hasPermission name="syscity_export">
             showExport: true,                   //显示导出按钮
@@ -181,18 +184,23 @@
             toolbar: '#formSearch',              //工具按钮用哪个容器--%>
             striped: true,                      //是否显示行间隔色
             cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
-            pagination: true,                   //是否显示分页（*）
+            pagination: false,                   //是否显示分页（*）
             contentType: "application/x-www-form-urlencoded;charset=UTF-8",//请求数据内容格式 默认是 application/json 自己根据格式自行服务端处理
             sortable: true,                       //是否启用排序
             sortOrder: "asc",                      //排序方式
             sortName: "id",
             queryParams: queryParams=function(params) {
+                return "&name="+$("#name").val()+
+                    "&parentId="+parentId+
+                    "&orderBy="+params.sort+" "+ params.order;
+            },
+            /*queryParams: queryParams=function(params) {
                 var pageNum=params.offset/params.limit+1;
                 return $('#formSearch').serialize()+
                     "&pageNum="+pageNum+
                     "&pageSize="+params.limit+
                     "&orderBy="+params.sort+" "+ params.order;
-            },//传递参数（*）
+            },*///传递参数（*）
             sidePagination: "server",             //分页方式：client客户端分页，server服务端分页（*）
             pageNumber:1,                         //初始化加载第一页，默认第一页
             pageSize: ${systemBackPageSize},  //每页的记录行数（*）
@@ -203,7 +211,7 @@
             showRefresh: false,                  //是否显示刷新按钮
             minimumCountColumns: 2,             //最少允许的列数
             clickToSelect: false,               //是否启用点击选中行
-            height: getHeight(),                //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            //height: getHeight(),                //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
             uniqueId: "id",                     //每一行的唯一标识，一般为主键列
             showToggle:false,                   //是否显示详细视图和列表视图的切换按钮
             cardView: false,                    //是否显示详细视图
@@ -214,7 +222,7 @@
                 {field: 'name', title: '区域名称', align: 'center', sortName:'name',sortable: true},
                 {field: 'id', title: '区域id', align: 'center', sortName:'id',sortable: true},
                 {field: 'parentId', title: '父级区域id', align: 'center', sortName:'parentId',sortable: true},
-                {field: 'leaf', title: '是否最明细区域', align: 'center', sortName:'leaf',sortable: true,
+                /*{field: 'leaf', title: '是否最明细区域', align: 'center', sortName:'leaf',sortable: true,
                     formatter: function (value, row, index) {
                         var islated="";
                         if ( value=="0"){
@@ -226,7 +234,7 @@
                         }
                         return islated;
                     }
-                },
+                },*/
                 {
                     filed: '',
                     title: '操作区',
@@ -368,7 +376,7 @@
 	}
 	//获取表格高度
 	function getHeight() {
-		return $(window).height() - 15;
+		return $(window).height() - 50;
 	}
 </script>
 

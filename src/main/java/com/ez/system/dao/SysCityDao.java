@@ -16,5 +16,5 @@ public interface SysCityDao extends BaseDao<SysCity>{
 
     List<SysCity> getParentcity(SysCity syscity);
 
-    List<SysCity> getChildrenMenu(SysCity syscity);
+    List<SysCity> getChildrenCity(SysCity syscity);
 }

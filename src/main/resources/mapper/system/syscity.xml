@@ -150,7 +150,7 @@ parentId
 		</if>
 		ORDER BY id
 	</select>
-	<select id="getChildrenMenu" resultMap="SysCity" parameterType="com.ez.system.entity.SysCity">
+	<select id="getChildrenCity" resultMap="SysCity" parameterType="com.ez.system.entity.SysCity">
 		SELECT <include refid="selectId" />
 		FROM sys_city
 		WHERE
