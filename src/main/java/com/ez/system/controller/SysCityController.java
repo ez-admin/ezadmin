@@ -214,7 +214,7 @@ public class SysCityController {
 		if(typeKey == 1){
 			return "/ez/system/syscity/edit";
 		}else if(typeKey == 2){
-			return "/ez/system/syscity/view";
+			return "/ez/system/syscity/addsub";
 		}else{
 			return "/ez/system/syscity/view_1";
 		}

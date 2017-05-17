@@ -14,10 +14,11 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">城市名:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="name" value="${syscity.name}"  placeholder="请输入城市名" autocomplete="off" class="layui-input">
+				<input type="text" name="name" value="${syscity.name}"  lay-verify="required"  placeholder="请输入城市名" autocomplete="off" class="layui-input">
 			</div>
+			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
-		<div class="layui-form-item">
+		<%--<div class="layui-form-item">
 			<label class="layui-form-label">url地址:</label>
 			<div class="layui-input-inline">
 				<input type="text" name="url" value="${syscity.url}"  placeholder="请输入url地址" autocomplete="off" class="layui-input">
@@ -34,7 +35,7 @@
 			<div class="layui-input-inline">
 				<input type="number" name="parentId" value="${syscity.parentId}"   maxlength="10"  autocomplete="off" class="layui-input">
 			</div>
-		</div>
+		</div>--%>
 		<div class="layui-form-item">
 			<div class="layui-input-block">
 				<button class="layui-btn" lay-submit lay-filter="edit">编辑</button>

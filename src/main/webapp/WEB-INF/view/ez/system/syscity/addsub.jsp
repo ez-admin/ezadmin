@@ -4,11 +4,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>城市区域新增</title>
+	<title>查看城市信息表信息</title>
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
 </head>
 <body>
-
 <div class="layui-field-box">
 	<form id="formid" class="layui-form">
 		<blockquote class="layui-elem-quote">
@@ -17,33 +16,33 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">城市名:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="name" lay-verify="required"  placeholder="请输入城市名" autocomplete="off" class="layui-input">
+				<input type="text" name="name" lay-verify="required"    placeholder="请输入城市名" autocomplete="off" class="layui-input" >
 			</div>
 			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">区域id:</label>
 			<div class="layui-input-inline">
-				<input type="number" name="id" value="000000" lay-verify="required"  class="layui-input" >
+				<input type="number" name="id" value="000000" lay-verify="required"   autocomplete="off" class="layui-input ">
 			</div>
 			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
 		<%--<div class="layui-form-item">
 			<label class="layui-form-label">url地址:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="url" placeholder="请输入url地址" autocomplete="off" class="layui-input">
+				<input type="text" name="url" value="${syscity.url}"  placeholder="请输入url地址" autocomplete="off" class="layui-input layui-disabled">
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">是否最明细科目:</label>
+			<label class="layui-form-label">是否最明细科目（0否1是）:</label>
 			<div class="layui-input-inline">
-				<input type="checkbox" name="leaf" lay-skin="switch" lay-text="是|否"  value="1">
+				<input type="text" name="leaf" value="${syscity.leaf}"  placeholder="请输入是否最明细科目（0否1是）" autocomplete="off" class="layui-input layui-disabled">
 			</div>
 		</div>--%>
 		<div class="layui-form-item">
 			<label class="layui-form-label">父级id:</label>
 			<div class="layui-input-inline">
-				<input type="number" name="parentId" value="0" readonly class="layui-input layui-disabled">
+				<input type="number" name="parentId" value="${syscity.id}"   autocomplete="off" class="layui-input layui-disabled" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item">
@@ -63,26 +62,26 @@
 				,$ = layui.jquery
 				,laydate = layui.laydate;
 		//监听提交
-		form.on('submit(add)', function(data){
-			//layer.msg(JSON.stringify(data.field));
-			$.ajax({
-				url: "/ez/system/syscity/add.do",
-				type: "POST",
-				data:$('#formid').serialize(),// 你的formid
-				success: function (result) {
-					if("suc"==(result.msg)){
-						//关闭窗口
-						top.layer.closeAll();
-						top.layer.msg('保存成功!',{icon: 1});
-					}else{
-						top.layer.msg('保存失败!'+result.message,{icon: 2},function () {
-							location.reload();
-						});
-					}
-				}
-			});
-			return false;
-		});
+        form.on('submit(add)', function(data){
+            //layer.msg(JSON.stringify(data.field));
+            $.ajax({
+                url: "/ez/system/syscity/add.do",
+                type: "POST",
+                data:$('#formid').serialize(),// 你的formid
+                success: function (result) {
+                    if("suc"==(result.msg)){
+                        //关闭窗口
+                        top.layer.closeAll();
+                        top.layer.msg('保存成功!',{icon: 1});
+                    }else{
+                        top.layer.msg('保存失败!'+result.message,{icon: 2},function () {
+                            location.reload();
+                        });
+                    }
+                }
+            });
+            return false;
+        });
 	});
 </script>
 </body>

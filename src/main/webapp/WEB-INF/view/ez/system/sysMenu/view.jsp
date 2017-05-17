@@ -13,37 +13,37 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">菜单名称:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="menuName" value="${sysMenu.menuName}" readonly class="layui-input">
+				<input type="text" name="menuName" value="${sysMenu.menuName}" class="layui-input layui-disabled" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">菜单地址:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="menuUrl" value="${sysMenu.menuUrl}" readonly class="layui-input">
+				<input type="text" name="menuUrl" value="${sysMenu.menuUrl}" class="layui-input layui-disabled" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">菜单ID:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="menuId" value="${sysMenu.menuId}" readonly class="layui-input">
+				<input type="text" name="menuId" value="${sysMenu.menuId}" class="layui-input layui-disabled" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">父级菜单ID:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="parentId" value="${sysMenu.parentId}" readonly class="layui-input">
+				<input type="text" name="parentId" value="${sysMenu.parentId}" class="layui-input layui-disabled" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">菜单顺序:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="menuOrder" value="${sysMenu.menuOrder}" readonly class="layui-input">
+				<input type="text" name="menuOrder" value="${sysMenu.menuOrder}" class="layui-input layui-disabled" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">菜单图标:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="menuIcon" value="${sysMenu.menuIcon}" readonly class="layui-input">
+				<input type="text" name="menuIcon" value="${sysMenu.menuIcon}" class="layui-input layui-disabled" readonly>
 			</div>
 			<div class="layui-form-mid layui-word-aux">
 				<i class="fa ${sysMenu.menuIcon}"></i>

@@ -266,29 +266,6 @@
 			}
 		});
 	});
-	//删除
-	$("#btn_delete").click(function () {
-		var arrselections = $("#table").bootstrapTable('getSelections');
-		if (arrselections.length <= 0) {
-			top.layer.msg('请选择有效数据!',{icon: 7});
-			return;
-		}
-		top.layer.confirm("确认要删除选择的数据吗？",{icon: 7},function(index){
-			//删除记录
-			$.ajax({
-				url: "/ez/system/syscity/deleteAll.do",
-				type: "POST",
-				//获取所有选中行
-				data: getSelectId(arrselections),
-				success: function (result) {
-					//删除后的提示
-					handleResult(result.status,result.message);
-				}
-			});
-			//关闭
-			closeWin(index);
-		});
-	});
 	//操作区
 	function operateFormatter(value, row, index) {
 		return [
@@ -319,6 +296,9 @@
 				shadeClose: true, //点击遮罩关闭层
 				area : ['800px' , '600px'],
 				content: '/ez/system/syscity/getById.do?typeKey=2&syscityId='+row.id,
+                end:function(){
+                    $("#table").bootstrapTable('refresh');//刷新表格
+                }
 			});
 		},
 		'click .edit': function (e, value, row, index) {

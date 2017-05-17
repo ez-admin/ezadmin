@@ -7,10 +7,10 @@
 	<title>系统字典名称新增</title>
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
 	<style>
-		.layui-form-select{
+		.replaceselect .layui-form-select{
 			display: none;
 		}
-		.select2-search {
+		.replaceselect  .select2-search {
 			display: none;
 		}
 		.select2-search__field{
@@ -61,7 +61,7 @@
 			</div>
 			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
-		<div class="layui-form-item">
+		<div class="layui-form-item replaceselect">
 			<label class="layui-form-label">所属公司:</label>
 			<div class="layui-input-inline" style="width: 400px">
 				<select id="companyno" name="companyno" style="width: 100%" lay-verify="required">
@@ -70,7 +70,7 @@
 			</div>
 			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
-		<div class="layui-form-item">
+		<div class="layui-form-item replaceselect">
 			<label class="layui-form-label">所属部门:</label>
 			<div class="layui-input-inline" style="width: 400px">
 				<select id="dptno" name="dptno" style="width: 100%" lay-verify="required">
@@ -122,7 +122,7 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">年龄:</label>
 			<div class="layui-input-inline">
-				<input type="number" name="age" value="${sysUser.age}" autocomplete="off" maxlength="3" class="layui-input">
+				<input type="number" name="age" value="${sysUser.age}" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">

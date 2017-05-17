@@ -7,10 +7,10 @@
 	<title>系统用户/会员新增</title>
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
 	<style>
-		.layui-form-select{
+		.replaceselect .layui-form-select{
 			display: none;
 		}
-		.select2-search {
+		.replaceselect  .select2-search {
 			display: none;
 		}
 		.select2-search__field{
@@ -47,19 +47,19 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">用户名:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="lognm"  value="${sysUser.lognm}" readonly class="layui-input">
+				<input type="text" name="lognm"  value="${sysUser.lognm}" class="layui-input layui-disabled" readonly>
 			</div>
 			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">密码:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="logpwd" value="${sysUser.logpwd}" readonly class="layui-input">
+				<input type="text" name="logpwd" value="${sysUser.logpwd}" class="layui-input layui-disabled" readonly>
 			</div>
 			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">所属公司:</label>
+			<label class="layui-form-label replaceselect">所属公司:</label>
 			<div class="layui-input-inline" style="width: 400px">
 				<select id="companyno" name="companyno" style="width: 100%" disabled >
 					<option value="">请选择</option>
@@ -68,7 +68,7 @@
 			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">所属部门:</label>
+			<label class="layui-form-label replaceselect">所属部门:</label>
 			<div class="layui-input-inline" style="width: 400px">
 				<select id="dptno" name="dptno" style="width: 100%" disabled >
 					<option value="">请选择</option>
@@ -112,7 +112,7 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">真实姓名:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="userrelnm" value="${sysUser.userrelnm}" readonly class="layui-input">
+				<input type="text" name="userrelnm" value="${sysUser.userrelnm}" class="layui-input layui-disabled" readonly>
 			</div>
 			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
@@ -128,25 +128,25 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">年龄:</label>
 			<div class="layui-input-inline">
-				<input type="number" name="age" value="${sysUser.age}" readonly autocomplete="off" maxlength="3" class="layui-input">
+				<input type="number" name="age" value="${sysUser.age}" autocomplete="off" class="layui-input layui-disabled" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">身份证号:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="idnum" value="${sysUser.idnum}" readonly class="layui-input">
+				<input type="text" name="idnum" value="${sysUser.idnum}" class="layui-input layui-disabled" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">手机号码:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="mobile" value="${sysUser.mobile}" readonly class="layui-input">
+				<input type="text" name="mobile" value="${sysUser.mobile}" class="layui-input layui-disabled" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">邮箱:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="email" value="${sysUser.email}" readonly class="layui-input">
+				<input type="text" name="email" value="${sysUser.email}"  class="layui-input layui-disabled" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item">

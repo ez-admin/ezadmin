@@ -151,7 +151,7 @@ public class SysOptionController {
 	 */
 	@RequestMapping(value="getById")
 	@SystemLogController(description = "跳到查询&修改系统设置单条记录页面")
-	public String getById(Model model,String sysoptionId,int typeKey){
+	public String getById(Model model,String sysoptionId,Integer typeKey){
 		SysOption sysoption = sysOptionService.getById(sysoptionId);
 		model.addAttribute("sysoption", sysoption);
 		if(typeKey == 1){

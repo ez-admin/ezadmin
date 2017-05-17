@@ -14,7 +14,7 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">类型名称:</label>
 			<div class="layui-input-inline">
-				<select name="code" id="code" lay-verify="required" lay-filter="code" readonly>
+				<select name="code" id="code" lay-verify="required" lay-filter="code" disabled>
 					<option value="">请选择</option>
 				</select>
 			</div>
@@ -22,13 +22,13 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">字典key值:</label>
 			<div class="layui-input-inline">
-				<input type="text" value="${sysdictionary.sdkey}" readonly class="layui-input" readonly>
+				<input type="text" value="${sysdictionary.sdkey}"  class="layui-input layui-disabled" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">字典value值:</label>
 			<div class="layui-input-inline">
-				<input type="text" value="${sysdictionary.sdvalue}" readonly  class="layui-input layui-disabled">
+				<input type="text" value="${sysdictionary.sdvalue}"  class="layui-input layui-disabled" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item layui-form-text">

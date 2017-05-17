@@ -13,7 +13,7 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">父菜单名称:</label>
 			<div class="layui-input-inline">
-				<input type="text" value="${sysMenu.menuName}" readonly class="layui-input">
+				<input type="text" value="${sysMenu.menuName}" class="layui-input layui-disabled" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item">
