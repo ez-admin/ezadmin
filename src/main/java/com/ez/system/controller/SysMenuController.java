@@ -2,8 +2,10 @@ package com.ez.system.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.ez.annotation.SystemLogController;
+import com.ez.system.entity.SysCity;
 import com.ez.system.entity.SysMenu;
 import com.ez.system.service.SysMenuService;
+import com.ez.util.Common;
 import com.ez.util.WebTool;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -201,7 +203,7 @@ public class SysMenuController {
 	 * @param pagemap
 	 * @return
 	 */
-	@RequestMapping(value="getParentMenu",method=RequestMethod.POST)
+	/*@RequestMapping(value="getParentMenu",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> getParentMenu(SysMenu sysmenu,
 										@RequestBody Map pagemap){
@@ -224,7 +226,7 @@ public class SysMenuController {
 		map.put("rows", list);
 		map.put("total", pageInfo.getTotal());
 		return map;
-	}
+	}*/
 
 	/**
 	 * 分页查询子菜单
@@ -232,7 +234,7 @@ public class SysMenuController {
 	 * @param pagemap
 	 * @return
 	 */
-	@RequestMapping(value="getChildrenMenu",method=RequestMethod.POST)
+	/*@RequestMapping(value="getChildrenMenu",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> getChildrenMenu(SysMenu sysmenu,
 											   @RequestBody Map pagemap){
@@ -255,6 +257,39 @@ public class SysMenuController {
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("rows", list);
 		map.put("total", pageInfo.getTotal());
+		return map;
+	}*/
+	/**
+	 * 不分页查询一级菜单可设置排序
+	 * @param sysmenu
+	 * @param page
+	 * @return
+	 */
+	@RequestMapping(value="getParentMenu",method=RequestMethod.POST)
+	@ResponseBody
+	@SystemLogController(description = "跳到不分页查询一级菜单信息")
+	public Map<String, Object> getParentMenu(Page<SysMenu> page,SysMenu sysmenu){
+		List<SysMenu> list = sysMenuService.getParentMenu(page, sysmenu);
+		if (!Common.isEmpty(sysmenu.getMenuName()) || null !=sysmenu.getMenuId()){
+			list = sysMenuService.query(page, sysmenu);
+		}
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("rows", list);
+		return map;
+	}
+	/**
+	 * 不分页查询子菜单可设置排序
+	 * @param sysmenu
+	 * @param page
+	 * @return
+	 */
+	@RequestMapping(value="getChildrenMenu",method=RequestMethod.POST)
+	@ResponseBody
+	@SystemLogController(description = "跳到不分页查询子菜单信息")
+	public Map<String, Object> getChildrenMenu(Page<SysMenu> page,SysMenu sysmenu){
+		List<SysMenu> list = sysMenuService.getChildrenMenu(page, sysmenu);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("rows", list);
 		return map;
 	}
 	/**

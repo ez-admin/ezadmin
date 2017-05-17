@@ -50,4 +50,5 @@ public interface SysMenuService{
 	List<SysMenu> listAllMenuButton(String rights);
 
     List<String> findmenuids();
+
 }

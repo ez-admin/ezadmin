@@ -45,7 +45,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 	//@PreAuthorize("hasRole('ROLE_*')")
 	@Transactional(readOnly=true)
 	public List<SysMenu> query(Page<SysMenu> page, SysMenu sysMenu) {
-		PageHelper.startPage(page.getPageNum(),page.getPageSize(),page.getOrderBy());
+		PageHelper.orderBy(page.getOrderBy());
 		List<SysMenu> list = sysMenuDao.query(sysMenu);
 		return list;
 	}
@@ -195,14 +195,14 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public List<SysMenu> getParentMenu(Page<SysMenu> page, SysMenu sysmenu) {
-		PageHelper.startPage(page.getPageNum(),page.getPageSize(),page.getOrderBy());
+		PageHelper.orderBy(page.getOrderBy());
 		List<SysMenu> list = sysMenuDao.getParentMenu(sysmenu);
 		return list;
     }
 
 	@Override
 	public List<SysMenu> getChildrenMenu(Page<SysMenu> page,SysMenu sysmenu) {
-		PageHelper.startPage(page.getPageNum(),page.getPageSize(),page.getOrderBy());
+		PageHelper.orderBy(page.getOrderBy());
 		List<SysMenu> list = sysMenuDao.getChildrenMenu(sysmenu);
 		return list;
 	}
@@ -275,5 +275,6 @@ public class SysMenuServiceImpl implements SysMenuService {
     public List<String> findmenuids() {
         return sysMenuDao.findmenuids();
     }
+
 
 }
