@@ -205,7 +205,7 @@
 		PARENT_ID = #{parentId}
 		order by MENU_ORDER
 	</select>
-	<select id="getParentMenu" resultMap="SysMenu" parameterType="com.ez.system.entity.SysMenu" >
+	<select id="getParentMenu" resultMap="SysMenu" parameterType="com.ez.system.entity.SysMenu" useCache="false">
 		SELECT <include refid="selectId" />
 		FROM sys_menu
 		WHERE

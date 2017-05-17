@@ -195,7 +195,7 @@
             showRefresh: false,                 //是否显示刷新按钮
             minimumCountColumns: 2,             //最少允许的列数
             clickToSelect: false,               //是否启用点击选中行
-            //height: getHeight(),                //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            //height: getHeight(),               //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
             uniqueId: "menuId",                 //每一行的唯一标识，一般为主键列
             showToggle:false,                   //是否显示详细视图和列表视图的切换按钮
             cardView: false,                    //是否显示详细视图
@@ -345,7 +345,7 @@
             });
         },
         'click .remove': function (e, value, row, index) {
-            top.layer.confirm("确认要删除该行的数据吗？",{icon: 7},function(index){
+            top.layer.confirm("确认要删除该行及其子数据吗？",{icon: 7},function(index){
                 //删除记录
                 $.ajax({
                     url: "/ez/system/sysmenu/deleteById.do",

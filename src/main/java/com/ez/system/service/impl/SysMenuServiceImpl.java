@@ -42,7 +42,6 @@ public class SysMenuServiceImpl implements SysMenuService {
 	 * @param sysMenu
 	 * @return
 	 */
-	//@PreAuthorize("hasRole('ROLE_*')")
 	@Transactional(readOnly=true)
 	public List<SysMenu> query(Page<SysMenu> page, SysMenu sysMenu) {
 		PageHelper.orderBy(page.getOrderBy());
@@ -55,7 +54,6 @@ public class SysMenuServiceImpl implements SysMenuService {
 	 * @param sysMenu
 	 * @return List<SysMenu>
 	 */
-	//@PreAuthorize("hasRole('ROLE_*')")
 	@Transactional(readOnly=true)
 	public List<SysMenu> queryAll(SysMenu sysMenu) {
 		List<SysMenu> list = sysMenuDao.query(sysMenu);
@@ -67,7 +65,6 @@ public class SysMenuServiceImpl implements SysMenuService {
 	 * @param sysMenu
 	 * @return
 	 */
-	//@PreAuthorize("hasRole('ROLE_*')")
 	public void add(SysMenu sysMenu) {
 		sysMenuDao.add(sysMenu);
 	}
@@ -77,39 +74,39 @@ public class SysMenuServiceImpl implements SysMenuService {
 	 * @param sysMenu
 	 * @return
 	 */
-	//@PreAuthorize("hasRole('ROLE_*')")
 	public void addAll(SysMenu sysMenu) {
 		sysMenuDao.addAll(sysMenu);
 	}
 	
 	/**
 	 * 删除操作
+	 * 删除自己及子菜单
 	 * @param id
 	 * @return
 	 */
-	//@PreAuthorize("hasRole('ROLE_*')")
 	public void delete(String id) {
+		deleterecursion(id);
+	}
+
+	/**
+	 *  Created by chenez on 2017/5/17 23:48
+	 *  递归函数
+	 * @param id
+	 */
+	public void deleterecursion(String id){
 		List<SysMenu> sysMenuList=sysMenuDao.findAllByParentid(id);
 		if (sysMenuList!=null && sysMenuList.size()>0){
 			for (SysMenu sysMenu : sysMenuList) {
-				List<SysMenu> MenuList=sysMenuDao.findAllByParentid(sysMenu.getMenuId()+"");
-				if (MenuList!=null && MenuList.size()>0){
-					for (SysMenu Menu : MenuList) {
-						sysMenuDao.delete(Menu.getMenuId()+"");
-					}
-				}
-				sysMenuDao.delete(sysMenu.getMenuId()+"");
+				deleterecursion(sysMenu.getMenuId().toString());
 			}
 		}
 		sysMenuDao.delete(id);
 	}
-	
 	/**
 	 * 根据id查找实体类
 	 * @param id
 	 * @return
 	 */
-	//@PreAuthorize("hasRole('ROLE_*')")
 	@Transactional(readOnly=true)
 	public SysMenu getById(String id) {
 		return sysMenuDao.getById(id);
@@ -120,7 +117,6 @@ public class SysMenuServiceImpl implements SysMenuService {
 	 * @param sysMenu
 	 * @return
 	 */
-	//@PreAuthorize("hasRole('ROLE_*')")
 	public void modify(SysMenu sysMenu) {
 		sysMenuDao.modify(sysMenu);
 	}
@@ -129,7 +125,6 @@ public class SysMenuServiceImpl implements SysMenuService {
 	 * 查找所有
 	 * @return
 	 */
-	//@PreAuthorize("hasRole('ROLE_*')")
 	@Transactional(readOnly=true)
 	public List<SysMenu> findAll() {
 		List<SysMenu> rl = sysMenuDao.findAll();

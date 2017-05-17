@@ -14,6 +14,7 @@ import com.ez.util.Common;
 import com.ez.util.WebTool;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -79,6 +80,7 @@ public class SysCityController {
 	 * @return
 	 */
 	@RequestMapping(value="add")
+	@RequiresPermissions("syscity_add")
 	@SystemLogController(description = "保存城市区域新增信息")
 	public String add(SysCity syscity,HttpServletResponse response){
 		String result="{\"msg\":\"suc\"}";
@@ -187,10 +189,11 @@ public class SysCityController {
 	 */
 	@RequestMapping(value="deleteById",method=RequestMethod.POST)
 	@SystemLogController(description = "删除城市区域信息")
+	@RequiresPermissions("syscity_delete")
 	public String deleteById(Model model,String ids, HttpServletResponse response){
 		String result="{\"status\":1,\"message\":\"删除成功！\"}";
 		try{
-			sysCityService.delete(ids);
+			sysCityService.deleteSubAll(ids);
 		}catch(Exception e){
 			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -227,6 +230,7 @@ public class SysCityController {
 	 * @return
 	 */
 	@RequestMapping(value="update",method=RequestMethod.POST)
+	@RequiresPermissions("syscity_modify")
 	@SystemLogController(description = "更新修改城市区域的信息")
 	public String updateSysCity(Model model,SysCity syscity,HttpServletResponse response){
 		String result="{\"msg\":\"suc\"}";
@@ -247,6 +251,7 @@ public class SysCityController {
 	 * @return
 	 */
 	@RequestMapping(value = "deleteAll")
+	@RequiresPermissions("syscity_deleteall")
 	@SystemLogController(description = "批量删除城市区域信息")
 	public String deleteAll(String[] ids, HttpServletResponse response) {
 		String result = "{\"status\":1,\"message\":\"删除成功！\"}";

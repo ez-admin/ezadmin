@@ -11,6 +11,12 @@ http://www.springframework.org/schema/context/spring-context-4.2.xsd">
     <!-- 加载配置属性文件 -->
     <context:property-placeholder ignore-unresolvable="true" location="classpath:properties/config.properties" />
     <!-- ================ Shiro start ================ -->
+
+    <!--如果要使用注解，你在Spring的配置文件中需要先加上这个Shiro提供的注解切面，否则注解是不起作用的。
+    参考：http://blog.csdn.net/sharetop/article/details/50195609-->
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
     <!-- 定义Shiro安全管理配置 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="ShiroRealm" />

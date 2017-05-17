@@ -28,4 +28,6 @@ public interface SysCityService extends BaseService<SysCity> {
     List<SysCity> queryList(Page<SysCity> page,SysCity syscity);
 
     List<SysCity> getChildrenCityList(Page<SysCity> page,SysCity syscity);
+
+    void deleteSubAll(String ids);
 }

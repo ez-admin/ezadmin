@@ -76,8 +76,8 @@
 <script src="/static/plugins/bootstrap-table/bootstrap.min.js"></script>
 <script src="/static/plugins/bootstrap-table/bootstrap-table.js"></script>
 <script src="/static/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-<script src="/static/plugins/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
-<script src="/static/plugins/bootstrap-table/extensions/tableExport/tableExport.js"></script>
+<%--<script src="/static/plugins/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
+<script src="/static/plugins/bootstrap-table/extensions/tableExport/tableExport.js"></script>--%>
 <script>
 	$(function () {
 		//初始化表格
@@ -315,7 +315,7 @@
 			});
 		},
 		'click .remove': function (e, value, row, index) {
-			top.layer.confirm("确认要删除该行的数据吗？",{icon: 7},function(index){
+			top.layer.confirm("确认要删除该行及其子数据吗？",{icon: 7},function(index){
 				//删除记录
 				$.ajax({
 					url: "/ez/system/syscity/deleteById.do",
