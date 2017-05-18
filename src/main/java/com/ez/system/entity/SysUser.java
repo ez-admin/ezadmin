@@ -42,7 +42,7 @@ public class SysUser extends BaseEntity implements java.io.Serializable{
 	public static final String ALIAS_BSBSKND = "开办业务";
 	public static final String ALIAS_LASTLOGIN = "最近一次登陆时间";
 	public static final String ALIAS_LOGINIP = "登陆ip";
-	public static final String ALIAS_LOGINLOCATION = "登陆地区";
+	public static final String ALIAS_LOCATION = "所属地区";
 	
 	//date formats
 	
@@ -88,8 +88,8 @@ public class SysUser extends BaseEntity implements java.io.Serializable{
 	private String lastlogin;
 	/**登陆ip==>db_column: LOGINIP*/
 	private String loginip;
-	/**登陆地区==>db_column: LOGINLOCATION*/
-	private String loginlocation;
+	/**所属地区==>db_column: LOCATION*/
+	private String location;
 	//columns END
 
 	private String dptnm;
@@ -236,12 +236,12 @@ public class SysUser extends BaseEntity implements java.io.Serializable{
 		this.loginip = loginip;
 	}
 
-	public String getLoginlocation() {
-		return loginlocation;
+	public String getLocation() {
+		return location;
 	}
 
-	public void setLoginlocation(String loginlocation) {
-		this.loginlocation = loginlocation;
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	public String getDptnm() {
@@ -290,7 +290,7 @@ public class SysUser extends BaseEntity implements java.io.Serializable{
 				", bsbsknd='" + bsbsknd + '\'' +
 				", lastlogin='" + lastlogin + '\'' +
 				", loginip='" + loginip + '\'' +
-				", loginlocation='" + loginlocation + '\'' +
+				", location='" + location + '\'' +
 				'}';
 	}
 

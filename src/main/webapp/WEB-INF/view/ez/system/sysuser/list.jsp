@@ -163,8 +163,8 @@
 				align: 'center',
 				width:'10%'
 			}, {
-				field: 'loginlocation',
-				title: '登陆地区',
+				field: 'location',
+				title: '所属地区',
 				align: 'center',
 				width:'10%'
 			},{

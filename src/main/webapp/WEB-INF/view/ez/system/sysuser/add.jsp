@@ -121,6 +121,24 @@
 				</div>
 			</div>
 			<div class="layui-form-item">
+				<label class="layui-form-label">选择地区</label>
+				<div class="layui-input-inline">
+					<select name="province" lay-filter="province">
+						<option></option>
+					</select>
+				</div>
+				<div class="layui-input-inline">
+					<select name="city" lay-filter="city">
+						<option></option>
+					</select>
+				</div>
+				<div class="layui-input-inline">
+					<select name="location" lay-filter="area">
+						<option></option>
+					</select>
+				</div>
+			</div>
+			<%--<div class="layui-form-item">
 				<label class="layui-form-label">地区</label>
 				<div class="layui-input-inline">
 					<select name="quiz1">
@@ -148,7 +166,7 @@
 						<option value="拱墅区">临安市</option>
 					</select>
 				</div>
-			</div>
+			</div>--%>
 			<div class="layui-form-item">
 				<label class="layui-form-label">手机号码:</label>
 				<div class="layui-input-inline">
@@ -171,6 +189,8 @@
 	</div>
 	<script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
 	<script type="text/javascript" src="/static/plugins/layui/layui.js" charset="utf-8"></script>
+	<%--省市区城市联动--%>
+	<script src="/static/js/citys.js" type="text/javascript" charset="utf-8"></script>
 	<%--select2tree plugins--%>
 	<link rel="stylesheet" href="/static/plugins/bootstrap3.3.7/css/bootstrap.min.css" class="css">
 	<link rel="stylesheet" href="/static/plugins/select2tree/css/select2.min.css" class="css">
@@ -178,7 +198,8 @@
 	<script type="text/javascript" src="/static/plugins/select2tree/js/select2.min.js" charset="utf-8"></script>
 	<script type="text/javascript" src="/static/plugins/select2tree/js/zh-CN.js" charset="utf-8"></script>
 	<script type="text/javascript" src="/static/plugins/select2tree/js/select2tree.js" charset="utf-8"></script>
-	<script>
+
+	<script type="text/javascript">
 		//select2插件
 		$(function() {
 			$("#companyno").append('${companyList}');
@@ -198,7 +219,8 @@
 					,form = layui.form()
 					,element = layui.element()
 					,$ = layui.jquery;
-
+			//省市区城市联动
+            pca.init('select[name=province]', 'select[name=city]', 'select[name=location]');
 			//上传图片
 			layui.upload({
 				url: '/ez/system/sysuser/headicon.do',

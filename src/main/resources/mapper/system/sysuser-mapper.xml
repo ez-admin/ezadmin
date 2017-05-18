@@ -25,7 +25,7 @@
         <result property="bsbsknd" column="BSBSKND"/>
         <result property="lastlogin" column="LASTLOGIN"/>
         <result property="loginip" column="LOGINIP"/>
-        <result property="loginlocation" column="LOGINLOCATION"/>
+        <result property="location" column="LOCATION"/>
 	</resultMap>
 	
 	<sql id="selectId">
@@ -50,7 +50,7 @@
 		BSBSKND,
 		LASTLOGIN,
 		LOGINIP,
-		LOGINLOCATION
+		LOCATION
     </sql>
     
     <select id="findAll" resultMap="SysUser">
@@ -127,8 +127,8 @@
 		       <if test="@Ognl@isNotEmpty(loginip)">
 					AND LOGINIP like '%${loginip}%'
 				</if>
-		       <if test="@Ognl@isNotEmpty(loginlocation)">
-					AND LOGINLOCATION like '%${loginlocation}%'
+		       <if test="@Ognl@isNotEmpty(location)">
+					AND LOCATION like '%${location}%'
 				</if>
 	       
 		</where>
@@ -170,7 +170,7 @@
         	BSBSKND ,
 			LASTLOGIN ,
 			LOGINIP ,
-			LOGINLOCATION
+			LOCATION
         ) VALUES (
 			#{USERNO},
         	#{lognm} ,
@@ -191,7 +191,7 @@
         	#{bsbsknd} ,
         	#{lastlogin} ,
         	#{loginip} ,
-        	#{loginlocation}
+        	#{location}
         )
 	</insert>
 	
@@ -263,8 +263,8 @@
 			<if test="@Ognl@isNotEmpty(loginip)">
 				LOGINIP,
 			</if>
-			<if test="@Ognl@isNotEmpty(loginlocation)">
-				LOGINLOCATION,
+			<if test="@Ognl@isNotEmpty(location)">
+				LOCATION,
 			</if>
     </trim>
     <trim prefix=" values (" suffix=")" suffixOverrides="," >
@@ -325,8 +325,8 @@
 			<if test="@Ognl@isNotEmpty(loginip)">
 				#{loginip},
 			</if>
-			<if test="@Ognl@isNotEmpty(loginlocation)">
-				#{loginlocation},
+			<if test="@Ognl@isNotEmpty(location)">
+				#{location},
 			</if>
     </trim>
 	</sql>
@@ -381,7 +381,7 @@
 	        BSBSKND = #{bsbsknd} ,
 	        LASTLOGIN = #{lastlogin} ,
 	        LOGINIP = #{loginip} ,
-	        LOGINLOCATION = #{loginlocation}
+	        LOCATION = #{location}
         WHERE 
 	        USERNO = #{userno} 
 	</update>
@@ -442,8 +442,8 @@
 		<if test="@Ognl@isNotEmpty(loginip)">
 			LOGINIP = #{loginip},
 		</if>
-		<if test="@Ognl@isNotEmpty(loginlocation)">
-			LOGINLOCATION = #{loginlocation},
+		<if test="@Ognl@isNotEmpty(location)">
+			LOCATION = #{location},
 		</if>
     </set>
 	</sql>
@@ -456,8 +456,6 @@
 	        USERNO = #{userno} 
 	</update>
 
-
-	<!-- 查找唯一索引但不是主键的字段Selective -->
 	
 </mapper>
 

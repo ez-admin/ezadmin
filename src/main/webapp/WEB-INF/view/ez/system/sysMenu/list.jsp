@@ -371,7 +371,6 @@
     //关闭弹窗并刷新
     function closeWin(index){
         location.reload();
-        //$("#table").bootstrapTable('refresh');
         top.layer.close(index);
     }
     //获取表格高度

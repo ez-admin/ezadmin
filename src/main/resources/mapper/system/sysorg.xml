@@ -24,15 +24,15 @@
 	
 	<sql id="selectId">
 		orgId,
-orgName,
-orgDescription,
-orgManager,
-orgPhone,
-orgParentid,
-orgEstablishTime,
-orgPath,
-orgType,
-(select USERRELNM from sys_user where USERNO=orgManager) orgManageName
+		orgName,
+		orgDescription,
+		orgManager,
+		orgPhone,
+		orgParentid,
+		orgEstablishTime,
+		orgPath,
+		orgType,
+		(select USERRELNM from sys_user where USERNO=orgManager) orgManageName
     </sql>
     
     <select id="findAll" resultMap="SysOrg">

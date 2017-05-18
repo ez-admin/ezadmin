@@ -321,7 +321,8 @@
 					url: "/ez/system/syscity/deleteById.do",
 					type: "POST",
 					data: { "ids": row.id },
-					success: function (result) {
+                    async:false,//同步 由于删除调用递归函数，执行有点满，如果不设置同步，就是页面刷新之后，数据没有删除，过个几秒钟，刷新才会消失
+                    success: function (result) {
 						handleResult(result.status,result.message);
 					}
 				});
@@ -329,18 +330,6 @@
 			});
 		}
 	};
-	//获取所有选中行获取选中行的id 格式为 "ids":1,2
-	function getSelectId(arrselections) {
-		var arrselectionsLength = arrselections.length;
-		var ids = "";
-		for(var i = 0;i<arrselectionsLength;i++) {
-			ids += arrselections[i].id ;
-			if(i!=arrselectionsLength-1){
-				ids += ",";
-			}
-		}
-		return {"ids":ids};
-	}
 	//删除后的提示
 	function handleResult(status,message){
 		if(status =="1"){
@@ -354,10 +343,10 @@
 		location.reload();
 		top.layer.close(index);
 	}
-	//获取表格高度
-	function getHeight() {
-		return $(window).height() - 50;
-	}
+    //获取表格高度
+    function getHeight() {
+        return $(window).height() - $('blockquote').outerHeight(true);
+    }
 </script>
 
 </body>
