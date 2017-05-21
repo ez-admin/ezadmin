@@ -27,18 +27,6 @@
 			</div>
 			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
-		<%--<div class="layui-form-item">
-			<label class="layui-form-label">url地址:</label>
-			<div class="layui-input-inline">
-				<input type="text" name="url" value="${syscity.url}"  placeholder="请输入url地址" autocomplete="off" class="layui-input layui-disabled">
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">是否最明细科目（0否1是）:</label>
-			<div class="layui-input-inline">
-				<input type="text" name="leaf" value="${syscity.leaf}"  placeholder="请输入是否最明细科目（0否1是）" autocomplete="off" class="layui-input layui-disabled">
-			</div>
-		</div>--%>
 		<div class="layui-form-item">
 			<label class="layui-form-label">父级id:</label>
 			<div class="layui-input-inline">
@@ -65,7 +53,7 @@
         form.on('submit(add)', function(data){
             //layer.msg(JSON.stringify(data.field));
             $.ajax({
-                url: "/ez/system/syscity/add.do",
+                url: "/ez/system/syscity/addsub.do",
                 type: "POST",
                 data:$('#formid').serialize(),// 你的formid
                 success: function (result) {

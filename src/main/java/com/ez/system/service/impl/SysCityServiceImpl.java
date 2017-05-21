@@ -5,6 +5,8 @@ import com.ez.annotation.SystemLogService;
 import com.ez.base.service.impl.BaseServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import jxl.Sheet;
+import jxl.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +15,7 @@ import com.ez.system.entity.*;
 import com.ez.system.dao.*;
 import com.ez.system.service.*;
 
+import java.io.FileInputStream;
 import java.util.List;
 
 /**
@@ -75,7 +78,44 @@ public class SysCityServiceImpl extends BaseServiceImpl<SysCity> implements SysC
 		deleterecursion(ids);
 	}
 
-	public void deleterecursion(String id){
+    @Override
+    public void uploadadd(String filepath) {
+		this.uploadpublic(filepath);
+    }
+
+	@Override
+	public void uploadmodify(String filepath) {
+		sysCityDao.deleteAll();
+		this.uploadpublic(filepath);
+	}
+
+	public void uploadpublic(String filepath){
+		try {
+			//导入已存在的Excel文件，获得只读的工作薄对象
+			FileInputStream fileInputStream=new FileInputStream(filepath);
+			Workbook workbook=Workbook.getWorkbook(fileInputStream);
+			//获取第一张Sheet表
+			Sheet sheet=workbook.getSheet(0);
+			//获取总行数
+			int rowNum=sheet.getRows();
+			//从数据行开始迭代每一行
+			for(int i=1;i<rowNum;i++){
+				SysCity sysCity=new SysCity();
+				//getCell(column,row)，表示取得指定列指定行的单元格（Cell）
+				//getContents()获取单元格的内容，返回字符串数据。适用于字符型数据的单元格
+				//使用实体类封装单元格数据
+				sysCity.setId(Integer.parseInt(sheet.getCell(0, i).getContents()));
+				sysCity.setName(sheet.getCell(1, i).getContents());
+				sysCity.setParentId(Integer.parseInt(sheet.getCell(2, i).getContents()));
+				sysCityDao.add(sysCity);
+			}
+			fileInputStream.close();
+			workbook.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+    public void deleterecursion(String id){
 		List<SysCity> sysCityList=sysCityDao.getChildrenCityById(id);
 		if (sysCityList!=null && sysCityList.size()>0){
 			for (SysCity sysCity : sysCityList) {

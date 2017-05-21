@@ -23,11 +23,9 @@ public class SysCity extends BaseEntity implements java.io.Serializable{
 	private static final long serialVersionUID = 5454155825314635342L;
 	
 	//alias
-	public static final String TABLE_ALIAS = "城市信息表";
+	public static final String TABLE_ALIAS = "城市区域表";
 	public static final String ALIAS_ID = "主键id";
 	public static final String ALIAS_NAME = "城市名";
-	public static final String ALIAS_URL = "url地址";
-	public static final String ALIAS_LEAF = "是否最明细科目（0否1是）";
 	public static final String ALIAS_PARENT_ID = "父级id";
 	
 	//date formats
@@ -47,10 +45,6 @@ public class SysCity extends BaseEntity implements java.io.Serializable{
 	private Integer id;
 	/**城市名==>db_column: name*/
 	private String name;
-	/**url地址==>db_column: url*/
-	private String url;
-	/**是否最明细科目（0否1是）==>db_column: leaf*/
-	private String leaf;
 	/**父级id==>db_column: parentId*/
 	private Integer parentId;
 	//columns END
@@ -70,20 +64,7 @@ public class SysCity extends BaseEntity implements java.io.Serializable{
 	public String getName() {
 		return this.name;
 	}
-	public void setUrl(String value) {
-		this.url = value;
-	}
-	
-	public String getUrl() {
-		return this.url;
-	}
-	public void setLeaf(String value) {
-		this.leaf = value;
-	}
-	
-	public String getLeaf() {
-		return this.leaf;
-	}
+
 	public void setParentId(Integer value) {
 		this.parentId = value;
 	}
@@ -96,8 +77,6 @@ public class SysCity extends BaseEntity implements java.io.Serializable{
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
 			.append("Id",getId())
 			.append("Name",getName())
-			.append("Url",getUrl())
-			.append("Leaf",getLeaf())
 			.append("ParentId",getParentId())
 			.toString();
 	}

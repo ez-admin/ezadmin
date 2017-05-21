@@ -7,6 +7,9 @@
 /*color*/
 .green{color:#5FB878}.darkgreen{color:#009688}.darkblack{color:#393D49}.blue{color:#1E9FFF}
 .yellow{color:#F7B824}.red{color:#FF5722}.lightblue{color:#01AAED}.lightblack{color:#2F4056}
+.layui-hidden{
+    display: none;
+}
 
 .layui-form-label-quote{
     float: left;

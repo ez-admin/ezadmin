@@ -20,4 +20,6 @@ public interface SysCityDao extends BaseDao<SysCity>{
     List<SysCity> getChildrenCity(SysCity syscity);
 
     List<SysCity> getChildrenCityById(@Param("id") String id);
+
+    void deleteAll();
 }

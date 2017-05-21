@@ -28,18 +28,6 @@
 			</div>
 			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
-		<%--<div class="layui-form-item">
-			<label class="layui-form-label">url地址:</label>
-			<div class="layui-input-inline">
-				<input type="text" name="url" placeholder="请输入url地址" autocomplete="off" class="layui-input">
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">是否最明细科目:</label>
-			<div class="layui-input-inline">
-				<input type="checkbox" name="leaf" lay-skin="switch" lay-text="是|否"  value="1">
-			</div>
-		</div>--%>
 		<div class="layui-form-item">
 			<label class="layui-form-label">父级id:</label>
 			<div class="layui-input-inline">

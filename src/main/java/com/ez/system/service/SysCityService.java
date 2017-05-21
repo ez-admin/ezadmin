@@ -30,4 +30,8 @@ public interface SysCityService extends BaseService<SysCity> {
     List<SysCity> getChildrenCityList(Page<SysCity> page,SysCity syscity);
 
     void deleteSubAll(String ids);
+
+    void uploadadd(String filepath);
+
+    void uploadmodify(String filepath);
 }
