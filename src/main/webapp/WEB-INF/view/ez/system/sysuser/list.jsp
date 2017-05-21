@@ -145,26 +145,16 @@
 			}, {
 				field: 'companynm',
 				title: '公司名称',
-				width:'10%',
+				width:'20%',
 				align: 'center'
 			}, {
 				field: 'dptnm',
 				title: '部门名称',
 				width:'10%',
 				align: 'center'
-			/*}, {
-				field: 'rlnm',
-				title: '角色名称',
-				align: 'center',
-				width:'15%'*/
 			}, {
 				field: 'lastlogin',
 				title: '最近一次登陆时间',
-				align: 'center',
-				width:'10%'
-			}, {
-				field: 'location',
-				title: '所属地区',
 				align: 'center',
 				width:'10%'
 			},{

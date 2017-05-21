@@ -155,7 +155,7 @@ parentId
 		parentId = ${id}
 	</select>
 
-    <!-- 更新all -->
+	<!-- 更新all -->
 	<update id="updateAll" parameterType="com.ez.system.entity.SysCity">
 	    UPDATE sys_city SET
 	        name = #{name} ,

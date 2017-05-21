@@ -34,4 +34,6 @@ public interface SysCityService extends BaseService<SysCity> {
     void uploadadd(String filepath);
 
     void uploadmodify(String filepath);
+
+    List<SysCity> findSdBySdtCode(String parentId);
 }

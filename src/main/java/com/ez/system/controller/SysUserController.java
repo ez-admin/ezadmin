@@ -5,10 +5,7 @@ import com.ez.annotation.SystemLogController;
 import com.ez.system.entity.SysRole;
 import com.ez.system.entity.SysUser;
 import com.ez.system.entity.SysUserRole;
-import com.ez.system.service.SysOrgService;
-import com.ez.system.service.SysRoleService;
-import com.ez.system.service.SysUserRoleService;
-import com.ez.system.service.SysUserService;
+import com.ez.system.service.*;
 import com.ez.util.FormatDateUtil;
 import com.ez.util.PubConstants;
 import com.ez.util.WaterIdGener;
@@ -51,7 +48,8 @@ public class SysUserController {
 	private SysOrgService sysOrgService;
 	@Resource
 	private SysUserRoleService sysUserRoleService;
-
+	@Resource
+	private SysCityService sysCityService;
 	/**
 	 * 跳到列表页面
 	 * @return
@@ -155,6 +153,10 @@ public class SysUserController {
 		model.addAttribute("sysUser", sysuser);
 		model.addAttribute("companyList",companyList);
 		model.addAttribute("dptList",dptList);
+		String quiz2=sysCityService.getById(sysuser.getLocation()).getParentId().toString();
+		String quiz1=sysCityService.getById(quiz2).getParentId().toString();
+		model.addAttribute("quiz1",quiz1);
+		model.addAttribute("quiz2",quiz2);
 		if(typeKey == 1){
 			return "ez/system/sysuser/edit";
 		}else if(typeKey == 2){

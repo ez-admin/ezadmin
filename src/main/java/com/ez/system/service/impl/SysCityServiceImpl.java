@@ -89,7 +89,12 @@ public class SysCityServiceImpl extends BaseServiceImpl<SysCity> implements SysC
 		this.uploadpublic(filepath);
 	}
 
-	public void uploadpublic(String filepath){
+    @Override
+    public List<SysCity> findSdBySdtCode(String parentId) {
+        return sysCityDao.getChildrenCityById(parentId);
+    }
+
+    public void uploadpublic(String filepath){
 		try {
 			//导入已存在的Excel文件，获得只读的工作薄对象
 			FileInputStream fileInputStream=new FileInputStream(filepath);

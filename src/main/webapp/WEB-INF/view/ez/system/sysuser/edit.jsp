@@ -132,6 +132,24 @@
 			</div>
 		</div>
 		<div class="layui-form-item">
+			<label class="layui-form-label">地区</label>
+			<div class="layui-input-inline">
+				<select id="quiz1" lay-filter="quiz1">
+					<option value="">请选择</option>
+				</select>
+			</div>
+			<div class="layui-input-inline">
+				<select id="quiz2" lay-filter="quiz2">
+					<option value="">请选择</option>
+				</select>
+			</div>
+			<div class="layui-input-inline">
+				<select id="location" name="location">
+					<option value="">请选择</option>
+				</select>
+			</div>
+		</div>
+		<div class="layui-form-item">
 			<label class="layui-form-label">手机号码:</label>
 			<div class="layui-input-inline">
 				<input type="text" name="mobile" value="${sysUser.mobile}" class="layui-input">
@@ -180,38 +198,82 @@
 				,form = layui.form()
 				,element = layui.element()
 				,$ = layui.jquery;
-
-		//上传图片
-		layui.upload({
-			url: '/ez/system/sysuser/headicon.do',
-			method: 'post', //上传接口的http类型
-			before: function(input){
-				//返回的参数item，即为当前的input DOM对象
-				top.layer.msg('正在上传，请勿操作！');
-			},
-			success: function(res,input){
-				if(res.msg == "suc"){
-					$("#usericom").attr("value",res.url);
-					$("#headicon").attr("src",res.url);
-					top.layer.msg('上传成功！',{icon:1});
-				}else{
-					top.layer.msg('上传失败!'+res.message,{icon: 2});
-				}
-			}
-		});
 		//后台获取select值
 		$.ajax({url: "/ez/system/sysdictionary/getSdBySdtCode.do",
 			type: "POST",
 			data:{code:1002,selected:'${sysUser.sex}'},
+            async:false,
 			dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
 			success: function (result) {
 				$("#sex").append(result);
                 form.render('select');
-				/*$("#sex").select2tree({
-					placeholder: '请选择性别'
-				});*/
 			}
 		});
+        //后台获取第一级select
+        $.ajax({
+            url: '/ez/system/syscity/getSdBySdtCode.do',
+            type: "POST",
+            data:{parentId:0,selected:'${quiz1}'},
+            async:false,
+            dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
+            success: function (result) {
+                $("#quiz1").append(result);
+                form.render('select');
+            }
+        });
+        var id1=$("#quiz1").next().find('.layui-this').attr("lay-value");
+        if($("#quiz1"))  $("#quiz1").next().find('[lay-value="'+id1+'"]').click();
+        //后台获取第二级select
+        form.on('select(quiz1)', function(data){
+            var parentid=$("#quiz1").next().find('.layui-this').attr("lay-value");
+            $.ajax({
+                url: '/ez/system/syscity/getSdBySdtCode.do',
+                type: "POST",
+                data:{parentId:parentid,selected:'${quiz1}'},
+                async:false,
+                dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
+                success: function (result) {
+                    $("#quiz2").html('');
+                    $("#quiz2").append(result);
+                    form.render('select');
+                }
+            });
+            var id2=$("#quiz2").next().find('.layui-this').attr("lay-value");
+            if($("#quiz2"))  $("#quiz12").next().find('[lay-value="'+id2+'"]').click();
+        });
+        //后台获取第三级select
+        form.on('select(quiz2)', function(data){
+            var parentid=$("#quiz2").next().find('.layui-this').attr("lay-value");
+            $.ajax({
+                url: '/ez/system/syscity/getSdBySdtCode.do',
+                type: "POST",
+                data:{parentId:parentid,selected:'${sysUser.location}'},
+                dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
+                success: function (result) {
+                    $("#location").html('');
+                    $("#location").append(result);
+                    form.render('select');
+                }
+            });
+        });
+        //上传图片
+        layui.upload({
+            url: '/ez/system/sysuser/headicon.do',
+            method: 'post', //上传接口的http类型
+            before: function(input){
+                //返回的参数item，即为当前的input DOM对象
+                top.layer.msg('正在上传，请勿操作！');
+            },
+            success: function(res,input){
+                if(res.msg == "suc"){
+                    $("#usericom").attr("value",res.url);
+                    $("#headicon").attr("src",res.url);
+                    top.layer.msg('上传成功！',{icon:1});
+                }else{
+                    top.layer.msg('上传失败!'+res.message,{icon: 2});
+                }
+            }
+        });
 		//监听提交
 		form.on('submit(edit)', function(data){
 			//layer.msg(JSON.stringify(data.field));

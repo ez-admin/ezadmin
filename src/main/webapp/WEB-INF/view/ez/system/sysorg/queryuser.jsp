@@ -82,35 +82,35 @@
 					return index+1;
 				}
 			}, {
-				field: 'lognm',
-				title: '登陆账号',
-				width:'15%',
-				align: 'center'
-			}, {
-				field: 'userrelnm',
-				title: '用户姓名',
-				width:'15%',
-				align: 'center'
-			}, {
-				field: 'rlnm',
-				title: '角色名称',
-				align: 'center',
-				width:'20%'
-			}, {
-				field: 'lastlogin',
-				title: '最近一次登陆时间',
-				align: 'center',
-				width:'10%'
-			}, {
-				field: 'location',
-				title: '所属地区',
-				align: 'center',
-				width:'10%'
+                field: 'lognm',
+                title: '登陆账号',
+                width:'10%',
+                align: 'center'
+            }, {
+                field: 'userrelnm',
+                title: '用户姓名',
+                width:'10%',
+                align: 'center'
+            }, {
+                field: 'companynm',
+                title: '公司名称',
+                width:'20%',
+                align: 'center'
+            }, {
+                field: 'dptnm',
+                title: '部门名称',
+                width:'10%',
+                align: 'center'
+            }, {
+                field: 'lastlogin',
+                title: '最近一次登陆时间',
+                align: 'center',
+                width:'10%'
 			},{
 				filed: '',
 				title: '操作区',
 				align: 'center',
-				width:'15%',
+				width:'25%',
 				events: operateEvents,
 				formatter: operateFormatter
 			} ]

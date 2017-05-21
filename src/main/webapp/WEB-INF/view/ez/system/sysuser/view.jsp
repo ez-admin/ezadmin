@@ -7,13 +7,13 @@
 	<title>系统用户/会员新增</title>
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
 	<style>
-		.replaceselect .layui-form-select{
+		.replaceselect span.select2{
 			display: none;
 		}
 		.replaceselect  .select2-search {
 			display: none;
 		}
-		.select2-search__field{
+		.replaceselect  .select2-search__field{
 			display: none;
 		}
 		.layui-form-label{
@@ -58,8 +58,8 @@
 			</div>
 			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label replaceselect">所属公司:</label>
+		<div class="layui-form-item replaceselect">
+			<label class="layui-form-label">所属公司:</label>
 			<div class="layui-input-inline" style="width: 400px">
 				<select id="companyno" name="companyno" style="width: 100%" disabled >
 					<option value="">请选择</option>
@@ -67,8 +67,8 @@
 			</div>
 			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label replaceselect">所属部门:</label>
+		<div class="layui-form-item replaceselect">
+			<label class="layui-form-label">所属部门:</label>
 			<div class="layui-input-inline" style="width: 400px">
 				<select id="dptno" name="dptno" style="width: 100%" disabled >
 					<option value="">请选择</option>
@@ -89,15 +89,6 @@
 				</c:if>
 			</div>
 		</div>
-		<%--<div class="layui-form-item">
-			<label class="layui-form-label">角色名称:</label>
-			<div class="layui-input-inline">
-				<select name="rlid" id="rlid" lay-verify="required" lay-filter="rlid" disabled>
-					<option value="">请选择</option>
-				</select>
-			</div>
-			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
-		</div>--%>
 		<div class="layui-form-item">
 			<label class="layui-form-label">是否启用:</label>
 			<div class="layui-input-block">
@@ -185,9 +176,7 @@
 			dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
 			success: function (result) {
 				$("#sex").append(result);
-				$("#sex").select2tree({
-					placeholder: '请选择性别'
-				});
+                form.render('select');
 			}
 		});
 

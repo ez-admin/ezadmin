@@ -54,12 +54,12 @@
 		<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
 		</shiro:hasPermission>
 			<div id="toolbar" class="btn-group pull-right">
-				<%--<shiro:hasPermission name="syscity_add">--%>
+				<shiro:hasPermission name="syscity_upload">
 				<button id="btn_upload" type="button" class="layui-btn layui-btn-small">
 					<i class="fa fa-upload"></i>上传
 				</button>
 				<input type="hidden" id="uploadfilepath" name="uploadfilepath">
-				<%--</shiro:hasPermission>--%>
+				</shiro:hasPermission>
 				<shiro:hasPermission name="syscity_add">
 				<button id="btn_add" type="button" class="layui-btn layui-btn-small">
 					<i class="fa fa-plus"></i>新增一级区域

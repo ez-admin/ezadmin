@@ -408,7 +408,15 @@ public class SysCityController {
 		WebTool.writeJson(jsonObject.toString(), response);
 		return null;
 	}
-	//http://www.open-open.com/lib/view/open1429847388213.html#articleHeader19
+
+	/**
+	 * 新增上传数据
+	 * 参考资料http://www.open-open.com/lib/view/open1429847388213.html#articleHeader19
+	 * @param filepath
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping(value = "uploadadd",method=RequestMethod.POST)
 	public String uploadadd(String filepath,HttpServletRequest request,HttpServletResponse response){
 		JSONObject jsonObject=new JSONObject();
@@ -425,6 +433,15 @@ public class SysCityController {
 		WebTool.writeJson(jsonObject.toString(), response);
 		return null;
 	}
+
+	/**
+	 * 更新上传数据
+	 * 参考资料http://www.open-open.com/lib/view/open1429847388213.html#articleHeader19
+	 * @param filepath
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping(value = "uploadmodify",method=RequestMethod.POST)
 	public String uploadmodify(String filepath,HttpServletRequest request,HttpServletResponse response){
 		JSONObject jsonObject=new JSONObject();
@@ -439,6 +456,23 @@ public class SysCityController {
 			}
 		}
 		WebTool.writeJson(jsonObject.toString(), response);
+		return null;
+	}
+
+	@RequestMapping(value="getSdBySdtCode")
+	@ResponseBody
+	public String getSdBySdtCode(String parentId,String selected,HttpServletResponse response){
+		//字典类型编码
+		List<SysCity> sysCityList = sysCityService.findSdBySdtCode(parentId);
+		String result="";
+		for(SysCity sysCity : sysCityList) {
+			if (selected!=null && selected.equals(sysCity.getId().toString())){
+				result+="<option value=\""+sysCity.getId()+"\" selected >"+sysCity.getName()+"</option>";
+			}else {
+				result+="<option value=\""+sysCity.getId()+ "\">"+sysCity.getName()+"</option>";
+			}
+		}
+		WebTool.writeHtml(result, response);
 		return null;
 	}
 
