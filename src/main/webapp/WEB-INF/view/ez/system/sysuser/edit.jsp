@@ -57,9 +57,8 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">密码:</label>
 			<div class="layui-input-inline">
-				<input type="text" name="logpwd" value="${sysUser.logpwd}" lay-verify="required" placeholder="请输入密码" autocomplete="off"  class="layui-input">
+				<input type="text" id="logpwd" name="logpwd"  placeholder="请重新输入密码" autocomplete="off"  class="layui-input">
 			</div>
-			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
 		<div class="layui-form-item replaceselect">
 			<label class="layui-form-label">所属公司:</label>
@@ -221,19 +220,19 @@
                 form.render('select');
             }
         });
-        var id1=$("#quiz1").next().find('.layui-this').attr("lay-value");
-        if($("#quiz1"))  $("#quiz1").next().find('[lay-value="'+id1+'"]').click();
+
         //后台获取第二级select
         form.on('select(quiz1)', function(data){
-            var parentid=$("#quiz1").next().find('.layui-this').attr("lay-value");
+            var parentid1=$("#quiz1").next().find('.layui-this').attr("lay-value");
             $.ajax({
                 url: '/ez/system/syscity/getSdBySdtCode.do',
                 type: "POST",
-                data:{parentId:parentid,selected:'${quiz1}'},
+                data:{parentId:parentid1,selected:'${quiz2}'},
                 async:false,
                 dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
                 success: function (result) {
                     $("#quiz2").html('');
+                    $("#quiz2").append('<option>请选择</option>');
                     $("#quiz2").append(result);
                     form.render('select');
                 }
@@ -243,18 +242,35 @@
         });
         //后台获取第三级select
         form.on('select(quiz2)', function(data){
-            var parentid=$("#quiz2").next().find('.layui-this').attr("lay-value");
+            var parentid2=$("#quiz2").next().find('.layui-this').attr("lay-value");
             $.ajax({
                 url: '/ez/system/syscity/getSdBySdtCode.do',
                 type: "POST",
-                data:{parentId:parentid,selected:'${sysUser.location}'},
+                data:{parentId:parentid2,selected:'${sysUser.location}'},
                 dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
                 success: function (result) {
                     $("#location").html('');
+                    $("#location").append('<option>请选择</option>');
                     $("#location").append(result);
                     form.render('select');
                 }
             });
+        });
+        var id1=$("#quiz1").next().find('.layui-this').attr("lay-value");
+        if($("#quiz1"))  $("#quiz1").next().find('[lay-value="'+id1+'"]').click();
+        //此处是为了加载第三项,非常不好的处理方式，造成代码冗余；本想仿照上两行代码处理，没有达到效果，留后人解决。
+        var parentid2=$("#quiz2").next().find('.layui-this').attr("lay-value");
+		$.ajax({
+            url: '/ez/system/syscity/getSdBySdtCode.do',
+            type: "POST",
+            data:{parentId:parentid2,selected:'${sysUser.location}'},
+            dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
+            success: function (result) {
+                $("#location").html('');
+                $("#location").append('<option>请选择</option>');
+                $("#location").append(result);
+                form.render('select');
+            }
         });
         //上传图片
         layui.upload({
@@ -277,6 +293,10 @@
 		//监听提交
 		form.on('submit(edit)', function(data){
 			//layer.msg(JSON.stringify(data.field));
+            var logpwd=$("#logpwd").val();
+            if (logpwd){
+                $("#logpwd").val(md5(logpwd))
+            }
 			$.ajax({
 				url: "/ez/system/sysuser/update.do",
 				type: "POST",

@@ -56,7 +56,7 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">密码:</label>
 				<div class="layui-input-inline">
-					<input type="text" name="logpwd" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+					<input type="text" id="logpwd" name="logpwd" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
 				</div>
 				<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 			</div>
@@ -167,6 +167,7 @@
 	<script type="text/javascript" src="/static/plugins/select2tree/js/select2.min.js" charset="utf-8"></script>
 	<script type="text/javascript" src="/static/plugins/select2tree/js/zh-CN.js" charset="utf-8"></script>
 	<script type="text/javascript" src="/static/plugins/select2tree/js/select2tree.js" charset="utf-8"></script>
+	<script type="text/javascript" src="/static/js/md5.min.js" charset="utf-8"></script>
 
 	<script type="text/javascript">
 		//select2插件
@@ -221,6 +222,7 @@
                     dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
                     success: function (result) {
                         $("#quiz2").html('');
+                        $("#quiz2").append('<option>请选择</option>');
                         $("#quiz2").append(result);
                         form.render('select');
                     }
@@ -239,6 +241,7 @@
                     dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
                     success: function (result) {
                         $("#location").html('');
+                        $("#location").append('<option>请选择</option>');
                         $("#location").append(result);
                         form.render('select');
                     }
@@ -265,6 +268,11 @@
             //监听提交
 			form.on('submit(add)', function(data){
 				//layer.msg(JSON.stringify(data.field));
+				//用户密码加密
+				var logpwd=$("#logpwd").val();
+				if (logpwd){
+                    $("#logpwd").val(md5(logpwd))
+				}
 				$.ajax({
 					url: "/ez/system/sysuser/add.do",
 					type: "POST",

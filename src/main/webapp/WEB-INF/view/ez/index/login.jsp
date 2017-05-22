@@ -12,49 +12,46 @@ String basePath = request.getScheme() + "://"
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>登录</title>
-    <link rel="stylesheet" href="/static/plugins/layui/css/layui.css" media="all" />
-    <link rel="stylesheet" href="/static/css/login.css" />
+    <title>系统登录</title>
+    <link rel="stylesheet" href="/static/css/loginp.css" />
+    <style>
+        body{height:100%;background:#16a085;overflow:hidden;}
+        canvas{z-index:-1;position:absolute;}
+    </style>
 </head>
-<body class="beg-login-bg">
-<div class="beg-login-box">
-    <header>
-        <h1>${SYSNAME}</h1>
-    </header>
-    <div class="beg-login-main">
-        <form class="layui-form">
-            <div class="layui-form-item">
-                <label class="beg-login-icon">
-                    <i class="layui-icon">&#xe612;</i>
-                </label>
-                <input type="text" name="userName" id="username" lay-verify="userName" autocomplete="off" placeholder="这里输入登录名" class="layui-input">
-            </div>
-            <div class="layui-form-item">
-                <label class="beg-login-icon">
-                    <i class="layui-icon">&#xe642;</i>
-                </label>
-                <input type="password" name="password" id="password" lay-verify="password" autocomplete="off" placeholder="这里输入密码" class="layui-input">
-            </div>
-            <div class="layui-form-item">
-                <div class="beg-pull-left beg-login-remember">
-                    <label>记住帐号？</label>
-                    <input type="checkbox" name="rememberMe" value="true" lay-skin="switch" checked title="记住帐号">
-                </div>
-                <div class="beg-pull-right">
-                    <button class="layui-btn layui-btn-primary" type="button" onclick="login()">
-                        <i class="layui-icon">&#xe650;</i> 登录
-                    </button>
-                </div>
-                <div class="beg-clear"></div>
-            </div>
-        </form>
-    </div>
-    <footer>
-        <p>ezAdmin © www.chenez.cn</p>
-    </footer>
-</div>
+<body>
+<canvas class="pg-canvas" width="1920" height="950"></canvas>
+<dl class="admin_login">
+    <dt>
+        <strong>EzAadmin 后台管理系统</strong>
+        <em>EzAadmin Management System</em>
+    </dt>
+    <dd class="user_icon">
+        <input type="text" name="userName" id="username" placeholder="请输入账号" class="login_txtbx">
+    </dd>
+    <dd class="pwd_icon">
+        <input type="password" name="password" id="password" placeholder="请输入密码" class="login_txtbx">
+    </dd>
+    <dd>
+        <input type="button" onclick="login()" value="立即登陆" class="submit_btn">
+    </dd>
+    <dd>
+        <p>ezAdmin © www.chenez.cn 版权所有</p>
+    </dd>
+</dl>
 <script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
 <script type="text/javascript" src="/static/plugins/layui/lay/dest/layui.all.js"></script>
+<script type="text/javascript" src="/static/js/md5.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/js/Particleground.js" charset="utf-8"></script>
+<script>
+    $(function(){
+        //粒子背景特效
+        $('body').particleground({
+            dotColor: '#5cbdaa',
+            lineColor: '#5cbdaa'
+        });
+    });
+</script>
 <script>
     var layer = layui.layer;
     //监听enter事件
@@ -80,7 +77,6 @@ String basePath = request.getScheme() + "://"
         } else {
             $("#username").val(jQuery.trim($('#username').val()));
         }
-
         if ($("#password").val() == "") {
             layer.msg("密码不能为空！", {icon: 7});
             $("#password").focus();
@@ -92,7 +88,7 @@ String basePath = request.getScheme() + "://"
     function login() {
         if (check()) {
             var username = $("#username").val();
-            var password = $("#password").val();
+            var password = md5($("#password").val());
             //登录处理
             $.post("/ez/syslogin/login.do",
                     {"lognm": username, "logpwd": password},
@@ -107,7 +103,6 @@ String basePath = request.getScheme() + "://"
                             layer.msg(result.message, {icon: 7});
                             return false;
                         }
-
                     }, "json");
         }
     }

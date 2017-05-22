@@ -6,10 +6,7 @@ import com.ez.system.entity.SysRole;
 import com.ez.system.entity.SysUser;
 import com.ez.system.entity.SysUserRole;
 import com.ez.system.service.*;
-import com.ez.util.FormatDateUtil;
-import com.ez.util.PubConstants;
-import com.ez.util.WaterIdGener;
-import com.ez.util.WebTool;
+import com.ez.util.*;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
@@ -153,10 +150,12 @@ public class SysUserController {
 		model.addAttribute("sysUser", sysuser);
 		model.addAttribute("companyList",companyList);
 		model.addAttribute("dptList",dptList);
-		String quiz2=sysCityService.getById(sysuser.getLocation()).getParentId().toString();
-		String quiz1=sysCityService.getById(quiz2).getParentId().toString();
-		model.addAttribute("quiz1",quiz1);
-		model.addAttribute("quiz2",quiz2);
+		if (Tools.notEmpty(sysuser.getLocation())){
+			String quiz2=sysCityService.getById(sysuser.getLocation()).getParentId().toString();
+			String quiz1=sysCityService.getById(quiz2).getParentId().toString();
+			model.addAttribute("quiz1",quiz1);
+			model.addAttribute("quiz2",quiz2);
+		}
 		if(typeKey == 1){
 			return "ez/system/sysuser/edit";
 		}else if(typeKey == 2){

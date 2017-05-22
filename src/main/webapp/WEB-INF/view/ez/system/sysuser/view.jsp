@@ -51,13 +51,13 @@
 			</div>
 			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
-		<div class="layui-form-item">
+		<%--<div class="layui-form-item">
 			<label class="layui-form-label">密码:</label>
 			<div class="layui-input-inline">
 				<input type="text" name="logpwd" value="${sysUser.logpwd}" class="layui-input layui-disabled" readonly>
 			</div>
 			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
-		</div>
+		</div>--%>
 		<div class="layui-form-item replaceselect">
 			<label class="layui-form-label">所属公司:</label>
 			<div class="layui-input-inline" style="width: 400px">
@@ -129,6 +129,24 @@
 			</div>
 		</div>
 		<div class="layui-form-item">
+			<label class="layui-form-label">地区</label>
+			<div class="layui-input-inline">
+				<select id="quiz1" lay-filter="quiz1" disabled>
+					<option value="">请选择</option>
+				</select>
+			</div>
+			<div class="layui-input-inline">
+				<select id="quiz2" lay-filter="quiz2" disabled>
+					<option value="">请选择</option>
+				</select>
+			</div>
+			<div class="layui-input-inline">
+				<select id="location" name="location" disabled>
+					<option value="">请选择</option>
+				</select>
+			</div>
+		</div>
+		<div class="layui-form-item">
 			<label class="layui-form-label">手机号码:</label>
 			<div class="layui-input-inline">
 				<input type="text" name="mobile" value="${sysUser.mobile}" class="layui-input layui-disabled" readonly>
@@ -179,6 +197,43 @@
                 form.render('select');
 			}
 		});
+        //后台获取第一级select
+        $.ajax({
+            url: '/ez/system/syscity/getSdBySdtCode.do',
+            type: "POST",
+            data:{parentId:0,selected:'${quiz1}'},
+            async:false,
+            dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
+            success: function (result) {
+                $("#quiz1").append(result);
+                form.render('select');
+            }
+        });
+		var parentid1=$("#quiz1").next().find('.layui-this').attr("lay-value");
+		$.ajax({
+			url: '/ez/system/syscity/getSdBySdtCode.do',
+			type: "POST",
+			data:{parentId:parentid1,selected:'${quiz2}'},
+			async:false,
+			dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
+			success: function (result) {
+				$("#quiz2").html('');
+				$("#quiz2").append(result);
+				form.render('select');
+			}
+		});
+        var parentid2=$("#quiz2").next().find('.layui-this').attr("lay-value");
+        $.ajax({
+            url: '/ez/system/syscity/getSdBySdtCode.do',
+            type: "POST",
+            data:{parentId:parentid2,selected:'${sysUser.location}'},
+            dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
+            success: function (result) {
+                $("#location").html('');
+                $("#location").append(result);
+                form.render('select');
+            }
+        });
 
 	});
 </script>

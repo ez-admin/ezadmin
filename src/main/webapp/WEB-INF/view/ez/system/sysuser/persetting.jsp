@@ -173,6 +173,8 @@
 <script type="text/javascript" src="/static/plugins/select2tree/js/select2.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="/static/plugins/select2tree/js/zh-CN.js" charset="utf-8"></script>
 <script type="text/javascript" src="/static/plugins/select2tree/js/select2tree.js" charset="utf-8"></script>
+<%--MD5--%>
+<script type="text/javascript" src="/static/js/md5.min.js" charset="utf-8"></script>
 <script>
 	//select2插件
 	$(function() {
@@ -231,7 +233,8 @@
 		form.on('submit(modify)', function(data){
 			//layer.msg(JSON.stringify(data.field));
 			var rightoldpwd='${sysuser.logpwd}';
-			var oldpwd=$("#oldlogpwd").val();
+            var oldpwd = md5($("#oldlogpwd").val());
+			//var oldpwd=$("#oldlogpwd").val();
 			if (rightoldpwd != oldpwd){
 				top.layer.msg("原密码输入有误，请重新输入",{icon: 2});
 				$("#oldlogpwd").focus();
@@ -244,7 +247,7 @@
 				$("#twonewpwd").focus();
 				return false;
 			}
-
+            $('#twonewpwd').val( md5(twonewpwd));
 			$.ajax({
 				url: "/ez/system/sysuser/update.do",
 				type: "POST",
@@ -254,7 +257,7 @@
 						//关闭窗口
 						top.layer.closeAll();
 						top.layer.msg('修改成功!',{icon: 1});
-						location.reload();
+						top.window.location.href="ez/syslogin/logout.do";
 					}else{
 						top.layer.msg('修改失败!'+result.message,{icon: 2},function () {
 							location.reload();
