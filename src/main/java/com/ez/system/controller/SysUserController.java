@@ -187,7 +187,6 @@ public class SysUserController {
 		}
 		 WebTool.writeJson(jsonObject.toString(), response);
 		 return null;		
-		
 	}
 	
 	

@@ -260,8 +260,8 @@
 				</shiro:hasPermission>
 				<shiro:hasPermission name="sysuser_delete">
 				'<a class="remove" href="javascript:void(0)" title="删除">',
-				'删除',
-				'</a>'
+					'删除',
+					'</a>'
 				</shiro:hasPermission>
 			].join('');
 		/*}else {
@@ -313,18 +313,22 @@
 			});
 		},
 		'click .remove': function (e, value, row, index) {
-			top.layer.confirm("确认要删除该行的数据吗？",{icon: 7},function(index){
-				//删除记录
-				$.ajax({
-					url: "/ez/system/sysuser/deleteById.do",
-					type: "POST",
-					data: { "ids": row.userno },
-					success: function (result) {
-						handleResult(result.status,result.message);
-					}
-				});
-				closeWin(index);
-			});
+		    if("1000" == row.userno){
+                top.layer.msg('系统开发用户不能删除！',{icon: 2});
+			}else {
+                top.layer.confirm("确认要删除该行的数据吗？",{icon: 7},function(index){
+                    //删除记录
+                    $.ajax({
+                        url: "/ez/system/sysuser/deleteById.do",
+                        type: "POST",
+                        data: { "ids": row.userno },
+                        success: function (result) {
+                            handleResult(result.status,result.message);
+                        }
+                    });
+                    closeWin(index);
+                });
+			}
 		}
 	};
 	//获取所有选中行获取选中行的id 格式为 "ids":1,2
