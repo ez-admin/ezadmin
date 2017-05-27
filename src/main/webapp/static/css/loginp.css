@@ -50,7 +50,7 @@ small,weak{color:#666}
 .mtb{margin:5px 0;overflow:hidden;}
 .mlr{margin:0 5px;overflow:hidden;}
 .admin_login{height:auto;overflow:hidden;margin:10% auto 0 auto;padding:40px;box-shadow:0 -15px 30px #0d957a;border-radius:5px;}
-.admin_login dt{font-size:20px;font-weight:bold;text-align:center;color:#45bda6;text-shadow:0 0 1px #0e947a;}
+.admin_login dt{font-size:20px;font-weight:bold;text-align:center;color:#ffffff;text-shadow:0 0 1px #0e947a;}
 .admin_login dt strong{display:block;}
 .admin_login dt em{display:block;font-size:12px;margin-top:8px;}
 .admin_login dd{height:42px;overflow:hidden;position:relative;}
