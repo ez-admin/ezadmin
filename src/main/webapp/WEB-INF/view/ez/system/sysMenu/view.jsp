@@ -11,37 +11,37 @@
 <div class="layui-field-box">
 	<form id="formid" class="layui-form">
 		<div class="layui-form-item">
-			<label class="layui-form-label">菜单名称:</label>
-			<div class="layui-input-inline">
+			<label class="layui-form-label"><em class="required">*</em>菜单名称:</label>
+			<div class="layui-input-block">
 				<input type="text" name="menuName" value="${sysMenu.menuName}" class="layui-input layui-disabled" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">菜单地址:</label>
-			<div class="layui-input-inline">
+			<label class="layui-form-label"><em class="required">*</em>菜单地址:</label>
+			<div class="layui-input-block">
 				<input type="text" name="menuUrl" value="${sysMenu.menuUrl}" class="layui-input layui-disabled" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">菜单ID:</label>
-			<div class="layui-input-inline">
+			<div class="layui-input-block">
 				<input type="text" name="menuId" value="${sysMenu.menuId}" class="layui-input layui-disabled" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">父级菜单ID:</label>
-			<div class="layui-input-inline">
+			<div class="layui-input-block">
 				<input type="text" name="parentId" value="${sysMenu.parentId}" class="layui-input layui-disabled" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">菜单顺序:</label>
-			<div class="layui-input-inline">
+			<label class="layui-form-label"><em class="required">*</em>菜单顺序:</label>
+			<div class="layui-input-block">
 				<input type="text" name="menuOrder" value="${sysMenu.menuOrder}" class="layui-input layui-disabled" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">菜单图标:</label>
+			<label class="layui-form-label"><em class="required">*</em>菜单图标:</label>
 			<div class="layui-input-inline">
 				<input type="text" name="menuIcon" value="${sysMenu.menuIcon}" class="layui-input layui-disabled" readonly>
 			</div>
@@ -50,8 +50,8 @@
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">菜单类型</label>
-			<div class="layui-input-inline">
+			<label class="layui-form-label"><em class="required">*</em>菜单类型</label>
+			<div class="layui-input-block">
 				<c:if test="${sysMenu.menuType=='0'}">
 					<input type="radio" name="menuType" value="0" title="开发者菜单" checked>
 					<input type="radio" name="menuType" value="1" title="系统菜单" disabled>

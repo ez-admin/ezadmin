@@ -10,6 +10,7 @@
 .layui-hidden{
     display: none;
 }
+em.required{color:red;font-style:normal;padding-right: 5px;}
 
 .layui-form-label-quote{
     float: left;

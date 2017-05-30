@@ -13,20 +13,20 @@
 	<form id="formid" class="layui-form">
 		<input type="hidden" name="oid" value="${sysoption.oid}"/>
 		<div class="layui-form-item layui-form-text">
-			<label class="layui-form-label">参数值：</label>
+			<label class="layui-form-label"><em class="required">*</em>参数值：</label>
 			<div class="layui-input-block">
-				<textarea name="optionValue"  placeholder="请输入参数值" class="layui-textarea">${sysoption.optionValue}</textarea>
+				<textarea name="optionValue" lay-verify="required"  placeholder="请输入参数值" class="layui-textarea">${sysoption.optionValue}</textarea>
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">参数名称:</label>
-			<div class="layui-input-inline">
-				<input type="text" name="optionName" value="${sysoption.optionName}"  placeholder="请输入参数名称" autocomplete="off" class="layui-input">
+			<label class="layui-form-label"><em class="required">*</em>参数名称:</label>
+			<div class="layui-input-block">
+				<input type="text" name="optionName" lay-verify="required"  value="${sysoption.optionName}"  placeholder="请输入参数名称" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">参数排序:</label>
-			<div class="layui-input-inline">
+			<div class="layui-input-block">
 				<input type="number" name="optionOrder" value="${sysoption.optionOrder}" class="layui-input">
 			</div>
 		</div>

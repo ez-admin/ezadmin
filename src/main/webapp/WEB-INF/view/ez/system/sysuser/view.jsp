@@ -39,42 +39,32 @@
 <div class="layui-field-box">
 	<form id="formid" class="layui-form">
 		<div class="layui-form-item">
-			<label class="layui-form-label">头像:</label>
+			<label class="layui-form-label"><em class="required">*</em>头像:</label>
 			<div class="layui-input-inline" >
 				<img id="headicon" src="${sysUser.usericom}" alt="头像">
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">用户名:</label>
+			<label class="layui-form-label"><em class="required">*</em>用户名:</label>
 			<div class="layui-input-inline">
 				<input type="text" name="lognm"  value="${sysUser.lognm}" class="layui-input layui-disabled" readonly>
 			</div>
-			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
-		<%--<div class="layui-form-item">
-			<label class="layui-form-label">密码:</label>
-			<div class="layui-input-inline">
-				<input type="text" name="logpwd" value="${sysUser.logpwd}" class="layui-input layui-disabled" readonly>
-			</div>
-			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
-		</div>--%>
 		<div class="layui-form-item replaceselect">
-			<label class="layui-form-label">所属公司:</label>
+			<label class="layui-form-label"><em class="required">*</em>所属公司:</label>
 			<div class="layui-input-inline" style="width: 400px">
 				<select id="companyno" name="companyno" style="width: 100%" disabled >
 					<option value="">请选择</option>
 				</select>
 			</div>
-			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
 		<div class="layui-form-item replaceselect">
-			<label class="layui-form-label">所属部门:</label>
+			<label class="layui-form-label"><em class="required">*</em>所属部门:</label>
 			<div class="layui-input-inline" style="width: 400px">
 				<select id="dptno" name="dptno" style="width: 100%" disabled >
 					<option value="">请选择</option>
 				</select>
 			</div>
-			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">用户类型:</label>
@@ -101,20 +91,18 @@
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">真实姓名:</label>
+			<label class="layui-form-label"><em class="required">*</em>真实姓名:</label>
 			<div class="layui-input-inline">
 				<input type="text" name="userrelnm" value="${sysUser.userrelnm}" class="layui-input layui-disabled" readonly>
 			</div>
-			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">性别:</label>
+			<label class="layui-form-label"><em class="required">*</em>性别:</label>
 			<div class="layui-input-inline">
 				<select name="sex" id="sex" lay-verify="required" disabled>
 					<option value="">请选择</option>
 				</select>
 			</div>
-			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">年龄:</label>

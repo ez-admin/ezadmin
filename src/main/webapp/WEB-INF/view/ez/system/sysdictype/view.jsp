@@ -11,19 +11,19 @@
 <div class="layui-field-box">
 	<form id="formid" class="layui-form">
 		<div class="layui-form-item">
-			<label class="layui-form-label">类型编码:</label>
+			<label class="layui-form-label"><em class="required">*</em>类型编码:</label>
 			<div class="layui-input-inline">
 				<input type="text" value="${sysdictype.code}" name="code" class="layui-input layui-disabled" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">类型名称:</label>
+			<label class="layui-form-label"><em class="required">*</em>类型名称:</label>
 			<div class="layui-input-inline">
 				<input type="text" value="${sysdictype.name}" class="layui-input layui-disabled" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">是否启用:</label>
+			<label class="layui-form-label"><em class="required">*</em>是否启用:</label>
 			<div class="layui-input-switch">
 				<c:if test="${sysdictype.flag ==1}">
 					<input type="checkbox" name="flag" lay-skin="switch" lay-text="是|否" disabled checked>
@@ -31,7 +31,6 @@
 				<c:if test="${sysdictype.flag ==0}">
 					<input type="checkbox" name="flag" lay-skin="switch" lay-text="是|否" disabled >
 				</c:if>
-
 			</div>
 		</div>
 		<div class="layui-form-item layui-form-text">

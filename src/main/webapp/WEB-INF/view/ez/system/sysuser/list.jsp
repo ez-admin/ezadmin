@@ -243,36 +243,26 @@
 	});
 	//操作区
 	function operateFormatter(value, row, index) {
-		/*if (row.userno!="1000") {*/
-			return [
-				'<a class="assignrolelist" href="javascript:void(0)" title="分配角色">',
-				'分配角色  ',
-				'</a>',
-				<shiro:hasPermission name="sysuser_view">
-				'<a class="view" href="javascript:void(0)" title="查看">',
-				'查看  ',
-				'</a>',
-				</shiro:hasPermission>
-				<shiro:hasPermission name="sysuser_modify">
-				'<a class="edit" href="javascript:void(0)" title="修改">',
-				'修改  ',
-				'</a>',
-				</shiro:hasPermission>
-				<shiro:hasPermission name="sysuser_delete">
-				'<a class="remove" href="javascript:void(0)" title="删除">',
-					'删除',
-					'</a>'
-				</shiro:hasPermission>
-			].join('');
-		/*}else {
-			return [
-				<shiro:hasPermission name="sysuser_view">
-				'<a class="view" href="javascript:void(0)" title="查看">',
-				'查看',
+		return [
+			'<a class="assignrolelist" href="javascript:void(0)" title="分配角色">',
+			'分配角色  ',
+			'</a>',
+			<shiro:hasPermission name="sysuser_view">
+			'<a class="view" href="javascript:void(0)" title="查看">',
+			'查看  ',
+			'</a>',
+			</shiro:hasPermission>
+			<shiro:hasPermission name="sysuser_modify">
+			'<a class="edit" href="javascript:void(0)" title="修改">',
+			'修改  ',
+			'</a>',
+			</shiro:hasPermission>
+			<shiro:hasPermission name="sysuser_delete">
+			'<a class="remove" href="javascript:void(0)" title="删除">',
+				'删除',
 				'</a>'
-				</shiro:hasPermission>
-			].join('');
-		}*/
+			</shiro:hasPermission>
+		].join('');
 	};
 	//操作区事件
 	window.operateEvents = {

@@ -12,20 +12,18 @@
 		<form id="formid" class="layui-form">
 
 			<div class="layui-form-item">
-				<label class="layui-form-label">角色类型:</label>
-				<div class="layui-input-inline">
+				<label class="layui-form-label"><em class="required">*</em>角色类型:</label>
+				<div class="layui-input-block">
 					<select name="roleType" id="roleType" lay-verify="required" lay-filter="roleType">
 						<option value="">请选择</option>
 					</select>
 				</div>
-				<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label">角色名称:</label>
-				<div class="layui-input-inline">
+				<label class="layui-form-label"><em class="required">*</em>角色名称:</label>
+				<div class="layui-input-block">
 					<input type="text" name="roleName" required  lay-verify="required" placeholder="请输入角色名称" autocomplete="off" class="layui-input">
 				</div>
-				<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 			</div>
 			<div class="layui-form-item">
 				<div class="layui-input-block">

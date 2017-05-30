@@ -12,7 +12,7 @@
 	<form id="formid" class="layui-form">
 		<input type="hidden" name="id" value="${sysdictionary.id}">
 		<div class="layui-form-item">
-			<label class="layui-form-label">类型名称:</label>
+			<label class="layui-form-label"><em class="required">*</em>类型名称:</label>
 			<div class="layui-input-inline">
 				<select name="code" id="code" lay-verify="required" lay-filter="code" disabled>
 					<option value="">请选择</option>
@@ -20,13 +20,13 @@
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">字典key值:</label>
+			<label class="layui-form-label"><em class="required">*</em>字典key值:</label>
 			<div class="layui-input-inline">
 				<input type="text" value="${sysdictionary.sdkey}"  class="layui-input layui-disabled" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">字典value值:</label>
+			<label class="layui-form-label"><em class="required">*</em>字典value值:</label>
 			<div class="layui-input-inline">
 				<input type="text" value="${sysdictionary.sdvalue}"  class="layui-input layui-disabled" readonly>
 			</div>

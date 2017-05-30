@@ -12,27 +12,24 @@
 	<form id="formid" class="layui-form">
         <input type="hidden" name="id" value="${sysdictionary.id}">
 		<div class="layui-form-item">
-			<label class="layui-form-label">类型名称:</label>
-			<div class="layui-input-inline">
+			<label class="layui-form-label"><em class="required">*</em>类型名称:</label>
+			<div class="layui-input-block">
 				<select name="code" id="code" lay-verify="required" lay-filter="code">
 					<option value="">请选择</option>
 				</select>
 			</div>
-			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">字典key值:</label>
-			<div class="layui-input-inline">
+			<label class="layui-form-label"><em class="required">*</em>字典key值:</label>
+			<div class="layui-input-block">
 				<input type="text" name="sdkey" value="${sysdictionary.sdkey}"  required  lay-verify="required" placeholder="请输入字典key值" autocomplete="off" class="layui-input">
 			</div>
-			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">字典value值:</label>
-			<div class="layui-input-inline">
+			<label class="layui-form-label"><em class="required">*</em>字典value值:</label>
+			<div class="layui-input-block">
 				<input type="text" name="sdvalue" value="${sysdictionary.sdvalue}" required  lay-verify="required" placeholder="请输入字典value值" autocomplete="off" class="layui-input">
 			</div>
-			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
 		<div class="layui-form-item layui-form-text">
 			<label class="layui-form-label">备注：</label>

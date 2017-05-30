@@ -47,36 +47,32 @@
 				</div>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label">用户名:</label>
+				<label class="layui-form-label"><em class="required">*</em>用户名:</label>
 				<div class="layui-input-inline">
 					<input type="text" name="lognm"  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
 				</div>
-				<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label">密码:</label>
+				<label class="layui-form-label"><em class="required">*</em>密码:</label>
 				<div class="layui-input-inline">
 					<input type="text" id="logpwd" name="logpwd" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
 				</div>
-				<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 			</div>
 			<div class="layui-form-item replaceselect">
-				<label class="layui-form-label">所属公司:</label>
+				<label class="layui-form-label"><em class="required">*</em>所属公司:</label>
 				<div class="layui-input-inline" style="width: 400px">
 					<select id="companyno" name="companyno" style="width: 100%" lay-verify="required" >
 						<option value="">请选择</option>
 					</select>
 				</div>
-				<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 			</div>
 			<div class="layui-form-item replaceselect" >
-				<label class="layui-form-label">所属部门:</label>
+				<label class="layui-form-label"><em class="required">*</em>所属部门:</label>
 				<div class="layui-input-inline" style="width: 400px">
 					<select id="dptno" name="dptno" style="width: 100%" lay-verify="required">
 						<option value="">请选择</option>
 					</select>
 				</div>
-				<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">用户类型:</label>
@@ -93,20 +89,18 @@
 				</div>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label">真实姓名:</label>
+				<label class="layui-form-label"><em class="required">*</em>真实姓名:</label>
 				<div class="layui-input-inline">
 					<input type="text" name="userrelnm" lay-verify="required" placeholder="请输入真实姓名" autocomplete="off" class="layui-input">
 				</div>
-				<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label">性别:</label>
+				<label class="layui-form-label"><em class="required">*</em>性别:</label>
 				<div class="layui-input-inline">
 					<select name="sex" id="sex" lay-verify="required" >
 						<option value="">请选择</option>
 					</select>
 				</div>
-				<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">年龄:</label>

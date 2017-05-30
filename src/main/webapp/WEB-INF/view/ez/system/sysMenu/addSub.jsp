@@ -12,50 +12,43 @@
 	<form id="formid" class="layui-form">
 		<div class="layui-form-item">
 			<label class="layui-form-label">父菜单名称:</label>
-			<div class="layui-input-inline">
+			<div class="layui-input-block">
 				<input type="text" value="${sysMenu.menuName}" class="layui-input layui-disabled" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">菜单名称:</label>
-			<div class="layui-input-inline">
+			<label class="layui-form-label"><em class="required">*</em>菜单名称:</label>
+			<div class="layui-input-block">
 				<input type="text" name="menuName" lay-verify="required" placeholder="请输入菜单名称" autocomplete="off" class="layui-input">
 			</div>
-			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">菜单地址:</label>
-			<div class="layui-input-inline">
+			<label class="layui-form-label"><em class="required">*</em>菜单地址:</label>
+			<div class="layui-input-block">
 				<input type="text" name="menuUrl" lay-verify="required" placeholder="请输入菜单URL地址" autocomplete="off" class="layui-input">
-			</div>
-			<div class="layui-form-mid layui-word-aux">
-				<i class="fa fa-star red"></i>
-				<a title="如果有下级菜单请输入#"><span>#</span></a>
 			</div>
 		</div>
 		<input type="hidden" name="parentId"  value="${sysMenu.menuId}" >
 		<div class="layui-form-item">
-			<label class="layui-form-label">菜单顺序:</label>
-			<div class="layui-input-inline">
+			<label class="layui-form-label"><em class="required">*</em>菜单顺序:</label>
+			<div class="layui-input-block">
 				<input type="number" name="menuOrder" value="1"  lay-verify="required"  autocomplete="off" class="layui-input">
 			</div>
-			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">菜单图标:</label>
+			<label class="layui-form-label"><em class="required">*</em>菜单图标:</label>
 			<div class="layui-input-inline">
 				<input type="text" name="menuIcon" lay-verify="required" placeholder="请输入菜单图标" autocomplete="off" class="layui-input">
 			</div>
 			<div class="layui-form-mid layui-word-aux">
-				<i class="fa fa-star red"></i>
 				<a href="http://fontawesome.io/icons/" title="查看所有图标" target="_blank">
 					<i class="fa fa-external-link"></i>
 				</a>
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">菜单类型:</label>
-			<div class="layui-input-inline">
+			<label class="layui-form-label"><em class="required">*</em>菜单类型:</label>
+			<div class="layui-input-block">
 				<c:if test="${sysMenu.menuType=='0'}">
 					<input type="radio" name="menuType" value="0" title="开发者菜单" checked>
 					<input type="radio" name="menuType" value="1" title="系统菜单" >
@@ -80,7 +73,6 @@
 					<input type="radio" name="menuType" value="2" title="业务菜单" >
 					<input type="radio" name="menuType" value="3" title="前台菜单"  checked>
 				</c:if>
-
 			</div>
 		</div>
 		<div class="layui-form-item">

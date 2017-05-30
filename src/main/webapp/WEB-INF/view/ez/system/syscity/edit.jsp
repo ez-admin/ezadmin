@@ -12,11 +12,10 @@
 	<form id="formid" class="layui-form">
 		<input type="hidden" name="id" value="${syscity.id}"/>
 		<div class="layui-form-item">
-			<label class="layui-form-label">城市名:</label>
-			<div class="layui-input-inline">
+			<label class="layui-form-label"><em class="required">*</em>城市名:</label>
+			<div class="layui-input-block">
 				<input type="text" name="name" value="${syscity.name}"  lay-verify="required"  placeholder="请输入城市名" autocomplete="off" class="layui-input">
 			</div>
-			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
 		<div class="layui-form-item">
 			<div class="layui-input-block">

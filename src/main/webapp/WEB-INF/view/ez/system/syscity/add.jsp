@@ -15,22 +15,20 @@
 			<p>温馨提示：区域id要求为6位数的数字，数字规则请参考已存在的区域id的数字规则！</p>
 		</blockquote>
 		<div class="layui-form-item">
-			<label class="layui-form-label">城市名:</label>
-			<div class="layui-input-inline">
+			<label class="layui-form-label"><em class="required">*</em>城市名:</label>
+			<div class="layui-input-block">
 				<input type="text" name="name" lay-verify="required"  placeholder="请输入城市名" autocomplete="off" class="layui-input">
 			</div>
-			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">区域id:</label>
-			<div class="layui-input-inline">
+			<label class="layui-form-label"><em class="required">*</em>区域id:</label>
+			<div class="layui-input-block">
 				<input type="number" name="id" value="000000" lay-verify="required"  class="layui-input" >
 			</div>
-			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">父级id:</label>
-			<div class="layui-input-inline">
+			<div class="layui-input-block">
 				<input type="number" name="parentId" value="0" readonly class="layui-input layui-disabled">
 			</div>
 		</div>
