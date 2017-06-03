@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9a05af91-7a30-4f91-9608-73d58be6685a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/doc/Account" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ez/login/controller/LoginController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/login/controller/LoginController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/service/impl/SysUserServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/system/service/impl/SysUserServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ez/util/Common.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/util/Common.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/properties/config.properties" afterPath="$PROJECT_DIR$/src/main/resources/properties/config.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/view/ez/index/index.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/view/ez/index/index.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/view/ez/index/main.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/view/ez/index/main.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/view/ez/system/sysuser/assignrolelist.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/view/ez/system/sysuser/assignrolelist.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -47,8 +40,8 @@
       <file leaf-file-name="main.jsp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/view/ez/index/main.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-61">
-              <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+            <state relative-caret-position="594">
+              <caret line="22" column="24" lean-forward="true" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -1373,7 +1366,7 @@
       <workItem from="1495872850115" duration="1260000" />
       <workItem from="1496459861219" duration="55000" />
       <workItem from="1496459971194" duration="6193000" />
-      <workItem from="1496476621426" duration="2821000" />
+      <workItem from="1496476621426" duration="3052000" />
     </task>
     <task id="LOCAL-00001" summary="modify">
       <created>1494667150435</created>
@@ -1438,11 +1431,18 @@
       <option name="project" value="LOCAL" />
       <updated>1495522388731</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="modify some bug">
+      <created>1496479491463</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1496479491463</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="148892000" />
+    <option name="totallyTimeSpent" value="149123000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1734,6 +1734,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="27">
           <caret line="1" column="4" lean-forward="true" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1929,8 +1930,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/view/ez/index/main.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-61">
-          <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+        <state relative-caret-position="594">
+          <caret line="22" column="24" lean-forward="true" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
           <folding />
         </state>
       </provider>

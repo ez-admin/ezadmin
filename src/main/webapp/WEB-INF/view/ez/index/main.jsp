@@ -19,7 +19,6 @@
     <script src="/static/js/respond.min.js"></script>
     <![endif]-->
 </head>
-
 <body>
 <div class="admin-main">
     <blockquote class="layui-elem-quote">
