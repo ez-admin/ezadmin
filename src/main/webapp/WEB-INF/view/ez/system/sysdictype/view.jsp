@@ -12,13 +12,13 @@
 	<form id="formid" class="layui-form">
 		<div class="layui-form-item">
 			<label class="layui-form-label"><em class="required">*</em>类型编码:</label>
-			<div class="layui-input-inline">
+			<div class="layui-input-block">
 				<input type="text" value="${sysdictype.code}" name="code" class="layui-input layui-disabled" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label"><em class="required">*</em>类型名称:</label>
-			<div class="layui-input-inline">
+			<div class="layui-input-block">
 				<input type="text" value="${sysdictype.name}" class="layui-input layui-disabled" readonly>
 			</div>
 		</div>

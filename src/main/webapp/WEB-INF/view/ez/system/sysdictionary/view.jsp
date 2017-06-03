@@ -13,7 +13,7 @@
 		<input type="hidden" name="id" value="${sysdictionary.id}">
 		<div class="layui-form-item">
 			<label class="layui-form-label"><em class="required">*</em>类型名称:</label>
-			<div class="layui-input-inline">
+			<div class="layui-input-block">
 				<select name="code" id="code" lay-verify="required" lay-filter="code" disabled>
 					<option value="">请选择</option>
 				</select>
@@ -21,13 +21,13 @@
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label"><em class="required">*</em>字典key值:</label>
-			<div class="layui-input-inline">
+			<div class="layui-input-block">
 				<input type="text" value="${sysdictionary.sdkey}"  class="layui-input layui-disabled" readonly>
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label"><em class="required">*</em>字典value值:</label>
-			<div class="layui-input-inline">
+			<div class="layui-input-block">
 				<input type="text" value="${sysdictionary.sdvalue}"  class="layui-input layui-disabled" readonly>
 			</div>
 		</div>
@@ -53,14 +53,14 @@
 				,$ = layui.jquery;
 		//后台获取select值
 		$.ajax({url: "/ez/system/sysdictype/getSdBySdtCode.do",
-			type: "POST",
-			data:{selected:${sysdictionary.code}},
-			dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
-			success: function (result) {
-				$("#code").append(result);
-				form.render('select');
-			}
-		});
+            type: "POST",
+            data:{selected:${sysdictionary.code}},
+            dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
+            success: function (result) {
+                $("#code").append(result);
+                form.render('select');
+            }
+        });
 
 	});
 </script>
