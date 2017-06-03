@@ -21,6 +21,10 @@ public class PubConstants {
 	/*停用启用开关*/
 	public static final String OPEN = "1";//启用
 	public static final String CLOSE = "0";//停用
+	/*是否开关*/
+	public static final String YES = "1";//是
+	public static final String NO = "0";//否
+
 	/*登陆返回类型*/
 	public static final int LOGIN_SUCCESS = 1;//登陆成功
 	public static final int LOGIN_NOTEXIST = 0;//不存在该客户
@@ -48,4 +52,8 @@ public class PubConstants {
 	public static final String PAGE_TYPE_VIEW = "VIEW";
 	public static final String PAGE_TYPE_EDIT = "EDIT";
 
+	/*cms宣传管理模块*/
+	/*发布状态 0 待发布 1 已发布*/
+	public static final int PUBLISH_STATE_NO = 0;
+	public static final int PUBLISH_STATE_YES = 1;
 }

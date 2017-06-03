@@ -44,7 +44,7 @@
 			$.ajax({
 				url: '/ez/system/sysdictionary/getSdBySdtCode.do',
 				type: "POST",
-				data:{code:5606},
+				data:{code:1024},
 				dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
 				success: function (result) {
 					$("#roleType").append(result);
