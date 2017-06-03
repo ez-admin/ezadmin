@@ -354,7 +354,7 @@ public class Common {
 				}
 			}
 		}
-		String rights="";
+		String rights="0";
 		if (Tools.notEmpty(menulist)){
 			rights = RightsHelper.sumRights(Tools.str2StrArray(menulist)).toString();
 		}

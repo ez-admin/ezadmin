@@ -1,6 +1,7 @@
 package com.ez.system.service.impl;
 
 import com.ez.system.dao.SysUserDao;
+import com.ez.system.dao.SysUserRoleDao;
 import com.ez.system.entity.SysUser;
 import com.ez.system.service.SysUserService;
 import com.ez.util.PubConstants;
@@ -25,7 +26,8 @@ import java.util.List;
 public class SysUserServiceImpl implements SysUserService {
 	@Resource
 	private SysUserDao sysUserDao;
-	
+	@Resource
+	private SysUserRoleDao sysUserRoleDao;
 	/**
 	 * 分页查询
 	 * @param page
@@ -86,6 +88,7 @@ public class SysUserServiceImpl implements SysUserService {
 	//@PreAuthorize("hasRole('ROLE_*')")
 	public void delete(String id) {
 		sysUserDao.delete(id);
+		sysUserRoleDao.delete(id);
 	}
 	
 	/**

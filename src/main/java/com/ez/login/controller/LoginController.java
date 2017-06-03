@@ -8,7 +8,10 @@ import com.ez.login.service.LoginService;
 import com.ez.system.entity.SysLog;
 import com.ez.system.entity.SysMenu;
 import com.ez.system.entity.SysUser;
-import com.ez.system.service.*;
+import com.ez.system.service.SysLogService;
+import com.ez.system.service.SysMenuService;
+import com.ez.system.service.SysOptionService;
+import com.ez.system.service.SysUserService;
 import com.ez.util.*;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
@@ -23,9 +26,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 import static com.ez.util.Common.toIpAddr;
 
@@ -205,6 +207,17 @@ public class LoginController {
 	 */
 	@RequestMapping(value="tab")
 	public String tab(Model model){
+		Properties props=System.getProperties(); //获得系统属性集
+		String osName = props.getProperty("os.name"); //操作系统名称
+		String osArch = props.getProperty("os.arch"); //操作系统构架
+		String osVersion = props.getProperty("os.version"); //操作系统版本
+		String javaVersion = props.getProperty("java.version"); //Java 运行时环境版本
+		String javaHome = props.getProperty("java.home"); //Java 供应商的 URL
+		model.addAttribute("osName",osName);
+		model.addAttribute("osArch",osArch);
+		model.addAttribute("osVersion",osVersion);
+		model.addAttribute("javaVersion",javaVersion);
+		model.addAttribute("javaHome",javaHome);
 		return "ez/index/main";
 	}
 

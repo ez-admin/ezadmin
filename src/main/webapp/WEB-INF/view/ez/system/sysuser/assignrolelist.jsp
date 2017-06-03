@@ -44,11 +44,12 @@
 		//监听提交
 		form.on('submit(modify)', function(data){
 			//layer.msg(JSON.stringify(data.field));
-			if(JSON.stringify(data.field)!=null){
+			if($("input[name='roleId']:checked").size() != 0){
 				$.ajax({
 					url: "/ez/system/sysuser/assignrole.do",
 					type: "POST",
-					data:$('#formid').serialize(),// 你的formid
+                    async: false,
+                    data:$('#formid').serialize(),// 你的formid
 					success: function (result) {
 						if("suc"==(result.msg)){
 							//关闭窗口
@@ -64,7 +65,6 @@
 			}else {
 				top.layer.msg('请至少选择一角色！');
 			}
-			return false;
 		});
 	});
 </script>

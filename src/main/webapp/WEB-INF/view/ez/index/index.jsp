@@ -64,7 +64,7 @@
                 <li class="layui-this">
                     <a href="javascript:;">
                         <i class="fa fa-dashboard" aria-hidden="true"></i>
-                        <cite>控制面板</cite>
+                        <cite>系统首页</cite>
                     </a>
                 </li>
             </ul>
