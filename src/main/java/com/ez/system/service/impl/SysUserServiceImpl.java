@@ -44,7 +44,12 @@ public class SysUserServiceImpl implements SysUserService {
 		if (!isAdmin){//不是超级管理员
 			sysUser.setRlid("1");//查询1开发者角色不等于0的角色
 		}
-		List<SysUser> list = sysUserDao.query(sysUser);
+		List<SysUser> list;
+		if ("0".equals(sysUser.getDptno())){
+			list = sysUserDao.findAll();
+		}else {
+			list = sysUserDao.query(sysUser);
+		}
 		return list;
 	}
 	
