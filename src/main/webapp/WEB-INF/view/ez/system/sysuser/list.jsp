@@ -5,16 +5,8 @@
 <html lang="en">
 <head>
 	<title>用户列表</title>
-	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
-	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap.min.css">
-	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap-table.css">
-	<script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
-	<script type="text/javascript" src="/static/plugins/layui/lay/dest/layui.all.js"></script>
-	<script src="/static/plugins/bootstrap-table/bootstrap.min.js"></script>
-	<script src="/static/plugins/bootstrap-table/bootstrap-table.js"></script>
-	<script src="/static/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-	<script src="/static/plugins/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
-	<script src="/static/plugins/bootstrap-table/extensions/tableExport/tableExport.js"></script>
+	<%@ include file="/WEB-INF/view/ez/index/listpublictop.jsp"%>
+	<%@ include file="/WEB-INF/view/ez/index/listpublicjs.jsp"%>
 	<!--树组件start -->
 	<script type="text/javascript" src="/static/plugins/zTree/qui/ztree.js"></script>
 	<link href="/static/plugins/zTree/qui/ztree.css" rel="stylesheet" type="text/css"/>
@@ -156,12 +148,12 @@
 				field: 'lastlogin',
 				title: '最近一次登陆时间',
 				align: 'center',
-				width:'10%'
+				width:'15%'
 			},{
 				filed: '',
 				title: '操作区',
 				align: 'center',
-				width:'25%',
+				width:'27%',
 				events: operateEvents,
 				formatter: operateFormatter
 			} ]

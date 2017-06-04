@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>所有图片管理列表</title>
+	<title>图片管理列表</title>
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
 	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap.min.css">
 	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap-table.css">
@@ -23,7 +23,7 @@
 		<input name="emImageInserttimeEnd" type="text"  class="layui-input" placeholder="yyyy-mm-dd hh:mm:ss" lay-verify="date" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" />
 	</div>
 	<div class="layui-input-inline">
-		<select name="positionId" id="positionName">
+		<select name="positionId" id="positionId">
 			<option value="">请选择图片位置</option>
 		</select>
 	</div>
@@ -62,12 +62,12 @@
         var form = layui.form();
         //后台获取select值
         $.ajax({
-            url: '/ez/cms/cmsimgposition/getSdBySdtCode.do',
+            url: '/ez/system/sysdictionary/getSdBySdtCode.do',
             type: "POST",
-            //data:{code:1025},
+            data:{code:1025},
             dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
             success: function (result) {
-				$("#positionName").append(result);
+                $("#positionId").append(result);
                 form.render('select');
             }
         });

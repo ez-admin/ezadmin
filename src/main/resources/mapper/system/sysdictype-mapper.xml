@@ -38,7 +38,10 @@ FLAG
 
 		<sql id="querywhere">
 		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
-		<where>	      				
+		<where>
+				<if test="@Ognl@isNotEmpty(code)">
+					AND CODE like '%${code}%'
+				</if>
 		       <if test="@Ognl@isNotEmpty(name)">
 					AND NAME like '%${name}%'
 				</if>

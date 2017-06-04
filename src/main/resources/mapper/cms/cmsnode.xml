@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="com.ez.cms.dao.CmsNodeDao">
+
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+	<!--<cache type="org.mybatis.caches.ehcache.EhcacheCache" />-->
+
+	<resultMap id="CmsNode" type="com.ez.cms.entity.CmsNode">
+		<result property="cmsNodeId" column="cms_node_id"/>
+		<result property="cmsNodeName" column="cms_node_name"/>
+		<result property="cmsNodeCode" column="cms_node_code"/>
+		<result property="cmsNodeParentId" column="cms_node_parentId"/>
+		<result property="cmsNodeSort" column="cms_node_sort"/>
+		<result property="cmsNodeType" column="cms_node_type"/>
+		<result property="cmsNodeState" column="cms_node_state"/>
+		<result property="cmsNodeInserttime" column="cms_node_inserttime"/>
+	</resultMap>
+	
+	<sql id="selectId">
+		cms_node_id,
+
+		cms_node_name,
+
+		cms_node_code,
+
+		cms_node_parentId,
+
+		cms_node_sort,
+
+		cms_node_type,
+
+		cms_node_state,
+
+		cms_node_inserttime
+    </sql>
+    
+    <select id="findAll" resultMap="CmsNode">
+		select
+		<include refid="selectId" />
+		from cms_node
+	</select>
+	
+	<select id="query" resultMap="CmsNode" parameterType="com.ez.cms.entity.CmsNode">
+		select
+		<include refid="selectId" />
+		from cms_node
+		<include refid="querywhere"/>
+	</select>
+	
+	<sql id="querywhere">
+	<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+	<where>
+		<if test="@Ognl@isNotEmpty(cmsNodeName)">
+			AND cms_node_name like '%${cmsNodeName}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsNodeCode)">
+			AND cms_node_code like '%${cmsNodeCode}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsNodeParentId)">
+			AND cms_node_parentId = '${cmsNodeParentId}'
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsNodeSort)">
+			AND cms_node_sort = '${cmsNodeSort}'
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsNodeType)">
+			AND cms_node_type = '${cmsNodeType}'
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsNodeState)">
+			AND cms_node_state = '${cmsNodeState}'
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsNodeInserttimeBegin)">
+			AND cms_node_inserttime &gt;= #{cmsNodeInserttimeBegin}
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsNodeInserttimeEnd)">
+			AND cms_node_inserttime &lt;= #{cmsNodeInserttimeEnd}
+		</if>
+	</where>
+	</sql>
+
+	<!-- 总记录数 -->
+	<select id="count" parameterType="com.ez.cms.entity.CmsNode" resultType="int">
+		select count(0) from cms_node
+		<include refid="querywhere"/>
+	</select>
+	
+	<!-- 新增 -->
+	<insert id="addAll" parameterType="com.ez.cms.entity.CmsNode">
+		<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="cmsNodeId" >
+			SELECT LAST_INSERT_ID() AS cmsNodeId
+		</selectKey>
+		INSERT INTO cms_node (
+        	cms_node_name ,
+        	cms_node_code ,
+        	cms_node_parentId ,
+        	cms_node_sort ,
+        	cms_node_type ,
+        	cms_node_state ,
+        	cms_node_inserttime 
+        ) VALUES (
+        	#{cmsNodeName} ,
+        	#{cmsNodeCode} ,
+        	#{cmsNodeParentId} ,
+        	#{cmsNodeSort} ,
+        	#{cmsNodeType} ,
+        	#{cmsNodeState} ,
+        	#{cmsNodeInserttime} 
+        )
+	</insert>
+	
+	<!-- 新增Selective -->
+	<insert id="add" parameterType="com.ez.cms.entity.CmsNode">
+		<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="cmsNodeId" >
+			SELECT LAST_INSERT_ID() AS cmsNodeId
+		</selectKey>
+		INSERT INTO cms_node
+		<include refid="addtrim"/>
+	</insert>
+	
+	<sql id="addtrim">
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(cmsNodeName)">
+				cms_node_name,
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsNodeCode)">
+				cms_node_code,
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsNodeParentId)">
+				cms_node_parentId,
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsNodeSort)">
+				cms_node_sort,
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsNodeType)">
+				cms_node_type,
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsNodeState)">
+				cms_node_state,
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsNodeInserttime)">
+				cms_node_inserttime,
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(cmsNodeName)">
+				#{cmsNodeName},
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsNodeCode)">
+				#{cmsNodeCode},
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsNodeParentId)">
+				#{cmsNodeParentId},
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsNodeSort)">
+				#{cmsNodeSort},
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsNodeType)">
+				#{cmsNodeType},
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsNodeState)">
+				#{cmsNodeState},
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsNodeInserttime)">
+				#{cmsNodeInserttime},
+			</if>
+		</trim>
+	</sql>
+	
+	<!-- 删 -->
+	<delete id="delete" parameterType="String">
+		DELETE FROM cms_node WHERE
+		cms_node_id = #{id} 
+	</delete>
+	
+	<!-- 根据主键查实体 -->
+	<select id="getById" parameterType="String" resultMap="CmsNode">
+		SELECT <include refid="selectId" />
+		    FROM cms_node 
+	        WHERE 
+        cms_node_id = #{id} 
+	</select>
+	<select id="getParentcity"  resultMap="CmsNode">
+		SELECT <include refid="selectId" />
+		FROM cms_node
+		WHERE
+		cms_node_parentId = 0
+		<if test="@Ognl@isNotEmpty(cmsNodeName)">
+			AND cms_node_name like '%${cmsNodeName}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsNodeCode)">
+			AND cms_node_code like '%${cmsNodeCode}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsNodeType)">
+			AND cms_node_type = '${cmsNodeType}'
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsNodeState)">
+			AND cms_node_state = '${cmsNodeState}'
+		</if>
+	</select>
+	<select id="getChildrenCityList" resultMap="CmsNode" parameterType="com.ez.cms.entity.CmsNode">
+		SELECT <include refid="selectId" />
+		FROM cms_node
+		WHERE
+		cms_node_parentId = #{cmsNodeParentId}
+		<if test="@Ognl@isNotEmpty(cmsNodeName)">
+			AND cms_node_name like '%${cmsNodeName}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsNodeCode)">
+			AND cms_node_code like '%${cmsNodeCode}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsNodeType)">
+			AND cms_node_type = '${cmsNodeType}'
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsNodeState)">
+			AND cms_node_state = '${cmsNodeState}'
+		</if>
+	</select>
+
+	<!-- 更新all -->
+	<update id="updateAll" parameterType="com.ez.cms.entity.CmsNode">
+	    UPDATE cms_node SET
+	        cms_node_name = #{cmsNodeName} ,
+	        cms_node_code = #{cmsNodeCode} ,
+	        cms_node_parentId = #{cmsNodeParentId} ,
+	        cms_node_sort = #{cmsNodeSort} ,
+	        cms_node_type = #{cmsNodeType} ,
+	        cms_node_state = #{cmsNodeState} ,
+	        cms_node_inserttime = #{cmsNodeInserttime} 
+        WHERE 
+	        cms_node_id = #{cmsNodeId} 
+	</update>
+	
+	<sql id="updateset">
+	<set>
+		<if test="@Ognl@isNotEmpty(cmsNodeName)">
+			cms_node_name = #{cmsNodeName},
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsNodeCode)">
+			cms_node_code = #{cmsNodeCode},
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsNodeParentId)">
+			cms_node_parentId = #{cmsNodeParentId},
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsNodeSort)">
+			cms_node_sort = #{cmsNodeSort},
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsNodeType)">
+			cms_node_type = #{cmsNodeType},
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsNodeState)">
+			cms_node_state = #{cmsNodeState},
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsNodeInserttime)">
+			cms_node_inserttime = #{cmsNodeInserttime},
+		</if>
+    </set>
+	</sql>
+	
+	<!-- 更新Selective -->
+	<update id="modify" parameterType="com.ez.cms.entity.CmsNode">
+	    UPDATE cms_node 
+		<include refid="updateset"/>
+        WHERE 
+	        cms_node_id = #{cmsNodeId} 
+	</update>
+	
+</mapper>
+

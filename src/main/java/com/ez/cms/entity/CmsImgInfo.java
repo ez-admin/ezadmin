@@ -23,7 +23,7 @@ public class CmsImgInfo extends BaseEntity implements java.io.Serializable{
 	private static final long serialVersionUID = 5454155825314635342L;
 	
 	//alias
-	public static final String TABLE_ALIAS = "所有图片管理";
+	public static final String TABLE_ALIAS = "图片管理";
 	public static final String ALIAS_EM_IMAGE_ID = "图片id";
 	public static final String ALIAS_EM_IMAGE_NAME = "图片名称";
 	public static final String ALIAS_POSITION_ID = "图片所属位置id";

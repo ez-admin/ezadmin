@@ -5,18 +5,8 @@
 <html lang="en">
 <head>
 	<title>角色名称列表</title>
-	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
-	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap.min.css">
-	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap-table.css">
-	<script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
-	<script type="text/javascript" src="/static/plugins/layui/lay/dest/layui.all.js"></script>
-	<script src="/static/plugins/bootstrap-table/bootstrap.min.js"></script>
-	<script src="/static/plugins/bootstrap-table/bootstrap-table.js"></script>
-	<script src="/static/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-	<script src="/static/plugins/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
-	<script src="/static/plugins/bootstrap-table/extensions/tableExport/tableExport.js"></script>
+	<%@ include file="/WEB-INF/view/ez/index/listpublictop.jsp"%>
 </head>
-
 <body>
 	<form class="layui-form" id="formSearch">
 		<shiro:hasPermission name="sysrole_query">
@@ -39,7 +29,7 @@
 		</shiro:hasPermission>
 	</form>
 	<table id="table"></table>
-
+	<%@ include file="/WEB-INF/view/ez/index/listpublicjs.jsp"%>
 <script>
 	$(function () {
 		//初始化表格

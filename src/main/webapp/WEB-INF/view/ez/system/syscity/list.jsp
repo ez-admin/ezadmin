@@ -1,47 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/ez/index/tablibs.jsp"%>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path;
-%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<title>城市区域列表</title>
-	<base href="<%=basePath%>">
-	<meta charset="utf-8">
-	<meta name="renderer" content="webkit">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="format-detection" content="telephone=no">
-
-	<link rel="stylesheet" href="/static/plugins/layui/css/layui.css" media="all" />
-	<link rel="stylesheet" href="/static/plugins/font-awesome/css/font-awesome.min.css">
-	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap.min.css">
-	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap-table.css">
-	<style>
-		.clear{
-			clear: both;
-		}
-		.layui-input-quote{
-			display: block;
-			width: 150px;
-			padding-left: 10px;
-			height: 34px;
-			line-height: 34px;
-			border: 1px solid #e6e6e6;
-			background-color: #fff;
-			border-radius: 2px;
-		}
-		.layui-form-mid i,.layui-word-aux i{
-			line-height: inherit;
-		}
-	</style>
+	<%@ include file="/WEB-INF/view/ez/index/listpublicsubtop.jsp"%>
 </head>
 <body>
 <blockquote class="layui-elem-quote" style="padding: 8px 15px">
@@ -70,12 +34,7 @@
 </blockquote>
 
 <table id="table"></table>
-
-<script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
-<script type="text/javascript" src="/static/plugins/layui/lay/dest/layui.all.js"></script>
-<script src="/static/plugins/bootstrap-table/bootstrap.min.js"></script>
-<script src="/static/plugins/bootstrap-table/bootstrap-table.js"></script>
-<script src="/static/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<%@ include file="/WEB-INF/view/ez/index/listpublicsubjs.jsp"%>
 <script>
 	$(function () {
 		//初始化表格

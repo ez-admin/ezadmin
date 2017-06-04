@@ -8,8 +8,9 @@
 package com.ez.cms.controller;
 
 import com.ez.annotation.SystemLogController;
-import com.ez.cms.entity.CmsImgPosition;
-import com.ez.cms.service.CmsImgPositionService;
+import com.ez.cms.entity.CmsNode;
+import com.ez.cms.service.CmsNodeService;
+import com.ez.util.Common;
 import com.ez.util.WebTool;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -33,16 +34,16 @@ import java.util.Map;
 
 /**
  * @author chenez
- * @2017-06-03
+ * @2017-06-04
  * @Email: chenez 787818013@qq.com
  * @version 1.0
  */
 @Controller
-@RequestMapping(value="/ez/cms/cmsimgposition/")
-public class CmsImgPositionController {
+@RequestMapping(value="/ez/cms/cmsnode/")
+public class CmsNodeController {
 
 	@Autowired
-	private CmsImgPositionService cmsImgPositionService;
+	private CmsNodeService cmsNodeService;
 
 
 	/** binder用于bean属性的设置 */
@@ -57,9 +58,9 @@ public class CmsImgPositionController {
 	 * @return
 	 */
 	@RequestMapping(value="list")
-	@SystemLogController(description = "跳到图片位置管理列表页面")
+	@SystemLogController(description = "跳到栏目管理列表页面")
 	public String list(Model model){
-		return "/ez/cms/cmsimgposition/list";
+		return "/ez/cms/cmsnode/list";
 	}
 
 	/**
@@ -67,24 +68,24 @@ public class CmsImgPositionController {
 	 * @return
 	 */
 	@RequestMapping(value="addUI")
-	@SystemLogController(description = "跳到图片位置管理新增页面")
+	@SystemLogController(description = "跳到栏目管理新增页面")
 	public String addUI(){
-		return "/ez/cms/cmsimgposition/add";
+		return "/ez/cms/cmsnode/add";
 	}
 	
 	/**
 	 * 保存新增
 	 * @param response
-	 * @param cmsimgposition
+	 * @param cmsnode
 	 * @return
 	 */
 	@RequestMapping(value="add")
-	@RequiresPermissions("cmsimgposition_add")
-	@SystemLogController(description = "保存图片位置管理新增信息")
-	public String add(CmsImgPosition cmsimgposition,HttpServletResponse response){
+	@RequiresPermissions("cmsnode_add")
+	@SystemLogController(description = "保存栏目管理新增信息")
+	public String add(CmsNode cmsnode,HttpServletResponse response){
 		String result="{\"msg\":\"suc\"}";
 		try {
-			cmsImgPositionService.add(cmsimgposition);
+			cmsNodeService.add(cmsnode);
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -96,15 +97,15 @@ public class CmsImgPositionController {
 	/**
 	 * post方式分页查询
 	 * @param page
-	 * @param cmsimgposition
+	 * @param cmsnode
 	 * @return map
 	 */
 	@RequestMapping(value="showlist",method=RequestMethod.POST)
     @ResponseBody
-	@SystemLogController(description = "跳到分页查询图片位置管理信息")
-	public Map<String, Object> showlist(Page<CmsImgPosition> page,CmsImgPosition cmsimgposition){
-		List<CmsImgPosition> list = cmsImgPositionService.query(page, cmsimgposition);
-		PageInfo<CmsImgPosition> pageInfo = new PageInfo<CmsImgPosition>(list);
+	@SystemLogController(description = "跳到分页查询栏目管理信息")
+	public Map<String, Object> showlist(Page<CmsNode> page,CmsNode cmsnode){
+		List<CmsNode> list = cmsNodeService.query(page, cmsnode);
+		PageInfo<CmsNode> pageInfo = new PageInfo<CmsNode>(list);
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("rows", list);
 		map.put("total", pageInfo.getTotal());
@@ -118,12 +119,12 @@ public class CmsImgPositionController {
 	 * @return
 	 */
 	@RequestMapping(value="deleteById",method=RequestMethod.POST)
-	@RequiresPermissions("cmsimgposition_delete")
-	@SystemLogController(description = "删除图片位置管理信息")
+	@RequiresPermissions("cmsnode_delete")
+	@SystemLogController(description = "删除栏目管理信息")
 	public String deleteById(Model model,String ids, HttpServletResponse response){
 		String result="{\"status\":1,\"message\":\"删除成功！\"}";
 		try{
-			cmsImgPositionService.delete(ids);
+			cmsNodeService.delete(ids);
 		}catch(Exception e){
 			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -135,37 +136,37 @@ public class CmsImgPositionController {
 	/**
 	 * 查询&修改单条记录
 	 * @param model
-	 * @param cmsimgpositionId
+	 * @param cmsnodeId
 	 * @param typeKey
 	 * @return
 	 */
 	@RequestMapping(value="getById")
-	@SystemLogController(description = "跳到查询&修改图片位置管理单条记录页面")
-	public String getById(Model model,String cmsimgpositionId,int typeKey){
-		CmsImgPosition cmsimgposition = cmsImgPositionService.getById(cmsimgpositionId);
-		model.addAttribute("cmsimgposition", cmsimgposition);
+	@SystemLogController(description = "跳到查询&修改栏目管理单条记录页面")
+	public String getById(Model model,String cmsnodeId,int typeKey){
+		CmsNode cmsnode = cmsNodeService.getById(cmsnodeId);
+		model.addAttribute("cmsnode", cmsnode);
 		if(typeKey == 1){
-			return "/ez/cms/cmsimgposition/edit";
+			return "/ez/cms/cmsnode/edit";
 		}else if(typeKey == 2){
-			return "/ez/cms/cmsimgposition/view";
+			return "/ez/cms/cmsnode/view";
 		}else{
-			return "/ez/cms/cmsimgposition/view_1";
+			return "/ez/cms/cmsnode/view_1";
 		}
 	}
 	
 	/**
 	 * 更新修改的信息
 	 * @param model
-	 * @param cmsimgposition
+	 * @param cmsnode
 	 * @return
 	 */
 	@RequestMapping(value="update",method=RequestMethod.POST)
-	@RequiresPermissions("cmsimgposition_modify")
-	@SystemLogController(description = "更新修改图片位置管理的信息")
-	public String updateCmsImgPosition(Model model,CmsImgPosition cmsimgposition,HttpServletResponse response){
+	@RequiresPermissions("cmsnode_modify")
+	@SystemLogController(description = "更新修改栏目管理的信息")
+	public String updateCmsNode(Model model,CmsNode cmsnode,HttpServletResponse response){
 		String result="{\"msg\":\"suc\"}";
 		try {
-			cmsImgPositionService.modify(cmsimgposition);
+			cmsNodeService.modify(cmsnode);
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -181,13 +182,13 @@ public class CmsImgPositionController {
 	 * @return
 	 */
 	@RequestMapping(value = "deleteAll")
-	@RequiresPermissions("cmsimgposition_deleteall")
-	@SystemLogController(description = "批量删除图片位置管理信息")
+	@RequiresPermissions("cmsnode_deleteall")
+	@SystemLogController(description = "批量删除栏目管理信息")
 	public String deleteAll(String[] ids, HttpServletResponse response) {
 		String result = "{\"status\":1,\"message\":\"删除成功！\"}";
 		try {
 			for (String id : ids) {
-				cmsImgPositionService.delete(id);
+				cmsNodeService.delete(id);
 			}
 		} catch (Exception e) {
 			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
@@ -197,26 +198,39 @@ public class CmsImgPositionController {
 		return null;
 	}
 	/**
-	 * 数据字典单选下拉框
-	 * @param code
-	 * @param response
-	 * @return
+	 * post方式不分页查询
+	 * @param page
+	 * @param cmsNode
+	 * @return map
 	 */
-	@RequestMapping(value="getSdBySdtCode")
+	@RequestMapping(value="getParentList",method=RequestMethod.POST)
 	@ResponseBody
-	public String getSdBySdtCode(String code,String selected,HttpServletResponse response){
-		//字典类型编码
-		List<CmsImgPosition> cmsImgPositions = cmsImgPositionService.getSdBySdtCode(code);
-		String result="";
-		for(CmsImgPosition sd : cmsImgPositions) {
-			if (selected!=null  && selected.equals(sd.getPositionId().toString())){
-				result+="<option value="+sd.getPositionId()+" selected >"+sd.getPositionName()+"</option>";
-			}else {
-				result+="<option value="+sd.getPositionId()+">"+sd.getPositionName()+"</option>";
-			}
+	@SystemLogController(description = "跳到不分页查询一级栏目管理信息")
+	public Map<String, Object> getParentcityList(Page<CmsNode> page,CmsNode cmsNode){
+		List<CmsNode> list;
+		if (!Common.isEmpty(cmsNode.getCmsNodeName()) || !Common.isEmpty(cmsNode.getCmsNodeCode()) || null!=cmsNode.getCmsNodeType() || null!=cmsNode.getCmsNodeState()){
+			list = cmsNodeService.queryList(page,cmsNode);
+		}else {
+			list = cmsNodeService.getParentcityList(page,cmsNode);
 		}
-		WebTool.writeHtml(result, response);
-		return null;
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("rows", list);
+		return map;
+	}
+	/**
+	* post方式不分页查询
+	 * @param page
+	 * @param cmsNode
+	 * @return map
+	 */
+	@RequestMapping(value="getChildrenList",method=RequestMethod.POST)
+	@ResponseBody
+	@SystemLogController(description = "跳到不分页查询下级栏目管理信息")
+	public Map<String, Object> getChildrencityList(Page<CmsNode> page, CmsNode cmsNode){
+		List<CmsNode> list = cmsNodeService.getChildrenCityList(page,cmsNode);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("rows", list);
+		return map;
 	}
 }
 

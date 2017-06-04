@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>所有图片管理编辑</title>
+	<title>图片管理编辑</title>
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
 </head>
 <body>
@@ -99,9 +99,9 @@
 				,laydate = layui.laydate;
         //后台获取select值
         $.ajax({
-            url: '/ez/cms/cmsimgposition/getSdBySdtCode.do',
+            url: '/ez/system/sysdictionary/getSdBySdtCode.do',
             type: "POST",
-            data:{selected:'${cmsimginfo.positionId}'},
+            data:{code:1025,selected:'${cmsimginfo.positionId}'},
             dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
             success: function (result) {
                 $("#positionId").append(result);

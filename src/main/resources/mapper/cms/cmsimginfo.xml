@@ -28,7 +28,7 @@
 		em_image_id,
 		em_image_name,
 		position_id,
-		(SELECT position_name FROM cms_img_position WHERE cms_img_info.position_id=cms_img_position.position_id) position_name,
+		(SELECT SDKEY FROM sys_dictionary WHERE cms_img_info.position_id=sys_dictionary.SDVALUE AND CODE="1025") position_name,
 		em_image_url,
 		em_image_linkurl,
 		em_image_order,

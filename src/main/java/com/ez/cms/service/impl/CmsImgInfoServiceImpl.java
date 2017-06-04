@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Service("cmsImgInfoService")
-@ServiceImplClassDescription(description = "所有图片管理")
+@ServiceImplClassDescription(description = "图片管理")
 public class CmsImgInfoServiceImpl extends BaseServiceImpl<CmsImgInfo> implements CmsImgInfoService {
 	@Autowired
 	private CmsImgInfoDao cmsImgInfoDao;

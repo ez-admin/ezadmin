@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="com.ez.cms.dao.CmsInfoDao">
+
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+	<!--<cache type="org.mybatis.caches.ehcache.EhcacheCache" />-->
+
+	<resultMap id="CmsInfo" type="com.ez.cms.entity.CmsInfo">
+		<result property="cmsInfoId" column="cms_info_id"/>
+		<result property="cmsNodeId" column="cms_node_id"/>
+		<result property="cmsInfoTitle" column="cms_info_title"/>
+		<result property="cmsInfoKey" column="cms_info_key"/>
+		<result property="cmsInfoDes" column="cms_info_des"/>
+		<result property="cmsInfoContent" column="cms_info_content"/>
+		<result property="cmsInfoPicpath" column="cms_info_picpath"/>
+		<result property="cmsInfoOrder" column="cms_info_order"/>
+		<result property="cmsInfoInserttime" column="cms_info_inserttime"/>
+		<result property="cmsInfoState" column="cms_info_state"/>
+		<result property="publishStartime" column="publish_startime"/>
+		<result property="publishEndtime" column="publish_endtime"/>
+		<result property="author" column="author"/>
+		<result property="countClick" column="count_click"/>
+		<result property="cmsNewsFrom" column="cms_news_from"/>
+		<result property="cmsNewsUrl" column="cms_news_url"/>
+		<result property="cmsNewsAuthor" column="cms_news_author"/>
+		<result property="newSeoKey" column="new_seo_key"/>
+		<result property="newSeoDes" column="new_seo_des"/>
+	</resultMap>
+	
+	<sql id="selectId">
+		cms_info_id,
+
+		cms_node_id,
+
+		cms_info_title,
+
+		cms_info_key,
+
+		cms_info_des,
+
+		cms_info_content,
+
+		cms_info_picpath,
+
+		cms_info_order,
+
+		cms_info_inserttime,
+
+		cms_info_state,
+
+		publish_startime,
+
+		publish_endtime,
+
+		author,
+
+		count_click,
+
+		cms_news_from,
+
+		cms_news_url,
+
+		cms_news_author,
+
+		new_seo_key,
+
+		new_seo_des
+    </sql>
+    
+    <select id="findAll" resultMap="CmsInfo">
+		select
+		<include refid="selectId" />
+		from cms_info
+	</select>
+	
+	<select id="query" resultMap="CmsInfo" parameterType="com.ez.cms.entity.CmsInfo">
+		select
+		<include refid="selectId" />
+		from cms_info
+		<include refid="querywhere"/>
+	</select>
+	
+	<sql id="querywhere">
+	<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+	<where>
+		<if test="@Ognl@isNotEmpty(cmsNodeId)">
+			AND cms_node_id = '${cmsNodeId}'
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsInfoTitle)">
+			AND cms_info_title like '%${cmsInfoTitle}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsInfoKey)">
+			AND cms_info_key like '%${cmsInfoKey}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsInfoDes)">
+			AND cms_info_des like '%${cmsInfoDes}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsInfoContent)">
+			AND cms_info_content like '%${cmsInfoContent}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsInfoPicpath)">
+			AND cms_info_picpath like '%${cmsInfoPicpath}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsInfoOrder)">
+			AND cms_info_order = '${cmsInfoOrder}'
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsInfoInserttimeBegin)">
+			AND cms_info_inserttime &gt;= #{cmsInfoInserttimeBegin}
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsInfoInserttimeEnd)">
+			AND cms_info_inserttime &lt;= #{cmsInfoInserttimeEnd}
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsInfoState)">
+			AND cms_info_state = '${cmsInfoState}'
+		</if>
+		<if test="@Ognl@isNotEmpty(publishStartimeBegin)">
+			AND publish_startime &gt;= #{publishStartimeBegin}
+		</if>
+		<if test="@Ognl@isNotEmpty(publishStartimeEnd)">
+			AND publish_startime &lt;= #{publishStartimeEnd}
+		</if>
+		<if test="@Ognl@isNotEmpty(publishEndtimeBegin)">
+			AND publish_endtime &gt;= #{publishEndtimeBegin}
+		</if>
+		<if test="@Ognl@isNotEmpty(publishEndtimeEnd)">
+			AND publish_endtime &lt;= #{publishEndtimeEnd}
+		</if>
+		<if test="@Ognl@isNotEmpty(author)">
+			AND author like '%${author}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(countClick)">
+			AND count_click = '${countClick}'
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsNewsFrom)">
+			AND cms_news_from like '%${cmsNewsFrom}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsNewsUrl)">
+			AND cms_news_url like '%${cmsNewsUrl}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsNewsAuthor)">
+			AND cms_news_author like '%${cmsNewsAuthor}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(newSeoKey)">
+			AND new_seo_key like '%${newSeoKey}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(newSeoDes)">
+			AND new_seo_des like '%${newSeoDes}%'
+		</if>
+	</where>
+	</sql>
+
+	<!-- 总记录数 -->
+	<select id="count" parameterType="com.ez.cms.entity.CmsInfo" resultType="int">
+		select count(0) from cms_info
+		<include refid="querywhere"/>
+	</select>
+	
+	<!-- 新增 -->
+	<insert id="addAll" parameterType="com.ez.cms.entity.CmsInfo">
+		<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="cmsInfoId" >
+			SELECT LAST_INSERT_ID() AS cmsInfoId
+		</selectKey>
+		INSERT INTO cms_info (
+        	cms_node_id ,
+        	cms_info_title ,
+        	cms_info_key ,
+        	cms_info_des ,
+        	cms_info_content ,
+        	cms_info_picpath ,
+        	cms_info_order ,
+        	cms_info_inserttime ,
+        	cms_info_state ,
+        	publish_startime ,
+        	publish_endtime ,
+        	author ,
+        	count_click ,
+        	cms_news_from ,
+        	cms_news_url ,
+        	cms_news_author ,
+        	new_seo_key ,
+        	new_seo_des 
+        ) VALUES (
+        	#{cmsNodeId} ,
+        	#{cmsInfoTitle} ,
+        	#{cmsInfoKey} ,
+        	#{cmsInfoDes} ,
+        	#{cmsInfoContent} ,
+        	#{cmsInfoPicpath} ,
+        	#{cmsInfoOrder} ,
+        	#{cmsInfoInserttime} ,
+        	#{cmsInfoState} ,
+        	#{publishStartime} ,
+        	#{publishEndtime} ,
+        	#{author} ,
+        	#{countClick} ,
+        	#{cmsNewsFrom} ,
+        	#{cmsNewsUrl} ,
+        	#{cmsNewsAuthor} ,
+        	#{newSeoKey} ,
+        	#{newSeoDes} 
+        )
+	</insert>
+	
+	<!-- 新增Selective -->
+	<insert id="add" parameterType="com.ez.cms.entity.CmsInfo">
+		<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="cmsInfoId" >
+			SELECT LAST_INSERT_ID() AS cmsInfoId
+		</selectKey>
+		INSERT INTO cms_info
+		<include refid="addtrim"/>
+	</insert>
+	
+	<sql id="addtrim">
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(cmsNodeId)">
+				cms_node_id,
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsInfoTitle)">
+				cms_info_title,
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsInfoKey)">
+				cms_info_key,
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsInfoDes)">
+				cms_info_des,
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsInfoContent)">
+				cms_info_content,
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsInfoPicpath)">
+				cms_info_picpath,
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsInfoOrder)">
+				cms_info_order,
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsInfoInserttime)">
+				cms_info_inserttime,
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsInfoState)">
+				cms_info_state,
+			</if>
+			<if test="@Ognl@isNotEmpty(publishStartime)">
+				publish_startime,
+			</if>
+			<if test="@Ognl@isNotEmpty(publishEndtime)">
+				publish_endtime,
+			</if>
+			<if test="@Ognl@isNotEmpty(author)">
+				author,
+			</if>
+			<if test="@Ognl@isNotEmpty(countClick)">
+				count_click,
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsNewsFrom)">
+				cms_news_from,
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsNewsUrl)">
+				cms_news_url,
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsNewsAuthor)">
+				cms_news_author,
+			</if>
+			<if test="@Ognl@isNotEmpty(newSeoKey)">
+				new_seo_key,
+			</if>
+			<if test="@Ognl@isNotEmpty(newSeoDes)">
+				new_seo_des,
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(cmsNodeId)">
+				#{cmsNodeId},
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsInfoTitle)">
+				#{cmsInfoTitle},
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsInfoKey)">
+				#{cmsInfoKey},
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsInfoDes)">
+				#{cmsInfoDes},
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsInfoContent)">
+				#{cmsInfoContent},
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsInfoPicpath)">
+				#{cmsInfoPicpath},
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsInfoOrder)">
+				#{cmsInfoOrder},
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsInfoInserttime)">
+				#{cmsInfoInserttime},
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsInfoState)">
+				#{cmsInfoState},
+			</if>
+			<if test="@Ognl@isNotEmpty(publishStartime)">
+				#{publishStartime},
+			</if>
+			<if test="@Ognl@isNotEmpty(publishEndtime)">
+				#{publishEndtime},
+			</if>
+			<if test="@Ognl@isNotEmpty(author)">
+				#{author},
+			</if>
+			<if test="@Ognl@isNotEmpty(countClick)">
+				#{countClick},
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsNewsFrom)">
+				#{cmsNewsFrom},
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsNewsUrl)">
+				#{cmsNewsUrl},
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsNewsAuthor)">
+				#{cmsNewsAuthor},
+			</if>
+			<if test="@Ognl@isNotEmpty(newSeoKey)">
+				#{newSeoKey},
+			</if>
+			<if test="@Ognl@isNotEmpty(newSeoDes)">
+				#{newSeoDes},
+			</if>
+		</trim>
+	</sql>
+	
+	<!-- 删 -->
+	<delete id="delete" parameterType="String">
+		DELETE FROM cms_info WHERE
+		cms_info_id = #{id} 
+	</delete>
+	
+	<!-- 根据主键查实体 -->
+	<select id="getById" parameterType="String" resultMap="CmsInfo">
+		SELECT <include refid="selectId" />
+		    FROM cms_info 
+	        WHERE 
+        cms_info_id = #{id} 
+	</select>
+	
+	<!-- 更新all -->
+	<update id="updateAll" parameterType="com.ez.cms.entity.CmsInfo">
+	    UPDATE cms_info SET
+	        cms_node_id = #{cmsNodeId} ,
+	        cms_info_title = #{cmsInfoTitle} ,
+	        cms_info_key = #{cmsInfoKey} ,
+	        cms_info_des = #{cmsInfoDes} ,
+	        cms_info_content = #{cmsInfoContent} ,
+	        cms_info_picpath = #{cmsInfoPicpath} ,
+	        cms_info_order = #{cmsInfoOrder} ,
+	        cms_info_inserttime = #{cmsInfoInserttime} ,
+	        cms_info_state = #{cmsInfoState} ,
+	        publish_startime = #{publishStartime} ,
+	        publish_endtime = #{publishEndtime} ,
+	        author = #{author} ,
+	        count_click = #{countClick} ,
+	        cms_news_from = #{cmsNewsFrom} ,
+	        cms_news_url = #{cmsNewsUrl} ,
+	        cms_news_author = #{cmsNewsAuthor} ,
+	        new_seo_key = #{newSeoKey} ,
+	        new_seo_des = #{newSeoDes} 
+        WHERE 
+	        cms_info_id = #{cmsInfoId} 
+	</update>
+	
+	<sql id="updateset">
+	<set>
+		<if test="@Ognl@isNotEmpty(cmsNodeId)">
+			cms_node_id = #{cmsNodeId},
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsInfoTitle)">
+			cms_info_title = #{cmsInfoTitle},
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsInfoKey)">
+			cms_info_key = #{cmsInfoKey},
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsInfoDes)">
+			cms_info_des = #{cmsInfoDes},
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsInfoContent)">
+			cms_info_content = #{cmsInfoContent},
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsInfoPicpath)">
+			cms_info_picpath = #{cmsInfoPicpath},
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsInfoOrder)">
+			cms_info_order = #{cmsInfoOrder},
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsInfoInserttime)">
+			cms_info_inserttime = #{cmsInfoInserttime},
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsInfoState)">
+			cms_info_state = #{cmsInfoState},
+		</if>
+		<if test="@Ognl@isNotEmpty(publishStartime)">
+			publish_startime = #{publishStartime},
+		</if>
+		<if test="@Ognl@isNotEmpty(publishEndtime)">
+			publish_endtime = #{publishEndtime},
+		</if>
+		<if test="@Ognl@isNotEmpty(author)">
+			author = #{author},
+		</if>
+		<if test="@Ognl@isNotEmpty(countClick)">
+			count_click = #{countClick},
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsNewsFrom)">
+			cms_news_from = #{cmsNewsFrom},
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsNewsUrl)">
+			cms_news_url = #{cmsNewsUrl},
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsNewsAuthor)">
+			cms_news_author = #{cmsNewsAuthor},
+		</if>
+		<if test="@Ognl@isNotEmpty(newSeoKey)">
+			new_seo_key = #{newSeoKey},
+		</if>
+		<if test="@Ognl@isNotEmpty(newSeoDes)">
+			new_seo_des = #{newSeoDes},
+		</if>
+    </set>
+	</sql>
+	
+	<!-- 更新Selective -->
+	<update id="modify" parameterType="com.ez.cms.entity.CmsInfo">
+	    UPDATE cms_info 
+		<include refid="updateset"/>
+        WHERE 
+	        cms_info_id = #{cmsInfoId} 
+	</update>
+	
+</mapper>
+
