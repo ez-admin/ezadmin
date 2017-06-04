@@ -196,6 +196,27 @@ public class CmsImgPositionController {
 		WebTool.writeJson(result, response);
 		return null;
 	}
-	
+	/**
+	 * 数据字典单选下拉框
+	 * @param code
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="getSdBySdtCode")
+	@ResponseBody
+	public String getSdBySdtCode(String code,String selected,HttpServletResponse response){
+		//字典类型编码
+		List<CmsImgPosition> cmsImgPositions = cmsImgPositionService.getSdBySdtCode(code);
+		String result="";
+		for(CmsImgPosition sd : cmsImgPositions) {
+			if (selected!=null  && selected.equals(sd.getPositionId().toString())){
+				result+="<option value="+sd.getPositionId()+" selected >"+sd.getPositionName()+"</option>";
+			}else {
+				result+="<option value="+sd.getPositionId()+">"+sd.getPositionName()+"</option>";
+			}
+		}
+		WebTool.writeHtml(result, response);
+		return null;
+	}
 }
 

@@ -150,8 +150,16 @@
 	        WHERE 
         position_id = #{id} 
 	</select>
-	
-	<!-- 更新all -->
+    <select id="getSdBySdtCode"  resultMap="CmsImgPosition" parameterType="String">
+		SELECT <include refid="selectId" />
+		FROM cms_img_position
+		<if test="@Ognl@isNotEmpty(positionId)">
+			WHERE position_id = #{positionId}
+		</if>
+		order by position_id
+	</select>
+
+    <!-- 更新all -->
 	<update id="updateAll" parameterType="com.ez.cms.entity.CmsImgPosition">
 	    UPDATE cms_img_position SET
 	        position_name = #{positionName} ,

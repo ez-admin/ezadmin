@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="com.ez.cms.dao.CmsImgInfoDao">
+
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+	<!--<cache type="org.mybatis.caches.ehcache.EhcacheCache" />-->
+
+	<resultMap id="CmsImgInfo" type="com.ez.cms.entity.CmsImgInfo">
+		<result property="emImageId" column="em_image_id"/>
+		<result property="emImageName" column="em_image_name"/>
+		<result property="positionId" column="position_id"/>
+		<result property="emImageUrl" column="em_image_url"/>
+		<result property="emImageLinkurl" column="em_image_linkurl"/>
+		<result property="emImageOrder" column="em_image_order"/>
+		<result property="emImageInserttime" column="em_image_inserttime"/>
+		<result property="emImageStat" column="em_image_stat"/>
+		<result property="emImageSmallUrl" column="em_image_small_url"/>
+		<result property="isnofollow" column="isnofollow"/>
+		<result property="positionName" column="position_name"/>
+	</resultMap>
+	
+	<sql id="selectId">
+		em_image_id,
+		em_image_name,
+		position_id,
+		(SELECT position_name FROM cms_img_position WHERE cms_img_info.position_id=cms_img_position.position_id) position_name,
+		em_image_url,
+		em_image_linkurl,
+		em_image_order,
+		em_image_inserttime,
+		em_image_stat,
+		em_image_small_url,
+		isnofollow
+    </sql>
+    
+    <select id="findAll" resultMap="CmsImgInfo">
+		select
+		<include refid="selectId" />
+		from cms_img_info
+	</select>
+	
+	<select id="query" resultMap="CmsImgInfo" parameterType="com.ez.cms.entity.CmsImgInfo">
+		select
+		<include refid="selectId" />
+		from cms_img_info
+		<include refid="querywhere"/>
+	</select>
+	
+	<sql id="querywhere">
+	<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+	<where>
+		<if test="@Ognl@isNotEmpty(emImageName)">
+			AND em_image_name like '%${emImageName}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(positionId)">
+			AND position_id = '${positionId}'
+		</if>
+		<if test="@Ognl@isNotEmpty(emImageUrl)">
+			AND em_image_url like '%${emImageUrl}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(emImageLinkurl)">
+			AND em_image_linkurl like '%${emImageLinkurl}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(emImageOrder)">
+			AND em_image_order = '${emImageOrder}'
+		</if>
+		<if test="@Ognl@isNotEmpty(emImageInserttimeBegin)">
+			AND em_image_inserttime &gt;= #{emImageInserttimeBegin}
+		</if>
+		<if test="@Ognl@isNotEmpty(emImageInserttimeEnd)">
+			AND em_image_inserttime &lt;= #{emImageInserttimeEnd}
+		</if>
+		<if test="@Ognl@isNotEmpty(emImageStat)">
+			AND em_image_stat = '${emImageStat}'
+		</if>
+		<if test="@Ognl@isNotEmpty(emImageSmallUrl)">
+			AND em_image_small_url like '%${emImageSmallUrl}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(isnofollow)">
+			AND isnofollow = '${isnofollow}'
+		</if>
+	</where>
+	</sql>
+
+	<!-- 总记录数 -->
+	<select id="count" parameterType="com.ez.cms.entity.CmsImgInfo" resultType="int">
+		select count(0) from cms_img_info
+		<include refid="querywhere"/>
+	</select>
+	
+	<!-- 新增 -->
+	<insert id="addAll" parameterType="com.ez.cms.entity.CmsImgInfo">
+		<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="emImageId" >
+			SELECT LAST_INSERT_ID() AS emImageId
+		</selectKey>
+		INSERT INTO cms_img_info (
+        	em_image_name ,
+        	position_id ,
+        	em_image_url ,
+        	em_image_linkurl ,
+        	em_image_order ,
+        	em_image_inserttime ,
+        	em_image_stat ,
+        	em_image_small_url ,
+        	isnofollow 
+        ) VALUES (
+        	#{emImageName} ,
+        	#{positionId} ,
+        	#{emImageUrl} ,
+        	#{emImageLinkurl} ,
+        	#{emImageOrder} ,
+        	#{emImageInserttime} ,
+        	#{emImageStat} ,
+        	#{emImageSmallUrl} ,
+        	#{isnofollow} 
+        )
+	</insert>
+	
+	<!-- 新增Selective -->
+	<insert id="add" parameterType="com.ez.cms.entity.CmsImgInfo">
+		<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="emImageId" >
+			SELECT LAST_INSERT_ID() AS emImageId
+		</selectKey>
+		INSERT INTO cms_img_info
+		<include refid="addtrim"/>
+	</insert>
+	
+	<sql id="addtrim">
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(emImageName)">
+				em_image_name,
+			</if>
+			<if test="@Ognl@isNotEmpty(positionId)">
+				position_id,
+			</if>
+			<if test="@Ognl@isNotEmpty(emImageUrl)">
+				em_image_url,
+			</if>
+			<if test="@Ognl@isNotEmpty(emImageLinkurl)">
+				em_image_linkurl,
+			</if>
+			<if test="@Ognl@isNotEmpty(emImageOrder)">
+				em_image_order,
+			</if>
+			<if test="@Ognl@isNotEmpty(emImageInserttime)">
+				em_image_inserttime,
+			</if>
+			<if test="@Ognl@isNotEmpty(emImageStat)">
+				em_image_stat,
+			</if>
+			<if test="@Ognl@isNotEmpty(emImageSmallUrl)">
+				em_image_small_url,
+			</if>
+			<if test="@Ognl@isNotEmpty(isnofollow)">
+				isnofollow,
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(emImageName)">
+				#{emImageName},
+			</if>
+			<if test="@Ognl@isNotEmpty(positionId)">
+				#{positionId},
+			</if>
+			<if test="@Ognl@isNotEmpty(emImageUrl)">
+				#{emImageUrl},
+			</if>
+			<if test="@Ognl@isNotEmpty(emImageLinkurl)">
+				#{emImageLinkurl},
+			</if>
+			<if test="@Ognl@isNotEmpty(emImageOrder)">
+				#{emImageOrder},
+			</if>
+			<if test="@Ognl@isNotEmpty(emImageInserttime)">
+				#{emImageInserttime},
+			</if>
+			<if test="@Ognl@isNotEmpty(emImageStat)">
+				#{emImageStat},
+			</if>
+			<if test="@Ognl@isNotEmpty(emImageSmallUrl)">
+				#{emImageSmallUrl},
+			</if>
+			<if test="@Ognl@isNotEmpty(isnofollow)">
+				#{isnofollow},
+			</if>
+		</trim>
+	</sql>
+	
+	<!-- 删 -->
+	<delete id="delete" parameterType="String">
+		DELETE FROM cms_img_info WHERE
+		em_image_id = #{id} 
+	</delete>
+	
+	<!-- 根据主键查实体 -->
+	<select id="getById" parameterType="String" resultMap="CmsImgInfo">
+		SELECT <include refid="selectId" />
+		    FROM cms_img_info 
+	        WHERE 
+        em_image_id = #{id} 
+	</select>
+	
+	<!-- 更新all -->
+	<update id="updateAll" parameterType="com.ez.cms.entity.CmsImgInfo">
+	    UPDATE cms_img_info SET
+	        em_image_name = #{emImageName} ,
+	        position_id = #{positionId} ,
+	        em_image_url = #{emImageUrl} ,
+	        em_image_linkurl = #{emImageLinkurl} ,
+	        em_image_order = #{emImageOrder} ,
+	        em_image_inserttime = #{emImageInserttime} ,
+	        em_image_stat = #{emImageStat} ,
+	        em_image_small_url = #{emImageSmallUrl} ,
+	        isnofollow = #{isnofollow} 
+        WHERE 
+	        em_image_id = #{emImageId} 
+	</update>
+	
+	<sql id="updateset">
+	<set>
+		<if test="@Ognl@isNotEmpty(emImageName)">
+			em_image_name = #{emImageName},
+		</if>
+		<if test="@Ognl@isNotEmpty(positionId)">
+			position_id = #{positionId},
+		</if>
+		<if test="@Ognl@isNotEmpty(emImageUrl)">
+			em_image_url = #{emImageUrl},
+		</if>
+		<if test="@Ognl@isNotEmpty(emImageLinkurl)">
+			em_image_linkurl = #{emImageLinkurl},
+		</if>
+		<if test="@Ognl@isNotEmpty(emImageOrder)">
+			em_image_order = #{emImageOrder},
+		</if>
+		<if test="@Ognl@isNotEmpty(emImageInserttime)">
+			em_image_inserttime = #{emImageInserttime},
+		</if>
+		<if test="@Ognl@isNotEmpty(emImageStat)">
+			em_image_stat = #{emImageStat},
+		</if>
+		<if test="@Ognl@isNotEmpty(emImageSmallUrl)">
+			em_image_small_url = #{emImageSmallUrl},
+		</if>
+		<if test="@Ognl@isNotEmpty(isnofollow)">
+			isnofollow = #{isnofollow},
+		</if>
+    </set>
+	</sql>
+	
+	<!-- 更新Selective -->
+	<update id="modify" parameterType="com.ez.cms.entity.CmsImgInfo">
+	    UPDATE cms_img_info 
+		<include refid="updateset"/>
+        WHERE 
+	        em_image_id = #{emImageId} 
+	</update>
+	
+</mapper>
+

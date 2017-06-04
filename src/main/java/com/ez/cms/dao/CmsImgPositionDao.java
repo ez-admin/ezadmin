@@ -2,6 +2,9 @@ package com.ez.cms.dao;
 
 import com.ez.base.BaseDao;
 import com.ez.cms.entity.CmsImgPosition;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author chenez
@@ -11,4 +14,5 @@ import com.ez.cms.entity.CmsImgPosition;
  */
 public interface CmsImgPositionDao extends BaseDao<CmsImgPosition>{
 
+    List<CmsImgPosition> getSdBySdtCode(@Param("positionId") String positionId);
 }

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Transactional
 @Service("cmsImgPositionService")
 @ServiceImplClassDescription(description = "图片位置管理")
@@ -24,4 +26,8 @@ public class CmsImgPositionServiceImpl extends BaseServiceImpl<CmsImgPosition> i
 		baseDao.modify(cmsImgPosition);
 	}
 
+    @Override
+    public List<CmsImgPosition> getSdBySdtCode(String code) {
+        return cmsImgPositionDao.getSdBySdtCode(code);
+    }
 }

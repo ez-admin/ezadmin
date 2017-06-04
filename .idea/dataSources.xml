@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="ssm@localhost" uuid="c82de217-86af-4037-96fe-7ac4b7ab2382">
+    <data-source source="LOCAL" name="ezadmin@localhost" uuid="e2753bd7-6b19-43e4-84e9-5907de0cdcb9">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/ssm</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/ezadmin</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="zeroDateTimeBehavior" value="convertToNull" />

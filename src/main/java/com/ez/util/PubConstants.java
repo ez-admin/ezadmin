@@ -52,8 +52,4 @@ public class PubConstants {
 	public static final String PAGE_TYPE_VIEW = "VIEW";
 	public static final String PAGE_TYPE_EDIT = "EDIT";
 
-	/*cms宣传管理模块*/
-	/*发布状态 0 待发布 1 已发布*/
-	public static final int PUBLISH_STATE_NO = 0;
-	public static final int PUBLISH_STATE_YES = 1;
 }
