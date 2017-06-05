@@ -81,11 +81,10 @@
 				{field: '', title: '序号', align: 'center', width:'5%', formatter: function (value, row, index) {return index+1;}},
 				{field: 'cmsNodeName', title: '栏目名称', align: 'center', width:'11%',sortName:'cms_node_name',sortable: true},
 				{field: 'cmsNodeCode', title: '栏目编码', align: 'center', width:'11%',sortName:'cms_node_code',sortable: true},
-				{field: 'cmsNodeParentId', title: '栏目父级id', align: 'center', width:'11%',sortName:'cms_node_parentId',sortable: true},
 				{field: 'cmsNodeSort', title: '栏目排序', align: 'center', width:'11%',sortName:'cms_node_sort',sortable: true},
 				{field: 'cmsNodeType', title: '栏目类型', align: 'center', width:'11%',sortName:'cms_node_type',sortable: true},
-				{field: 'cmsNodeState', title: '栏目状态', align: 'center', width:'11%',sortName:'cms_node_state',sortable: true},
-				{field: 'cmsNodeInserttime', title: '操作时间', align: 'center', width:'11%',sortName:'cms_node_inserttime',sortable: true},
+				{field: 'cmsNodeState', title: '栏目状态', align: 'center', width:'11%',sortName:'cms_node_state',sortable: true, formatter: stateFormatter},
+				{field: 'cmsNodeInserttime', title: '操作时间', align: 'center', width:'22%',sortName:'cms_node_inserttime',sortable: true},
 				 {
 					filed: '',
 					title: '操作区',
@@ -158,11 +157,10 @@
                 {field: '', title: '序号', align: 'center', width:'5%', formatter: function (value, row, index) {return index+1;}},
                 {field: 'cmsNodeName', title: '栏目名称', align: 'center', width:'11%',sortName:'cms_node_name',sortable: true},
                 {field: 'cmsNodeCode', title: '栏目编码', align: 'center', width:'11%',sortName:'cms_node_code',sortable: true},
-                {field: 'cmsNodeParentId', title: '栏目父级id', align: 'center', width:'11%',sortName:'cms_node_parentId',sortable: true},
                 {field: 'cmsNodeSort', title: '栏目排序', align: 'center', width:'11%',sortName:'cms_node_sort',sortable: true},
                 {field: 'cmsNodeType', title: '栏目类型', align: 'center', width:'11%',sortName:'cms_node_type',sortable: true},
-                {field: 'cmsNodeState', title: '栏目状态', align: 'center', width:'11%',sortName:'cms_node_state',sortable: true},
-                {field: 'cmsNodeInserttime', title: '操作时间', align: 'center', width:'11%',sortName:'cms_node_inserttime',sortable: true},
+                {field: 'cmsNodeState', title: '栏目状态', align: 'center', width:'11%',sortName:'cms_node_state',sortable: true, formatter: stateFormatter},
+                {field: 'cmsNodeInserttime', title: '操作时间', align: 'center', width:'22%',sortName:'cms_node_inserttime',sortable: true},
                 {
                     filed: '',
                     title: '操作区',
@@ -178,6 +176,17 @@
             }
         });
     };
+    function stateFormatter(value, row, index) {
+        var state="";
+		if (0==value){
+            state="禁用";
+		}else if(1==value){
+            state="启用";
+		}else {
+            state="未知";
+		}
+		return state;
+    }
 	//刷新
 	$("#btn_query").click(function () {
 		$("#table").bootstrapTable('refresh');
