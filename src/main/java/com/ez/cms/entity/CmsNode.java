@@ -80,9 +80,18 @@ public class CmsNode extends BaseEntity implements java.io.Serializable{
 	public void setCmsNodeInserttimeEnd(java.util.Date value) {
 		this.cmsNodeInserttimeEnd = value;
 	}
-	
-	//columns END
 
+	//columns END
+	//表外数据
+	private String cmsNodeTypename;
+
+	public String getCmsNodeTypename() {
+		return cmsNodeTypename;
+	}
+
+	public void setCmsNodeTypename(String cmsNodeTypename) {
+		this.cmsNodeTypename = cmsNodeTypename;
+	}
 
 	public void setCmsNodeId(Integer value) {
 		this.cmsNodeId = value;

@@ -17,12 +17,18 @@
 		<div class="layui-input-inline">
 			<input id="cmsNodeCode" name="cmsNodeCode" placeholder="请输入栏目编码" type="text" class="layui-input-quote" maxlength="50" autocomplete="off">
 		</div>
-		<div class="layui-input-inline">
-			<input id="cmsNodeType" name="cmsNodeType" placeholder="请输入栏目类型" type="text" class="layui-input-quote" maxlength="10" autocomplete="off">
+		<%--<div class="layui-input-inline">
+			<select name="cmsNodeType" id="cmsNodeType">
+				<option value="">请选择栏目类型</option>
+			</select>
 		</div>
 		<div class="layui-input-inline">
-			<input id="cmsNodeState" name="cmsNodeState" placeholder="请输入栏目状态" type="text" class="layui-input-quote" maxlength="10" autocomplete="off">
-		</div>
+			<select name="cmsNodeState" id="cmsNodeState">
+				<option value="">请选择栏目状态</option>
+				<option value="0">禁用</option>
+				<option value="1">启用</option>
+			</select>
+		</div>--%>
 		<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
 		</shiro:hasPermission>
 
@@ -44,6 +50,18 @@
 <%@ include file="/WEB-INF/view/ez/index/listpublicsubjs.jsp"%>
 <script>
 	$(function () {
+        /*var form = layui.form();
+        //后台获取select值
+        $.ajax({
+            url: '/ez/system/sysdictionary/getSdBySdtCode.do',
+            type: "POST",
+            data:{code:1026},
+            dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
+            success: function (result) {
+                $("#cmsNodeType").append(result);
+                form.render('select');
+            }
+        });*/
 		//初始化表格
 		$('#table').bootstrapTable({
 			url: '/ez/cms/cmsnode/getParentList.do',
@@ -58,8 +76,8 @@
 			queryParams: queryParams=function(params) {
 				return "&cmsNodeName="+$("#cmsNodeName").val()+
                     	"&cmsNodeCode="+$("#cmsNodeCode").val()+
-                    	"&cmsNodeType="+$("#cmsNodeType").val()+
-                    	"&cmsNodeState="+$("#cmsNodeState").val()+
+/*                    	"&cmsNodeType="+$("#cmsNodeType").val()+
+                    	"&cmsNodeState="+$("#cmsNodeState").val()+*/
 						"&orderBy="+params.sort+" "+ params.order;
 			},//传递参数（*）
             sidePagination: "server",             //分页方式：client客户端分页，server服务端分页（*）
@@ -82,7 +100,7 @@
 				{field: 'cmsNodeName', title: '栏目名称', align: 'center', width:'11%',sortName:'cms_node_name',sortable: true},
 				{field: 'cmsNodeCode', title: '栏目编码', align: 'center', width:'11%',sortName:'cms_node_code',sortable: true},
 				{field: 'cmsNodeSort', title: '栏目排序', align: 'center', width:'11%',sortName:'cms_node_sort',sortable: true},
-				{field: 'cmsNodeType', title: '栏目类型', align: 'center', width:'11%',sortName:'cms_node_type',sortable: true},
+				{field: 'cmsNodeTypename', title: '栏目类型', align: 'center', width:'11%',sortName:'cms_node_type',sortable: true},
 				{field: 'cmsNodeState', title: '栏目状态', align: 'center', width:'11%',sortName:'cms_node_state',sortable: true, formatter: stateFormatter},
 				{field: 'cmsNodeInserttime', title: '操作时间', align: 'center', width:'22%',sortName:'cms_node_inserttime',sortable: true},
 				 {
@@ -123,7 +141,8 @@
         $(cur_table).bootstrapTable({
             url: '/ez/cms/cmsnode/getChildrenList.do',
             method: 'post',                      //请求方式（*）
-            striped: true,                      //是否显示行间隔色
+            showHeader: false,
+			striped: true,                      //是否显示行间隔色
             cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
             pagination: false,                   //是否显示分页（*）
             contentType: "application/x-www-form-urlencoded;charset=UTF-8",//请求数据内容格式 默认是 application/json 自己根据格式自行服务端处理
@@ -133,8 +152,8 @@
             queryParams: queryParams=function(params) {
                 return "&cmsNodeName="+$("#cmsNodeName").val()+
                     "&cmsNodeCode="+$("#cmsNodeCode").val()+
-                    "&cmsNodeType="+$("#cmsNodeType").val()+
-                    "&cmsNodeState="+$("#cmsNodeState").val()+
+/*                    "&cmsNodeType="+$("#cmsNodeType").val()+
+                    "&cmsNodeState="+$("#cmsNodeState").val()+*/
                     "&cmsNodeParentId="+parentId+
                     "&orderBy="+params.sort+" "+ params.order;
             },//传递参数（*）
@@ -158,7 +177,7 @@
                 {field: 'cmsNodeName', title: '栏目名称', align: 'center', width:'11%',sortName:'cms_node_name',sortable: true},
                 {field: 'cmsNodeCode', title: '栏目编码', align: 'center', width:'11%',sortName:'cms_node_code',sortable: true},
                 {field: 'cmsNodeSort', title: '栏目排序', align: 'center', width:'11%',sortName:'cms_node_sort',sortable: true},
-                {field: 'cmsNodeType', title: '栏目类型', align: 'center', width:'11%',sortName:'cms_node_type',sortable: true},
+                {field: 'cmsNodeTypename', title: '栏目类型', align: 'center', width:'11%',sortName:'cms_node_type',sortable: true},
                 {field: 'cmsNodeState', title: '栏目状态', align: 'center', width:'11%',sortName:'cms_node_state',sortable: true, formatter: stateFormatter},
                 {field: 'cmsNodeInserttime', title: '操作时间', align: 'center', width:'22%',sortName:'cms_node_inserttime',sortable: true},
                 {
@@ -195,7 +214,7 @@
 	$("#btn_add").click(function () {
 		top.layer.open({
 			type: 2,//iframe层
-			title: '新增',
+			title: '新增一级栏目',
 			maxmin: true,
 			shadeClose: true, //点击遮罩关闭层
 			area : ['800px' , '600px'],
@@ -231,6 +250,11 @@
 	//操作区
 	function operateFormatter(value, row, index) {
 		return [
+            <shiro:hasPermission name="cmsnode_addsub">
+            '<a class="addsub" href="javascript:void(0)" title="新增下级区域">',
+            '新增下级栏目',
+            '</a>    ',
+            </shiro:hasPermission>
 			<shiro:hasPermission name="cmsnode_view">
 			'<a class="view" href="javascript:void(0)" title="查看">',
 			'查看',
@@ -250,6 +274,19 @@
 	};
 	//操作区事件
 	window.operateEvents = {
+        'click .addsub': function (e, value, row, index) {
+            top.layer.open({
+                type: 2,//iframe层
+                title: '新增下级区域',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area : ['800px' , '600px'],
+                content: '/ez/cms/cmsnode/getById.do?typeKey=3&cmsnodeId='+row.cmsNodeId,
+                end:function(){
+                    $("#table").bootstrapTable('refresh');//刷新表格
+                }
+            });
+        },
 		'click .view': function (e, value, row, index) {
 			top.layer.open({
 				type: 2,//iframe层

@@ -23,12 +23,12 @@
 				<input type="text" name="cmsNodeCode" value="${cmsnode.cmsNodeCode}"  placeholder="请输入栏目编码" autocomplete="off" class="layui-input layui-disabled">
 			</div>
 		</div>
-		<div class="layui-form-item">
+<%--		<div class="layui-form-item">
 			<label class="layui-form-label">栏目父级id:</label>
 			<div class="layui-input-block">
 				<input type="number" name="cmsNodeParentId" value="${cmsnode.cmsNodeParentId}"   maxlength="10"  autocomplete="off" class="layui-input layui-disabled">
 			</div>
-		</div>
+		</div>--%>
 		<div class="layui-form-item">
 			<label class="layui-form-label">栏目排序:</label>
 			<div class="layui-input-block">
@@ -38,19 +38,26 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">栏目类型:</label>
 			<div class="layui-input-block">
-				<input type="number" name="cmsNodeType" value="${cmsnode.cmsNodeType}"   maxlength="10"  autocomplete="off" class="layui-input layui-disabled">
+				<select name="cmsNodeType" id="cmsNodeType" disabled>
+					<option value="">请选择栏目类型</option>
+				</select>
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">栏目状态:</label>
 			<div class="layui-input-block">
-				<input type="number" name="cmsNodeState" value="${cmsnode.cmsNodeState}"   maxlength="10"  autocomplete="off" class="layui-input layui-disabled">
+				<c:if test="${cmsnode.cmsNodeState==0}">
+					<input type="checkbox" name="cmsNodeState" lay-skin="switch" lay-text="启用|禁用" disabled>
+				</c:if>
+				<c:if test="${cmsnode.cmsNodeState==1}">
+					<input type="checkbox" name="cmsNodeState" lay-skin="switch" lay-text="启用|禁用" checked  disabled>
+				</c:if>
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">操作时间:</label>
 			<div class="layui-input-block">
-				<input type="text" name="cmsNodeInserttime" value="<fmt:formatDate value='${cmsnode.cmsNodeInserttime}' type='both' pattern='yyyy-MM-dd'/>"  placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input layui-disabled" onclick="layui.laydate({elem: this})">
+				<input type="text" name="cmsNodeInserttime" value="<fmt:formatDate value='${cmsnode.cmsNodeInserttime}' type='both' pattern='yyyy-MM-dd hh:mm:ss'/>" placeholder="yyyy-MM-dd hh:mm:ss" autocomplete="off" class="layui-input layui-disabled" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
 			</div>
 		</div>
 
@@ -69,7 +76,17 @@
 				,form = layui.form()
 				,$ = layui.jquery
 				,laydate = layui.laydate;
-
+		//后台获取select值
+        $.ajax({
+            url: '/ez/system/sysdictionary/getSdBySdtCode.do',
+            type: "POST",
+            data:{code:1026,selected:'${cmsnode.cmsNodeType}'},
+            dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
+            success: function (result) {
+                $("#cmsNodeType").append(result);
+                form.render('select');
+            }
+        });
 	});
 </script>
 </body>

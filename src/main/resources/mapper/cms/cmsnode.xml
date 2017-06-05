@@ -19,6 +19,7 @@
 		<result property="cmsNodeType" column="cms_node_type"/>
 		<result property="cmsNodeState" column="cms_node_state"/>
 		<result property="cmsNodeInserttime" column="cms_node_inserttime"/>
+		<result property="cmsNodeTypename" column="cms_node_typename"/>
 	</resultMap>
 	
 	<sql id="selectId">
@@ -33,7 +34,7 @@
 		cms_node_sort,
 
 		cms_node_type,
-
+		(SELECT SDKEY FROM sys_dictionary WHERE cms_node.cms_node_type=sys_dictionary.SDVALUE AND CODE="1026") cms_node_typename,
 		cms_node_state,
 
 		cms_node_inserttime

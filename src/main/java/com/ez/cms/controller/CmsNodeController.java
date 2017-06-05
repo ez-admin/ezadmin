@@ -150,7 +150,7 @@ public class CmsNodeController {
 		}else if(typeKey == 2){
 			return "/ez/cms/cmsnode/view";
 		}else{
-			return "/ez/cms/cmsnode/view_1";
+			return "/ez/cms/cmsnode/addsub";
 		}
 	}
 	
@@ -166,6 +166,9 @@ public class CmsNodeController {
 	public String updateCmsNode(Model model,CmsNode cmsnode,HttpServletResponse response){
 		String result="{\"msg\":\"suc\"}";
 		try {
+			if (null==cmsnode.getCmsNodeState()){
+				cmsnode.setCmsNodeState(0);
+			}
 			cmsNodeService.modify(cmsnode);
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";

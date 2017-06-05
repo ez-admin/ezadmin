@@ -10,7 +10,7 @@
 <body>
 <div class="layui-field-box">
 	<form id="formid" class="layui-form">
-
+		<input type="hidden" name="cmsNodeParentId" value="0" >
 		<div class="layui-form-item">
 			<label class="layui-form-label"><em class="required">*</em>栏目名称:</label>
 			<div class="layui-input-block">
@@ -24,12 +24,6 @@
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">栏目父级id:</label>
-			<div class="layui-input-block">
-				<input type="number" name="cmsNodeParentId" value="1"  maxlength="10"  autocomplete="off" class="layui-input">
-			</div>
-		</div>
-		<div class="layui-form-item">
 			<label class="layui-form-label">栏目排序:</label>
 			<div class="layui-input-block">
 				<input type="number" name="cmsNodeSort" value="1"  maxlength="10"  autocomplete="off" class="layui-input">
@@ -38,19 +32,15 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">栏目类型:</label>
 			<div class="layui-input-block">
-				<input type="number" name="cmsNodeType" value="1"  maxlength="10"  autocomplete="off" class="layui-input">
+				<select name="cmsNodeType" id="cmsNodeType">
+					<option value="">请选择栏目类型</option>
+				</select>
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">栏目状态:</label>
+			<label class="layui-form-label"><em class="required">*</em>栏目状态:</label>
 			<div class="layui-input-block">
-				<input type="number" name="cmsNodeState" value="1"  maxlength="10"  autocomplete="off" class="layui-input">
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">操作时间:</label>
-			<div class="layui-input-block">
-				<input type="text" name="cmsNodeInserttime" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
+				<input type="checkbox" name="cmsNodeState" lay-skin="switch" lay-text="启用|禁用" checked value="1">
 			</div>
 		</div>
 		<div class="layui-form-item">
@@ -69,6 +59,17 @@
 				,form = layui.form()
 				,$ = layui.jquery
 				,laydate = layui.laydate;
+        //后台获取select值
+        $.ajax({
+            url: '/ez/system/sysdictionary/getSdBySdtCode.do',
+            type: "POST",
+            data:{code:1026},
+            dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
+            success: function (result) {
+                $("#cmsNodeType").append(result);
+                form.render('select');
+            }
+        });
 		//监听提交
 		form.on('submit(add)', function(data){
 			//layer.msg(JSON.stringify(data.field));

@@ -4,35 +4,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>栏目管理编辑</title>
+	<title>栏目管理新增</title>
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
 </head>
 <body>
 <div class="layui-field-box">
 	<form id="formid" class="layui-form">
-		<input type="hidden" name="cmsNodeId" value="${cmsnode.cmsNodeId}"/>
+		<input type="hidden" name="cmsNodeParentId" value="${cmsnode.cmsNodeId}" >
+		<div class="layui-form-item">
+			<label class="layui-form-label">上级栏目:</label>
+			<div class="layui-input-block">
+				<input type="text"  value="${cmsnode.cmsNodeName}"  readonly class="layui-input">
+			</div>
+		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label"><em class="required">*</em>栏目名称:</label>
 			<div class="layui-input-block">
-				<input type="text" name="cmsNodeName" value="${cmsnode.cmsNodeName}"  required  lay-verify="required" placeholder="请输入栏目名称" autocomplete="off" class="layui-input">
+				<input type="text" name="cmsNodeName" required  lay-verify="required" placeholder="请输入栏目名称" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">栏目编码:</label>
 			<div class="layui-input-block">
-				<input type="text" name="cmsNodeCode" value="${cmsnode.cmsNodeCode}"  placeholder="请输入栏目编码" autocomplete="off" class="layui-input">
+				<input type="text" name="cmsNodeCode" placeholder="请输入栏目编码" autocomplete="off" class="layui-input">
 			</div>
 		</div>
-<%--		<div class="layui-form-item">
-			<label class="layui-form-label">栏目父级id:</label>
-			<div class="layui-input-block">
-				<input type="number" name="cmsNodeParentId" value="${cmsnode.cmsNodeParentId}"   maxlength="10"  autocomplete="off" class="layui-input">
-			</div>
-		</div>--%>
 		<div class="layui-form-item">
 			<label class="layui-form-label">栏目排序:</label>
 			<div class="layui-input-block">
-				<input type="number" name="cmsNodeSort" value="${cmsnode.cmsNodeSort}"   maxlength="10"  autocomplete="off" class="layui-input">
+				<input type="number" name="cmsNodeSort" value="1"  maxlength="10"  autocomplete="off" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
@@ -44,25 +44,14 @@
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">栏目状态:</label>
+			<label class="layui-form-label"><em class="required">*</em>栏目状态:</label>
 			<div class="layui-input-block">
-				<c:if test="${cmsnode.cmsNodeState==0}">
-					<input type="checkbox" name="cmsNodeState" lay-skin="switch" lay-text="启用|禁用"  value="1">
-				</c:if>
-				<c:if test="${cmsnode.cmsNodeState==1}">
-					<input type="checkbox" name="cmsNodeState" lay-skin="switch" lay-text="启用|禁用" checked value="1">
-				</c:if>
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">操作时间:</label>
-			<div class="layui-input-block">
-				<input type="text" name="cmsNodeInserttime" value="<fmt:formatDate value='${cmsnode.cmsNodeInserttime}'  type='both' pattern='yyyy-MM-dd hh:mm:ss'/>"   placeholder="yyyy-MM-dd hh:mm:ss" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+				<input type="checkbox" name="cmsNodeState" lay-skin="switch" lay-text="启用|禁用" checked value="1">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<div class="layui-input-block">
-				<button class="layui-btn" lay-submit lay-filter="edit">编辑</button>
+				<button class="layui-btn" lay-submit lay-filter="add">保存</button>
 				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 			</div>
 		</div>
@@ -80,7 +69,7 @@
         $.ajax({
             url: '/ez/system/sysdictionary/getSdBySdtCode.do',
             type: "POST",
-            data:{code:1026,selected:'${cmsnode.cmsNodeType}'},
+            data:{code:1026},
             dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
             success: function (result) {
                 $("#cmsNodeType").append(result);
@@ -88,19 +77,19 @@
             }
         });
 		//监听提交
-		form.on('submit(edit)', function(data){
+		form.on('submit(add)', function(data){
 			//layer.msg(JSON.stringify(data.field));
 			$.ajax({
-				url: "/ez/cms/cmsnode/update.do",
+				url: "/ez/cms/cmsnode/add.do",
 				type: "POST",
 				data:$('#formid').serialize(),// 你的formid
 				success: function (result) {
 					if("suc"==(result.msg)){
 						//关闭窗口
 						top.layer.closeAll();
-						top.layer.msg('修改成功!',{icon: 1});
+						top.layer.msg('保存成功!',{icon: 1});
 					}else{
-						top.layer.msg('修改失败!'+result.message,{icon: 2},function () {
+						top.layer.msg('保存失败!'+result.message,{icon: 2},function () {
 							location.reload();
 						});
 					}
@@ -108,7 +97,6 @@
 			});
 			return false;
 		});
-
 	});
 </script>
 </body>

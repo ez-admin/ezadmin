@@ -46,7 +46,7 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">操作时间:</label>
 			<div class="layui-input-block">
-				<input type="text" name="emImageInserttime" value="<fmt:formatDate value='${cmsimginfo.emImageInserttime}'  type='both' pattern='yyyy-MM-dd hh:mm:ss'/>"   placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input layui-disabled" disabled onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+				<input type="text" name="emImageInserttime" value="<fmt:formatDate value='${cmsimginfo.emImageInserttime}'  type='both' pattern='yyyy-MM-dd hh:mm:ss'/>"   placeholder="yyyy-MM-dd hh:mm:ss" autocomplete="off" class="layui-input layui-disabled" disabled onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
 			</div>
 		</div>
 		<div class="layui-form-item">
