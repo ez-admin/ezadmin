@@ -24,9 +24,9 @@
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">cmsInfoKey:</label>
+			<label class="layui-form-label">文章关键字:</label>
 			<div class="layui-input-block">
-				<input type="text" name="cmsInfoKey" placeholder="请输入cmsInfoKey" autocomplete="off" class="layui-input">
+				<input type="text" name="cmsInfoKey" placeholder="请输入文章关键字" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
@@ -66,13 +66,13 @@
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">publishStartime:</label>
+			<label class="layui-form-label">发布开始时间:</label>
 			<div class="layui-input-block">
 				<input type="text" name="publishStartime" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">publishEndtime:</label>
+			<label class="layui-form-label">发布结束时间:</label>
 			<div class="layui-input-block">
 				<input type="text" name="publishEndtime" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
 			</div>
@@ -96,9 +96,9 @@
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">cmsNewsUrl:</label>
+			<label class="layui-form-label">文章来源地址:</label>
 			<div class="layui-input-block">
-				<input type="text" name="cmsNewsUrl" placeholder="请输入cmsNewsUrl" autocomplete="off" class="layui-input">
+				<input type="text" name="cmsNewsUrl" placeholder="请输入文章来源地址" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">

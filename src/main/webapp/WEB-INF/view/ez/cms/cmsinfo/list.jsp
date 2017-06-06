@@ -5,9 +5,7 @@
 <html lang="en">
 <head>
 	<title>文章管理列表</title>
-	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
-	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap.min.css">
-	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap-table.css">
+	<%@ include file="/WEB-INF/view/ez/index/listpublictop.jsp"%>
 </head>
 <body>
 <form class="layui-form" id="formSearch">
@@ -19,7 +17,7 @@
 		<input id="cmsInfoTitle" name="cmsInfoTitle" placeholder="请输入文章标题" type="text" class="layui-input-quote" maxlength="255" autocomplete="off">
 	</div>
 	<div class="layui-input-inline">
-		<input id="cmsInfoKey" name="cmsInfoKey" placeholder="请输入cmsInfoKey" type="text" class="layui-input-quote" maxlength="255" autocomplete="off">
+		<input id="cmsInfoKey" name="cmsInfoKey" placeholder="请输入文章关键字" type="text" class="layui-input-quote" maxlength="255" autocomplete="off">
 	</div>
 	<div class="layui-input-inline">
 		<input id="cmsInfoDes" name="cmsInfoDes" placeholder="请输入文章摘要" type="text" class="layui-input-quote" maxlength="255" autocomplete="off">
@@ -67,7 +65,7 @@
 		<input id="cmsNewsFrom" name="cmsNewsFrom" placeholder="请输入文章来源" type="text" class="layui-input-quote" maxlength="200" autocomplete="off">
 	</div>
 	<div class="layui-input-inline">
-		<input id="cmsNewsUrl" name="cmsNewsUrl" placeholder="请输入cmsNewsUrl" type="text" class="layui-input-quote" maxlength="255" autocomplete="off">
+		<input id="cmsNewsUrl" name="cmsNewsUrl" placeholder="请输入文章来源地址" type="text" class="layui-input-quote" maxlength="255" autocomplete="off">
 	</div>
 	<div class="layui-input-inline">
 		<input id="cmsNewsAuthor" name="cmsNewsAuthor" placeholder="请输入文章作者" type="text" class="layui-input-quote" maxlength="100" autocomplete="off">
@@ -94,14 +92,7 @@
 </form>
 
 <table id="table"></table>
-
-<script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
-<script type="text/javascript" src="/static/plugins/layui/lay/dest/layui.all.js"></script>
-<script src="/static/plugins/bootstrap-table/bootstrap.min.js"></script>
-<script src="/static/plugins/bootstrap-table/bootstrap-table.js"></script>
-<script src="/static/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-<script src="/static/plugins/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
-<script src="/static/plugins/bootstrap-table/extensions/tableExport/tableExport.js"></script>
+<%@ include file="/WEB-INF/view/ez/index/listpublicjs.jsp"%>
 <script>
 	$(function () {
 		//初始化表格
@@ -147,19 +138,19 @@
 				{field: '', title: '序号', align: 'center', width:'5%', formatter: function (value, row, index) {return index+1;}},
 				{field: 'cmsNodeId', title: '栏目id', align: 'center', width:'4%',sortName:'cms_node_id',sortable: true},
 				{field: 'cmsInfoTitle', title: '文章标题', align: 'center', width:'4%',sortName:'cms_info_title',sortable: true},
-				{field: 'cmsInfoKey', title: 'cmsInfoKey', align: 'center', width:'4%',sortName:'cms_info_key',sortable: true},
+				{field: 'cmsInfoKey', title: '文章关键字', align: 'center', width:'4%',sortName:'cms_info_key',sortable: true},
 				{field: 'cmsInfoDes', title: '文章摘要', align: 'center', width:'4%',sortName:'cms_info_des',sortable: true},
 				{field: 'cmsInfoContent', title: '文章内容', align: 'center', width:'4%',sortName:'cms_info_content',sortable: true},
 				{field: 'cmsInfoPicpath', title: '文章标题图', align: 'center', width:'4%',sortName:'cms_info_picpath',sortable: true},
 				{field: 'cmsInfoOrder', title: '新闻内容排序', align: 'center', width:'4%',sortName:'cms_info_order',sortable: true},
 				{field: 'cmsInfoInserttime', title: '文章创建时间', align: 'center', width:'4%',sortName:'cms_info_inserttime',sortable: true},
 				{field: 'cmsInfoState', title: '发布状态 0 禁用 1 启用', align: 'center', width:'4%',sortName:'cms_info_state',sortable: true},
-				{field: 'publishStartime', title: 'publishStartime', align: 'center', width:'4%',sortName:'publish_startime',sortable: true},
-				{field: 'publishEndtime', title: 'publishEndtime', align: 'center', width:'4%',sortName:'publish_endtime',sortable: true},
+				{field: 'publishStartime', title: '发布开始时间', align: 'center', width:'4%',sortName:'publish_startime',sortable: true},
+				{field: 'publishEndtime', title: '发布结束时间', align: 'center', width:'4%',sortName:'publish_endtime',sortable: true},
 				{field: 'author', title: '添加内容的管理员', align: 'center', width:'4%',sortName:'author',sortable: true},
 				{field: 'countClick', title: '文章点击数', align: 'center', width:'4%',sortName:'count_click',sortable: true},
 				{field: 'cmsNewsFrom', title: '文章来源', align: 'center', width:'4%',sortName:'cms_news_from',sortable: true},
-				{field: 'cmsNewsUrl', title: 'cmsNewsUrl', align: 'center', width:'4%',sortName:'cms_news_url',sortable: true},
+				{field: 'cmsNewsUrl', title: '文章来源地址', align: 'center', width:'4%',sortName:'cms_news_url',sortable: true},
 				{field: 'cmsNewsAuthor', title: '文章作者', align: 'center', width:'4%',sortName:'cms_news_author',sortable: true},
 				{field: 'newSeoKey', title: 'seo关键词', align: 'center', width:'4%',sortName:'new_seo_key',sortable: true},
 				{field: 'newSeoDes', title: 'seo描述', align: 'center', width:'4%',sortName:'new_seo_des',sortable: true},

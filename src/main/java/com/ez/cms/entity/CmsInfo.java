@@ -14,7 +14,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * @author chenez
- * @2017-06-04
+ * @2017-06-06
  * @Email: chenez 787818013@qq.com
  * @version 1.0
  */
@@ -27,19 +27,19 @@ public class CmsInfo extends BaseEntity implements java.io.Serializable{
 	public static final String ALIAS_CMS_INFO_ID = "文章id";
 	public static final String ALIAS_CMS_NODE_ID = "栏目id";
 	public static final String ALIAS_CMS_INFO_TITLE = "文章标题";
-	public static final String ALIAS_CMS_INFO_KEY = "cmsInfoKey";
+	public static final String ALIAS_CMS_INFO_KEY = "文章关键字";
 	public static final String ALIAS_CMS_INFO_DES = "文章摘要";
 	public static final String ALIAS_CMS_INFO_CONTENT = "文章内容";
 	public static final String ALIAS_CMS_INFO_PICPATH = "文章标题图";
 	public static final String ALIAS_CMS_INFO_ORDER = "新闻内容排序";
 	public static final String ALIAS_CMS_INFO_INSERTTIME = "文章创建时间";
 	public static final String ALIAS_CMS_INFO_STATE = "发布状态 0 禁用 1 启用";
-	public static final String ALIAS_PUBLISH_STARTIME = "publishStartime";
-	public static final String ALIAS_PUBLISH_ENDTIME = "publishEndtime";
+	public static final String ALIAS_PUBLISH_STARTIME = "发布开始时间";
+	public static final String ALIAS_PUBLISH_ENDTIME = "发布结束时间";
 	public static final String ALIAS_AUTHOR = "添加内容的管理员";
 	public static final String ALIAS_COUNT_CLICK = "文章点击数";
 	public static final String ALIAS_CMS_NEWS_FROM = "文章来源";
-	public static final String ALIAS_CMS_NEWS_URL = "cmsNewsUrl";
+	public static final String ALIAS_CMS_NEWS_URL = "文章来源地址";
 	public static final String ALIAS_CMS_NEWS_AUTHOR = "文章作者";
 	public static final String ALIAS_NEW_SEO_KEY = "seo关键词";
 	public static final String ALIAS_NEW_SEO_DES = "seo描述";
@@ -66,7 +66,7 @@ public class CmsInfo extends BaseEntity implements java.io.Serializable{
 	private Integer cmsNodeId;
 	/**文章标题==>db_column: cms_info_title*/
 	private String cmsInfoTitle;
-	/**cmsInfoKey==>db_column: cms_info_key*/
+	/**文章关键字==>db_column: cms_info_key*/
 	private String cmsInfoKey;
 	/**文章摘要==>db_column: cms_info_des*/
 	private String cmsInfoDes;
@@ -144,7 +144,7 @@ public class CmsInfo extends BaseEntity implements java.io.Serializable{
 	private Integer countClick;
 	/**文章来源==>db_column: cms_news_from*/
 	private String cmsNewsFrom;
-	/**cmsNewsUrl==>db_column: cms_news_url*/
+	/**文章来源地址==>db_column: cms_news_url*/
 	private String cmsNewsUrl;
 	/**文章作者==>db_column: cms_news_author*/
 	private String cmsNewsAuthor;
