@@ -8,10 +8,15 @@
 package com.ez.cms.controller;
 
 import com.ez.annotation.SystemLogController;
+import com.ez.system.entity.SysUser;
+import com.ez.util.DateUtil;
+import com.ez.util.PubConstants;
 import com.ez.util.WebTool;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -22,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,7 +49,10 @@ public class CmsInfoController {
 
 	@Autowired
 	private CmsInfoService cmsInfoService;
-
+	@Autowired
+	private CmsNodeService cmsNodeService;
+	@Autowired
+	private  CmsTagService cmsTagService;
 
 	/** binder用于bean属性的设置 */
 	@InitBinder
@@ -68,7 +77,13 @@ public class CmsInfoController {
 	 */
 	@RequestMapping(value="addUI")
 	@SystemLogController(description = "跳到文章管理新增页面")
-	public String addUI(){
+	public String addUI(Model model){
+		//栏目列表
+		String cmsnodeList=cmsNodeService.findAllCmsNode(null);
+		model.addAttribute("cmsnodeList",cmsnodeList);
+		//标签列表
+		List<CmsTag> cmsTags=cmsTagService.findAll();
+		model.addAttribute("cmsTags",cmsTags);
 		return "/ez/cms/cmsinfo/add";
 	}
 	
@@ -81,10 +96,10 @@ public class CmsInfoController {
 	@RequestMapping(value="add")
 	@RequiresPermissions("cmsinfo_add")
 	@SystemLogController(description = "保存文章管理新增信息")
-	public String add(CmsInfo cmsinfo,HttpServletResponse response){
+	public String add(CmsInfo cmsinfo, HttpServletResponse response, HttpServletRequest request){
 		String result="{\"msg\":\"suc\"}";
 		try {
-			cmsInfoService.add(cmsinfo);
+			cmsInfoService.addinfo(cmsinfo,request);
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();
@@ -144,6 +159,9 @@ public class CmsInfoController {
 	public String getById(Model model,String cmsinfoId,int typeKey){
 		CmsInfo cmsinfo = cmsInfoService.getById(cmsinfoId);
 		model.addAttribute("cmsinfo", cmsinfo);
+		String cmsnodeList=cmsNodeService.findAllCmsNode(cmsinfo.getCmsNodeId().toString());
+		model.addAttribute("cmsnodeList",cmsnodeList);
+		List<CmsInfoTag> cmsInfoTags = cmsInfoService.getCmsInfoTags(cmsinfoId);
 		if(typeKey == 1){
 			return "/ez/cms/cmsinfo/edit";
 		}else if(typeKey == 2){
@@ -165,6 +183,9 @@ public class CmsInfoController {
 	public String updateCmsInfo(Model model,CmsInfo cmsinfo,HttpServletResponse response){
 		String result="{\"msg\":\"suc\"}";
 		try {
+			cmsinfo.setCmsInfoInserttime(DateUtil.getNowDate());
+			SysUser sysUser = (SysUser)SecurityUtils.getSubject().getSession().getAttribute(PubConstants.SESSION_SYSUSER);
+			cmsinfo.setAuthor(sysUser.getUserno());
 			cmsInfoService.modify(cmsinfo);
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";

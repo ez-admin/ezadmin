@@ -32,11 +32,11 @@ public class CmsInfo extends BaseEntity implements java.io.Serializable{
 	public static final String ALIAS_CMS_INFO_CONTENT = "文章内容";
 	public static final String ALIAS_CMS_INFO_PICPATH = "文章标题图";
 	public static final String ALIAS_CMS_INFO_ORDER = "新闻内容排序";
-	public static final String ALIAS_CMS_INFO_INSERTTIME = "文章创建时间";
+	public static final String ALIAS_CMS_INFO_INSERTTIME = "操作时间";
 	public static final String ALIAS_CMS_INFO_STATE = "发布状态 0 禁用 1 启用";
 	public static final String ALIAS_PUBLISH_STARTIME = "发布开始时间";
 	public static final String ALIAS_PUBLISH_ENDTIME = "发布结束时间";
-	public static final String ALIAS_AUTHOR = "添加内容的管理员";
+	public static final String ALIAS_AUTHOR = "录入者";
 	public static final String ALIAS_COUNT_CLICK = "文章点击数";
 	public static final String ALIAS_CMS_NEWS_FROM = "文章来源";
 	public static final String ALIAS_CMS_NEWS_URL = "文章来源地址";
@@ -74,7 +74,7 @@ public class CmsInfo extends BaseEntity implements java.io.Serializable{
 	private String cmsInfoContent;
 	/**文章标题图==>db_column: cms_info_picpath*/
 	private String cmsInfoPicpath;
-	/**新闻内容排序==>db_column: cms_info_order*/
+	/**排序==>db_column: cms_info_order*/
 	private Integer cmsInfoOrder;
 	private java.util.Date cmsInfoInserttimeBegin;
 	private java.util.Date cmsInfoInserttimeEnd;
@@ -138,7 +138,7 @@ public class CmsInfo extends BaseEntity implements java.io.Serializable{
 		this.publishEndtimeEnd = value;
 	}
 	
-	/**添加内容的管理员==>db_column: author*/
+	/**录入者==>db_column: author*/
 	private String author;
 	/**文章点击数==>db_column: count_click*/
 	private Integer countClick;
@@ -153,7 +153,26 @@ public class CmsInfo extends BaseEntity implements java.io.Serializable{
 	/**seo描述==>db_column: new_seo_des*/
 	private String newSeoDes;
 	//columns END
+	//表外字段
+	private String cmsNodeName;//栏目名称
+	private String authorname;//作者姓名
 
+
+	public String getCmsNodeName() {
+		return cmsNodeName;
+	}
+
+	public void setCmsNodeName(String cmsNodeName) {
+		this.cmsNodeName = cmsNodeName;
+	}
+
+	public String getAuthorname() {
+		return authorname;
+	}
+
+	public void setAuthorname(String authorname) {
+		this.authorname = authorname;
+	}
 
 	public void setCmsInfoId(Integer value) {
 		this.cmsInfoId = value;
@@ -172,7 +191,7 @@ public class CmsInfo extends BaseEntity implements java.io.Serializable{
 	public void setCmsInfoTitle(String value) {
 		this.cmsInfoTitle = value;
 	}
-	
+
 	public String getCmsInfoTitle() {
 		return this.cmsInfoTitle;
 	}

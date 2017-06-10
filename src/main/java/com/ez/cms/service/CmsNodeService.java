@@ -18,4 +18,6 @@ public interface CmsNodeService extends BaseService<CmsNode> {
     List<CmsNode> queryList(Page<CmsNode> page, CmsNode cmsNode);
 
     List<CmsNode> getChildrenCityList(Page<CmsNode> page, CmsNode cmsNode);
+
+    String findAllCmsNode(String selected);
 }

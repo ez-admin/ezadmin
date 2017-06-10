@@ -30,13 +30,15 @@
 		<result property="cmsNewsAuthor" column="cms_news_author"/>
 		<result property="newSeoKey" column="new_seo_key"/>
 		<result property="newSeoDes" column="new_seo_des"/>
+		<result property="cmsNodeName" column="cms_Node_Name"/>
+		<result property="authorname" column="authorname"/>
 	</resultMap>
 	
 	<sql id="selectId">
 		cms_info_id,
 
 		cms_node_id,
-
+		(SELECT cms_node_name FROM cms_node  WHERE cms_node.cms_node_id = cms_info.cms_node_id) cms_Node_Name,
 		cms_info_title,
 
 		cms_info_key,
@@ -58,7 +60,7 @@
 		publish_endtime,
 
 		author,
-
+		(SELECT USERRELNM FROM sys_user  WHERE sys_user.USERNO = cms_info.author) authorname,
 		count_click,
 
 		cms_news_from,
@@ -161,10 +163,7 @@
 	</select>
 	
 	<!-- 新增 -->
-	<insert id="addAll" parameterType="com.ez.cms.entity.CmsInfo">
-		<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="cmsInfoId" >
-			SELECT LAST_INSERT_ID() AS cmsInfoId
-		</selectKey>
+	<insert id="addAll" parameterType="com.ez.cms.entity.CmsInfo" useGeneratedKeys="true" keyProperty="cmsInfoId">
 		INSERT INTO cms_info (
         	cms_node_id ,
         	cms_info_title ,
@@ -207,14 +206,11 @@
 	</insert>
 	
 	<!-- 新增Selective -->
-	<insert id="add" parameterType="com.ez.cms.entity.CmsInfo">
-		<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="cmsInfoId" >
-			SELECT LAST_INSERT_ID() AS cmsInfoId
-		</selectKey>
+	<insert id="add" parameterType="com.ez.cms.entity.CmsInfo" useGeneratedKeys="true" keyProperty="cmsInfoId">
 		INSERT INTO cms_info
 		<include refid="addtrim"/>
 	</insert>
-	
+
 	<sql id="addtrim">
 		<trim prefix="(" suffix=")" suffixOverrides="," >
 			<if test="@Ognl@isNotEmpty(cmsNodeId)">
@@ -345,7 +341,7 @@
 	</select>
 	
 	<!-- 更新all -->
-	<update id="updateAll" parameterType="com.ez.cms.entity.CmsInfo">
+	<update id="updateAll" parameterType="com.ez.cms.entity.CmsInfo" >
 	    UPDATE cms_info SET
 	        cms_node_id = #{cmsNodeId} ,
 	        cms_info_title = #{cmsInfoTitle} ,

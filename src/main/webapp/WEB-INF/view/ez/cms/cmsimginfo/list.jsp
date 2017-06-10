@@ -16,11 +16,11 @@
 		<input id="emImageName" name="emImageName" placeholder="请输入图片名称" type="text" class="layui-input-quote" maxlength="25" autocomplete="off">
 	</div>
 	<div class="layui-input-inline">
-		<input name="emImageInserttimeBegin" type="text"  class="layui-input" placeholder="yyyy-mm-dd hh:mm:ss" lay-verify="date" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" />
+		<input name="emImageInserttimeBegin" type="text"  class="layui-input" placeholder="请选择开始时间" lay-verify="date" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" />
 	</div>
 		--
 	<div class="layui-input-inline">
-		<input name="emImageInserttimeEnd" type="text"  class="layui-input" placeholder="yyyy-mm-dd hh:mm:ss" lay-verify="date" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" />
+		<input name="emImageInserttimeEnd" type="text"  class="layui-input" placeholder="请选择结束时间" lay-verify="date" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" />
 	</div>
 	<div class="layui-input-inline">
 		<select name="positionId" id="positionId">

@@ -220,8 +220,14 @@
 			AND cms_node_state = '${cmsNodeState}'
 		</if>
 	</select>
+    <select id="findAllCmsNode" resultMap="CmsNode">
+		SELECT <include refid="selectId" />
+		FROM cms_node
+		WHERE cms_node_state=1
+		<!-- 查询所以启用的nodelist-->
+	</select>
 
-	<!-- 更新all -->
+    <!-- 更新all -->
 	<update id="updateAll" parameterType="com.ez.cms.entity.CmsNode">
 	    UPDATE cms_node SET
 	        cms_node_name = #{cmsNodeName} ,

@@ -12,9 +12,9 @@
 	<form id="formid" class="layui-form">
 
 		<div class="layui-form-item">
-			<label class="layui-form-label"><em class="required">*</em>栏目id:</label>
+			<label class="layui-form-label"><em class="required">*</em>栏目名称:</label>
 			<div class="layui-input-block">
-				<input type="number" name="cmsNodeId" value="${cmsinfo.cmsNodeId}" value="1"   lay-verify="required" maxlength="10"  autocomplete="off" class="layui-input layui-disabled">
+				<input type="text" name="cmsNodeId" value="${cmsinfo.cmsNodeName}"   lay-verify="required" maxlength="10"  autocomplete="off" class="layui-input layui-disabled">
 			</div>
 		</div>
 		<div class="layui-form-item">
@@ -35,20 +35,21 @@
 				<input type="text" name="cmsInfoDes" value="${cmsinfo.cmsInfoDes}"  placeholder="请输入文章摘要" autocomplete="off" class="layui-input layui-disabled">
 			</div>
 		</div>
-		<div class="layui-form-item layui-form-text">
-			<label class="layui-form-label"><em class="required">*</em>文章内容：</label>
-			<div class="layui-input-block">
-				<textarea name="cmsInfoContent"  required placeholder="请输入文章内容" class="layui-textarea layui-disabled">${cmsinfo.cmsInfoContent}</textarea>
-			</div>
-		</div>
+
 		<div class="layui-form-item">
 			<label class="layui-form-label">文章标题图:</label>
 			<div class="layui-input-block">
-				<input type="text" name="cmsInfoPicpath" value="${cmsinfo.cmsInfoPicpath}"  placeholder="请输入文章标题图" autocomplete="off" class="layui-input layui-disabled">
+				<c:if test="${null == cmsinfo.cmsInfoPicpath}">
+					暂未上传！
+				</c:if>
+				<c:if test="${null != cmsinfo.cmsInfoPicpath}">
+					<img src="${cmsinfo.cmsInfoPicpath}" alt="文章标题图" >
+				</c:if>
+				<%--<input type="text" name="cmsInfoPicpath" value="${cmsinfo.cmsInfoPicpath}"  placeholder="请输入文章标题图" autocomplete="off" class="layui-input layui-disabled">--%>
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label"><em class="required">*</em>新闻内容排序:</label>
+			<label class="layui-form-label"><em class="required">*</em>排序:</label>
 			<div class="layui-input-block">
 				<input type="number" name="cmsInfoOrder" value="${cmsinfo.cmsInfoOrder}" value="1"   lay-verify="required" maxlength="10"  autocomplete="off" class="layui-input layui-disabled">
 			</div>
@@ -56,17 +57,22 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label"><em class="required">*</em>文章创建时间:</label>
 			<div class="layui-input-block">
-				<input type="text" name="cmsInfoInserttime" value="<fmt:formatDate value='${cmsinfo.cmsInfoInserttime}' type='both' pattern='yyyy-MM-dd'/>" lay-verify="date"  placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input layui-disabled" onclick="layui.laydate({elem: this})">
+				<input type="text" name="cmsInfoInserttime" value="<fmt:formatDate value='${cmsinfo.cmsInfoInserttime}' type='both' pattern='yyyy-MM-dd hh:mm:ss'/>" lay-verify="date"  placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input layui-disabled" onclick="layui.laydate({elem: this})">
 			</div>
 		</div>
 
 		<div class="layui-form-item">
-			<label class="layui-form-label">发布状态 0 禁用 1 启用:</label>
+			<label class="layui-form-label">发布状态:</label>
 			<div class="layui-input-block">
-				<input type="number" name="cmsInfoState" value="${cmsinfo.cmsInfoState}"   maxlength="10"  autocomplete="off" class="layui-input layui-disabled">
+				<c:if test="${cmsinfo.cmsInfoState==0}">
+					<input type="checkbox" name="cmsInfoState" lay-skin="switch" lay-text="启用|禁用"  value="1" disabled>
+				</c:if>
+				<c:if test="${cmsinfo.cmsInfoState==1}">
+					<input type="checkbox" name="cmsInfoState" lay-skin="switch" lay-text="启用|禁用" checked value="1" disabled>
+				</c:if>
 			</div>
 		</div>
-		<div class="layui-form-item">
+		<%--<div class="layui-form-item">
 			<label class="layui-form-label">发布开始时间:</label>
 			<div class="layui-input-block">
 				<input type="text" name="publishStartime" value="<fmt:formatDate value='${cmsinfo.publishStartime}' type='both' pattern='yyyy-MM-dd'/>"  placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input layui-disabled" onclick="layui.laydate({elem: this})">
@@ -78,12 +84,12 @@
 			<div class="layui-input-block">
 				<input type="text" name="publishEndtime" value="<fmt:formatDate value='${cmsinfo.publishEndtime}' type='both' pattern='yyyy-MM-dd'/>"  placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input layui-disabled" onclick="layui.laydate({elem: this})">
 			</div>
-		</div>
+		</div>--%>
 
 		<div class="layui-form-item">
-			<label class="layui-form-label">添加内容的管理员:</label>
+			<label class="layui-form-label">发布人:</label>
 			<div class="layui-input-block">
-				<input type="text" name="author" value="${cmsinfo.author}"  placeholder="请输入添加内容的管理员" autocomplete="off" class="layui-input layui-disabled">
+				<input type="text" name="author" value="${cmsinfo.authorname}"  placeholder="请输入添加内容的管理员" autocomplete="off" class="layui-input layui-disabled">
 			</div>
 		</div>
 		<div class="layui-form-item">
@@ -92,7 +98,15 @@
 				<input type="number" name="countClick" value="${cmsinfo.countClick}"   maxlength="10"  autocomplete="off" class="layui-input layui-disabled">
 			</div>
 		</div>
-		<div class="layui-form-item">
+		<div class="layui-form-item layui-form-text">
+			<label class="layui-form-label"><em class="required">*</em>文章内容：</label>
+			<div class="layui-input-block">
+				<script id="editor" type="text/plain" style="width:100%;height:300px;" >
+					${cmsinfo.cmsInfoContent}
+				</script>
+			</div>
+		</div>
+		<%--<div class="layui-form-item">
 			<label class="layui-form-label">文章来源:</label>
 			<div class="layui-input-block">
 				<input type="text" name="cmsNewsFrom" value="${cmsinfo.cmsNewsFrom}"  placeholder="请输入文章来源" autocomplete="off" class="layui-input layui-disabled">
@@ -121,7 +135,7 @@
 			<div class="layui-input-block">
 				<input type="text" name="newSeoDes" value="${cmsinfo.newSeoDes}"  placeholder="请输入seo描述" autocomplete="off" class="layui-input layui-disabled">
 			</div>
-		</div>
+		</div>--%>
 		<div class="layui-form-item">
 			<div class="layui-input-block">
 				<button class="layui-btn" onclick="top.layer.closeAll()">关闭</button>
@@ -129,7 +143,12 @@
 		</div>
 	</form>
 </div>
+<script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
 <script type="text/javascript" src="/static/plugins/layui/layui.js" charset="utf-8"></script>
+<!--百度Ueditor富文本编辑器-->
+<script type="text/javascript" charset="utf-8" src="/static/plugins/ueditor1_4_3_3/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/plugins/ueditor1_4_3_3/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="/static/plugins/ueditor1_4_3_3/lang/zh-cn/zh-cn.js"></script>
 <script>
 	//Demo
 	layui.use(['layer', 'form','jquery','laydate'], function(){
@@ -137,6 +156,9 @@
 				,form = layui.form()
 				,$ = layui.jquery
 				,laydate = layui.laydate;
+        //实例化编辑器
+        window.UEDITOR_CONFIG.charset="utf-8";
+        var ue = UE.getEditor('editor');
 
 	});
 </script>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="com.ez.cms.dao.CmsTagDao">
+
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+	<!--<cache type="org.mybatis.caches.ehcache.EhcacheCache" />-->
+
+	<resultMap id="CmsTag" type="com.ez.cms.entity.CmsTag">
+		<result property="cmsTagId" column="cms_tag_id"/>
+		<result property="cmsName" column="cms_name"/>
+		<result property="cmsCreationTime" column="cms_creation_time"/>
+		<result property="cmsRefers" column="cms_refers"/>
+	</resultMap>
+	
+	<sql id="selectId">
+		cms_tag_id,
+
+		cms_name,
+
+		cms_creation_time,
+
+		cms_refers
+    </sql>
+    
+    <select id="findAll" resultMap="CmsTag">
+		select
+		<include refid="selectId" />
+		from cms_tag
+	</select>
+	
+	<select id="query" resultMap="CmsTag" parameterType="com.ez.cms.entity.CmsTag">
+		select
+		<include refid="selectId" />
+		from cms_tag
+		<include refid="querywhere"/>
+	</select>
+	
+	<sql id="querywhere">
+	<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+	<where>
+		<if test="@Ognl@isNotEmpty(cmsName)">
+			AND cms_name like '%${cmsName}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsCreationTimeBegin)">
+			AND cms_creation_time &gt;= #{cmsCreationTimeBegin}
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsCreationTimeEnd)">
+			AND cms_creation_time &lt;= #{cmsCreationTimeEnd}
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsRefers)">
+			AND cms_refers = '${cmsRefers}'
+		</if>
+	</where>
+	</sql>
+
+	<!-- 总记录数 -->
+	<select id="count" parameterType="com.ez.cms.entity.CmsTag" resultType="int">
+		select count(0) from cms_tag
+		<include refid="querywhere"/>
+	</select>
+	
+	<!-- 新增 -->
+	<insert id="addAll" parameterType="com.ez.cms.entity.CmsTag">
+		<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="cmsTagId" >
+			SELECT LAST_INSERT_ID() AS cmsTagId
+		</selectKey>
+		INSERT INTO cms_tag (
+        	cms_name ,
+        	cms_creation_time ,
+        	cms_refers 
+        ) VALUES (
+        	#{cmsName} ,
+        	#{cmsCreationTime} ,
+        	#{cmsRefers} 
+        )
+	</insert>
+	
+	<!-- 新增Selective -->
+	<insert id="add" parameterType="com.ez.cms.entity.CmsTag">
+		<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="cmsTagId" >
+			SELECT LAST_INSERT_ID() AS cmsTagId
+		</selectKey>
+		INSERT INTO cms_tag
+		<include refid="addtrim"/>
+	</insert>
+	
+	<sql id="addtrim">
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(cmsName)">
+				cms_name,
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsCreationTime)">
+				cms_creation_time,
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsRefers)">
+				cms_refers,
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(cmsName)">
+				#{cmsName},
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsCreationTime)">
+				#{cmsCreationTime},
+			</if>
+			<if test="@Ognl@isNotEmpty(cmsRefers)">
+				#{cmsRefers},
+			</if>
+		</trim>
+	</sql>
+	
+	<!-- 删 -->
+	<delete id="delete" parameterType="String">
+		DELETE FROM cms_tag WHERE
+		cms_tag_id = #{id} 
+	</delete>
+	
+	<!-- 根据主键查实体 -->
+	<select id="getById" parameterType="String" resultMap="CmsTag">
+		SELECT <include refid="selectId" />
+		    FROM cms_tag 
+	        WHERE 
+        cms_tag_id = #{id} 
+	</select>
+	<select id="findSdBySdtCode" resultMap="CmsTag">
+		SELECT <include refid="selectId" />
+		FROM cms_tag
+		<if test="@Ognl@isNotEmpty(id)">
+		WHERE cms_tag_id = #{id},
+		</if>
+	</select>
+
+	<!-- 更新all -->
+	<update id="updateAll" parameterType="com.ez.cms.entity.CmsTag">
+	    UPDATE cms_tag SET
+	        cms_name = #{cmsName} ,
+	        cms_creation_time = #{cmsCreationTime} ,
+	        cms_refers = #{cmsRefers} 
+        WHERE 
+	        cms_tag_id = #{cmsTagId} 
+	</update>
+	
+	<sql id="updateset">
+	<set>
+		<if test="@Ognl@isNotEmpty(cmsName)">
+			cms_name = #{cmsName},
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsCreationTime)">
+			cms_creation_time = #{cmsCreationTime},
+		</if>
+		<if test="@Ognl@isNotEmpty(cmsRefers)">
+			cms_refers = #{cmsRefers},
+		</if>
+    </set>
+	</sql>
+	
+	<!-- 更新Selective -->
+	<update id="modify" parameterType="com.ez.cms.entity.CmsTag">
+	    UPDATE cms_tag 
+		<include refid="updateset"/>
+        WHERE 
+	        cms_tag_id = #{cmsTagId} 
+	</update>
+	
+</mapper>
+

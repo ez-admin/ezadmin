@@ -11,72 +11,22 @@
 <form class="layui-form" id="formSearch">
 	<shiro:hasPermission name="cmsinfo_query">
 	<div class="layui-input-inline">
-		<input id="cmsNodeId" name="cmsNodeId" placeholder="请输入栏目id" type="text" class="layui-input-quote" maxlength="10" autocomplete="off">
-	</div>
-	<div class="layui-input-inline">
 		<input id="cmsInfoTitle" name="cmsInfoTitle" placeholder="请输入文章标题" type="text" class="layui-input-quote" maxlength="255" autocomplete="off">
 	</div>
 	<div class="layui-input-inline">
-		<input id="cmsInfoKey" name="cmsInfoKey" placeholder="请输入文章关键字" type="text" class="layui-input-quote" maxlength="255" autocomplete="off">
+		<select name="cmsInfoState" id="cmsInfoState">
+			<option value="">请选择发布状态</option>
+			<option value="0">禁用</option>
+			<option value="1">启用</option>
+		</select>
 	</div>
 	<div class="layui-input-inline">
-		<input id="cmsInfoDes" name="cmsInfoDes" placeholder="请输入文章摘要" type="text" class="layui-input-quote" maxlength="255" autocomplete="off">
-	</div>
-	<div class="layui-input-inline">
-		<input id="cmsInfoContent" name="cmsInfoContent" placeholder="请输入文章内容" type="text" class="layui-input-quote" maxlength="65535" autocomplete="off">
-	</div>
-	<div class="layui-input-inline">
-		<input id="cmsInfoPicpath" name="cmsInfoPicpath" placeholder="请输入文章标题图" type="text" class="layui-input-quote" maxlength="255" autocomplete="off">
-	</div>
-	<div class="layui-input-inline">
-		<input id="cmsInfoOrder" name="cmsInfoOrder" placeholder="请输入新闻内容排序" type="text" class="layui-input-quote" maxlength="10" autocomplete="off">
-	</div>
-	<div class="layui-input-inline">
-		<input name="cmsInfoInserttimeBegin" type="text"  class="layui-input" placeholder="yyyy-mm-dd" lay-verify="date" onclick="layui.laydate({elem: this})" />
+		<input name="cmsInfoInserttimeBegin" type="text"  class="layui-input" placeholder="请选择开始时间" lay-verify="date" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" />
 	</div>
 		--
 	<div class="layui-input-inline">
-		<input name="cmsInfoInserttimeEnd" type="text"  class="layui-input" placeholder="yyyy-mm-dd" lay-verify="date" onclick="layui.laydate({elem: this})" />
+		<input name="cmsInfoInserttimeEnd" type="text"  class="layui-input" placeholder="请选择结束时间" lay-verify="date" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" />
 	</div>
-	<div class="layui-input-inline">
-		<input id="cmsInfoState" name="cmsInfoState" placeholder="请输入发布状态 0 禁用 1 启用" type="text" class="layui-input-quote" maxlength="10" autocomplete="off">
-	</div>
-	<div class="layui-input-inline">
-		<input name="publishStartimeBegin" type="text"  class="layui-input" placeholder="yyyy-mm-dd" lay-verify="date" onclick="layui.laydate({elem: this})" />
-	</div>
-		--
-	<div class="layui-input-inline">
-		<input name="publishStartimeEnd" type="text"  class="layui-input" placeholder="yyyy-mm-dd" lay-verify="date" onclick="layui.laydate({elem: this})" />
-	</div>
-	<div class="layui-input-inline">
-		<input name="publishEndtimeBegin" type="text"  class="layui-input" placeholder="yyyy-mm-dd" lay-verify="date" onclick="layui.laydate({elem: this})" />
-	</div>
-		--
-	<div class="layui-input-inline">
-		<input name="publishEndtimeEnd" type="text"  class="layui-input" placeholder="yyyy-mm-dd" lay-verify="date" onclick="layui.laydate({elem: this})" />
-	</div>
-	<div class="layui-input-inline">
-		<input id="author" name="author" placeholder="请输入添加内容的管理员" type="text" class="layui-input-quote" maxlength="100" autocomplete="off">
-	</div>
-	<div class="layui-input-inline">
-		<input id="countClick" name="countClick" placeholder="请输入文章点击数" type="text" class="layui-input-quote" maxlength="10" autocomplete="off">
-	</div>
-	<div class="layui-input-inline">
-		<input id="cmsNewsFrom" name="cmsNewsFrom" placeholder="请输入文章来源" type="text" class="layui-input-quote" maxlength="200" autocomplete="off">
-	</div>
-	<div class="layui-input-inline">
-		<input id="cmsNewsUrl" name="cmsNewsUrl" placeholder="请输入文章来源地址" type="text" class="layui-input-quote" maxlength="255" autocomplete="off">
-	</div>
-	<div class="layui-input-inline">
-		<input id="cmsNewsAuthor" name="cmsNewsAuthor" placeholder="请输入文章作者" type="text" class="layui-input-quote" maxlength="100" autocomplete="off">
-	</div>
-	<div class="layui-input-inline">
-		<input id="newSeoKey" name="newSeoKey" placeholder="请输入seo关键词" type="text" class="layui-input-quote" maxlength="150" autocomplete="off">
-	</div>
-	<div class="layui-input-inline">
-		<input id="newSeoDes" name="newSeoDes" placeholder="请输入seo描述" type="text" class="layui-input-quote" maxlength="255" autocomplete="off">
-	</div>
-
 	<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
 	</shiro:hasPermission>
 	<shiro:hasPermission name="cmsinfo_add">
@@ -110,7 +60,7 @@
 			contentType: "application/x-www-form-urlencoded;charset=UTF-8",
 			sortable: true,
 			sortOrder: "asc",
-			sortName: "cms_info_id",
+			sortName: "cms_info_order",
 			queryParams: queryParams=function(params) {
 				var pageNum=params.offset/params.limit+1;
 				return $('#formSearch').serialize()+
@@ -135,30 +85,30 @@
 			detailView: false,
 			columns: [
 				{checkbox: true, width:'2%'},
-				{field: '', title: '序号', align: 'center', width:'5%', formatter: function (value, row, index) {return index+1;}},
-				{field: 'cmsNodeId', title: '栏目id', align: 'center', width:'4%',sortName:'cms_node_id',sortable: true},
-				{field: 'cmsInfoTitle', title: '文章标题', align: 'center', width:'4%',sortName:'cms_info_title',sortable: true},
-				{field: 'cmsInfoKey', title: '文章关键字', align: 'center', width:'4%',sortName:'cms_info_key',sortable: true},
+				{field: '', title: '序号', align: 'center', width:'3%', formatter: function (value, row, index) {return index+1;}},
+				{field: 'cmsInfoTitle', title: '文章标题', align: 'center', width:'37%',sortName:'cms_info_title',sortable: true},
+				{field: 'cmsNodeName', title: '所属栏目', align: 'center', width:'4%',sortName:'cms_node_id',sortable: true},
+				/*{field: 'cmsInfoKey', title: '文章关键字', align: 'center', width:'4%',sortName:'cms_info_key',sortable: true},
 				{field: 'cmsInfoDes', title: '文章摘要', align: 'center', width:'4%',sortName:'cms_info_des',sortable: true},
 				{field: 'cmsInfoContent', title: '文章内容', align: 'center', width:'4%',sortName:'cms_info_content',sortable: true},
-				{field: 'cmsInfoPicpath', title: '文章标题图', align: 'center', width:'4%',sortName:'cms_info_picpath',sortable: true},
-				{field: 'cmsInfoOrder', title: '新闻内容排序', align: 'center', width:'4%',sortName:'cms_info_order',sortable: true},
-				{field: 'cmsInfoInserttime', title: '文章创建时间', align: 'center', width:'4%',sortName:'cms_info_inserttime',sortable: true},
-				{field: 'cmsInfoState', title: '发布状态 0 禁用 1 启用', align: 'center', width:'4%',sortName:'cms_info_state',sortable: true},
-				{field: 'publishStartime', title: '发布开始时间', align: 'center', width:'4%',sortName:'publish_startime',sortable: true},
-				{field: 'publishEndtime', title: '发布结束时间', align: 'center', width:'4%',sortName:'publish_endtime',sortable: true},
-				{field: 'author', title: '添加内容的管理员', align: 'center', width:'4%',sortName:'author',sortable: true},
-				{field: 'countClick', title: '文章点击数', align: 'center', width:'4%',sortName:'count_click',sortable: true},
+				{field: 'cmsInfoPicpath', title: '文章标题图', align: 'center', width:'4%',sortName:'cms_info_picpath',sortable: true},*/
+				{field: 'cmsInfoOrder', title: '排序', align: 'center', width:'3%',sortName:'cms_info_order',sortable: true},
+				{field: 'cmsInfoInserttime', title: '操作时间', align: 'center', width:'20%',sortName:'cms_info_inserttime',sortable: true},
+				{field: 'cmsInfoState', title: '发布状态', align: 'center', width:'5%',sortName:'cms_info_state',sortable: true, formatter: stateFormatter},
+				/*{field: 'publishStartime', title: '发布开始时间', align: 'center', width:'10%',sortName:'publish_startime',sortable: true},
+				{field: 'publishEndtime', title: '发布结束时间', align: 'center', width:'10%',sortName:'publish_endtime',sortable: true},*/
+				{field: 'authorname', title: '发布人', align: 'center', width:'10%',sortName:'author',sortable: true},
+				/*{field: 'countClick', title: '文章点击数', align: 'center', width:'4%',sortName:'count_click',sortable: true},
 				{field: 'cmsNewsFrom', title: '文章来源', align: 'center', width:'4%',sortName:'cms_news_from',sortable: true},
 				{field: 'cmsNewsUrl', title: '文章来源地址', align: 'center', width:'4%',sortName:'cms_news_url',sortable: true},
 				{field: 'cmsNewsAuthor', title: '文章作者', align: 'center', width:'4%',sortName:'cms_news_author',sortable: true},
 				{field: 'newSeoKey', title: 'seo关键词', align: 'center', width:'4%',sortName:'new_seo_key',sortable: true},
-				{field: 'newSeoDes', title: 'seo描述', align: 'center', width:'4%',sortName:'new_seo_des',sortable: true},
+				{field: 'newSeoDes', title: 'seo描述', align: 'center', width:'4%',sortName:'new_seo_des',sortable: true},*/
 				 {
 					filed: '',
 					title: '操作区',
 					align: 'center',
-					width:'13%',
+					width:'20%',
 					events: operateEvents,
 					formatter: operateFormatter
 				}
@@ -181,6 +131,17 @@
 		//清除工具栏浮动，让父页面高度撑起了
 		$('<div class="clear"></div>').appendTo("body .fixed-table-toolbar:first-child");
 	});
+    function stateFormatter(value, row, index) {
+        var state="";
+        if (0==value){
+            state="禁用";
+        }else if(1==value){
+            state="启用";
+        }else {
+            state="未知";
+        }
+        return state;
+    }
 	//刷新
 	$("#btn_query").click(function () {
 		$("#table").bootstrapTable('refresh');
@@ -192,7 +153,7 @@
 			title: '新增',
 			maxmin: true,
 			shadeClose: true, //点击遮罩关闭层
-			area : ['800px' , '600px'],
+			area : ['1200px' , '600px'],
 			content: '/ez/cms/cmsinfo/addUI.do',
 			end:function(){
 				$("#table").bootstrapTable('refresh');//刷新表格
@@ -213,7 +174,8 @@
 				type: "POST",
 				//获取所有选中行
 				data: getSelectId(arrselections),
-				success: function (result) {
+                async:false,//数据量大等待全部
+                success: function (result) {
 					//删除后的提示
 					handleResult(result.status,result.message);
 				}
@@ -250,7 +212,7 @@
 				title: '查看',
 				maxmin: true,
 				shadeClose: true, //点击遮罩关闭层
-				area : ['800px' , '600px'],
+				area : ['1200px' , '600px'],
 				content: '/ez/cms/cmsinfo/getById.do?typeKey=2&cmsinfoId='+row.cmsInfoId,
 			});
 		},
@@ -260,7 +222,7 @@
 				title: '编辑',
 				maxmin: true,
 				shadeClose: true, //点击遮罩关闭层
-				area : ['800px' , '600px'],
+				area : ['1200px' , '600px'],
 				content: '/ez/cms/cmsinfo/getById.do?typeKey=1&cmsinfoId='+row.cmsInfoId,
 				end:function(){
 					$("#table").bootstrapTable('refresh');//刷新表格

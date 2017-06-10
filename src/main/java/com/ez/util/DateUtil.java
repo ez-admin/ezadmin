@@ -27,8 +27,14 @@ public class DateUtil {
 	public static Date getNowDate() {
 		Date currentTime = new Date();
 		String dateString = sdfTime.format(currentTime);
-		ParsePosition pos = new ParsePosition(8);
-		Date currentTime_1 = sdfTime.parse(dateString, pos);
+		Date currentTime_1=new Date();
+		try {
+			currentTime_1=sdfTime.parse(dateString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		//ParsePosition pos = new ParsePosition(8);
+		//Date currentTime_1 = sdfTime.parse(dateString, pos);
 		return currentTime_1;
 	}
 
@@ -40,8 +46,14 @@ public class DateUtil {
 	public static Date getNowDateShort() {
 		Date currentTime = new Date();
 		String dateString = sdfDay.format(currentTime);
-		ParsePosition pos = new ParsePosition(8);
-		Date currentTime_2 = sdfDay.parse(dateString, pos);
+		Date currentTime_2=new Date();
+		try {
+			currentTime_2=sdfTime.parse(dateString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		/*ParsePosition pos = new ParsePosition(8);
+		Date currentTime_2 = sdfDay.parse(dateString, pos);*/
 		return currentTime_2;
 	}
 

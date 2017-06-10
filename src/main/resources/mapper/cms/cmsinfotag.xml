@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="com.ez.cms.dao.CmsInfoTagDao">
+
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+	<!--<cache type="org.mybatis.caches.ehcache.EhcacheCache" />-->
+
+	<resultMap id="CmsInfoTag" type="com.ez.cms.entity.CmsInfoTag">
+		<result property="cmsInfoId" column="cms_info_id"/>
+		<result property="cmsTagId" column="cms_tag_id"/>
+	</resultMap>
+	
+	<sql id="selectId">
+		cms_info_id,
+		cms_tag_id
+    </sql>
+
+	<select id="query" resultMap="CmsInfoTag" parameterType="String">
+		select
+		<include refid="selectId" />
+		from cms_tag
+		cms_info_id = #{id}
+	</select>
+
+	<!-- 新增 -->
+	<insert id="addAll" parameterType="com.ez.cms.entity.CmsInfoTag">
+		INSERT INTO cms_info_tag (
+        	cms_info_id ,
+        	cms_tag_id
+        ) VALUES (
+        	#{cmsInfoId} ,
+        	#{cmsTagId}
+        )
+	</insert>
+
+	<select id="findAll" resultMap="CmsInfoTag">
+		select
+		<include refid="selectId" />
+		from cms_info_tag
+	</select>
+	<!-- 删 -->
+	<delete id="delete" parameterType="String">
+		DELETE FROM cms_info_tag WHERE
+		cms_info_id = #{id}
+	</delete>
+
+	
+</mapper>
+

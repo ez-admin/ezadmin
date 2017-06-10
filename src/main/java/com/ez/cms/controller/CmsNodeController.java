@@ -11,6 +11,7 @@ import com.ez.annotation.SystemLogController;
 import com.ez.cms.entity.CmsNode;
 import com.ez.cms.service.CmsNodeService;
 import com.ez.util.Common;
+import com.ez.util.DateUtil;
 import com.ez.util.WebTool;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -169,6 +170,7 @@ public class CmsNodeController {
 			if (null==cmsnode.getCmsNodeState()){
 				cmsnode.setCmsNodeState(0);
 			}
+			cmsnode.setCmsNodeInserttime(DateUtil.getNowDate());
 			cmsNodeService.modify(cmsnode);
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";

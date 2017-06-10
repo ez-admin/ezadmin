@@ -11,6 +11,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.ez.annotation.SystemLogController;
 import com.ez.cms.entity.CmsImgInfo;
 import com.ez.cms.service.CmsImgInfoService;
+import com.ez.util.DateUtil;
 import com.ez.util.WebTool;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -167,6 +168,7 @@ public class CmsImgInfoController {
 			if (null==cmsimginfo.getEmImageStat()){
 				cmsimginfo.setEmImageStat(0);
 			}
+			cmsimginfo.setEmImageInserttime(DateUtil.getNowDate());
 			cmsImgInfoService.modify(cmsimginfo);
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";

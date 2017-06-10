@@ -2,6 +2,9 @@ package com.ez.cms.service;
 import com.ez.base.service.BaseService;
 import com.ez.cms.entity.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
 
 /**
  * @author chenez
@@ -10,4 +13,8 @@ import com.ez.cms.entity.*;
  * @version 1.0
  */
 public interface CmsInfoService extends BaseService<CmsInfo> {
+
+    void addinfo(CmsInfo cmsinfo, HttpServletRequest request);
+
+    List<CmsInfoTag> getCmsInfoTags(String cmsinfoId);
 }

@@ -221,7 +221,6 @@ public class SysDictionaryController {
 			}else {
 				result+="<option value=\""+sd.getSdvalue()+ "\">"+sd.getSdkey()+"</option>";
 			}
-
         }
 		WebTool.writeHtml(result, response);
 		return null;
