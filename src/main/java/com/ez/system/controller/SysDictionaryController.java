@@ -1,7 +1,6 @@
 package com.ez.system.controller;
 
 import com.ez.annotation.SystemLogController;
-import com.ez.base.AutoCompleteEntity;
 import com.ez.system.entity.SysDictionary;
 import com.ez.system.service.SysDictionaryService;
 import com.ez.util.WebTool;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -177,31 +175,6 @@ public class SysDictionaryController {
 		}
 		WebTool.writeJson(result, response);
 		return null;
-	}
-	/**
-	 * 数据字典单选下拉框
-	 * @param code
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value="getSdBySdtCode-old")
-	@ResponseBody
-	public Map<String, List<AutoCompleteEntity>> getSdBySdtCodeold (String code,HttpServletRequest request){
-		//字典类型编码
-		code = request.getParameter("code");
-		AutoCompleteEntity entity;
-		List<SysDictionary> sysDictionarys = sysDictionaryService.findSdBySdtCode(code);
-        List<AutoCompleteEntity> list = new ArrayList<AutoCompleteEntity>();
-		Map<String,List<AutoCompleteEntity>> resMap = new HashMap<String,List<AutoCompleteEntity>>();
-        for(SysDictionary sd : sysDictionarys) {
-			entity = new AutoCompleteEntity();
-			entity.setKey(sd.getSdkey());
-			entity.setValue(sd.getSdvalue());
-			entity.setSuggest(sd.getSdkey());
-			list.add(entity);
-		}
-		resMap.put("list", list);
-		return resMap;
 	}
     /**
      * 数据字典单选下拉框

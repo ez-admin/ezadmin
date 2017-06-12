@@ -71,7 +71,7 @@ public class CmsTag extends BaseEntity implements java.io.Serializable{
 	private Integer cmsRefers;
 	//columns END
 	//表外字段
-	private boolean isTag;//是否已经设置
+	private boolean isTag=false;//是否已经设置
 
 	public boolean isTag() {
 		return isTag;
@@ -116,6 +116,7 @@ public class CmsTag extends BaseEntity implements java.io.Serializable{
 			.append("CmsName",getCmsName())
 			.append("CmsCreationTime",getCmsCreationTime())
 			.append("CmsRefers",getCmsRefers())
+			.append("Istag",isTag)
 			.toString();
 	}
 	

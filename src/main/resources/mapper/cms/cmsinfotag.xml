@@ -43,7 +43,14 @@
 		<include refid="selectId" />
 		from cms_info_tag
 	</select>
-	<!-- 删 -->
+    <select id="findById" resultMap="CmsInfoTag" >
+		select
+		<include refid="selectId" />
+		from cms_info_tag
+		WHERE
+		cms_info_id=#{cmsinfoId}
+	</select>
+    <!-- 删 -->
 	<delete id="delete" parameterType="String">
 		DELETE FROM cms_info_tag WHERE
 		cms_info_id = #{id}

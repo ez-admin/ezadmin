@@ -16,5 +16,7 @@ public interface CmsInfoService extends BaseService<CmsInfo> {
 
     void addinfo(CmsInfo cmsinfo, HttpServletRequest request);
 
-    List<CmsInfoTag> getCmsInfoTags(String cmsinfoId);
+    List<CmsTag> getCmsInfoTags(String cmsinfoId);
+
+    void modifyInfo(CmsInfo cmsinfo, HttpServletRequest request);
 }

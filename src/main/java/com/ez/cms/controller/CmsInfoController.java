@@ -161,7 +161,8 @@ public class CmsInfoController {
 		model.addAttribute("cmsinfo", cmsinfo);
 		String cmsnodeList=cmsNodeService.findAllCmsNode(cmsinfo.getCmsNodeId().toString());
 		model.addAttribute("cmsnodeList",cmsnodeList);
-		List<CmsInfoTag> cmsInfoTags = cmsInfoService.getCmsInfoTags(cmsinfoId);
+		List<CmsTag> cmsTags = cmsInfoService.getCmsInfoTags(cmsinfoId);
+		model.addAttribute("cmsTags",cmsTags);
 		if(typeKey == 1){
 			return "/ez/cms/cmsinfo/edit";
 		}else if(typeKey == 2){
@@ -180,13 +181,10 @@ public class CmsInfoController {
 	@RequestMapping(value="update",method=RequestMethod.POST)
 	@RequiresPermissions("cmsinfo_modify")
 	@SystemLogController(description = "更新修改文章管理的信息")
-	public String updateCmsInfo(Model model,CmsInfo cmsinfo,HttpServletResponse response){
+	public String updateCmsInfo(Model model,CmsInfo cmsinfo,HttpServletResponse response,HttpServletRequest request){
 		String result="{\"msg\":\"suc\"}";
 		try {
-			cmsinfo.setCmsInfoInserttime(DateUtil.getNowDate());
-			SysUser sysUser = (SysUser)SecurityUtils.getSubject().getSession().getAttribute(PubConstants.SESSION_SYSUSER);
-			cmsinfo.setAuthor(sysUser.getUserno());
-			cmsInfoService.modify(cmsinfo);
+			cmsInfoService.modifyInfo(cmsinfo,request);
 		} catch (Exception e) {
 			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
 			e.printStackTrace();

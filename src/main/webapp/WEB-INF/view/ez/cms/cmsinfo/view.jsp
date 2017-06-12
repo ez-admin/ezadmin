@@ -40,7 +40,7 @@
 			<label class="layui-form-label">文章标题图:</label>
 			<div class="layui-input-block">
 				<c:if test="${null == cmsinfo.cmsInfoPicpath}">
-					暂未上传！
+					<input type="file" class="layui-upload-file" disabled>
 				</c:if>
 				<c:if test="${null != cmsinfo.cmsInfoPicpath}">
 					<img src="${cmsinfo.cmsInfoPicpath}" alt="文章标题图" >
@@ -98,6 +98,19 @@
 				<input type="number" name="countClick" value="${cmsinfo.countClick}"   maxlength="10"  autocomplete="off" class="layui-input layui-disabled">
 			</div>
 		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">所属标签:</label>
+			<div class="layui-input-block">
+				<c:forEach items="${cmsTags}" var ="cmstags" >
+					<c:if test="${cmstags.tag == true}">
+						<input type="checkbox"  name="cmstag" value="${cmstags.cmsTagId}" title="${cmstags.cmsName}" checked >
+					</c:if>
+					<c:if test="${cmstags.tag == false}">
+						<input type="checkbox"  name="cmstag" value="${cmstags.cmsTagId}" title="${cmstags.cmsName}" disabled>
+					</c:if>
+				</c:forEach>
+			</div>
+		</div>
 		<div class="layui-form-item layui-form-text">
 			<label class="layui-form-label"><em class="required">*</em>文章内容：</label>
 			<div class="layui-input-block">
@@ -151,15 +164,18 @@
 <script type="text/javascript" charset="utf-8" src="/static/plugins/ueditor1_4_3_3/lang/zh-cn/zh-cn.js"></script>
 <script>
 	//Demo
-	layui.use(['layer', 'form','jquery','laydate'], function(){
-		var layer = layui.layer
-				,form = layui.form()
-				,$ = layui.jquery
-				,laydate = layui.laydate;
+    layui.use(['layer', 'form','jquery','laydate','upload','element'], function(){
+        var layer = layui.layer
+            ,form = layui.form()
+            ,element = layui.element()
+            ,$ = layui.jquery
+            ,laydate = layui.laydate;
         //实例化编辑器
         window.UEDITOR_CONFIG.charset="utf-8";
         var ue = UE.getEditor('editor');
+        layui.upload({
 
+        });
 	});
 </script>
 </body>

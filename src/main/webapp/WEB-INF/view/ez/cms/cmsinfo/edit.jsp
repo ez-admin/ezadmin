@@ -98,6 +98,19 @@
 				<%--<input type="number" name="cmsInfoState" value="${cmsinfo.cmsInfoState}"   maxlength="10"  autocomplete="off" class="layui-input">--%>
 			</div>
 		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">所属标签:</label>
+			<div class="layui-input-block">
+				<c:forEach items="${cmsTags}" var ="cmstags" >
+					<c:if test="${cmstags.tag == true}">
+						<input type="checkbox"  name="cmstag" value="${cmstags.cmsTagId}" title="${cmstags.cmsName}" checked >
+					</c:if>
+					<c:if test="${cmstags.tag == false}">
+						<input type="checkbox"  name="cmstag" value="${cmstags.cmsTagId}" title="${cmstags.cmsName}" >
+					</c:if>
+				</c:forEach>
+			</div>
+		</div>
 		<div class="layui-form-item layui-form-text">
 			<label class="layui-form-label"><em class="required">*</em>文章内容：</label>
 			<div class="layui-input-block">
