@@ -9,9 +9,11 @@ package com.ez.system.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ez.annotation.SystemLogController;
+import com.ez.base.BaseController;
 import com.ez.system.entity.SysCity;
 import com.ez.system.service.SysCityService;
 import com.ez.util.Common;
+import com.ez.util.DateUtil;
 import com.ez.util.WebTool;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -42,17 +44,10 @@ import java.util.*;
  */
 @Controller
 @RequestMapping(value="/ez/system/syscity/")
-public class SysCityController {
+public class SysCityController extends BaseController{
 
 	@Autowired
 	private SysCityService sysCityService;
-
-
-	/** binder用于bean属性的设置 */
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
-	}
 
 	/**
 	 * 跳到列表页面
@@ -70,6 +65,7 @@ public class SysCityController {
 	 * @return
 	 */
 	@RequestMapping(value="addUI")
+	@RequiresPermissions("syscity_add")
 	@SystemLogController(description = "跳到城市区域新增页面")
 	public String addUI(){
 		return "/ez/system/syscity/add";
@@ -112,16 +108,11 @@ public class SysCityController {
 	 */
 	public String addpublic(SysCity syscity){
 		String result="{\"msg\":\"suc\"}";
-		try {
-			SysCity sysCity=sysCityService.getById(syscity.getId().toString());
-			if (null==sysCity){
-				sysCityService.add(syscity);
-			}else {
-				result="{\"msg\":\"fail\",\"message\":\"区域id已经存在，请重新输入！\"}";
-			}
-		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
+		SysCity sysCity=sysCityService.getById(syscity.getId().toString());
+		if (null==sysCity){
+			sysCityService.add(syscity);
+		}else {
+			result="{\"msg\":\"fail\",\"message\":\"区域id已经存在，请重新输入！\"}";
 		}
 		return result;
 	}
@@ -228,13 +219,8 @@ public class SysCityController {
 	@SystemLogController(description = "删除城市区域信息")
 	@RequiresPermissions("syscity_delete")
 	public String deleteById(Model model,String ids, HttpServletResponse response){
-		String result="{\"status\":1,\"message\":\"删除成功！\"}";
-		try{
-			sysCityService.deleteSubAll(ids);
-		}catch(Exception e){
-			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
+		String result="{\"status\":1}";
+		sysCityService.deleteSubAll(ids);
 		WebTool.writeJson(result, response);
 		return null;
 	}
@@ -270,12 +256,7 @@ public class SysCityController {
 	@SystemLogController(description = "更新修改城市区域的信息")
 	public String updateSysCity(SysCity syscity,HttpServletResponse response){
 		String result="{\"msg\":\"suc\"}";
-		try {
-			sysCityService.modify(syscity);
-		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
+		sysCityService.modify(syscity);
 		 WebTool.writeJson(result, response);
 		 return null;		
 	}
@@ -290,14 +271,9 @@ public class SysCityController {
 	@RequiresPermissions("syscity_deleteall")
 	@SystemLogController(description = "批量删除城市区域信息")
 	public String deleteAll(String[] ids, HttpServletResponse response) {
-		String result = "{\"status\":1,\"message\":\"删除成功！\"}";
-		try {
-			for (String id : ids) {
-				sysCityService.delete(id);
-			}
-		} catch (Exception e) {
-			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
+		String result = "{\"status\":1}";
+		for (String id : ids) {
+			sysCityService.delete(id);
 		}
 		WebTool.writeJson(result, response);
 		return null;

@@ -8,12 +8,14 @@
 package com.ez.system.controller;
 
 import com.ez.annotation.SystemLogController;
+import com.ez.base.BaseController;
 import com.ez.system.entity.SysLog;
 import com.ez.system.service.SysLogService;
 import com.ez.util.PubConstants;
 import com.ez.util.WebTool;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,9 +37,9 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(value="/ez/system/syslog/")
-public class SysLogController {
+public class SysLogController extends BaseController {
 
-	@Resource
+	@Autowired
 	private SysLogService sysLogService;
 
 
@@ -69,12 +71,7 @@ public class SysLogController {
 	@RequestMapping(value="add")
 	public String add(Model model,SysLog syslog,HttpServletResponse response,HttpServletRequest request){
 		String result="{\"msg\":\"suc\"}";
-		try {
-			sysLogService.add(syslog);
-		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" + WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
+		sysLogService.add(syslog);
 		 WebTool.writeJson(result, response);
 		 return null;
 	}
@@ -87,16 +84,11 @@ public class SysLogController {
 	@RequestMapping(value="addnull")
 	public String addnull(Model model,HttpServletResponse response,HttpServletRequest request){
 		String result="";
-		try {
-			SysLog syslog = new SysLog();
-			sysLogService.addAll(syslog);
-			result="{\"id\":" + syslog.getId() + ",\"message\":\"新增成功！\"}";
-		} catch (Exception e) {
-			result="{\"id\":\"0\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
-		 WebTool.writeJson(result, response);
-		 return null;
+		SysLog syslog = new SysLog();
+		sysLogService.addAll(syslog);
+		result="{\"id\":" + syslog.getId() + ",\"message\":\"新增成功！\"}";
+		WebTool.writeJson(result, response);
+		return null;
 	}
 	
 	/**
@@ -136,14 +128,8 @@ public class SysLogController {
 	 */
 	@RequestMapping(value="deleteById",method=RequestMethod.POST)
 	public String deleteById(Model model,String ids, HttpServletResponse response){
-		String result=null;
-		try{
-			sysLogService.delete(ids);
-		    result="{\"status\":1,\"message\":\"删除成功！\"}";
-		}catch(Exception e){
-			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
+		String result="{\"status\":1}";
+		sysLogService.delete(ids);
 		WebTool.writeJson(result, response);
 		return null;
 	}
@@ -176,13 +162,8 @@ public class SysLogController {
 	 */
 	@RequestMapping(value="update",method=RequestMethod.POST)
 	public String updateSysLog(Model model,SysLog syslog,HttpServletResponse response){		
-		String result="{\"msg\":\"suc\"}";;
-		try {			
-			sysLogService.modify(syslog);
-		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
+		String result="{\"msg\":\"suc\"}";
+		sysLogService.modify(syslog);
 		 WebTool.writeJson(result, response);
 		 return null;		
 		
@@ -193,21 +174,13 @@ public class SysLogController {
 	 * 批量删除数据
 	 * 
 	 * @param model
-	 * @param String
-	 *            [] ids
 	 * @return
 	 */
 	@RequestMapping(value = "deleteAll")
 	public String deleteAll(String[] ids, Model model, HttpServletResponse response) {
-		String result = null;
-		try {
-			for (String id : ids) {
-				sysLogService.delete(id);
-			}
-			result = "{\"status\":1,\"message\":\"删除成功！\"}";
-		} catch (Exception e) {
-			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
+		String result = "{\"status\":1}";
+		for (String id : ids) {
+			sysLogService.delete(id);
 		}
 		WebTool.writeJson(result, response);
 		return null;

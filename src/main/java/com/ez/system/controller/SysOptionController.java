@@ -8,12 +8,14 @@
 package com.ez.system.controller;
 
 import com.ez.annotation.SystemLogController;
+import com.ez.base.BaseController;
 import com.ez.system.entity.SysOption;
 import com.ez.system.entity.SysOptionList;
 import com.ez.system.service.SysOptionService;
 import com.ez.util.WebTool;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,17 +41,10 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(value="/ez/system/sysoption/")
-public class SysOptionController {
+public class SysOptionController extends BaseController {
 
-	@Resource
+	@Autowired
 	private SysOptionService sysOptionService;
-
-
-	/** binder用于bean属性的设置 */
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
-	}
 
 	/**
 	 * 跳到列表页面
@@ -94,14 +89,9 @@ public class SysOptionController {
 	@SystemLogController(description = "保存系统设置新增信息")
 	public String add(SysOption sysoption,HttpServletResponse response){
 		String result="{\"msg\":\"suc\"}";
-		try {
-			sysOptionService.add(sysoption);
-		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
-		 WebTool.writeJson(result, response);
-		 return null;
+		sysOptionService.add(sysoption);
+		WebTool.writeJson(result, response);
+		return null;
 	}
 	
 	/**
@@ -131,13 +121,8 @@ public class SysOptionController {
 	@RequestMapping(value="deleteById",method=RequestMethod.POST)
 	@SystemLogController(description = "删除系统设置信息")
 	public String deleteById(Model model,String ids, HttpServletResponse response){
-		String result="{\"status\":1,\"message\":\"删除成功！\"}";
-		try{
-			sysOptionService.delete(ids);
-		}catch(Exception e){
-			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
+		String result="{\"status\":1}";
+		sysOptionService.delete(ids);
 		WebTool.writeJson(result, response);
 		return null;
 	}
@@ -173,12 +158,7 @@ public class SysOptionController {
 	@SystemLogController(description = "更新修改系统设置的信息")
 	public String updateSysOption(Model model,SysOption sysoption,HttpServletResponse response){
 		String result="{\"msg\":\"suc\"}";
-		try {
-			sysOptionService.modify(sysoption);
-		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
+		sysOptionService.modify(sysoption);
 		 WebTool.writeJson(result, response);
 		 return null;		
 	}
@@ -192,16 +172,11 @@ public class SysOptionController {
 	@SystemLogController(description = "更新修改系统设置列表的信息")
 	public String updateList(Model model, SysOptionList sysOptionList, HttpServletResponse response){
 		String result="{\"msg\":\"suc\"}";
-		try {
-			List<SysOption> optionList=sysOptionList.getSysOptionList();
-			if (null != optionList && optionList.size()>0){
-				for (SysOption sysOption :optionList){
-					sysOptionService.modify(sysOption);
-				}
+		List<SysOption> optionList=sysOptionList.getSysOptionList();
+		if (null != optionList && optionList.size()>0){
+			for (SysOption sysOption :optionList){
+				sysOptionService.modify(sysOption);
 			}
-		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
 		}
 		WebTool.writeJson(result, response);
 		return null;
@@ -215,14 +190,9 @@ public class SysOptionController {
 	@RequestMapping(value = "deleteAll")
 	@SystemLogController(description = "批量删除系统设置信息")
 	public String deleteAll(String[] ids, HttpServletResponse response) {
-		String result = "{\"status\":1,\"message\":\"删除成功！\"}";
-		try {
-			for (String id : ids) {
-				sysOptionService.delete(id);
-			}
-		} catch (Exception e) {
-			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
+		String result = "{\"status\":1}";
+		for (String id : ids) {
+			sysOptionService.delete(id);
 		}
 		WebTool.writeJson(result, response);
 		return null;

@@ -143,9 +143,7 @@
 						top.layer.closeAll();
 						top.layer.msg('修改成功!',{icon: 1});
 					}else{
-						top.layer.msg('修改失败!'+result.message,{icon: 2},function () {
-							location.reload();
-						});
+						top.layer.msg('修改失败!'+result.message,{icon: 2});
 					}
 				}
 			});

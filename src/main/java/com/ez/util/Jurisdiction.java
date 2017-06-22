@@ -34,21 +34,6 @@ public class Jurisdiction {
 			if(menuList.get(i).getMenuUrl().split(".do")[0].equals(menuUrl.split(".do")[0])){
 				if(!menuList.get(i).isHasMenu()){				//判断有无此菜单权限
 					return false;
-				}else{																//按钮判断
-					/*Map<String, String> map = (Map<String, String>)session.getAttribute(PubConstants.SESSION_QX);//按钮权限
-					map.remove("add");
-					map.remove("del");
-					map.remove("edit");
-					map.remove("cha");
-					String MENU_ID =  menuList.get(i).getMenuId().toString();
-					String USERNAME = session.getAttribute(PubConstants.SESSION_LOGNM).toString();	//获取当前登录者loginname
-					Boolean isAdmin = "admin".equals(USERNAME);
-					map.put("add", (RightsHelper.testRights(map.get("adds"), MENU_ID)) || isAdmin?"1":"0");
-					map.put("del", (RightsHelper.testRights(map.get("dels"), MENU_ID)) || isAdmin?"1":"0");
-					map.put("edit", (RightsHelper.testRights(map.get("edits"), MENU_ID)) || isAdmin?"1":"0");
-					map.put("cha", (RightsHelper.testRights(map.get("chas"), MENU_ID)) || isAdmin?"1":"0");
-					session.removeAttribute(PubConstants.SESSION_QX);
-					session.setAttribute(PubConstants.SESSION_QX, map);	//重新分配按钮权限*/
 				}
 			}
 		}

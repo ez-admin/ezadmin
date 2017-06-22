@@ -13,7 +13,7 @@
 		<base href="<%=basePath%>">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
-		<title>404 Error Page - Ace Admin</title>
+		<title>${httpCode} Error Page - Ez Admin</title>
 		<meta name="description" content="404 Error Page" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 	</head>
@@ -29,12 +29,11 @@
 										<h1 class="grey lighter smaller">
 											<span class="blue bigger-125">
 												<i class="ace-icon fa fa-sitemap"></i>
-												404
+												${httpCode}
 											</span>
-											页面没找到
 										</h1>
 										<hr />
-										<h3 class="lighter smaller">我们找遍了天涯海角也没找到!</h3>
+										<h3 class="lighter smaller">${message}</h3>
 										<div>
 											<div class="space"></div>
 											<h4 class="smaller">查找是否是以下原因:</h4>

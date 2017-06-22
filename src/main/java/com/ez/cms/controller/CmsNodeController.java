@@ -8,6 +8,7 @@
 package com.ez.cms.controller;
 
 import com.ez.annotation.SystemLogController;
+import com.ez.base.BaseController;
 import com.ez.cms.entity.CmsNode;
 import com.ez.cms.service.CmsNodeService;
 import com.ez.util.Common;
@@ -41,17 +42,10 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(value="/ez/cms/cmsnode/")
-public class CmsNodeController {
+public class CmsNodeController extends BaseController {
 
 	@Autowired
 	private CmsNodeService cmsNodeService;
-
-
-	/** binder用于bean属性的设置 */
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
-	}
 
 	/**
 	 * 跳到列表页面
@@ -85,14 +79,9 @@ public class CmsNodeController {
 	@SystemLogController(description = "保存栏目管理新增信息")
 	public String add(CmsNode cmsnode,HttpServletResponse response){
 		String result="{\"msg\":\"suc\"}";
-		try {
-			cmsNodeService.add(cmsnode);
-		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
-		 WebTool.writeJson(result, response);
-		 return null;
+		cmsNodeService.add(cmsnode);
+		WebTool.writeJson(result, response);
+		return null;
 	}
 	
 	/**
@@ -123,13 +112,8 @@ public class CmsNodeController {
 	@RequiresPermissions("cmsnode_delete")
 	@SystemLogController(description = "删除栏目管理信息")
 	public String deleteById(Model model,String ids, HttpServletResponse response){
-		String result="{\"status\":1,\"message\":\"删除成功！\"}";
-		try{
-			cmsNodeService.delete(ids);
-		}catch(Exception e){
-			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
+		String result="{\"status\":1}";
+		cmsNodeService.delete(ids);
 		WebTool.writeJson(result, response);
 		return null;
 	}
@@ -166,16 +150,11 @@ public class CmsNodeController {
 	@SystemLogController(description = "更新修改栏目管理的信息")
 	public String updateCmsNode(Model model,CmsNode cmsnode,HttpServletResponse response){
 		String result="{\"msg\":\"suc\"}";
-		try {
-			if (null==cmsnode.getCmsNodeState()){
-				cmsnode.setCmsNodeState(0);
-			}
-			cmsnode.setCmsNodeInserttime(DateUtil.getNowDate());
-			cmsNodeService.modify(cmsnode);
-		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
+		if (null==cmsnode.getCmsNodeState()){
+			cmsnode.setCmsNodeState(0);
 		}
+		cmsnode.setCmsNodeInserttime(DateUtil.getNowDate());
+		cmsNodeService.modify(cmsnode);
 		 WebTool.writeJson(result, response);
 		 return null;		
 	}
@@ -191,13 +170,8 @@ public class CmsNodeController {
 	@SystemLogController(description = "批量删除栏目管理信息")
 	public String deleteAll(String[] ids, HttpServletResponse response) {
 		String result = "{\"status\":1,\"message\":\"删除成功！\"}";
-		try {
-			for (String id : ids) {
-				cmsNodeService.delete(id);
-			}
-		} catch (Exception e) {
-			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
+		for (String id : ids) {
+			cmsNodeService.delete(id);
 		}
 		WebTool.writeJson(result, response);
 		return null;

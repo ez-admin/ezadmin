@@ -1,5 +1,7 @@
 package com.ez.util;
 
+import com.ez.base.DataParseException;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.ParsePosition;
@@ -26,12 +28,14 @@ public class DateUtil {
 	 */
 	public static Date getNowDate() {
 		Date currentTime = new Date();
+		//String dateString = sdfTime.format(currentTime);
 		String dateString = sdfTime.format(currentTime);
 		Date currentTime_1=new Date();
 		try {
 			currentTime_1=sdfTime.parse(dateString);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			throw new DataParseException();
+			//e.printStackTrace();
 		}
 		//ParsePosition pos = new ParsePosition(8);
 		//Date currentTime_1 = sdfTime.parse(dateString, pos);
@@ -50,10 +54,9 @@ public class DateUtil {
 		try {
 			currentTime_2=sdfTime.parse(dateString);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			throw new DataParseException();
+			//e.printStackTrace();
 		}
-		/*ParsePosition pos = new ParsePosition(8);
-		Date currentTime_2 = sdfDay.parse(dateString, pos);*/
 		return currentTime_2;
 	}
 

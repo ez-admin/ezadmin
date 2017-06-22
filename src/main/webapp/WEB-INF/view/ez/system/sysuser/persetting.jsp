@@ -61,38 +61,34 @@
 					</c:if>
 				</div>
 				<div class="layui-form-item">
-					<label class="layui-form-label">所属公司:</label>
+					<label class="layui-form-label"><em class="required">*</em>所属公司:</label>
 					<div class="layui-input-inline" style="width: 400px">
 						<select id="companyno" name="companyno" style="width: 100%" lay-verify="required">
 							<option value="">请选择</option>
 						</select>
 					</div>
-					<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 				</div>
 				<div class="layui-form-item">
-					<label class="layui-form-label">所属部门:</label>
+					<label class="layui-form-label"><em class="required">*</em>所属部门:</label>
 					<div class="layui-input-inline" style="width: 400px">
 						<select id="dptno" name="dptno" style="width: 100%" lay-verify="required">
 							<option value="">请选择</option>
 						</select>
 					</div>
-					<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 				</div>
 				<div class="layui-form-item">
-					<label class="layui-form-label">真实姓名:</label>
+					<label class="layui-form-label"><em class="required">*</em>真实姓名:</label>
 					<div class="layui-input-inline">
 						<input type="text" name="userrelnm" value="${sysuser.userrelnm}" lay-verify="required" class="layui-input">
 					</div>
-					<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 				</div>
 				<div class="layui-form-item">
-					<label class="layui-form-label">性别:</label>
+					<label class="layui-form-label"><em class="required">*</em>性别:</label>
 					<div class="layui-input-inline">
 						<select name="sex" id="sex" lay-verify="required">
 							<option value="">请选择</option>
 						</select>
 					</div>
-					<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">年龄:</label>
@@ -132,25 +128,22 @@
 				<input type="hidden" name="userno" value="${sysuser.userno}">
 				<input type="hidden" name="isused" value="${sysuser.isused}">
 				<div class="layui-form-item">
-					<label class="layui-form-label">原密码:</label>
+					<label class="layui-form-label"><em class="required">*</em>原密码:</label>
 					<div class="layui-input-inline">
 						<input type="password" id="oldlogpwd"  lay-verify="required" placeholder="请输入旧密码" autocomplete="off"  class="layui-input">
 					</div>
-					<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 				</div>
 				<div class="layui-form-item">
-					<label class="layui-form-label">新密码:</label>
+					<label class="layui-form-label"><em class="required">*</em>新密码:</label>
 					<div class="layui-input-inline">
 						<input type="password" id="onenewpwd"  lay-verify="required" placeholder="请输入新密码" autocomplete="off"  class="layui-input">
 					</div>
-					<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 				</div>
 				<div class="layui-form-item">
-					<label class="layui-form-label">新密码确认:</label>
+					<label class="layui-form-label"><em class="required">*</em>新密码确认:</label>
 					<div class="layui-input-inline">
 						<input type="password" id="twonewpwd" name="logpwd"  lay-verify="required" placeholder="请再次输入密码" autocomplete="off"  class="layui-input">
 					</div>
-					<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 				</div>
 				<div class="layui-form-item">
 					<div class="layui-input-block">

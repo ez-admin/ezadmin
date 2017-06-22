@@ -20,13 +20,13 @@
 			<option value="1">启用</option>
 		</select>
 	</div>
-	<div class="layui-input-inline">
+	<%--<div class="layui-input-inline">
 		<input name="cmsInfoInserttimeBegin" type="text"  class="layui-input" placeholder="请选择开始时间" lay-verify="date" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" />
 	</div>
 		--
 	<div class="layui-input-inline">
 		<input name="cmsInfoInserttimeEnd" type="text"  class="layui-input" placeholder="请选择结束时间" lay-verify="date" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" />
-	</div>
+	</div>--%>
 	<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
 	</shiro:hasPermission>
 	<shiro:hasPermission name="cmsinfo_add">

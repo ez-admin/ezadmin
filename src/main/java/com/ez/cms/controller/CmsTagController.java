@@ -8,6 +8,7 @@
 package com.ez.cms.controller;
 
 import com.ez.annotation.SystemLogController;
+import com.ez.base.BaseController;
 import com.ez.system.entity.SysDictionary;
 import com.ez.util.DateUtil;
 import com.ez.util.WebTool;
@@ -41,17 +42,10 @@ import com.ez.cms.service.*;
  */
 @Controller
 @RequestMapping(value="/ez/cms/cmstag/")
-public class CmsTagController {
+public class CmsTagController extends BaseController {
 
 	@Autowired
 	private CmsTagService cmsTagService;
-
-
-	/** binder用于bean属性的设置 */
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"), true));
-	}
 
 	/**
 	 * 跳到列表页面
@@ -85,12 +79,7 @@ public class CmsTagController {
 	@SystemLogController(description = "保存标签表新增信息")
 	public String add(CmsTag cmstag,HttpServletResponse response){
 		String result="{\"msg\":\"suc\"}";
-		try {
-			cmsTagService.add(cmstag);
-		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
+		cmsTagService.add(cmstag);
 		 WebTool.writeJson(result, response);
 		 return null;
 	}
@@ -124,12 +113,7 @@ public class CmsTagController {
 	@SystemLogController(description = "删除标签表信息")
 	public String deleteById(Model model,String ids, HttpServletResponse response){
 		String result="{\"status\":1,\"message\":\"删除成功！\"}";
-		try{
-			cmsTagService.delete(ids);
-		}catch(Exception e){
-			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
+		cmsTagService.delete(ids);
 		WebTool.writeJson(result, response);
 		return null;
 	}
@@ -166,14 +150,9 @@ public class CmsTagController {
 	@SystemLogController(description = "更新修改标签表的信息")
 	public String updateCmsTag(Model model,CmsTag cmstag,HttpServletResponse response){
 		String result="{\"msg\":\"suc\"}";
-		try {
-			Date A=DateUtil.getNowDate();
-			cmstag.setCmsCreationTime(A);
-			cmsTagService.modify(cmstag);
-		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
+		Date A=DateUtil.getNowDate();
+		cmstag.setCmsCreationTime(A);
+		cmsTagService.modify(cmstag);
 		 WebTool.writeJson(result, response);
 		 return null;		
 	}
@@ -188,14 +167,9 @@ public class CmsTagController {
 	@RequiresPermissions("cmstag_deleteall")
 	@SystemLogController(description = "批量删除标签表信息")
 	public String deleteAll(String[] ids, HttpServletResponse response) {
-		String result = "{\"status\":1,\"message\":\"删除成功！\"}";
-		try {
-			for (String id : ids) {
-				cmsTagService.delete(id);
-			}
-		} catch (Exception e) {
-			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
+		String result = "{\"status\":1}";
+		for (String id : ids) {
+			cmsTagService.delete(id);
 		}
 		WebTool.writeJson(result, response);
 		return null;

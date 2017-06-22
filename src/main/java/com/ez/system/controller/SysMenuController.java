@@ -2,6 +2,7 @@ package com.ez.system.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.ez.annotation.SystemLogController;
+import com.ez.base.BaseController;
 import com.ez.system.entity.SysCity;
 import com.ez.system.entity.SysMenu;
 import com.ez.system.service.SysMenuService;
@@ -9,6 +10,7 @@ import com.ez.util.Common;
 import com.ez.util.WebTool;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,9 +33,9 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(value="/ez/system/sysmenu/")
-public class SysMenuController {
+public class SysMenuController extends BaseController {
 
-	@Resource
+	@Autowired
 	private SysMenuService sysMenuService;
 
 	/**
@@ -75,14 +77,9 @@ public class SysMenuController {
 	@SystemLogController(description = "保存菜单管理新增信息")
 	public String add(Model model,SysMenu sysmenu,HttpServletResponse response,HttpServletRequest request){
 		String result="{\"msg\":\"suc\"}";
-		try {
-			sysMenuService.add(sysmenu);
-		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" + WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
-		 WebTool.writeJson(result, response);
-		 return null;
+		sysMenuService.add(sysmenu);
+		WebTool.writeJson(result, response);
+		return null;
 	}
 
 	/**
@@ -120,13 +117,8 @@ public class SysMenuController {
 	@RequestMapping(value="deleteById",method=RequestMethod.POST)
 	@SystemLogController(description = "删除菜单管理信息")
 	public String deleteById(Model model,String ids, HttpServletResponse response){
-		String result="{\"status\":1,\"message\":\"删除成功！\"}";
-		try{
-			sysMenuService.delete(ids);
-		}catch(Exception e){
-			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
+		String result="{\"status\":1}";
+		sysMenuService.delete(ids);
 		WebTool.writeJson(result, response);
 		return null;
 	}
@@ -162,12 +154,7 @@ public class SysMenuController {
 	@SystemLogController(description = "更新修改的菜单管理信息")
 	public String updateSysMenu(Model model,SysMenu sysmenu,HttpServletResponse response){		
 		String result="{\"msg\":\"suc\"}";
-		try {
-			sysMenuService.modify(sysmenu);
-		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
+		sysMenuService.modify(sysmenu);
 		 WebTool.writeJson(result, response);
 		 return null;		
 		
@@ -184,81 +171,14 @@ public class SysMenuController {
 	@RequestMapping(value = "deleteAll")
 	@SystemLogController(description = "批量删除菜单管理信息")
 	public String deleteAll(String[] ids, Model model, HttpServletResponse response) {
-		String result = "{\"status\":1,\"message\":\"删除成功！\"}";
-		try {
-			for (String id : ids) {
-				sysMenuService.delete(id);
-			}
-		} catch (Exception e) {
-			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
+		String result = "{\"status\":1}";
+		for (String id : ids) {
+			sysMenuService.delete(id);
 		}
 		WebTool.writeJson(result, response);
 		return null;
 	}
 
-	/**
-	 * 分页查询一级菜单
-	 * @param sysmenu
-	 * @param pagemap
-	 * @return
-	 */
-	/*@RequestMapping(value="getParentMenu",method=RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> getParentMenu(SysMenu sysmenu,
-										@RequestBody Map pagemap){
-		String direction=(String)pagemap.get("order");
-		String sort=(String)pagemap.get("ordername");
-		//设置分页参数
-		Page<SysMenu> page = new Page<SysMenu>((Integer)pagemap.get("offset")/(Integer)pagemap.get("limit")+1, (Integer)pagemap.get("limit"));
-		page.setOrderBy(sort + " " + direction);
-		//设置查询条件
-		String menuid=(String) pagemap.get("menuId");
-		if (menuid!=null && !"".equals(menuid)){
-			sysmenu.setMenuId(Integer.parseInt(menuid));
-		}
-		sysmenu.setMenuName((String) pagemap.get("menuName"));
-
-		List<SysMenu> list = sysMenuService.getParentMenu(page, sysmenu);
-		PageInfo<SysMenu> pageInfo = new PageInfo<SysMenu>(list);
-
-		Map<String, Object> map=new HashMap<String, Object>();
-		map.put("rows", list);
-		map.put("total", pageInfo.getTotal());
-		return map;
-	}*/
-
-	/**
-	 * 分页查询子菜单
-	 * @param sysmenu
-	 * @param pagemap
-	 * @return
-	 */
-	/*@RequestMapping(value="getChildrenMenu",method=RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> getChildrenMenu(SysMenu sysmenu,
-											   @RequestBody Map pagemap){
-		String direction=(String)pagemap.get("order");
-		String sort=(String)pagemap.get("ordername");
-		//设置分页参数
-		Page<SysMenu> page = new Page<SysMenu>((Integer)pagemap.get("offset")/(Integer)pagemap.get("limit")+1, (Integer)pagemap.get("limit"));
-		page.setOrderBy(sort + " " + direction);
-		//设置查询条件
-		String menuid=(String) pagemap.get("menuId");
-		if (menuid!=null && !"".equals(menuid)){
-			sysmenu.setMenuId(Integer.parseInt(menuid));
-		}
-		sysmenu.setMenuName((String) pagemap.get("menuName"));
-
-		sysmenu.setParentId( pagemap.get("parentId")+"");
-		List<SysMenu> list = sysMenuService.getChildrenMenu(page,sysmenu);
-		PageInfo<SysMenu> pageInfo = new PageInfo<SysMenu>(list);
-
-		Map<String, Object> map=new HashMap<String, Object>();
-		map.put("rows", list);
-		map.put("total", pageInfo.getTotal());
-		return map;
-	}*/
 	/**
 	 * 不分页查询一级菜单可设置排序
 	 * @param sysmenu

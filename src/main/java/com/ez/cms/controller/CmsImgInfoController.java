@@ -9,6 +9,7 @@ package com.ez.cms.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ez.annotation.SystemLogController;
+import com.ez.base.BaseController;
 import com.ez.cms.entity.CmsImgInfo;
 import com.ez.cms.service.CmsImgInfoService;
 import com.ez.util.DateUtil;
@@ -30,6 +31,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * @author chenez
@@ -39,17 +41,11 @@ import java.util.*;
  */
 @Controller
 @RequestMapping(value="/ez/cms/cmsimginfo/")
-public class CmsImgInfoController {
+public class CmsImgInfoController extends BaseController {
 
 	@Autowired
 	private CmsImgInfoService cmsImgInfoService;
 
-
-	/** binder用于bean属性的设置 */
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
-	}
 
 	/**
 	 * 跳到列表页面
@@ -83,14 +79,9 @@ public class CmsImgInfoController {
 	@SystemLogController(description = "保存所有图片管理新增信息")
 	public String add(CmsImgInfo cmsimginfo,HttpServletResponse response){
 		String result="{\"msg\":\"suc\"}";
-		try {
-			cmsImgInfoService.add(cmsimginfo);
-		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
-		 WebTool.writeJson(result, response);
-		 return null;
+		cmsImgInfoService.add(cmsimginfo);
+		WebTool.writeJson(result, response);
+		return null;
 	}
 	
 	/**
@@ -121,13 +112,8 @@ public class CmsImgInfoController {
 	@RequiresPermissions("cmsimginfo_delete")
 	@SystemLogController(description = "删除所有图片管理信息")
 	public String deleteById(Model model,String ids, HttpServletResponse response){
-		String result="{\"status\":1,\"message\":\"删除成功！\"}";
-		try{
-			cmsImgInfoService.delete(ids);
-		}catch(Exception e){
-			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
+		String result="{\"status\":1}";
+		cmsImgInfoService.delete(ids);
 		WebTool.writeJson(result, response);
 		return null;
 	}
@@ -164,16 +150,13 @@ public class CmsImgInfoController {
 	@SystemLogController(description = "更新修改所有图片管理的信息")
 	public String updateCmsImgInfo(Model model,CmsImgInfo cmsimginfo,HttpServletResponse response){
 		String result="{\"msg\":\"suc\"}";
-		try {
-			if (null==cmsimginfo.getEmImageStat()){
-				cmsimginfo.setEmImageStat(0);
-			}
-			cmsimginfo.setEmImageInserttime(DateUtil.getNowDate());
-			cmsImgInfoService.modify(cmsimginfo);
-		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
+
+		if (null==cmsimginfo.getEmImageStat()){
+			cmsimginfo.setEmImageStat(0);
 		}
+		cmsimginfo.setEmImageInserttime(DateUtil.getNowDate());
+		cmsImgInfoService.modify(cmsimginfo);
+
 		 WebTool.writeJson(result, response);
 		 return null;		
 	}
@@ -188,14 +171,9 @@ public class CmsImgInfoController {
 	@RequiresPermissions("cmsimginfo_deleteall")
 	@SystemLogController(description = "批量删除所有图片管理信息")
 	public String deleteAll(String[] ids, HttpServletResponse response) {
-		String result = "{\"status\":1,\"message\":\"删除成功！\"}";
-		try {
-			for (String id : ids) {
-				cmsImgInfoService.delete(id);
-			}
-		} catch (Exception e) {
-			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
+		String result = "{\"status\":1}";
+		for (String id : ids) {
+			cmsImgInfoService.delete(id);
 		}
 		WebTool.writeJson(result, response);
 		return null;

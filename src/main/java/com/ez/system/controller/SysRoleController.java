@@ -9,6 +9,7 @@ package com.ez.system.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.ez.annotation.SystemLogController;
+import com.ez.base.BaseController;
 import com.ez.system.entity.SysMenu;
 import com.ez.system.entity.SysRole;
 import com.ez.system.entity.SysUserRole;
@@ -21,6 +22,7 @@ import com.ez.util.Tools;
 import com.ez.util.WebTool;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,18 +44,20 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(value="/ez/system/sysrole/")
-public class SysRoleController {
+public class SysRoleController extends BaseController {
 
-	@Resource
+	@Autowired
 	private SysRoleService sysRoleService;
 
-	@Resource
+	@Autowired
 	private SysMenuService sysMenuService;
 
-	@Resource
+	@Autowired
 	private SysUserService sysUserService;
-	@Resource
+
+	@Autowired
 	private SysUserRoleService sysUserRoleService;
+
 	/**
 	 * 跳到列表页面
 	 * @return
@@ -82,14 +86,9 @@ public class SysRoleController {
 	@RequestMapping(value="add")
 	public String add(Model model,SysRole sysRole,HttpServletResponse response,HttpServletRequest request){
 		String result="{\"msg\":\"suc\"}";
-		try {
-			sysRoleService.add(sysRole);
-		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" + WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
-		 WebTool.writeJson(result, response);
-		 return null;
+		sysRoleService.add(sysRole);
+		WebTool.writeJson(result, response);
+		return null;
 	}
 
 	/**
@@ -133,17 +132,12 @@ public class SysRoleController {
 	 */
 	@RequestMapping(value="deleteById",method=RequestMethod.POST)
 	public String deleteById(Model model,String ids, HttpServletResponse response){
-		String result="{\"status\":1,\"message\":\"删除成功！\"}";
-		try{
-			List<SysUserRole> sysUserRoleList=sysUserRoleService.findByRoleid(ids);
-			if (sysUserRoleList!=null && sysUserRoleList.size()>0){
-				result="{\"status\":0,\"message\":\"该角色下仍有用户！\"}";
-			}else {
-				sysRoleService.delete(ids);
-			}
-		}catch(Exception e){
-			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
+		String result="{\"status\":1}";
+		List<SysUserRole> sysUserRoleList=sysUserRoleService.findByRoleid(ids);
+		if (sysUserRoleList!=null && sysUserRoleList.size()>0){
+			result="{\"status\":0,\"message\":\"该角色下仍有用户！\"}";
+		}else {
+			sysRoleService.delete(ids);
 		}
 		WebTool.writeJson(result, response);
 		return null;
@@ -178,14 +172,9 @@ public class SysRoleController {
 	@RequestMapping(value="update",method=RequestMethod.POST)
 	public String updateSysRole(Model model,SysRole sysrole,HttpServletResponse response){		
 		String result="{\"msg\":\"suc\"}";
-		try {
-			sysRoleService.modify(sysrole);
-		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
-		 WebTool.writeJson(result, response);
-		 return null;		
+		sysRoleService.modify(sysrole);
+		WebTool.writeJson(result, response);
+		return null;
 		
 	}
 	
@@ -199,19 +188,14 @@ public class SysRoleController {
 	 */
 	@RequestMapping(value = "deleteAll")
 	public String deleteAll(String[] ids, Model model, HttpServletResponse response) {
-		String result = "{\"status\":1,\"message\":\"删除成功！\"}";
-		try {
-			for (String id : ids) {
-				List<SysUserRole> sysUserRoleList=sysUserRoleService.findByRoleid(id);
-				if (sysUserRoleList!=null && sysUserRoleList.size()>0){
-					result="{\"status\":0,\"message\":\"该角色下仍有用户，请将用户删除再来删除该角色！\"}";
-				}else {
-					sysRoleService.delete(id);
-				}
+		String result = "{\"status\":1}";
+		for (String id : ids) {
+			List<SysUserRole> sysUserRoleList=sysUserRoleService.findByRoleid(id);
+			if (sysUserRoleList!=null && sysUserRoleList.size()>0){
+				result="{\"status\":0,\"message\":\"该角色下仍有用户，请将用户删除再来删除该角色！\"}";
+			}else {
+				sysRoleService.delete(id);
 			}
-		} catch (Exception e) {
-			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
 		}
 		WebTool.writeJson(result, response);
 		return null;
@@ -245,17 +229,12 @@ public class SysRoleController {
 	@RequestMapping(value = "roleQxSave")
 	public String roleQxSave(String ids, SysRole sysRole,HttpServletResponse response) {
 		String result = "{\"status\":1,\"message\":\"编辑成功！\"}";
-		try {
-			String rights="0";
-			if (Tools.notEmpty(ids)){
-				 rights = RightsHelper.sumRights(Tools.str2StrArray(ids)).toString();
-			}
-			sysRole.setRights(rights);
-			sysRoleService.modify(sysRole);
-		} catch (Exception e) {
-			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
+		String rights="0";
+		if (Tools.notEmpty(ids)){
+			 rights = RightsHelper.sumRights(Tools.str2StrArray(ids)).toString();
 		}
+		sysRole.setRights(rights);
+		sysRoleService.modify(sysRole);
 		WebTool.writeJson(result, response);
 		return null;
 	}

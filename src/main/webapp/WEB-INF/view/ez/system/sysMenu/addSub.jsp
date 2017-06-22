@@ -103,9 +103,7 @@
 						top.layer.closeAll();
 						top.layer.msg('保存成功!',{icon: 1});
 					}else{
-						top.layer.msg('保存失败——'+result.message,{icon: 2,time: 5000},function () {
-							location.reload();
-						});
+						top.layer.msg('保存失败!'+result.message,{icon: 2,time: 5000});
 					}
 				}
 			});

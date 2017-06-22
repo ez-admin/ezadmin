@@ -55,7 +55,7 @@
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label"><em class="required">*</em>文章创建时间:</label>
+			<label class="layui-form-label"><em class="required">*</em>操作时间:</label>
 			<div class="layui-input-block">
 				<input type="text" name="cmsInfoInserttime" value="<fmt:formatDate value='${cmsinfo.cmsInfoInserttime}' type='both' pattern='yyyy-MM-dd hh:mm:ss'/>" lay-verify="date"  placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input layui-disabled" onclick="layui.laydate({elem: this})">
 			</div>

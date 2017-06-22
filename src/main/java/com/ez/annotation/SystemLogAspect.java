@@ -101,9 +101,6 @@ public  class SystemLogAspect {
     /**
      * 异常通知 用于拦截service层记录异常日志
      *
-     * 由于事务原因，系统在报错是无法时，无法对日志进行保存操作；
-     * 解决方案：1、报错日志用log4j保存到text（目前采用） 2、利用动态数据源切换（需要两个数据库）3、分布式开发
-     *
      * service层注解未启用；如要启用请在applicationContext.xml开启<aop:aspectj-autoproxy />
      *
      * @param joinPoint

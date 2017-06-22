@@ -29,6 +29,5 @@ public class Syslogdeletetask {
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //设置时间格式
         String threeMonthBefore = sdf.format(threeMonthBeforeDate);    //格式化前3月的时间
         sysLogService.deleteThreeMonthBefore(threeMonthBefore);
-
     }
 }

@@ -12,7 +12,7 @@
 	<form id="formid" class="layui-form">
 		<input type="hidden" name="userno" value="${userno}" />
 		<div class="layui-form-item">
-			<label class="layui-form-label">分配角色:</label>
+			<label class="layui-form-label"><em class="required">*</em>分配角色:</label>
 			<div class="layui-input-inline" style="width: 80%">
 				<c:forEach items="${sysRoleList}" var ="sysrole" >
 					<c:if test="${sysrole.hasRole== true}">
@@ -23,7 +23,6 @@
 					</c:if>
 				</c:forEach>
 			</div>
-			<div class="layui-form-mid layui-word-aux"><i class="fa fa-star red"></i></div>
 		</div>
 		<div class="layui-form-item">
 			<div class="layui-input-block">

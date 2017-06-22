@@ -1,11 +1,13 @@
 package com.ez.system.controller;
 
 import com.ez.annotation.SystemLogController;
+import com.ez.base.BaseController;
 import com.ez.system.entity.SysDictionary;
 import com.ez.system.service.SysDictionaryService;
 import com.ez.util.WebTool;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,9 +30,9 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(value="/ez/system/sysdictionary/")
-public class SysDictionaryController {
+public class SysDictionaryController extends BaseController {
 
-	@Resource
+	@Autowired
 	private SysDictionaryService sysDictionaryService;
 	
 	
@@ -64,12 +66,7 @@ public class SysDictionaryController {
 	@SystemLogController(description = "保存字典名称新增信息")
 	public String add(Model model, SysDictionary sysdictionary, HttpServletResponse response, HttpServletRequest request){
 		String result="{\"msg\":\"suc\"}";
-		try {
-			sysDictionaryService.add(sysdictionary);
-		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" + WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
+		sysDictionaryService.add(sysdictionary);
 		 WebTool.writeJson(result, response);
 		 return null;
 	}
@@ -99,13 +96,8 @@ public class SysDictionaryController {
 	@RequestMapping(value="deleteById",method=RequestMethod.POST)
 	@SystemLogController(description = "删除字典名称信息")
 	public String deleteById(Model model,String ids, HttpServletResponse response){
-		String result="{\"status\":1,\"message\":\"删除成功！\"}";
-		try{
-			sysDictionaryService.delete(ids);
-		}catch(Exception e){
-			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
+		String result="{\"status\":1}";
+		sysDictionaryService.delete(ids);
 		WebTool.writeJson(result, response);
 		return null;
 	}
@@ -142,12 +134,7 @@ public class SysDictionaryController {
 	@SystemLogController(description = "更新修改字典名称的信息")
 	public String updateSysDictionary(Model model,SysDictionary sysdictionary,HttpServletResponse response){		
 		String result="{\"msg\":\"suc\"}";
-		try {
-			sysDictionaryService.modify(sysdictionary);
-		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
+		sysDictionaryService.modify(sysdictionary);
 		 WebTool.writeJson(result, response);
 		 return null;		
 		
@@ -164,14 +151,9 @@ public class SysDictionaryController {
 	@RequestMapping(value = "deleteAll")
 	@SystemLogController(description = "批量删除菜单名称的信息")
 	public String deleteAll(String[] ids, Model model, HttpServletResponse response) {
-		String result = "{\"status\":1,\"message\":\"删除成功！\"}";
-		try {
-			for (String id : ids) {
-				sysDictionaryService.delete(id);
-			}
-		} catch (Exception e) {
-			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
+		String result = "{\"status\":1}";
+		for (String id : ids) {
+			sysDictionaryService.delete(id);
 		}
 		WebTool.writeJson(result, response);
 		return null;

@@ -11,6 +11,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,15 +38,15 @@ import java.util.Map;
 @RequestMapping(value="/ez/system/sysuser/")
 public class SysUserController {
 
-	@Resource
+	@Autowired
 	private SysUserService sysUserService;
-	@Resource
+	@Autowired
 	private SysRoleService sysRoleService;
-	@Resource
+	@Autowired
 	private SysOrgService sysOrgService;
-	@Resource
+	@Autowired
 	private SysUserRoleService sysUserRoleService;
-	@Resource
+	@Autowired
 	private SysCityService sysCityService;
 	/**
 	 * 跳到列表页面

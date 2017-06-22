@@ -3371,7 +3371,7 @@ typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter :
 						'END end ensure false for if in module new next nil not or raise redo rescue retry return ' +
 						'self super then throw true undef unless until when while yield';
 
-		var builtins =	'Array Bignum Binding Class Continuation Dir Exception FalseClass File::Stat File Fixnum Fload ' +
+		var builtins =	'Array Bignum Binding Class Continuation Dir exception FalseClass File::Stat File Fixnum Fload ' +
 						'Hash Integer IO MatchData Method Module NilClass Numeric Object Proc Range Regexp String Struct::TMS Symbol ' +
 						'ThreadGroup Thread Time TrueClass';
 

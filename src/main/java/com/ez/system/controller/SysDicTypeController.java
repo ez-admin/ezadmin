@@ -8,11 +8,13 @@
 package com.ez.system.controller;
 
 import com.ez.annotation.SystemLogController;
+import com.ez.base.BaseController;
 import com.ez.system.entity.SysDicType;
 import com.ez.system.service.SysDicTypeService;
 import com.ez.util.WebTool;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,11 +36,10 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(value="/ez/system/sysdictype/")
-public class SysDicTypeController {
+public class SysDicTypeController extends BaseController {
 
-    @Resource
+    @Autowired
     private SysDicTypeService sysDictypeService;
-
 
     /**
      * 跳到列表页面
@@ -69,22 +70,17 @@ public class SysDicTypeController {
     @SystemLogController(description = "保存字典类型新增信息")
     public String add(Model model, SysDicType sysdictype, HttpServletResponse response, HttpServletRequest request){
         String result="{\"msg\":\"suc\"}";
-        try {
-            SysDicType checkcodeSysDictype = sysDictypeService.getById(sysdictype.getCode());
-            SysDicType checknameSysDictype = sysDictypeService.getByName(sysdictype.getName());
-            if (checkcodeSysDictype != null) {
-                result = "{\"msg\":\"fail\",\"message\":\"字典类型编码重复,请重新输入!\"}";
-            } else if (checknameSysDictype != null) {
-                result = "{\"msg\":\"fail\",\"message\":\"字符类型名称重复,请重新输入!\"}";
-            } else {
-                if (!"1".equals(sysdictype.getFlag())) {
-                    sysdictype.setFlag("0");
-                }
-                sysDictypeService.add(sysdictype);
+        SysDicType checkcodeSysDictype = sysDictypeService.getById(sysdictype.getCode());
+        SysDicType checknameSysDictype = sysDictypeService.getByName(sysdictype.getName());
+        if (checkcodeSysDictype != null) {
+            result = "{\"msg\":\"fail\",\"message\":\"字典类型编码重复,请重新输入!\"}";
+        } else if (checknameSysDictype != null) {
+            result = "{\"msg\":\"fail\",\"message\":\"字符类型名称重复,请重新输入!\"}";
+        } else {
+            if (!"1".equals(sysdictype.getFlag())) {
+                sysdictype.setFlag("0");
             }
-        } catch (Exception e) {
-            result="{\"msg\":\"fail\",\"message\":\"" + WebTool.getErrorMsg(e.getMessage())+"\"}";
-            e.printStackTrace();
+            sysDictypeService.add(sysdictype);
         }
         WebTool.writeJson(result, response);
         return null;
@@ -117,13 +113,8 @@ public class SysDicTypeController {
     @RequestMapping(value="deleteById",method=RequestMethod.POST)
     @SystemLogController(description = "删除字典类型信息")
     public String deleteById(Model model,String ids, HttpServletResponse response){
-        String result="{\"status\":1,\"message\":\"删除成功！\"}";
-        try{
-            sysDictypeService.delete(ids);
-        }catch(Exception e){
-            result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-            e.printStackTrace();
-        }
+        String result="{\"status\":1}";
+        sysDictypeService.delete(ids);
         WebTool.writeJson(result, response);
         return null;
     }
@@ -159,24 +150,18 @@ public class SysDicTypeController {
     @SystemLogController(description = "更新修改字典类型的信息")
     public String updateSysDictype(SysDicType sysdictype, HttpServletRequest request, HttpServletResponse response){
         String result="{\"msg\":\"suc\"}";
-        try {
-            String oldname=request.getParameter("oldname");
-            SysDicType checknameSysDictype=sysDictypeService.getByName(sysdictype.getName());
-            if(checknameSysDictype!=null && !oldname.equals(sysdictype.getName())){
-                result="{\"msg\":\"fail\",\"message\":\"字符类型名称重复,请重新输入!\"}";
-            }else {
-                if (!"1".equals(sysdictype.getFlag())){
-                    sysdictype.setFlag("0");
-                }
-                sysDictypeService.modify(sysdictype);
+        String oldname=request.getParameter("oldname");
+        SysDicType checknameSysDictype=sysDictypeService.getByName(sysdictype.getName());
+        if(checknameSysDictype!=null && !oldname.equals(sysdictype.getName())){
+            result="{\"msg\":\"fail\",\"message\":\"字符类型名称重复,请重新输入!\"}";
+        }else {
+            if (!"1".equals(sysdictype.getFlag())){
+                sysdictype.setFlag("0");
             }
-        } catch (Exception e) {
-            result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-            e.printStackTrace();
+            sysDictypeService.modify(sysdictype);
         }
         WebTool.writeJson(result, response);
         return null;
-
     }
 
 
@@ -190,14 +175,9 @@ public class SysDicTypeController {
     @RequestMapping(value = "deleteAll")
     @SystemLogController(description = "批量删除字典类型信息")
     public String deleteAll(String[] ids, Model model, HttpServletResponse response) {
-        String result = "{\"status\":1,\"message\":\"删除成功！\"}";
-        try {
-            for (String id : ids) {
-                sysDictypeService.delete(id);
-            }
-        } catch (Exception e) {
-            result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-            e.printStackTrace();
+        String result = "{\"status\":1}";
+        for (String id : ids) {
+            sysDictypeService.delete(id);
         }
         WebTool.writeJson(result, response);
         return null;

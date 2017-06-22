@@ -9,12 +9,14 @@ package com.ez.system.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.ez.annotation.SystemLogController;
+import com.ez.base.BaseController;
 import com.ez.json.TreeNode;
 import com.ez.system.entity.SysOrg;
 import com.ez.system.entity.SysUser;
 import com.ez.system.service.SysOrgService;
 import com.ez.system.service.SysUserService;
 import com.ez.util.WebTool;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,18 +40,14 @@ import java.util.*;
  */
 @Controller
 @RequestMapping(value="/ez/system/sysorg/")
-public class SysOrgController {
+public class SysOrgController extends BaseController {
 
-	@Resource
+	@Autowired
 	private SysOrgService sysOrgService;
-	@Resource
+	@Autowired
 	private SysUserService sysUserService;
 
-	/** binder用于bean属性的设置 */
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
-	}
+
 	/**
 	 * 跳到列表页面
 	 * @param
@@ -79,15 +77,10 @@ public class SysOrgController {
 	@RequestMapping(value="add")
 	@SystemLogController(description = "保存组织结构表新增信息")
 	public String add(SysOrg sysorg,HttpServletResponse response){
-		String result="{\"msg\":\"suc\"}";
-		try {
-			sysOrgService.add(sysorg);
-			SysOrg org=sysOrgService.getById(sysorg.getOrgId()+"");
-			result="{\"msg\":\"suc\",\"organization\":"+JSON.toJSONString(org)+"}";
-		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
+		String result="";
+		sysOrgService.add(sysorg);
+		SysOrg org=sysOrgService.getById(sysorg.getOrgId()+"");
+		result="{\"msg\":\"suc\",\"organization\":"+JSON.toJSONString(org)+"}";
 		 WebTool.writeJson(result, response);
 		 return null;
 	}
@@ -123,17 +116,12 @@ public class SysOrgController {
 	@RequestMapping(value="deleteById",method=RequestMethod.POST)
 	@SystemLogController(description = "删除组织结构表信息")
 	public String deleteById(Model model,String ids, HttpServletResponse response){
-		String result="{\"status\":1,\"message\":\"删除成功！\"}";
-		try{
-			List<SysUser> sysUserList=sysUserService.listByDptno(ids);
-			if (sysUserList!=null && sysUserList.size()>0){
-				result="{\"status\":0,\"message\":\"该组织部门下仍有用户！\"}";
-			}else {
-				sysOrgService.delete(ids);
-			}
-		}catch(Exception e){
-			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
+		String result="{\"status\":1}";
+		List<SysUser> sysUserList=sysUserService.listByDptno(ids);
+		if (sysUserList!=null && sysUserList.size()>0){
+			result="{\"status\":0,\"message\":\"该组织部门下仍有用户！\"}";
+		}else {
+			sysOrgService.delete(ids);
 		}
 		WebTool.writeJson(result, response);
 		return null;

@@ -8,6 +8,7 @@
 package com.ez.cms.controller;
 
 import com.ez.annotation.SystemLogController;
+import com.ez.base.BaseController;
 import com.ez.system.entity.SysUser;
 import com.ez.util.DateUtil;
 import com.ez.util.PubConstants;
@@ -45,7 +46,7 @@ import com.ez.cms.service.*;
  */
 @Controller
 @RequestMapping(value="/ez/cms/cmsinfo/")
-public class CmsInfoController {
+public class CmsInfoController extends BaseController {
 
 	@Autowired
 	private CmsInfoService cmsInfoService;
@@ -54,11 +55,6 @@ public class CmsInfoController {
 	@Autowired
 	private  CmsTagService cmsTagService;
 
-	/** binder用于bean属性的设置 */
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
-	}
 
 	/**
 	 * 跳到列表页面
@@ -98,14 +94,9 @@ public class CmsInfoController {
 	@SystemLogController(description = "保存文章管理新增信息")
 	public String add(CmsInfo cmsinfo, HttpServletResponse response, HttpServletRequest request){
 		String result="{\"msg\":\"suc\"}";
-		try {
-			cmsInfoService.addinfo(cmsinfo,request);
-		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
-		 WebTool.writeJson(result, response);
-		 return null;
+		cmsInfoService.addinfo(cmsinfo,request);
+		WebTool.writeJson(result, response);
+		return null;
 	}
 	
 	/**
@@ -136,13 +127,8 @@ public class CmsInfoController {
 	@RequiresPermissions("cmsinfo_delete")
 	@SystemLogController(description = "删除文章管理信息")
 	public String deleteById(Model model,String ids, HttpServletResponse response){
-		String result="{\"status\":1,\"message\":\"删除成功！\"}";
-		try{
-			cmsInfoService.delete(ids);
-		}catch(Exception e){
-			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
+		String result="{\"status\":1}";
+		cmsInfoService.delete(ids);
 		WebTool.writeJson(result, response);
 		return null;
 	}
@@ -183,12 +169,7 @@ public class CmsInfoController {
 	@SystemLogController(description = "更新修改文章管理的信息")
 	public String updateCmsInfo(Model model,CmsInfo cmsinfo,HttpServletResponse response,HttpServletRequest request){
 		String result="{\"msg\":\"suc\"}";
-		try {
-			cmsInfoService.modifyInfo(cmsinfo,request);
-		} catch (Exception e) {
-			result="{\"msg\":\"fail\",\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
-		}
+		cmsInfoService.modifyInfo(cmsinfo,request);
 		 WebTool.writeJson(result, response);
 		 return null;		
 	}
@@ -203,14 +184,9 @@ public class CmsInfoController {
 	@RequiresPermissions("cmsinfo_deleteall")
 	@SystemLogController(description = "批量删除文章管理信息")
 	public String deleteAll(String[] ids, HttpServletResponse response) {
-		String result = "{\"status\":1,\"message\":\"删除成功！\"}";
-		try {
-			for (String id : ids) {
-				cmsInfoService.delete(id);
-			}
-		} catch (Exception e) {
-			result="{\"status\":0,\"message\":\"" +WebTool.getErrorMsg(e.getMessage())+"\"}";
-			e.printStackTrace();
+		String result = "{\"status\":1}";
+		for (String id : ids) {
+			cmsInfoService.delete(id);
 		}
 		WebTool.writeJson(result, response);
 		return null;
