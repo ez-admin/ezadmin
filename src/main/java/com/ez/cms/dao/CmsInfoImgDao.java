@@ -1,7 +1,7 @@
 package com.ez.cms.dao;
 
 import com.ez.base.BaseDao;
-import com.ez.cms.entity.CmsImgInfo;
+import com.ez.cms.entity.CmsInfoImg;
 
 /**
  * @author chenez
@@ -9,6 +9,6 @@ import com.ez.cms.entity.CmsImgInfo;
  * @Email: chenez 787818013@qq.com
  * @version 1.0
  */
-public interface CmsImgInfoDao extends BaseDao<CmsImgInfo>{
+public interface CmsInfoImgDao extends BaseDao<CmsInfoImg>{
 
 }

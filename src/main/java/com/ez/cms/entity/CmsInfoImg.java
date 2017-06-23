@@ -19,7 +19,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @version 1.0
  */
 
-public class CmsImgInfo extends BaseEntity implements java.io.Serializable{
+public class CmsInfoImg extends BaseEntity implements java.io.Serializable{
 	private static final long serialVersionUID = 5454155825314635342L;
 	
 	//alias
@@ -34,15 +34,16 @@ public class CmsImgInfo extends BaseEntity implements java.io.Serializable{
 	public static final String ALIAS_EM_IMAGE_STAT = "发布状态 0 禁用 1 启用";
 	public static final String ALIAS_EM_IMAGE_SMALL_URL = "图片缩略图";
 	public static final String ALIAS_ISNOFOLLOW = "是否需要isnofollow  0：否  1：是";
+	public static final String ALIAS_AUTHOR = "录入者";
 	
 	//date formats
 	public static final String FORMAT_EM_IMAGE_INSERTTIME = DATE_FORMAT;
 	
-	public CmsImgInfo(){
+	public CmsInfoImg(){
 	}
 
-	public CmsImgInfo(
-		Integer emImageId
+	public CmsInfoImg(
+		java.lang.Integer emImageId
 	){
 		this.emImageId = emImageId;
 	}
@@ -50,17 +51,17 @@ public class CmsImgInfo extends BaseEntity implements java.io.Serializable{
 	
 	//columns START
 	/**图片id==>db_column: em_image_id*/
-	private Integer emImageId;
+	private java.lang.Integer emImageId;
 	/**图片名称==>db_column: em_image_name*/
-	private String emImageName;
+	private java.lang.String emImageName;
 	/**图片所属位置id==>db_column: position_id*/
-	private Integer positionId;
+	private java.lang.Integer positionId;
 	/**图片地址==>db_column: em_image_url*/
-	private String emImageUrl;
+	private java.lang.String emImageUrl;
 	/**图片外链==>db_column: em_image_linkurl*/
-	private String emImageLinkurl;
+	private java.lang.String emImageLinkurl;
 	/**排序==>db_column: em_image_order*/
-	private Integer emImageOrder;
+	private java.lang.Integer emImageOrder;
 	private java.util.Date emImageInserttimeBegin;
 	private java.util.Date emImageInserttimeEnd;
 	private java.util.Date emImageInserttime;
@@ -82,11 +83,13 @@ public class CmsImgInfo extends BaseEntity implements java.io.Serializable{
 	}
 	
 	/**发布状态 0 禁用 1 启用==>db_column: em_image_stat*/
-	private Integer emImageStat;
+	private java.lang.Integer emImageStat;
 	/**图片缩略图==>db_column: em_image_small_url*/
-	private String emImageSmallUrl;
+	private java.lang.String emImageSmallUrl;
 	/**是否需要isnofollow  0：否  1：是==>db_column: isnofollow*/
-	private Integer isnofollow;
+	private java.lang.Integer isnofollow;
+	/**录入者==>db_column: author*/
+	private java.lang.String author;
 	//columns END
 
 	//表外参数
@@ -100,46 +103,46 @@ public class CmsImgInfo extends BaseEntity implements java.io.Serializable{
 		this.positionName = positionName;
 	}
 
-	public void setEmImageId(Integer value) {
+	public void setEmImageId(java.lang.Integer value) {
 		this.emImageId = value;
 	}
 	
-	public Integer getEmImageId() {
+	public java.lang.Integer getEmImageId() {
 		return this.emImageId;
 	}
-	public void setEmImageName(String value) {
+	public void setEmImageName(java.lang.String value) {
 		this.emImageName = value;
 	}
 	
-	public String getEmImageName() {
+	public java.lang.String getEmImageName() {
 		return this.emImageName;
 	}
-	public void setPositionId(Integer value) {
+	public void setPositionId(java.lang.Integer value) {
 		this.positionId = value;
 	}
 	
-	public Integer getPositionId() {
+	public java.lang.Integer getPositionId() {
 		return this.positionId;
 	}
-	public void setEmImageUrl(String value) {
+	public void setEmImageUrl(java.lang.String value) {
 		this.emImageUrl = value;
 	}
 	
-	public String getEmImageUrl() {
+	public java.lang.String getEmImageUrl() {
 		return this.emImageUrl;
 	}
-	public void setEmImageLinkurl(String value) {
+	public void setEmImageLinkurl(java.lang.String value) {
 		this.emImageLinkurl = value;
 	}
 	
-	public String getEmImageLinkurl() {
+	public java.lang.String getEmImageLinkurl() {
 		return this.emImageLinkurl;
 	}
-	public void setEmImageOrder(Integer value) {
+	public void setEmImageOrder(java.lang.Integer value) {
 		this.emImageOrder = value;
 	}
 	
-	public Integer getEmImageOrder() {
+	public java.lang.Integer getEmImageOrder() {
 		return this.emImageOrder;
 	}
 	public void setEmImageInserttime(java.util.Date value) {
@@ -149,26 +152,33 @@ public class CmsImgInfo extends BaseEntity implements java.io.Serializable{
 	public java.util.Date getEmImageInserttime() {
 		return this.emImageInserttime;
 	}
-	public void setEmImageStat(Integer value) {
+	public void setEmImageStat(java.lang.Integer value) {
 		this.emImageStat = value;
 	}
 	
-	public Integer getEmImageStat() {
+	public java.lang.Integer getEmImageStat() {
 		return this.emImageStat;
 	}
-	public void setEmImageSmallUrl(String value) {
+	public void setEmImageSmallUrl(java.lang.String value) {
 		this.emImageSmallUrl = value;
 	}
 	
-	public String getEmImageSmallUrl() {
+	public java.lang.String getEmImageSmallUrl() {
 		return this.emImageSmallUrl;
 	}
-	public void setIsnofollow(Integer value) {
+	public void setIsnofollow(java.lang.Integer value) {
 		this.isnofollow = value;
 	}
 	
-	public Integer getIsnofollow() {
+	public java.lang.Integer getIsnofollow() {
 		return this.isnofollow;
+	}
+	public void setAuthor(java.lang.String value) {
+		this.author = value;
+	}
+	
+	public java.lang.String getAuthor() {
+		return this.author;
 	}
 
 	public String toString() {
@@ -183,6 +193,7 @@ public class CmsImgInfo extends BaseEntity implements java.io.Serializable{
 			.append("EmImageStat",getEmImageStat())
 			.append("EmImageSmallUrl",getEmImageSmallUrl())
 			.append("Isnofollow",getIsnofollow())
+			.append("Author",getAuthor())
 			.toString();
 	}
 	
@@ -193,9 +204,9 @@ public class CmsImgInfo extends BaseEntity implements java.io.Serializable{
 	}
 	
 	public boolean equals(Object obj) {
-		if(obj instanceof CmsImgInfo == false) return false;
+		if(obj instanceof CmsInfoImg == false) return false;
 		if(this == obj) return true;
-		CmsImgInfo other = (CmsImgInfo)obj;
+		CmsInfoImg other = (CmsInfoImg)obj;
 		return new EqualsBuilder()
 			.append(getEmImageId(),other.getEmImageId())
 			.isEquals();

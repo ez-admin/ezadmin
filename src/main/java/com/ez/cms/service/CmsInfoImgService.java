@@ -9,5 +9,5 @@ import com.ez.cms.entity.*;
  * @Email: chenez 787818013@qq.com
  * @version 1.0
  */
-public interface CmsImgInfoService extends BaseService<CmsImgInfo> {
+public interface CmsInfoImgService extends BaseService<CmsInfoImg> {
 }

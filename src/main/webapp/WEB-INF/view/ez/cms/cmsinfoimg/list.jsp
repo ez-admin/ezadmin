@@ -11,7 +11,7 @@
 </head>
 <body>
 <form class="layui-form" id="formSearch">
-	<shiro:hasPermission name="cmsimginfo_query">
+	<shiro:hasPermission name="cmsinfoimg_query">
 	<div class="layui-input-inline">
 		<input id="emImageName" name="emImageName" placeholder="请输入图片名称" type="text" class="layui-input-quote" maxlength="25" autocomplete="off">
 	</div>
@@ -36,12 +36,12 @@
 	</div>
 	<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
 	</shiro:hasPermission>
-	<shiro:hasPermission name="cmsimginfo_add">
+	<shiro:hasPermission name="cmsinfoimg_add">
 		<button id="btn_add" type="button" class="layui-btn layui-btn-small">
 			<i class="fa fa-plus"></i>新增
 		</button>
 	</shiro:hasPermission>
-	<shiro:hasPermission name="cmsimginfo_deleteall">
+	<shiro:hasPermission name="cmsinfoimg_deleteall">
 		<button id="btn_delete" type="button" class="layui-btn layui-btn-small">
 			<i class="fa fa-remove"></i>批量删除
 		</button>
@@ -73,9 +73,9 @@
         });
 		//初始化表格
 		$('#table').bootstrapTable({
-			url: '/ez/cms/cmsimginfo/showlist.do',
+			url: '/ez/cms/cmsinfoimg/showlist.do',
 			method: 'post',
-			<shiro:hasPermission name="cmsimginfo_export">
+			<shiro:hasPermission name="cmsinfoimg_export">
 			showExport: true,
 			</shiro:hasPermission>
 			exportDataType: "basic",
@@ -163,7 +163,7 @@
 			maxmin: true,
 			shadeClose: true, //点击遮罩关闭层
 			area : ['800px' , '600px'],
-			content: '/ez/cms/cmsimginfo/addUI.do',
+			content: '/ez/cms/cmsinfoimg/addUI.do',
 			end:function(){
 				$("#table").bootstrapTable('refresh');//刷新表格
 			}
@@ -179,7 +179,7 @@
 		top.layer.confirm("确认要删除选择的数据吗？",{icon: 7},function(index){
 			//删除记录
 			$.ajax({
-				url: "/ez/cms/cmsimginfo/deleteAll.do",
+				url: "/ez/cms/cmsinfoimg/deleteAll.do",
 				type: "POST",
 				//获取所有选中行
 				data: getSelectId(arrselections),
@@ -217,17 +217,17 @@
 	//操作区
 	function operateFormatter(value, row, index) {
 		return [
-			<shiro:hasPermission name="cmsimginfo_view">
+			<shiro:hasPermission name="cmsinfoimg_view">
 			'<a class="view" href="javascript:void(0)" title="查看">',
 			'查看',
 			'</a>    ',
 			</shiro:hasPermission>
-			<shiro:hasPermission name="cmsimginfo_modify">
+			<shiro:hasPermission name="cmsinfoimg_modify">
 			'<a class="edit" href="javascript:void(0)" title="修改">',
 			'修改',
 			'</a>    ',
 			</shiro:hasPermission>
-			<shiro:hasPermission name="cmsimginfo_delete">
+			<shiro:hasPermission name="cmsinfoimg_delete">
 			'<a class="remove" href="javascript:void(0)" title="删除">',
 			'删除',
 			'</a>'
@@ -243,7 +243,7 @@
 				maxmin: true,
 				shadeClose: true, //点击遮罩关闭层
 				area : ['800px' , '600px'],
-				content: '/ez/cms/cmsimginfo/getById.do?typeKey=2&cmsimginfoId='+row.emImageId,
+				content: '/ez/cms/cmsinfoimg/getById.do?typeKey=2&cmsinfoimgId='+row.emImageId,
 			});
 		},
 		'click .edit': function (e, value, row, index) {
@@ -253,7 +253,7 @@
 				maxmin: true,
 				shadeClose: true, //点击遮罩关闭层
 				area : ['800px' , '600px'],
-				content: '/ez/cms/cmsimginfo/getById.do?typeKey=1&cmsimginfoId='+row.emImageId,
+				content: '/ez/cms/cmsinfoimg/getById.do?typeKey=1&cmsinfoimgId='+row.emImageId,
 				end:function(){
 					$("#table").bootstrapTable('refresh');//刷新表格
 				}
@@ -263,7 +263,7 @@
 			top.layer.confirm("确认要删除该行的数据吗？",{icon: 7},function(index){
 				//删除记录
 				$.ajax({
-					url: "/ez/cms/cmsimginfo/deleteById.do",
+					url: "/ez/cms/cmsinfoimg/deleteById.do",
 					type: "POST",
 					data: { "ids": row.emImageId },
 					success: function (result) {

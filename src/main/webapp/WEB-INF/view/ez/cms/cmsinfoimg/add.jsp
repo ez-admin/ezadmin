@@ -10,7 +10,8 @@
 <body>
 <div class="layui-field-box">
 	<form id="formid" class="layui-form">
-
+		<%--录入者--%>
+		<input type="hidden" name="author" value="${sysuser.userno}">
 		<div class="layui-form-item">
 			<label class="layui-form-label"><em class="required">*</em>图片名称:</label>
 			<div class="layui-input-block">
@@ -95,7 +96,7 @@
         });
         //上传图片
         layui.upload({
-            url: '/ez/cms/cmsimginfo/uploadimg.do',
+            url: '/ez/cms/cmsinfoimg/uploadimg.do',
             method: 'post', //上传接口的http类型
             before: function(input){
                 //返回的参数item，即为当前的input DOM对象
@@ -119,7 +120,7 @@
 		form.on('submit(add)', function(data){
 			//layer.msg(JSON.stringify(data.field));
 			$.ajax({
-				url: "/ez/cms/cmsimginfo/add.do",
+				url: "/ez/cms/cmsinfoimg/add.do",
 				type: "POST",
 				data:$('#formid').serialize(),// 你的formid
 				success: function (result) {
