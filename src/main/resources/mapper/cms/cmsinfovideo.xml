@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="com.ez.cms.dao.CmsInfoVideoDao">
+
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+	<!--<cache type="org.mybatis.caches.ehcache.EhcacheCache" />-->
+
+	<resultMap id="CmsInfoVideo" type="com.ez.cms.entity.CmsInfoVideo">
+		<result property="emVideoId" column="em_video_id"/>
+		<result property="positionId" column="position_id"/>
+		<result property="emVideoTitle" column="em_video_title"/>
+		<result property="emVideoPicpath" column="em_video_picpath"/>
+		<result property="emVideoPath" column="em_video_path"/>
+		<result property="emVideoOrder" column="em_video_order"/>
+		<result property="emVideoStat" column="em_video_stat"/>
+		<result property="author" column="author"/>
+		<result property="emVideoInserttime" column="em_video_inserttime"/>
+		<result property="authorname" column="authorname"/>
+		<result property="positionName" column="position_name"/>
+	</resultMap>
+	
+	<sql id="selectId">
+		em_video_id,
+
+		position_id,
+		(SELECT SDKEY FROM sys_dictionary WHERE cms_info_video.position_id=sys_dictionary.SDVALUE AND CODE="1027") position_name,
+		em_video_title,
+
+		em_video_picpath,
+
+		em_video_path,
+
+		em_video_order,
+
+		em_video_stat,
+
+		author,
+
+		(SELECT USERRELNM FROM sys_user  WHERE sys_user.USERNO = cms_info_video.author) authorname,
+
+		em_video_inserttime
+    </sql>
+    
+    <select id="findAll" resultMap="CmsInfoVideo">
+		select
+		<include refid="selectId" />
+		from cms_info_video
+	</select>
+	
+	<select id="query" resultMap="CmsInfoVideo" parameterType="com.ez.cms.entity.CmsInfoVideo">
+		select
+		<include refid="selectId" />
+		from cms_info_video
+		<include refid="querywhere"/>
+	</select>
+	
+	<sql id="querywhere">
+	<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+	<where>
+		<if test="@Ognl@isNotEmpty(positionId)">
+			AND position_id = '${positionId}'
+		</if>
+		<if test="@Ognl@isNotEmpty(emVideoTitle)">
+			AND em_video_title like '%${emVideoTitle}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(emVideoPicpath)">
+			AND em_video_picpath like '%${emVideoPicpath}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(emVideoPath)">
+			AND em_video_path like '%${emVideoPath}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(emVideoOrder)">
+			AND em_video_order = '${emVideoOrder}'
+		</if>
+		<if test="@Ognl@isNotEmpty(emVideoStat)">
+			AND em_video_stat = '${emVideoStat}'
+		</if>
+		<if test="@Ognl@isNotEmpty(author)">
+			AND author like '%${author}%'
+		</if>
+		<if test="@Ognl@isNotEmpty(emVideoInserttimeBegin)">
+			AND em_video_inserttime &gt;= #{emVideoInserttimeBegin}
+		</if>
+		<if test="@Ognl@isNotEmpty(emVideoInserttimeEnd)">
+			AND em_video_inserttime &lt;= #{emVideoInserttimeEnd}
+		</if>
+	</where>
+	</sql>
+
+	<!-- 总记录数 -->
+	<select id="count" parameterType="com.ez.cms.entity.CmsInfoVideo" resultType="int">
+		select count(0) from cms_info_video
+		<include refid="querywhere"/>
+	</select>
+	
+	<!-- 新增 -->
+	<insert id="addAll" parameterType="com.ez.cms.entity.CmsInfoVideo" useGeneratedKeys="true" keyProperty="emVideoId">
+		INSERT INTO cms_info_video (
+        	position_id ,
+        	em_video_title ,
+        	em_video_picpath ,
+        	em_video_path ,
+        	em_video_order ,
+        	em_video_stat ,
+        	author ,
+        	em_video_inserttime 
+        ) VALUES (
+        	#{positionId} ,
+        	#{emVideoTitle} ,
+        	#{emVideoPicpath} ,
+        	#{emVideoPath} ,
+        	#{emVideoOrder} ,
+        	#{emVideoStat} ,
+        	#{author} ,
+        	#{emVideoInserttime} 
+        )
+	</insert>
+	
+	<!-- 新增Selective -->
+	<insert id="add" parameterType="com.ez.cms.entity.CmsInfoVideo" useGeneratedKeys="true" keyProperty="emVideoId">
+		INSERT INTO cms_info_video
+		<include refid="addtrim"/>
+	</insert>
+	
+	<sql id="addtrim">
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(positionId)">
+				position_id,
+			</if>
+			<if test="@Ognl@isNotEmpty(emVideoTitle)">
+				em_video_title,
+			</if>
+			<if test="@Ognl@isNotEmpty(emVideoPicpath)">
+				em_video_picpath,
+			</if>
+			<if test="@Ognl@isNotEmpty(emVideoPath)">
+				em_video_path,
+			</if>
+			<if test="@Ognl@isNotEmpty(emVideoOrder)">
+				em_video_order,
+			</if>
+			<if test="@Ognl@isNotEmpty(emVideoStat)">
+				em_video_stat,
+			</if>
+			<if test="@Ognl@isNotEmpty(author)">
+				author,
+			</if>
+			<if test="@Ognl@isNotEmpty(emVideoInserttime)">
+				em_video_inserttime,
+			</if>
+		</trim>
+		<trim prefix=" values (" suffix=")" suffixOverrides="," >
+			<if test="@Ognl@isNotEmpty(positionId)">
+				#{positionId},
+			</if>
+			<if test="@Ognl@isNotEmpty(emVideoTitle)">
+				#{emVideoTitle},
+			</if>
+			<if test="@Ognl@isNotEmpty(emVideoPicpath)">
+				#{emVideoPicpath},
+			</if>
+			<if test="@Ognl@isNotEmpty(emVideoPath)">
+				#{emVideoPath},
+			</if>
+			<if test="@Ognl@isNotEmpty(emVideoOrder)">
+				#{emVideoOrder},
+			</if>
+			<if test="@Ognl@isNotEmpty(emVideoStat)">
+				#{emVideoStat},
+			</if>
+			<if test="@Ognl@isNotEmpty(author)">
+				#{author},
+			</if>
+			<if test="@Ognl@isNotEmpty(emVideoInserttime)">
+				#{emVideoInserttime},
+			</if>
+		</trim>
+	</sql>
+	
+	<!-- 删 -->
+	<delete id="delete" parameterType="String">
+		DELETE FROM cms_info_video WHERE
+		em_video_id = #{id} 
+	</delete>
+	
+	<!-- 根据主键查实体 -->
+	<select id="getById" parameterType="String" resultMap="CmsInfoVideo">
+		SELECT <include refid="selectId" />
+		    FROM cms_info_video 
+	        WHERE 
+        em_video_id = #{id} 
+	</select>
+	
+	<!-- 更新all -->
+	<update id="updateAll" parameterType="com.ez.cms.entity.CmsInfoVideo">
+	    UPDATE cms_info_video SET
+	        position_id = #{positionId} ,
+	        em_video_title = #{emVideoTitle} ,
+	        em_video_picpath = #{emVideoPicpath} ,
+	        em_video_path = #{emVideoPath} ,
+	        em_video_order = #{emVideoOrder} ,
+	        em_video_stat = #{emVideoStat} ,
+	        author = #{author} ,
+	        em_video_inserttime = #{emVideoInserttime} 
+        WHERE 
+	        em_video_id = #{emVideoId} 
+	</update>
+	
+	<sql id="updateset">
+	<set>
+		<if test="@Ognl@isNotEmpty(positionId)">
+			position_id = #{positionId},
+		</if>
+		<if test="@Ognl@isNotEmpty(emVideoTitle)">
+			em_video_title = #{emVideoTitle},
+		</if>
+		<if test="@Ognl@isNotEmpty(emVideoPicpath)">
+			em_video_picpath = #{emVideoPicpath},
+		</if>
+		<if test="@Ognl@isNotEmpty(emVideoPath)">
+			em_video_path = #{emVideoPath},
+		</if>
+		<if test="@Ognl@isNotEmpty(emVideoOrder)">
+			em_video_order = #{emVideoOrder},
+		</if>
+		<if test="@Ognl@isNotEmpty(emVideoStat)">
+			em_video_stat = #{emVideoStat},
+		</if>
+		<if test="@Ognl@isNotEmpty(author)">
+			author = #{author},
+		</if>
+		<if test="@Ognl@isNotEmpty(emVideoInserttime)">
+			em_video_inserttime = #{emVideoInserttime},
+		</if>
+    </set>
+	</sql>
+	
+	<!-- 更新Selective -->
+	<update id="modify" parameterType="com.ez.cms.entity.CmsInfoVideo">
+	    UPDATE cms_info_video 
+		<include refid="updateset"/>
+        WHERE 
+	        em_video_id = #{emVideoId} 
+	</update>
+	
+</mapper>
+

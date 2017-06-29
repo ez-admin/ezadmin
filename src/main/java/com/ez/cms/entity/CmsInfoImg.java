@@ -94,6 +94,7 @@ public class CmsInfoImg extends BaseEntity implements java.io.Serializable{
 
 	//表外参数
 	private String positionName;//图片位置名称
+	private String authorname;//作者姓名
 
 	public String getPositionName() {
 		return positionName;
@@ -101,6 +102,14 @@ public class CmsInfoImg extends BaseEntity implements java.io.Serializable{
 
 	public void setPositionName(String positionName) {
 		this.positionName = positionName;
+	}
+
+	public String getAuthorname() {
+		return authorname;
+	}
+
+	public void setAuthorname(String authorname) {
+		this.authorname = authorname;
 	}
 
 	public void setEmImageId(java.lang.Integer value) {
