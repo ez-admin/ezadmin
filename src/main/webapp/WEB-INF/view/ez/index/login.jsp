@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme() + "://"
@@ -40,11 +41,14 @@ String basePath = request.getScheme() + "://"
     </dd>
 </dl>
 <script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
-<script type="text/javascript" src="/static/plugins/layui/lay/dest/layui.all.js"></script>
+<script type="text/javascript" src="/static/plugins/layer/layer.js"></script>
 <script type="text/javascript" src="/static/js/md5.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="/static/js/Particleground.js" charset="utf-8"></script>
 <script>
     $(function(){
+        <c:if test="${id !=null && id == 1}">
+        top.location.href = "/ez/syslogin/loginsession/2.do";
+        </c:if>
         //粒子背景特效
         $('body').particleground({
             dotColor: '#5cbdaa',
@@ -52,8 +56,21 @@ String basePath = request.getScheme() + "://"
         });
     });
 </script>
+<script >
+    $(function() {
+        <c:if test="${id !=null && id == 2}">
+        top.layer.alert('您的账号正在另一客户端登录！', {icon: 7});
+        $.ajax({
+            url: "/ez/syslogin/removeSession.do",
+            type: "POST",
+            success: function (result) {
+
+            }
+        });
+        </c:if>
+    });
+</script>
 <script>
-    var layer = layui.layer;
     //监听enter事件
     $(function(){
         $("#username").focus();

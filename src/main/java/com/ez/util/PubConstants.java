@@ -3,7 +3,7 @@ package com.ez.util;
 public class PubConstants {
 	/*系统相关配置*/
 	public static final String SYSNAME = "SYSNAME";//系统名称
-	public static final String NO_INTERCEPTOR_PATH = ".*/((login)|(logout)|(code)|(app)|(weixin)|(static)|(main)|(websocket)).*";	//不对匹配该值的访问路径拦截（正则）
+	public static final String NO_INTERCEPTOR_PATH = ".*/((front)|(loginsession)|(login)|(logout)|(code)|(app)|(weixin)|(static)|(main)|(websocket)).*";	//不对匹配该值的访问路径拦截（正则）
 	public static final String LOGIN = "/login_toLogin.do";				//登录地址
 	public static final String LOGININDEX = "/index.do";				//登录成功
 	/*日志类型 0正常 1 异常*/

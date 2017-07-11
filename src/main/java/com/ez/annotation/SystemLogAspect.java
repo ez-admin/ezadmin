@@ -6,7 +6,6 @@ import com.ez.system.entity.SysUser;
 import com.ez.system.service.SysLogService;
 import com.ez.util.FormatDateUtil;
 import com.ez.util.PubConstants;
-import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -15,6 +14,9 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -32,12 +34,12 @@ import java.lang.reflect.Method;
 @Aspect
 @Component
 public  class SystemLogAspect {
-    //注入Service用于把日志保存数据库
-    @Resource
+
+    private static final Logger logger = LoggerFactory.getLogger(SystemLogAspect.class);
+
+    @Autowired
     private SysLogService syslogService;
 
-    //本地异常日志记录对象
-    private  static  final Logger logger = Logger.getLogger(SystemLogAspect.class);
 
     //Service层切点
     @Pointcut("@annotation(com.ez.annotation.SystemLogService)")
@@ -67,11 +69,11 @@ public  class SystemLogAspect {
         String ip = request.getRemoteAddr();
         try {
             //*========控制台输出=========*//
-            System.out.println("=====前置通知开始=====");
-            System.out.println("请求方法:" + (joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));
-            System.out.println("方法描述:" + getControllerMethodDescription(joinPoint));
+            logger.info("=====前置通知开始=====");
+            logger.info("请求方法:{}.{}()",joinPoint.getTarget().getClass().getName(),joinPoint.getSignature().getName());
+            logger.info("方法描述:{}",getControllerMethodDescription(joinPoint));
             //*========数据库日志=========*//
-            System.out.println(getControllerMethodDescription(joinPoint).length()+"请求descript:" + getControllerMethodDescription(joinPoint));
+            logger.info("{}请求descript:{}",getControllerMethodDescription(joinPoint).length(),getControllerMethodDescription(joinPoint));
             SysLog log = new SysLog();
             log.setMehtoddescription(getControllerMethodDescription(joinPoint));
             log.setMethod((joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));
@@ -83,18 +85,17 @@ public  class SystemLogAspect {
             log.setCreateDate(FormatDateUtil.getFormatDate("yyyy-MM-dd HH:mm:ss"));
             if(sysUser!=null){
                 log.setUserno( sysUser.getUserno() );
-                System.out.println("请求人:" + sysUser.getLognm());
-                System.out.println("请求IP:" + ip);
+                logger.info("请求人:{}",sysUser.getLognm());
+                logger.info("请求IP:{}",ip);
             }
 
             //保存数据库
             syslogService.add(log);
-            System.out.println("=====前置通知结束=====");
+            logger.info("=====前置通知结束=====");
         }  catch (Exception e) {
             //记录本地异常日志
             e.printStackTrace();
-            logger.error("==前置通知异常==");
-            logger.error(e.getMessage());
+            logger.error("前置通知异常:",e.getMessage());
         }
     }
 
@@ -127,13 +128,13 @@ public  class SystemLogAspect {
         SysLog log=new SysLog();
         try {
             /*========控制台输出=========*/
-            System.out.println("=====异常通知开始=====");
-            System.out.println("异常代码:" + e.getClass().getName());
-            System.out.println("异常信息:" + e.getMessage());
-            System.out.println("异常方法:" + (joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));
-            System.out.println("方法描述:" + getServiceMthodDescription(joinPoint));
-            System.out.println("请求IP:" + ip);
-            System.out.println("请求参数:" + params);
+            logger.info("=====异常通知开始=====");
+            logger.info("异常代码:{}",e.getClass().getName());
+            logger.info("异常信息:{}",e.getMessage());
+            logger.info("异常方法:{}",(joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));
+            logger.info("方法描述:{}",getServiceMthodDescription(joinPoint));
+            logger.info("请求IP:{}",ip);
+            logger.info("请求参数:{}",params);
             /*==========数据库日志=========*/
             log.setMehtoddescription(getServiceImplClassDescription(joinPoint));
             log.setExceptionCode(e.getClass().getName());
@@ -144,7 +145,7 @@ public  class SystemLogAspect {
             log.setCreateDate(FormatDateUtil.getFormatDate("yyyy-MM-dd hh:mm:ss"));
             log.setRequestIp(ip);
             if(sysUser!=null){
-                System.out.println("请求人:" + sysUser.getLognm());
+                logger.info("请求人:{}",sysUser.getLognm());
                 log.setUserno(sysUser.getUserno());
             }
             //保存数据库
@@ -152,18 +153,18 @@ public  class SystemLogAspect {
             /*利用线程保存，无法避开事务的问题
             LogThread logThread=new LogThread(log);
             logThread.run();*/
-            System.out.println("=====异常通知结束=====");
+            logger.info("=====异常通知结束=====");
         }  catch (Exception ex) {
             //记录本地异常日志
             ex.printStackTrace();
-            logger.error("==异常通知异常==");
-            logger.error(ex.getStackTrace());
+            logger.error("异常通知:",ex.getStackTrace());
         }
          /*==========记录本地异常日志==========*/
-        logger.error("异常方法:["+joinPoint.getTarget().getClass().getName() +"],异常代码:["+ joinPoint.getSignature().getName()+ e.getClass().getName()+"],异常信息:["+e.getMessage() +"]参数:["+ params+"]");
-        /*logger.error(joinPoint.getTarget().getClass().getName() + joinPoint.getSignature().getName()+ e.getClass().getName());
-        logger.error( e.getMessage());
-        logger.error(params);*/
+        /*logger.info("异常方法:[{}]",joinPoint.getTarget().getClass().getName());
+        logger.info("异常代码:[{}]",joinPoint.getSignature().getName()+ e.getClass().getName());
+        logger.info("异常信息:[{}]]",e.getMessage());
+        logger.info("参数:[{}]",params);*/
+
     }
 
 

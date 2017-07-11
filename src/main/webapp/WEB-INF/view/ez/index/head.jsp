@@ -34,6 +34,9 @@
 				<a href="/BeginnerAdmin/index.html">案例模板</a>
 			</li>
 			<li class="layui-nav-item">
+				<a href="/ez/front/index.do">前台首页</a>
+			</li>
+			<li class="layui-nav-item">
 				<a href="javascript:;" class="beg-layou-head">
 					<div id="usericon">
 						<!-- Current avatar -->

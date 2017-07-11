@@ -29,7 +29,7 @@
 										<h1 class="grey lighter smaller">
 											<span class="blue bigger-125">
 												<i class="ace-icon fa fa-sitemap"></i>
-												${httpCode}
+												${httpCode}错误！
 											</span>
 										</h1>
 										<hr />

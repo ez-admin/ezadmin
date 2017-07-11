@@ -13,7 +13,10 @@
     <param-name>log4jConfigLocation</param-name>
     <param-value>classpath:properties/log4j.properties</param-value>
   </context-param>
-
+  <context-param>
+    <param-name>spring.profiles.active</param-name>
+    <param-value>development</param-value>
+  </context-param>
   <!-- ############################################ listener start  ############################################ -->
   <!--log4j 监听器-->
   <listener>
@@ -33,6 +36,37 @@
 
 
   <!-- ############################################ filter start  ############################################ -->
+  <!-- Shiro filter start -->
+  <filter>
+    <filter-name>shiroFilter</filter-name>
+    <filter-class>
+      org.springframework.web.filter.DelegatingFilterProxy
+    </filter-class>
+    <init-param>
+      <param-name>targetFilterLifecycle</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+      <filter-name>shiroFilter</filter-name>
+     <!-- <url-pattern>/*</url-pattern>-->
+      <url-pattern>*.do</url-pattern>
+
+      <!--<dispatcher>REQUEST</dispatcher>
+      <dispatcher>FORWARD</dispatcher>
+      <dispatcher>ERROR</dispatcher>
+      <dispatcher>INCLUDE</dispatcher>-->
+  </filter-mapping>
+  <!-- Shiro filter end -->
+
+  <filter>
+    <filter-name>timerFilter</filter-name>
+    <filter-class>com.ez.filter.TimerFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>timerFilter</filter-name>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
   <!-- 编码过滤器 -->
   <filter>
     <filter-name>encodingFilter</filter-name>
@@ -48,23 +82,6 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
-  <!-- Shiro filter start -->
-  <filter>
-    <filter-name>shiroFilter</filter-name>
-    <filter-class>
-      org.springframework.web.filter.DelegatingFilterProxy
-    </filter-class>
-    <init-param>
-      <param-name>targetFilterLifecycle</param-name>
-      <param-value>true</param-value>
-    </init-param>
-  </filter>
-  <filter-mapping>
-    <filter-name>shiroFilter</filter-name>
-   <!-- <url-pattern>/*</url-pattern>-->
-    <url-pattern>*.do</url-pattern>
-  </filter-mapping>
-  <!-- Shiro filter end -->
 
 
   <!-- druid 数据源，用于采集 web-jdbc 关联监控的数据 -->

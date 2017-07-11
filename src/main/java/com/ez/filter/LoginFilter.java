@@ -1,5 +1,7 @@
 package com.ez.filter;
 
+import org.apache.shiro.SecurityUtils;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

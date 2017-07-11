@@ -21,7 +21,7 @@ public class LogThread implements Runnable{
     public void run() {
         if (sysLog!=null){
             try {
-                Thread.sleep(10000);//线程延迟
+                Thread.sleep(1000);//线程延迟1s
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

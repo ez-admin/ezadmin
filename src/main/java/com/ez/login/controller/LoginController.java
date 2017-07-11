@@ -16,12 +16,11 @@ import com.ez.util.*;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +33,8 @@ import static com.ez.util.Common.toIpAddr;
 @Controller
 @RequestMapping(value="/ez/syslogin/")
 public class LoginController {
-
+	private static final Logger logger = LoggerFactory
+			.getLogger(LoginController.class);
 	@Resource
 	private LoginService loginService;
 	
@@ -60,6 +60,23 @@ public class LoginController {
 		return "ez/index/login";
 	}
 
+	@RequestMapping(value = "/loginsession/{id}.do")
+	public String login(Model model, @PathVariable Integer id) {
+		String sysname= sysOptionService.getById("systemName").getOptionValue();
+		model.addAttribute(PubConstants.SYSNAME,sysname);//读取系统名称
+		model.addAttribute("id",id);
+		return "ez/index/login";
+	}
+	@RequestMapping(value = "/removeSession.do", method = RequestMethod.POST)
+	public String removeSession() {
+		Object principal = SecurityUtils.getSubject().getPrincipal();//（如果存在，则手动销毁）
+		System.out.println("进入这个removesession方法了吗？");
+		if (principal != null){
+			logger.info("您的账号{}正在另一客户端登录,系统强制下线！",principal.toString());
+			SecurityUtils.getSubject().logout();
+		}
+		return null;
+	}
 	@RequestMapping(value="login")
     public String login(SysUser sysUser, HttpServletRequest request, HttpServletResponse response){
 		String result = null;

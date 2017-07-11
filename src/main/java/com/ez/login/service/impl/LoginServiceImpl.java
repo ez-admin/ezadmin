@@ -75,10 +75,6 @@ public class LoginServiceImpl implements LoginService {
 				//session.setTimeout(0);  //这里就把session清除
 				sessionDAO.delete(session);//删除之前登陆过的账号（不在同一浏览器），把之前的客户挤掉线
 			}
-/*			else {
-				currentUser.logout();
-				throw new AuthenticationException("msg:账号已在其他地方登陆！");
-			}*/
 		}
 		// 登录后存放进shiro token
 		//获取基于用户名和密码的令牌

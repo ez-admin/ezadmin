@@ -65,7 +65,8 @@ layui.define(['element', 'common'], function(exports) {
 							element.init();
 						},
 						error: function(xhr, status, error) {
-							common.msgError('Navbar error:' + error);
+							//common.msgError('Navbar error:' + error);
+							top.location.href="/ez/syslogin/loginsession/1.do";
 						},
 						complete: function(xhr, status) {
 							_that.config.elem = $container;
@@ -91,7 +92,8 @@ layui.define(['element', 'common'], function(exports) {
 						element.init();
 					},
 					error: function(xhr, status, error) {
-						common.msgError('Navbar error:' + error);
+						//common.msgError('Navbar error:' + error);
+                        top.location.href="/ez/syslogin/loginsession/1.do";
 					},
 					complete: function(xhr, status) {
 						_that.config.elem = $container;

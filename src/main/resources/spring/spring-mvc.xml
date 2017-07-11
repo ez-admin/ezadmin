@@ -25,7 +25,10 @@
     <!-- 访问拦截  -->
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/**/**"/>
+            <mvc:mapping path="/**"/>
+            <!-- 需排除拦截的地址 -->
+            <!--<mvc:exclude-mapping path="/" />
+            <mvc:exclude-mapping path="/test" />-->
             <bean class="com.ez.interceptor.LoginHandlerInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
