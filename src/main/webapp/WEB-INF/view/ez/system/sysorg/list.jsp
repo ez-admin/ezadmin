@@ -211,6 +211,11 @@
 		//设置表单的值
 		setForm(treeNode.name,treeNode.desc,treeNode.manager,treeNode.phone,treeNode.menuType);
 		$("#selectNodeid").val(treeNode.id);
+        $("input[name='nodetype'][value='"+treeNode.menuType+"']").click();
+        layui.use('form', function(){
+            var form = layui.form();
+            form.render('radio');
+        });
 
 	}
 
