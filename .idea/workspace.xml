@@ -1,453 +1,283 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9a05af91-7a30-4f91-9608-73d58be6685a" name="Default" comment="修改组织机构里 点击树结构 radio 单选框无法切换的bug(layui1.9.0的框架bug)">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/images/bg.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/images/breadcrumbs.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/images/checker-bg.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/images/deployer/blue/message_catch.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/images/deployer/business_rule.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/images/deployer/error_catch.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/images/deployer/error_throw.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/images/deployer/manual.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/images/deployer/message_catch.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/images/deployer/message_throw.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/images/deployer/receive.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/images/deployer/script.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/images/deployer/send.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/images/deployer/service.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/images/deployer/signal_catch.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/images/deployer/signal_throw.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/images/deployer/timer.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/images/deployer/user.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/fonts/activiti-admin-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/fonts/activiti-admin-webfont.ttf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/fonts/activiti-admin-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/fonts/glyphicons-halflings-regular.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/fonts/glyphicons-halflings-regular.ttf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/fonts/glyphicons-halflings-regular.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/images/bpmn-error.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/images/bpmn-warning.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/images/datadefinition.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/images/delete.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/images/loading.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/images/logo-2x.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/images/logo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/images/nw-handle-dark.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/images/se-handle-dark.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/images/shapemenu_highlight.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/images/wrench.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/bootstrap_3.1.1/fonts/glyphicons-halflings-regular.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/bootstrap_3.1.1/fonts/glyphicons-halflings-regular.ttf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/bootstrap_3.1.1/fonts/glyphicons-halflings-regular.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/tests/lib/jasmine_favicon.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/activity/event.subprocess.collapsed.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/activity/event.subprocess.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/activity/expanded.subprocess.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/activity/list/type.business.rule.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/activity/list/type.camel.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/activity/list/type.manual.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/activity/list/type.mule.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/activity/list/type.receive.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/activity/list/type.script.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/activity/list/type.send.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/activity/list/type.service.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/activity/list/type.shell.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/activity/list/type.user.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/activity/subprocess.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/activity/task.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/artifact/text.annotation.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/catching/cancel.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/catching/compensation.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/catching/error.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/catching/message.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/catching/signal.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/catching/timer.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/connector/association.undirected.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/connector/association.unidirectional.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/connector/messageflow.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/connector/sequenceflow.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/dataobject/data.store.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/diagram.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/endevent/cancel.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/endevent/error.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/endevent/none.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/endevent/terminate.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/gateway/eventbased.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/gateway/exclusive.databased.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/gateway/inclusive.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/gateway/parallel.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/startevent/error.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/startevent/message.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/startevent/none.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/startevent/signal.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/startevent/timer.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/swimlane/lane.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/swimlane/pool.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/throwing/none.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencilsets/bpmn2.0/icons/throwing/signal.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/doc/ezadmin-20170820第二期.sql" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/exception/MyExceptionHandler.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/spring/stencilset.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/js/ActivitiRest.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/js/ActivityImpl.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/js/Color.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/js/LineBreakMeasurer.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/js/Polyline.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/js/ProcessDiagramCanvas.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/js/ProcessDiagramGenerator.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/js/jquery/jquery.asyncqueue.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/js/jquery/jquery.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/js/jquery/jquery.progressbar.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/js/jstools.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/js/raphael.2.1.1.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/js/raphael.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/js/raphael_uncompressed.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/js/textlayout.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/diagram-viewer/style.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/app-cfg.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/app.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties-assignment-controller.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties-condition-expression-controller.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties-custom-controllers.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties-default-controllers.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties-event-listeners-controller.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties-execution-listeners-controller.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties-fields-controller.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties-form-properties-controller.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties-in-parameters-controller.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties-message-definitions-controller.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties-message-scope-controller.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties-multiinstance-controller.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties-out-parameters-controller.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties-sequenceflow-order-controller.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties-signal-definitions-controller.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties-signal-scope-controller.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties-task-listeners-controller.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/assignment-display-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/assignment-popup.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/assignment-write-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/boolean-property-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/condition-expression-display-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/condition-expression-popup.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/condition-expression-write-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/default-value-display-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/event-listeners-display-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/event-listeners-popup.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/event-listeners-write-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/execution-listeners-display-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/execution-listeners-popup.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/execution-listeners-write-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/feedback-popup.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/fields-display-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/fields-popup.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/fields-write-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/form-properties-display-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/form-properties-popup.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/form-properties-write-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/in-parameters-display-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/in-parameters-popup.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/in-parameters-write-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/message-definitions-display-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/message-definitions-popup.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/message-definitions-write-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/message-property-write-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/multiinstance-property-write-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/out-parameters-display-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/out-parameters-popup.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/out-parameters-write-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/sequenceflow-order-display-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/sequenceflow-order-popup.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/sequenceflow-order-write-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/signal-definitions-display-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/signal-definitions-popup.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/signal-definitions-write-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/signal-property-write-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/string-property-write-mode-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/subprocess-reference-display-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/subprocess-reference-popup.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/subprocess-reference-write-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/task-listeners-display-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/task-listeners-popup.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/task-listeners-write-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/text-popup.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/properties/text-property-write-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/toolbar-custom-actions.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/toolbar-default-actions.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/toolbar.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/configuration/url-config.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/css/style-common.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/css/style-editor.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/css/style.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/editor-config.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/editor-controller.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/editor-utils.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/editor.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/editor/css/editor.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/editor/i18n/translation_de.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/editor/i18n/translation_en_us.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/editor/i18n/translation_signavio_de.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/editor/i18n/translation_signavio_en_us.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/editor/oryx.debug.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/editor/oryx.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/eventbus.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/fonts/activiti-admin-webfont.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/fonts/glyphicons-halflings-regular.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/header-controller.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/i18n/en.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular-cookies_1.2.13/angular-cookies.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular-cookies_1.2.13/angular-cookies.min.js.map" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular-dragdrop.min-1.0.3.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular-dragdrop_1.0.7/angular-dragdrop.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular-mocks_1.2.13/angular-mocks.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular-resource_1.2.13/angular-resource.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular-resource_1.2.13/angular-resource.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular-resource_1.2.13/angular-resource.min.js.map" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular-route_1.2.13/angular-route.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular-route_1.2.13/angular-route.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular-route_1.2.13/angular-route.min.js.map" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular-sanitize_1.2.13/angular-sanitize.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular-sanitize_1.2.13/angular-sanitize.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular-sanitize_1.2.13/angular-sanitize.min.js.map" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular-scroll_0.5.7/angular-scroll.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular-strap_2.0.5/angular-strap.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular-strap_2.0.5/angular-strap.tpl.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular-translate-loader-static-files/.bower.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular-translate-loader-static-files/angular-translate-loader-static-files.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular-translate-storage-cookie/.bower.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular-translate-storage-cookie/angular-translate-storage-cookie.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular-translate_2.4.2/angular-translate.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular-translate_2.4.2/angular-translate.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular_1.2.13/angular-animate.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/angular_1.2.13/angular.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/bootstrap-daterangepicker_1.3.7/daterangepicker-bs3.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/bootstrap-daterangepicker_1.3.7/daterangepicker.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/bootstrap_3.1.1/css/bootstrap-theme.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/bootstrap_3.1.1/css/bootstrap-theme.css.map" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/bootstrap_3.1.1/css/bootstrap-theme.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/bootstrap_3.1.1/css/bootstrap.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/bootstrap_3.1.1/css/bootstrap.css.map" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/bootstrap_3.1.1/css/bootstrap.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/bootstrap_3.1.1/fonts/glyphicons-halflings-regular.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/bootstrap_3.1.1/js/bootstrap.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/bootstrap_3.1.1/js/bootstrap.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/.bower.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/CHANGES" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/CONTRIBUTORS.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/es5-sham.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/es5-sham.map" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/es5-sham.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/es5-shim.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/es5-shim.map" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/es5-shim.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/package.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/tests/helpers/h-kill.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/tests/helpers/h-matchers.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/tests/helpers/h.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/tests/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/tests/index.min.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/tests/lib/jasmine-html.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/tests/lib/jasmine.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/tests/lib/jasmine.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/tests/lib/json2.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/tests/spec/s-array.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/tests/spec/s-date.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/tests/spec/s-function.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/tests/spec/s-number.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/tests/spec/s-object.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/es5-shim-15.3.4.5/tests/spec/s-string.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/jquery-ui-1.10.3.custom.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/jquery.autogrow-textarea.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/jquery_1.11.0/jquery.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/jquery_1.11.0/jquery.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/jquery_1.11.0/jquery.min.map" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/json3_3.2.6/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/json3_3.2.6/lib/json3.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/json3_3.2.6/lib/json3.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/momentjs_2.5.1/momentjs.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/mousetrap-1.4.5.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/ng-grid-2.0.7-min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/ng-grid-2.0.7.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/path_parser.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/prototype-1.5.1.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/libs/ui-utils.min-0.0.4.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/partials/root-stencil-item-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/partials/stencil-item-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/plugins.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/popups/icon-template.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/popups/save-model.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/popups/select-shape.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/popups/unsaved-changes.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/select-shape-controller.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/stencil-controller.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/editor-app/toolbar-controller.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/activiti/process-editor/modeler.jsp" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/artifacts/chenez_war.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_activation_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/doc/V1.0/EzAdminV1.0.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/doc/ezadmin-20160605.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/doc/ezadmin-20170604.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/doc/ezadmin.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/interceptor/SystemInitInterceptor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/controller/SysCityController.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/controller/SysDicTypeController.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/controller/SysDictionaryController.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/controller/SysLogController.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/controller/SysMenuController.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/controller/SysOptionController.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/controller/SysOrgController.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/controller/SysRoleController.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/controller/SysUserController.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/dao/SysCityDao.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/dao/SysDicTypeDao.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/dao/SysDictionaryDao.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/dao/SysLogDao.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/dao/SysMenuDao.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/dao/SysOptionDao.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/dao/SysOrgDao.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/dao/SysRoleDao.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/dao/SysUserDao.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/dao/SysUserRoleDao.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/entity/SysCity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/entity/SysDicType.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/entity/SysDictionary.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/entity/SysLog.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/entity/SysMenu.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/entity/SysOption.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/entity/SysOptionList.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/entity/SysOrg.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/entity/SysRole.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/entity/SysUser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/entity/SysUserRole.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/service/SysCityService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/service/SysDicTypeService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/service/SysDictionaryService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/service/SysLogService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/service/SysMenuService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/service/SysOptionService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/service/SysOrgService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/service/SysRoleService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/service/SysUserRoleService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/service/SysUserService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/service/impl/SysCityServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/service/impl/SysDictionaryServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/service/impl/SysDictypeServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/service/impl/SysLogServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/service/impl/SysMenuServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/service/impl/SysOptionServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/service/impl/SysOrgServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/service/impl/SysRoleServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/service/impl/SysUserRoleServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/system/service/impl/SysUserServiceImpl.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/doc/EzAdmin产品项目规划.mmap" afterPath="$PROJECT_DIR$/src/doc/EzAdmin产品项目规划.mmap" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/chenez_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/chenez_war_exploded.xml" />
+    <list default="true" id="9a05af91-7a30-4f91-9608-73d58be6685a" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/doc/EzAdmin产品项目规划.mmap" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/doc/ezadmin-20170820第二期.sql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/auxiliar.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/begtable.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/btable.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/button.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/city.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/cop.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/css/begtable.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/css/btable.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/css/global.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/css/layout.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/css/login.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/css/main.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/css/table.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/datas/area_data.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/datas/btable_data.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/datas/laytpl_laypage_data.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/datas/nav.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/datas/nav.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/datas/nav_content.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/datas/nav_member.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/form.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/icheck.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/images/0.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/images/logo-1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/js/area.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/js/begtable.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/js/btable.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/js/city.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/js/common.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/js/index.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/js/layout.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/js/navbar.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/js/paging.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/js/tab.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/js/validator.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/layout.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/login.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/main.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/nav.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/navbar.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/paging.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/font-awesome/css/font-awesome.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/font-awesome/css/font-awesome.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/font-awesome/fonts/FontAwesome.otf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/font-awesome/fonts/fontawesome-webfont.eot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/font-awesome/fonts/fontawesome-webfont.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/font-awesome/fonts/fontawesome-webfont.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/font-awesome/fonts/fontawesome-webfont.woff" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/font-awesome/fonts/fontawesome-webfont.woff2" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/layui.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/code.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/_all.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/aero.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/aero.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/aero@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/blue.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/blue.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/blue@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/flat.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/flat.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/flat@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/green.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/green.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/green@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/grey.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/grey.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/grey@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/orange.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/orange.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/orange@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/pink.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/pink.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/pink@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/purple.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/purple.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/purple@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/red.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/red.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/red@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/yellow.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/yellow.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/flat/yellow@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/futurico/futurico.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/futurico/futurico.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/futurico/futurico@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/icheck.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/line/_all.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/line/aero.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/line/blue.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/line/green.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/line/grey.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/line/line.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/line/line.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/line/line@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/line/orange.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/line/pink.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/line/purple.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/line/red.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/line/yellow.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/_all.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/aero.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/aero.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/aero@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/blue.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/blue.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/blue@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/green.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/green.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/green@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/grey.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/grey.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/grey@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/minimal.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/minimal.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/minimal@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/orange.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/orange.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/orange@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/pink.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/pink.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/pink@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/purple.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/purple.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/purple@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/red.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/red.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/red@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/yellow.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/yellow.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/minimal/yellow@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/polaris/polaris.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/polaris/polaris.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/polaris/polaris@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/_all.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/aero.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/aero.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/aero@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/blue.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/blue.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/blue@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/green.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/green.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/green@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/grey.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/grey.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/grey@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/orange.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/orange.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/orange@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/pink.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/pink.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/pink@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/purple.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/purple.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/purple@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/red.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/red.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/red@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/square.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/square.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/square@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/yellow.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/yellow.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/icheck/square/yellow@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/laydate/icon.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/laydate/laydate.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/layer/default/icon-ext.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/layer/default/icon.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/layer/default/layer.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/layer/default/loading-0.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/layer/default/loading-1.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/css/modules/layer/default/loading-2.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/font/iconfont.eot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/font/iconfont.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/font/iconfont.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/font/iconfont.woff" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/0.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/1.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/10.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/11.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/12.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/13.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/14.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/15.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/16.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/17.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/18.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/19.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/2.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/20.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/21.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/22.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/23.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/24.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/25.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/26.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/27.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/28.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/29.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/3.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/30.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/31.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/32.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/33.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/34.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/35.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/36.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/37.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/38.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/39.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/4.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/40.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/41.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/42.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/43.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/44.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/45.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/46.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/47.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/48.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/49.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/5.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/50.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/51.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/52.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/53.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/54.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/55.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/56.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/57.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/58.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/59.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/6.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/60.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/61.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/62.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/63.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/64.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/65.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/66.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/67.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/68.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/69.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/7.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/70.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/71.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/8.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/images/face/9.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/lay/dest/layui.all.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/lay/dest/layui.mod.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/lay/lib/jquery.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/lay/modules/code.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/lay/modules/element.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/lay/modules/flow.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/lay/modules/form.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/lay/modules/jquery.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/lay/modules/laydate.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/lay/modules/layedit.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/lay/modules/layer.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/lay/modules/laypage.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/lay/modules/laytpl.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/lay/modules/mobile.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/lay/modules/tree.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/lay/modules/upload.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/lay/modules/util.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/layui.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/modules/icheck.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/plugins/layui/modules/pjax.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/tab.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/table.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/temp/edit-form.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/BeginnerAdmin/video.html" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chenez.iml" afterPath="$PROJECT_DIR$/chenez.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/cms/cmsinfo.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/cms/cmsinfo.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/cms/cmsinfoimg.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/cms/cmsinfoimg.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/cms/cmsinfotag.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/cms/cmsinfotag.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/cms/cmsinfovideo.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/cms/cmsinfovideo.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/cms/cmsnode.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/cms/cmsnode.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/cms/cmstag.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/cms/cmstag.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/system/syscity.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/system/syscity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/system/sysdictionary-mapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/system/sysdictionary-mapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/system/sysdictype-mapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/system/sysdictype-mapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/system/syslog-mapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/system/syslog-mapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/system/sysmenu-mapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/system/sysmenu-mapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/system/sysoption.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/system/sysoption.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/system/sysorg.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/system/sysorg.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/system/sysrole-mapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/system/sysrole-mapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/system/sysuser-mapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/system/sysuser-mapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/mapper/system/sysuserrole.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/system/sysuserrole.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/properties/config.properties" afterPath="$PROJECT_DIR$/src/main/resources/properties/config.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/properties/log4j.properties" afterPath="$PROJECT_DIR$/src/main/resources/properties/log4j.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/spring/applicationContext-shiro.xml" afterPath="$PROJECT_DIR$/src/main/resources/spring/applicationContext-shiro.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/spring/applicationContext.xml" afterPath="$PROJECT_DIR$/src/main/resources/spring/applicationContext.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/spring/spring-mvc.xml" afterPath="$PROJECT_DIR$/src/main/resources/spring/spring-mvc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/view/ez/front/index.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/view/ez/front/index.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/view/ez/index/head.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/view/ez/index/head.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/view/ez/index/index.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/view/ez/index/index.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/view/ez/index/login.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/view/ez/index/login.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/view/ez/system/syscity/addsub.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/view/ez/system/syscity/addsub.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/static/js/navbar.js" afterPath="$PROJECT_DIR$/src/main/webapp/static/js/navbar.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/ez/ssm/SSMTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/ez/ssm/SSMTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/annotation/ServiceImplClassDescription.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/annotation/ServiceImplClassDescription.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/annotation/SystemLogAspect.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/annotation/SystemLogAspect.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/annotation/SystemLogController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/annotation/SystemLogController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/annotation/SystemLogService.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/annotation/SystemLogService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/base/BaseController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/base/BaseController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/base/BaseDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/base/BaseDao.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/base/BaseEntity.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/base/BaseEntity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/base/BaseException.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/base/BaseException.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/base/DataParseException.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/base/DataParseException.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/base/ParameterException.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/base/ParameterException.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/base/service/BaseService.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/base/service/BaseService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/base/service/impl/BaseServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/base/service/impl/BaseServiceImpl.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/controller/CmsInfoController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/controller/CmsInfoController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/controller/CmsInfoImgController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/controller/CmsInfoImgController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/controller/CmsInfoVideoController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/controller/CmsInfoVideoController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/controller/CmsNodeController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/controller/CmsNodeController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/controller/CmsTagController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/controller/CmsTagController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/dao/CmsInfoDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/dao/CmsInfoDao.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/dao/CmsInfoImgDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/dao/CmsInfoImgDao.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/dao/CmsInfoTagDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/dao/CmsInfoTagDao.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/dao/CmsInfoVideoDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/dao/CmsInfoVideoDao.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/dao/CmsNodeDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/dao/CmsNodeDao.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/dao/CmsTagDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/dao/CmsTagDao.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/entity/CmsInfo.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/entity/CmsInfo.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/entity/CmsInfoImg.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/entity/CmsInfoImg.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/entity/CmsInfoTag.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/entity/CmsInfoTag.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/entity/CmsInfoVideo.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/entity/CmsInfoVideo.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/entity/CmsNode.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/entity/CmsNode.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/entity/CmsTag.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/entity/CmsTag.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/service/CmsInfoImgService.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/service/CmsInfoImgService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/service/CmsInfoService.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/service/CmsInfoService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/service/CmsInfoVideoService.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/service/CmsInfoVideoService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/service/CmsNodeService.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/service/CmsNodeService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/service/CmsTagService.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/service/CmsTagService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/service/impl/CmsInfoImgServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/service/impl/CmsInfoImgServiceImpl.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/service/impl/CmsInfoServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/service/impl/CmsInfoServiceImpl.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/service/impl/CmsInfoVideoServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/service/impl/CmsInfoVideoServiceImpl.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/service/impl/CmsNodeServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/service/impl/CmsNodeServiceImpl.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/cms/service/impl/CmsTagServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/cms/service/impl/CmsTagServiceImpl.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/filter/LoginFilter.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/filter/LoginFilter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/filter/TimerFilter.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/filter/TimerFilter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/front/controller/FrontController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/front/controller/FrontController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/interceptor/LoginHandlerInterceptor.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/interceptor/LoginHandlerInterceptor.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/interceptor/shiro/ShiroRealm.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/interceptor/shiro/ShiroRealm.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/json/Entity.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/json/Entity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/json/TreeNode.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/json/TreeNode.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/login/controller/LoginController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/login/controller/LoginController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/login/entity/MenuTitle.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/login/entity/MenuTitle.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/login/service/LoginService.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/login/service/LoginService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/login/service/impl/LoginServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/modules/login/service/impl/LoginServiceImpl.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/scheduled/Syslogdeletetask.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/scheduled/Syslogdeletetask.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/thread/LogThread.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/thread/LogThread.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/util/Common.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/util/Common.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/util/DateUtil.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/util/DateUtil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/util/FormatDateUtil.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/util/FormatDateUtil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/util/HttpCode.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/util/HttpCode.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/util/Jurisdiction.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/util/Jurisdiction.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/util/MD5.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/util/MD5.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/util/MonthToDate.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/util/MonthToDate.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/util/PubConstants.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/util/PubConstants.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/util/RightsHelper.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/util/RightsHelper.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/util/SpringBeanUtil.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/util/SpringBeanUtil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/util/StartEndDate.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/util/StartEndDate.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/util/Tools.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/util/Tools.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/util/UuidUtil.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/util/UuidUtil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/util/ValidateResult.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/util/ValidateResult.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/util/WaterIdGener.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/util/WaterIdGener.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/ez/util/WebTool.java" afterPath="$PROJECT_DIR$/src/main/java/com/ez/commons/util/WebTool.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -894,6 +724,46 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ezadmin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ezadmin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ezadmin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ezadmin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1734,7 +1604,7 @@
       <workItem from="1503194016073" duration="2592000" />
       <workItem from="1503199411293" duration="277000" />
       <workItem from="1503205639643" duration="5095000" />
-      <workItem from="1503241635567" duration="287000" />
+      <workItem from="1503241635567" duration="1140000" />
     </task>
     <task id="LOCAL-00001" summary="modify">
       <created>1494667150435</created>
@@ -1904,11 +1774,18 @@
       <option name="project" value="LOCAL" />
       <updated>1499759809886</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="ezadmin2.0版本发布">
+      <created>1503242671149</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1503242671149</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="493681000" />
+    <option name="totallyTimeSpent" value="494534000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2059,7 +1936,8 @@
     <MESSAGE value="新增内容管理 视频管理功能" />
     <MESSAGE value="新增前台页面功能和单用户提示提出功能" />
     <MESSAGE value="修改组织机构里 点击树结构 radio 单选框无法切换的bug(layui1.9.0的框架bug)" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改组织机构里 点击树结构 radio 单选框无法切换的bug(layui1.9.0的框架bug)" />
+    <MESSAGE value="ezadmin2.0版本发布" />
+    <option name="LAST_COMMIT_MESSAGE" value="ezadmin2.0版本发布" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2095,6 +1973,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1250">
           <caret line="24" column="36" lean-forward="false" selection-start-line="23" selection-start-column="4" selection-end-line="24" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2398,6 +2277,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="87" column="14" lean-forward="true" selection-start-line="87" selection-start-column="14" selection-end-line="87" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2441,6 +2321,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2448,6 +2329,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="50">
           <caret line="89" column="5" lean-forward="false" selection-start-line="89" selection-start-column="5" selection-end-line="89" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
