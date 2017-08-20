@@ -4,9 +4,9 @@
 
 
 <!-- 不使用namespace的话sql搜索定位会比较方便 -->
-<mapper namespace="com.ez.system.dao.SysMenuDao">
+<mapper namespace="com.ez.modules.system.dao.SysMenuDao">
 
-	<resultMap id="SysMenu" type="com.ez.system.entity.SysMenu">
+	<resultMap id="SysMenu" type="com.ez.modules.system.entity.SysMenu">
         <result property="menuId" column="MENU_ID"/>
         <result property="menuName" column="MENU_NAME"/>
         <result property="menuUrl" column="MENU_URL"/>
@@ -43,7 +43,7 @@
 	</select>
 
 
-	<select id="query" resultMap="SysMenu" parameterType="com.ez.system.entity.SysMenu" >
+	<select id="query" resultMap="SysMenu" parameterType="com.ez.modules.system.entity.SysMenu" >
 		select
 		<include refid="selectId" />
 		from sys_menu
@@ -76,13 +76,13 @@
 	</sql>
 
 	<!-- 总记录数 -->
-	<select id="count" parameterType="com.ez.system.entity.SysMenu" resultType="int">
+	<select id="count" parameterType="com.ez.modules.system.entity.SysMenu" resultType="int">
 		select count(0) from sys_menu
 		<include refid="querywhere"/>
 	</select>
 	
 	<!-- 新增 -->
-	<insert id="addAll" parameterType="com.ez.system.entity.SysMenu">
+	<insert id="addAll" parameterType="com.ez.modules.system.entity.SysMenu">
 	<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="id" >
         SELECT LAST_INSERT_ID() AS ID   
     </selectKey>
@@ -104,7 +104,7 @@
 	</insert>
 	
 	<!-- 新增Selective -->
-	<insert id="add" parameterType="com.ez.system.entity.SysMenu">
+	<insert id="add" parameterType="com.ez.modules.system.entity.SysMenu">
 	<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="menuId" >
 	        SELECT LAST_INSERT_ID() AS menuId
 	</selectKey>
@@ -191,21 +191,21 @@
 		SELECT <include refid="selectId" />
 		FROM sys_menu
 	</select>
-	<select id="findFisrtMenu" resultType="com.ez.login.entity.MenuTitle" >
+	<select id="findFisrtMenu" resultType="com.ez.modules.login.entity.MenuTitle" >
 		SELECT <include refid="selectMenutitle" />
 		FROM sys_menu
 		WHERE
 		PARENT_ID = "0"
 		order by MENU_ORDER
 	</select>
-	<select id="getByParentId" resultType="com.ez.login.entity.MenuTitle" parameterType="String" >
+	<select id="getByParentId" resultType="com.ez.modules.login.entity.MenuTitle" parameterType="String" >
 		SELECT <include refid="selectMenutitle" />
 		FROM sys_menu
 		WHERE
 		PARENT_ID = #{parentId}
 		order by MENU_ORDER
 	</select>
-	<select id="getParentMenu" resultMap="SysMenu" parameterType="com.ez.system.entity.SysMenu" useCache="false">
+	<select id="getParentMenu" resultMap="SysMenu" parameterType="com.ez.modules.system.entity.SysMenu" useCache="false">
 		SELECT <include refid="selectId" />
 		FROM sys_menu
 		WHERE
@@ -221,7 +221,7 @@
 		</if>
 		order by MENU_ORDER
 	</select>
-	<select id="getChildrenMenu" resultMap="SysMenu" parameterType="com.ez.system.entity.SysMenu" >
+	<select id="getChildrenMenu" resultMap="SysMenu" parameterType="com.ez.modules.system.entity.SysMenu" >
 		SELECT <include refid="selectId" />
 		FROM sys_menu
 		WHERE
@@ -237,7 +237,7 @@
 		</if>
 		order by MENU_ORDER
 	</select>
-	<select id="findAllListMenu" resultMap="SysMenu" parameterType="com.ez.system.entity.SysMenu">
+	<select id="findAllListMenu" resultMap="SysMenu" parameterType="com.ez.modules.system.entity.SysMenu">
 		SELECT <include refid="selectId" />
 		FROM sys_menu
 		<if test="@Ognl@isNotEmpty(menuType)">
@@ -251,7 +251,7 @@
 	</select>
 
 	<!-- 更新all -->
-	<update id="updateAll" parameterType="com.ez.system.entity.SysMenu">
+	<update id="updateAll" parameterType="com.ez.modules.system.entity.SysMenu">
 	    UPDATE sys_menu SET
 	        MENU_NAME = #{menuName} ,
 	        MENU_URL = #{menuUrl} ,
@@ -287,7 +287,7 @@
 	</sql>
 	
 	<!-- 更新Selective -->
-	<update id="modify" parameterType="com.ez.system.entity.SysMenu">
+	<update id="modify" parameterType="com.ez.modules.system.entity.SysMenu">
 	    UPDATE sys_menu 
 		<include refid="updateset"/>
         WHERE 

@@ -4,8 +4,8 @@
 
 
 <!-- 不使用namespace的话sql搜索定位会比较方便 -->
-<mapper namespace="com.ez.system.dao.SysRoleDao">
-	<resultMap id="SysRole" type="com.ez.system.entity.SysRole">
+<mapper namespace="com.ez.modules.system.dao.SysRoleDao">
+	<resultMap id="SysRole" type="com.ez.modules.system.entity.SysRole">
         <result property="roleId" column="ROLE_ID"/>
         <result property="roleName" column="ROLE_NAME"/>
         <result property="rights" column="RIGHTS"/>
@@ -25,7 +25,7 @@
 		from sys_role
 	</select>
 
-	<select id="query" resultMap="SysRole" parameterType="com.ez.system.entity.SysRole">
+	<select id="query" resultMap="SysRole" parameterType="com.ez.modules.system.entity.SysRole">
 		select
 		<include refid="selectId" />
 		from sys_role
@@ -52,13 +52,13 @@
 	</sql>
 
 	<!-- 总记录数 -->
-	<select id="count" parameterType="com.ez.system.entity.SysRole" resultType="int">
+	<select id="count" parameterType="com.ez.modules.system.entity.SysRole" resultType="int">
 		select count(0) from sys_role
 		<include refid="querywhere"/>
 	</select>
 	
 	<!-- 新增 -->
-	<insert id="addAll" parameterType="com.ez.system.entity.SysRole">
+	<insert id="addAll" parameterType="com.ez.modules.system.entity.SysRole">
 	<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="id" >
         SELECT LAST_INSERT_ID() AS ID   
     </selectKey>
@@ -74,7 +74,7 @@
 	</insert>
 	
 	<!-- 新增Selective -->
-	<insert id="add" parameterType="com.ez.system.entity.SysRole">
+	<insert id="add" parameterType="com.ez.modules.system.entity.SysRole">
 	<!--<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="id" >
 	        SELECT LAST_INSERT_ID() AS ID
 	</selectKey>-->
@@ -129,7 +129,7 @@
 	</select>
 	
 	<!-- 更新all -->
-	<update id="updateAll" parameterType="com.ez.system.entity.SysRole">
+	<update id="updateAll" parameterType="com.ez.modules.system.entity.SysRole">
 	    UPDATE sys_role SET
 	        ROLE_NAME = #{roleName} ,
 	        RIGHTS = #{rights} ,
@@ -153,7 +153,7 @@
 	</sql>
 	
 	<!-- 更新Selective -->
-	<update id="modify" parameterType="com.ez.system.entity.SysRole">
+	<update id="modify" parameterType="com.ez.modules.system.entity.SysRole">
 	    UPDATE sys_role 
 		<include refid="updateset"/>
         WHERE 

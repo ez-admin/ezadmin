@@ -4,13 +4,13 @@
 
 
 <!-- 不使用namespace的话sql搜索定位会比较方便 -->
-<mapper namespace="com.ez.system.dao.SysOptionDao">
+<mapper namespace="com.ez.modules.system.dao.SysOptionDao">
 
 	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
 	<!--<cache type="org.mybatis.caches.ehcache.EhcacheCache" />-->
 
-	<resultMap id="SysOption" type="com.ez.system.entity.SysOption">
+	<resultMap id="SysOption" type="com.ez.modules.system.entity.SysOption">
 		<result property="oid" column="oId"/>
 		<result property="optionValue" column="optionValue"/>
 		<result property="optionName" column="optionName"/>
@@ -31,7 +31,7 @@
 		ORDER BY  optionOrder
 	</select>
 	
-	<select id="query" resultMap="SysOption" parameterType="com.ez.system.entity.SysOption">
+	<select id="query" resultMap="SysOption" parameterType="com.ez.modules.system.entity.SysOption">
 		select
 		<include refid="selectId" />
 		from sys_option
@@ -55,13 +55,13 @@
 	</sql>
 
 	<!-- 总记录数 -->
-	<select id="count" parameterType="com.ez.system.entity.SysOption" resultType="int">
+	<select id="count" parameterType="com.ez.modules.system.entity.SysOption" resultType="int">
 		select count(0) from sys_option
 		<include refid="querywhere"/>
 	</select>
 	
 	<!-- 新增 -->
-	<insert id="addAll" parameterType="com.ez.system.entity.SysOption">
+	<insert id="addAll" parameterType="com.ez.modules.system.entity.SysOption">
 		INSERT INTO sys_option (
 			oId ,
         	optionValue ,
@@ -77,7 +77,7 @@
 	</insert>
 	
 	<!-- 新增Selective -->
-	<insert id="add" parameterType="com.ez.system.entity.SysOption">
+	<insert id="add" parameterType="com.ez.modules.system.entity.SysOption">
 		INSERT INTO sys_option
 		<include refid="addtrim"/>
 	</insert>
@@ -128,7 +128,7 @@
 	</select>
 
 	<!-- 更新all -->
-	<update id="updateAll" parameterType="com.ez.system.entity.SysOption">
+	<update id="updateAll" parameterType="com.ez.modules.system.entity.SysOption">
 	    UPDATE sys_option SET
 	        optionValue = #{optionValue} ,
 	        optionName = #{optionName} ,
@@ -152,7 +152,7 @@
 	</sql>
 	
 	<!-- 更新Selective -->
-	<update id="modify" parameterType="com.ez.system.entity.SysOption">
+	<update id="modify" parameterType="com.ez.modules.system.entity.SysOption">
 	    UPDATE sys_option 
 		<include refid="updateset"/>
         WHERE 

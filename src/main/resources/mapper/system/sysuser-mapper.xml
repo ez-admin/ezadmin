@@ -4,8 +4,8 @@
 
 
 <!-- 不使用namespace的话sql搜索定位会比较方便 -->
-<mapper namespace="com.ez.system.dao.SysUserDao">
-	<resultMap id="SysUser" type="com.ez.system.entity.SysUser">
+<mapper namespace="com.ez.modules.system.dao.SysUserDao">
+	<resultMap id="SysUser" type="com.ez.modules.system.entity.SysUser">
         <result property="userno" column="USERNO"/>
         <result property="lognm" column="LOGNM"/>
         <result property="logpwd" column="LOGPWD"/>
@@ -59,7 +59,7 @@
 		from sys_user
 	</select>
 
-	<select id="query" resultMap="SysUser" parameterType="com.ez.system.entity.SysUser" >
+	<select id="query" resultMap="SysUser" parameterType="com.ez.modules.system.entity.SysUser" >
 		select
 		<include refid="selectId" />
 		from sys_user
@@ -134,19 +134,19 @@
 		</where>
 	</sql>
 	<!-- 检查密码是否正确 -->
-	<select id="checkpwd" parameterType="com.ez.system.entity.SysUser" resultType="int" >
+	<select id="checkpwd" parameterType="com.ez.modules.system.entity.SysUser" resultType="int" >
 		select count(0) from sys_user
 		where LOGNM = #{lognm}
 		AND LOGPWD = #{logpwd}
 	</select>
 	<!-- 总记录数 -->
-	<select id="count" parameterType="com.ez.system.entity.SysUser" resultType="int" >
+	<select id="count" parameterType="com.ez.modules.system.entity.SysUser" resultType="int" >
 		select count(0) from sys_user
 		<include refid="querywhere"/>
 	</select>
 	
 	<!-- 新增 -->
-	<insert id="addAll" parameterType="com.ez.system.entity.SysUser">
+	<insert id="addAll" parameterType="com.ez.modules.system.entity.SysUser">
 	<!--<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="id" >
         SELECT LAST_INSERT_ID() AS ID   
     </selectKey>-->
@@ -196,7 +196,7 @@
 	</insert>
 	
 	<!-- 新增Selective -->
-	<insert id="add" parameterType="com.ez.system.entity.SysUser">
+	<insert id="add" parameterType="com.ez.modules.system.entity.SysUser">
 	<!--<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="id" >
 	        SELECT LAST_INSERT_ID() AS ID
 	</selectKey>-->
@@ -344,24 +344,30 @@
 	        WHERE 
         USERNO = #{id} 
 	</select>
-	<select id="getByAll" resultMap="SysUser" parameterType="com.ez.system.entity.SysUser">
+	<select id="getByAll" resultMap="SysUser" parameterType="com.ez.modules.system.entity.SysUser">
 		SELECT <include refid="selectId" />
 		FROM sys_user
 		WHERE LOGNM=#{lognm}
 	</select>
-    <select id="listByRid" resultType="com.ez.system.entity.SysUser" parameterType="String">
+    <select id="listByRid" resultType="com.ez.modules.system.entity.SysUser" parameterType="String">
 		SELECT <include refid="selectId" />
 		FROM sys_user
 		WHERE RLID = #{ids}
 	</select>
-	<select id="listByDptno" resultType="com.ez.system.entity.SysUser">
+	<select id="listByDptno" resultType="com.ez.modules.system.entity.SysUser">
 		SELECT <include refid="selectId" />
 		FROM sys_user
 		WHERE DPTNO = #{ids}
 	</select>
+    <select id="findByUsername" resultType="com.ez.modules.system.entity.SysUser" parameterType="String">
+		SELECT <include refid="selectId" />
+		FROM sys_user
+		WHERE
+		LOGNM = #{lognm}
+	</select>
 
-	<!-- 更新all -->
-	<update id="updateAll" parameterType="com.ez.system.entity.SysUser">
+    <!-- 更新all -->
+	<update id="updateAll" parameterType="com.ez.modules.system.entity.SysUser">
 	    UPDATE sys_user SET
 	        LOGNM = #{lognm} ,
 	        LOGPWD = #{logpwd} ,
@@ -449,7 +455,7 @@
 	</sql>
 	
 	<!-- 更新Selective -->
-	<update id="modify" parameterType="com.ez.system.entity.SysUser">
+	<update id="modify" parameterType="com.ez.modules.system.entity.SysUser">
 	    UPDATE sys_user 
 		<include refid="updateset"/>
         WHERE 

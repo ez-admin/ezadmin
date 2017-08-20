@@ -1,11 +1,11 @@
 package com.ez.ssm;
 
-import com.ez.scheduled.Syslogdeletetask;
-import com.ez.system.entity.SysMenu;
-import com.ez.system.service.SysMenuService;
-import com.ez.system.service.SysUserService;
-import com.ez.util.RightsHelper;
-import com.ez.util.Tools;
+import com.ez.commons.scheduled.Syslogdeletetask;
+import com.ez.modules.system.entity.SysMenu;
+import com.ez.modules.system.service.SysMenuService;
+import com.ez.modules.system.service.SysUserService;
+import com.ez.commons.util.RightsHelper;
+import com.ez.commons.util.Tools;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

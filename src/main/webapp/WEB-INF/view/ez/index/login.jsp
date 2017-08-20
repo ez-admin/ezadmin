@@ -47,7 +47,10 @@ String basePath = request.getScheme() + "://"
 <script>
     $(function(){
         <c:if test="${id !=null && id == 1}">
-        top.location.href = "/ez/syslogin/loginsession/2.do";
+            top.location.href = "/ez/syslogin/loginsession/2.do";
+        </c:if>
+        <c:if test="${id !=null && id == 3}">
+            top.location.href = "/ez/syslogin/loginsession/4.do";
         </c:if>
         //粒子背景特效
         $('body').particleground({
@@ -67,6 +70,9 @@ String basePath = request.getScheme() + "://"
 
             }
         });
+        </c:if>
+        <c:if test="${id !=null && id == 4}">
+        top.layer.alert('会话超时，请重新登录！', {icon: 7});
         </c:if>
     });
 </script>

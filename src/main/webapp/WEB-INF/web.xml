@@ -61,7 +61,7 @@
 
   <filter>
     <filter-name>timerFilter</filter-name>
-    <filter-class>com.ez.filter.TimerFilter</filter-class>
+    <filter-class>com.ez.commons.filter.TimerFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>timerFilter</filter-name>
@@ -106,7 +106,7 @@
   <!--登陆过滤器-->
   <filter>
     <filter-name>loginFilter</filter-name>
-    <filter-class>com.ez.filter.LoginFilter</filter-class>
+    <filter-class>com.ez.commons.filter.LoginFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>loginFilter</filter-name>
@@ -153,12 +153,12 @@
   <!-- ############################################ servlet end  ############################################ -->
 
   <!-- 配置SESSION超时，单位是分钟 -->
-  <!--<session-config>
+  <session-config>
     <session-timeout>30</session-timeout>
-  </session-config>-->
+  </session-config>
   <!-- 配置404页面 -->
-  <error-page>
+  <!--<error-page>
     <error-code>404</error-code>
     <location>/WEB-INF/view/error/404.jsp</location>
-  </error-page>
+  </error-page>-->
 </web-app>

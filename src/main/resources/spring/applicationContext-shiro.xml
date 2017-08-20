@@ -2,15 +2,12 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
 http://www.springframework.org/schema/context
-http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+http://www.springframework.org/schema/context/spring-context-4.2.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
     <!--上面的xsd最好和当前使用的Spring版本号一致,如果换了Spring版本,这个最好也跟着改-->
-
-    <!-- 加载配置属性文件 -->
-    <context:property-placeholder ignore-unresolvable="true" location="classpath:properties/config.properties" />
-    <!-- ================ Shiro start ================ -->
 
 
     <!-- Shiro Filter -->
@@ -19,22 +16,22 @@ http://www.springframework.org/schema/context/spring-context-4.2.xsd">
         <property name="securityManager" ref="securityManager" />
         <!-- 要求登录时的链接,非必须的属性,默认会自动寻找Web工程根目录下的"/login1.jsp"页面或者自己指定的路径地址 -->
         <property name="loginUrl" value="/ez/syslogin/login_toLogin.do" />
-        <!-- 登陆成功后要跳转的连接，非必须的属性,如果自己已经设置登陆成功的地址 -->
-        <property name="successUrl" value="/ez/syslogin/index.do" />
         <!-- 未授权时要跳转的连接 -->
         <property name="unauthorizedUrl" value="/ez/syslogin/login_toLogin.do" />
-        <!-- shiro连接约束配置 -->
-        <!--匿名拦截器，即不需要登录即可访问；一般用于静态资源过滤；示例“/static/**=anon”-->
         <property name="filterChainDefinitions">
             <value>
-                /ez/front/index.do                  = anon
-                /static/** 		        	        = anon
-                /ez/syslogin/login_toLogin.do   	= anon
-                /*.do       					    = authc
+                / = anon
+                /*.jsp = anon
+                /ez/front/**  = anon
+                /static/** 	= anon
+                /ez/syslogin/login_toLogin.do  = anon
+                /*.do = authc
+                <!--单用户登录请求拦截，设置shiro 不拦截以下两个地址 add by chenez at 20170706-->
+                /removeSession.do = anon
+                /loginsession/** = anon
             </value>
         </property>
     </bean>
-
 
 
     <!--如果要使用注解，你在Spring的配置文件中需要先加上这个Shiro提供的注解切面，否则注解是不起作用的。
@@ -46,17 +43,17 @@ http://www.springframework.org/schema/context/spring-context-4.2.xsd">
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="ShiroRealm" />
         <property name="cacheManager" ref="cacheManager"></property>
-        <property name="sessionManager" ref="sessionManager" />
-        <!--<property name="rememberMeManager" ref="rememberMeManager"/>-->
+       <!-- <property name="sessionManager" ref="sessionManager" />-->
+        <property name="rememberMeManager" ref="rememberMeManager"/>
     </bean>
-    <!-- session管理器 -->
-    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+    <!-- session管理器 http://blog.csdn.net/u012737182/article/details/53147097-->
+    <!--<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
         <property name="sessionDAO" ref="sessionDAO"/>
-        <!--单位：毫秒 60分钟-->
-        <property name="globalSessionTimeout" value="3600000"/>
-        <!-- 定时清理失效会话, 清理用户直接关闭浏览器造成的孤立会话   -->
-        <property name="sessionValidationInterval" value="120000"/>
-        <!--  		<property name="sessionValidationSchedulerEnabled" value="false"/> -->
+        &lt;!&ndash;单位：毫秒 &ndash;&gt;
+        <property name="globalSessionTimeout" value="${session.sessionTimeout}"/>
+        &lt;!&ndash; 定时清理失效会话, 清理用户直接关闭浏览器造成的孤立会话   &ndash;&gt;
+        <property name="sessionValidationInterval" value="${session.sessionTimeoutClean}"/>
+        &lt;!&ndash;<property name="sessionValidationSchedulerEnabled" value="false"/> &ndash;&gt;
         <property name="sessionValidationSchedulerEnabled" value="true"/>
 
         <property name="sessionIdCookie" ref="sessionIdCookie"/>
@@ -65,45 +62,47 @@ http://www.springframework.org/schema/context/spring-context-4.2.xsd">
     <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
         <property name="activeSessionsCacheName" value="activeSessionsCache" />
         <property name="cacheManager" ref="cacheManager" />
-    </bean>
+    </bean>-->
     <!-- 指定本系统SESSIONID, 默认为: JSESSIONID 问题: 与SERVLET容器名冲突, 如JETTY, TOMCAT 等默认JSESSIONID,
           当跳出SHIRO SERVLET时如ERROR-PAGE容器会为JSESSIONID重新分配值导致登录会话丢失! -->
-    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+    <!--<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
         <constructor-arg name="name" value="ezadmin.session.id"/>
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="-1"/>
     </bean>
+-->
     <!-- 缓存管理器 使用Ehcache实现 -->
     <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
         <property name="cacheManagerConfigFile" value="classpath:ehcache/ehcache.xml"/>
     </bean>
 
-    <!-- CAS认证过滤器 -->
-  <!--  <bean id="casFilter" class="org.apache.shiro.cas.CasFilter">
-        <property name="failureUrl" value="/ez/syslogin/login_toLogin.do"/>
-    </bean>-->
 
     <!-- 項目自定义的Realm -->
-    <bean id="ShiroRealm" class="com.ez.interceptor.shiro.ShiroRealm" ></bean>
+    <bean id="ShiroRealm" class="com.ez.commons.interceptor.shiro.ShiroRealm" >
+    </bean>
 
 
-
+    <!-- CAS认证过滤器 -->
+    <!--<bean id="casFilter" class="org.apache.shiro.cas.CasFilter">
+        <property name="failureUrl" value="/ez/syslogin/login_toLogin.do"/>
+    </bean>-->
     <!--remember me功能-->
     <!-- 会话Cookie模板 -->
-    <!--<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+   <!-- <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
         <constructor-arg value="sid"/>
         <property name="httpOnly" value="true"/>
         <property name="maxAge" value="-1"/>
-    </bean>
+    </bean>-->
     <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
         <constructor-arg value="rememberMe"/>
         <property name="httpOnly" value="true"/>
-        <property name="maxAge" value="2592000"/>&lt;!&ndash; 30天 &ndash;&gt; &lt;!&ndash;参数-1，表示关闭就失效&ndash;&gt;
+        <property name="maxAge" value="2592000"/><!-- 30天 2592000 --> <!--参数-1，表示关闭就失效-->
     </bean>
-    &lt;!&ndash; rememberMe管理器 &ndash;&gt;
+    <!-- rememberMe管理器 -->
     <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
         <property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>
         <property name="cookie" ref="rememberMeCookie"/>
-    </bean>-->
-
+    </bean>
     <!-- ================ Shiro end ================ -->
 
 </beans>

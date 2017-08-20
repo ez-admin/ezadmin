@@ -4,13 +4,13 @@
 
 
 <!-- 不使用namespace的话sql搜索定位会比较方便 -->
-<mapper namespace="com.ez.cms.dao.CmsTagDao">
+<mapper namespace="com.ez.modules.cms.dao.CmsTagDao">
 
 	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
 	<!--<cache type="org.mybatis.caches.ehcache.EhcacheCache" />-->
 
-	<resultMap id="CmsTag" type="com.ez.cms.entity.CmsTag">
+	<resultMap id="CmsTag" type="com.ez.modules.cms.entity.CmsTag">
 		<result property="cmsTagId" column="cms_tag_id"/>
 		<result property="cmsName" column="cms_name"/>
 		<result property="cmsCreationTime" column="cms_creation_time"/>
@@ -33,7 +33,7 @@
 		from cms_tag
 	</select>
 	
-	<select id="query" resultMap="CmsTag" parameterType="com.ez.cms.entity.CmsTag">
+	<select id="query" resultMap="CmsTag" parameterType="com.ez.modules.cms.entity.CmsTag">
 		select
 		<include refid="selectId" />
 		from cms_tag
@@ -59,13 +59,13 @@
 	</sql>
 
 	<!-- 总记录数 -->
-	<select id="count" parameterType="com.ez.cms.entity.CmsTag" resultType="int">
+	<select id="count" parameterType="com.ez.modules.cms.entity.CmsTag" resultType="int">
 		select count(0) from cms_tag
 		<include refid="querywhere"/>
 	</select>
 	
 	<!-- 新增 -->
-	<insert id="addAll" parameterType="com.ez.cms.entity.CmsTag">
+	<insert id="addAll" parameterType="com.ez.modules.cms.entity.CmsTag">
 		<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="cmsTagId" >
 			SELECT LAST_INSERT_ID() AS cmsTagId
 		</selectKey>
@@ -81,7 +81,7 @@
 	</insert>
 	
 	<!-- 新增Selective -->
-	<insert id="add" parameterType="com.ez.cms.entity.CmsTag">
+	<insert id="add" parameterType="com.ez.modules.cms.entity.CmsTag">
 		<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="cmsTagId" >
 			SELECT LAST_INSERT_ID() AS cmsTagId
 		</selectKey>
@@ -136,7 +136,7 @@
 	</select>
 
 	<!-- 更新all -->
-	<update id="updateAll" parameterType="com.ez.cms.entity.CmsTag">
+	<update id="updateAll" parameterType="com.ez.modules.cms.entity.CmsTag">
 	    UPDATE cms_tag SET
 	        cms_name = #{cmsName} ,
 	        cms_creation_time = #{cmsCreationTime} ,
@@ -160,7 +160,7 @@
 	</sql>
 	
 	<!-- 更新Selective -->
-	<update id="modify" parameterType="com.ez.cms.entity.CmsTag">
+	<update id="modify" parameterType="com.ez.modules.cms.entity.CmsTag">
 	    UPDATE cms_tag 
 		<include refid="updateset"/>
         WHERE 

@@ -167,7 +167,7 @@ String basePath = request.getScheme() + "://"
 		        	<!-- Mobile Toggle Menu Button -->
 					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
 		         <a class="navbar-brand" href="#">智侒信</a>
-					<a href="/ez/syslogin/login_toLogin.do">系统后台</a>
+
 		        </div>
 		        <div id="navbar" class="navbar-collapse collapse">
 		          <ul class="nav navbar-nav navbar-right">
@@ -628,6 +628,7 @@ String basePath = request.getScheme() + "://"
 			<div class="">
 				<div class="col-md-12 text-center">
 					<p>&copy; 安徽智侒信信息技术有限公司. All Rights Reserved. <br>Created by chenenz technology support 2017</p>
+					<a href="/ez/syslogin/index.do">系统后台</a>
 				</div>
 			</div>
 			<div class="row">

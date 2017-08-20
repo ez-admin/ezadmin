@@ -4,13 +4,13 @@
 
 
 <!-- 不使用namespace的话sql搜索定位会比较方便 -->
-<mapper namespace="com.ez.cms.dao.CmsNodeDao">
+<mapper namespace="com.ez.modules.cms.dao.CmsNodeDao">
 
 	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
 	<!--<cache type="org.mybatis.caches.ehcache.EhcacheCache" />-->
 
-	<resultMap id="CmsNode" type="com.ez.cms.entity.CmsNode">
+	<resultMap id="CmsNode" type="com.ez.modules.cms.entity.CmsNode">
 		<result property="cmsNodeId" column="cms_node_id"/>
 		<result property="cmsNodeName" column="cms_node_name"/>
 		<result property="cmsNodeCode" column="cms_node_code"/>
@@ -46,7 +46,7 @@
 		from cms_node
 	</select>
 	
-	<select id="query" resultMap="CmsNode" parameterType="com.ez.cms.entity.CmsNode">
+	<select id="query" resultMap="CmsNode" parameterType="com.ez.modules.cms.entity.CmsNode">
 		select
 		<include refid="selectId" />
 		from cms_node
@@ -84,13 +84,13 @@
 	</sql>
 
 	<!-- 总记录数 -->
-	<select id="count" parameterType="com.ez.cms.entity.CmsNode" resultType="int">
+	<select id="count" parameterType="com.ez.modules.cms.entity.CmsNode" resultType="int">
 		select count(0) from cms_node
 		<include refid="querywhere"/>
 	</select>
 	
 	<!-- 新增 -->
-	<insert id="addAll" parameterType="com.ez.cms.entity.CmsNode">
+	<insert id="addAll" parameterType="com.ez.modules.cms.entity.CmsNode">
 		<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="cmsNodeId" >
 			SELECT LAST_INSERT_ID() AS cmsNodeId
 		</selectKey>
@@ -114,7 +114,7 @@
 	</insert>
 	
 	<!-- 新增Selective -->
-	<insert id="add" parameterType="com.ez.cms.entity.CmsNode">
+	<insert id="add" parameterType="com.ez.modules.cms.entity.CmsNode">
 		<selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="cmsNodeId" >
 			SELECT LAST_INSERT_ID() AS cmsNodeId
 		</selectKey>
@@ -202,7 +202,7 @@
 			AND cms_node_state = '${cmsNodeState}'
 		</if>
 	</select>
-	<select id="getChildrenCityList" resultMap="CmsNode" parameterType="com.ez.cms.entity.CmsNode">
+	<select id="getChildrenCityList" resultMap="CmsNode" parameterType="com.ez.modules.cms.entity.CmsNode">
 		SELECT <include refid="selectId" />
 		FROM cms_node
 		WHERE
@@ -228,7 +228,7 @@
 	</select>
 
     <!-- 更新all -->
-	<update id="updateAll" parameterType="com.ez.cms.entity.CmsNode">
+	<update id="updateAll" parameterType="com.ez.modules.cms.entity.CmsNode">
 	    UPDATE cms_node SET
 	        cms_node_name = #{cmsNodeName} ,
 	        cms_node_code = #{cmsNodeCode} ,
@@ -268,7 +268,7 @@
 	</sql>
 	
 	<!-- 更新Selective -->
-	<update id="modify" parameterType="com.ez.cms.entity.CmsNode">
+	<update id="modify" parameterType="com.ez.modules.cms.entity.CmsNode">
 	    UPDATE cms_node 
 		<include refid="updateset"/>
         WHERE 

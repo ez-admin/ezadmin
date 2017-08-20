@@ -46,10 +46,11 @@
 
     <!--框架整体结构-->
     <spring.version>4.2.5.RELEASE</spring.version>
-    <spring-data-jpa.version>1.10.1.RELEASE</spring-data-jpa.version>
-    <hibernate.version>4.3.11.Final</hibernate.version>
+    <!--<spring-data-jpa.version>1.10.1.RELEASE</spring-data-jpa.version>-->
+    <!--<hibernate.version>4.3.11.Final</hibernate.version>-->
     <mybatisversion>3.4.1</mybatisversion>
     <mybatispringversion>1.3.0</mybatispringversion>
+    <activiti.version>5.22.0</activiti.version>
 
     <!--下面这两个是springAOP需要用到-->
     <!--spring-aspects依赖这个，所以这个也可以注释掉，除非有特定jar需要更高或是更低版本的时候我们再来指定-->
@@ -246,6 +247,22 @@
       <version>${hibernate.version}</version>
     </dependency>-->
 
+    <dependency>
+      <groupId>org.activiti</groupId>
+      <artifactId>activiti-engine</artifactId>
+      <version>${activiti.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.activiti</groupId>
+      <artifactId>activiti-spring</artifactId>
+      <version>${activiti.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>1.4.193</version>
+    </dependency>
 
     <!--ehcache 缓存 start mybatis3.0版本以后支持缓存-->
    <dependency>

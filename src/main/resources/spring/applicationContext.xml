@@ -25,10 +25,6 @@ http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcac
 
 
 
-
-    <!--springBean工具类（暂无使用）-->
-    <!--<bean class="com.ez.util.SpringBeanUtil"></bean>-->
-
     <!-- 启动对@AspectJ注解的支持 -->
     <aop:aspectj-autoproxy />
 
@@ -96,8 +92,8 @@ http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcac
     <!--http://blog.csdn.net/u012763117/article/details/17253849-->
     <!--http://casheen.iteye.com/blog/295348-->
     <!--http://blog.csdn.net/zhang854429783/article/details/6785574-->
-    <context:component-scan base-package="com.ez.**.service,com.ez.annotation,com.ez.interceptor"/>
-    <!--<context:component-scan base-package="com.ez.**.service,com.ez.annotation,com.ez.interceptor,com.ez.thread"/>添加扫描线程包-->
+    <context:component-scan base-package="com.ez.**.**.service,com.ez.commons.annotation,com.ez.commons.interceptor"/>
+    <!--<context:component-scan base-package="com.ez.**.servcom.ez.commons.annotationtcom.ez.commons.interceptorpcom.ez.commons.threadread"/>添加扫描线程包-->
 
 
     <!-- 声明事务管理器，基于数据库的事务管理 -->
@@ -138,13 +134,13 @@ http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcac
         <constructor-arg ref="sqlSessionFactory"/>
     </bean>
     <!-- 映射接口直接转换为spring容器的bean -->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.*.*.dao"/>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.*.*.*.dao"/>
 
 
     <!-- 开启定时器 -->
     <task:annotation-driven/>
     <!-- 配置定时类 -->
-    <bean id="syslogdeletetask" class="com.ez.scheduled.Syslogdeletetask"></bean>
+    <bean id="syslogdeletetask" class="com.ez.commons.scheduled.Syslogdeletetask"></bean>
     <!-- 配置定时方法 -->
     <task:scheduled-tasks>
         <!-- 每天凌晨三点执行定时删除日志表里的数据 -->
