@@ -1,6 +1,7 @@
 package com.ez.ssm;
 
 import com.ez.commons.scheduled.Syslogdeletetask;
+import com.ez.commons.support.PropertyUtils;
 import com.ez.modules.system.entity.SysMenu;
 import com.ez.modules.system.service.SysMenuService;
 import com.ez.modules.system.service.SysUserService;
@@ -79,5 +80,16 @@ public class SSMTest {
 		}else{
 			System.out.println("为空");
 		}
+	}
+
+	/**
+	 * 从配置文件取参数
+	 */
+	@Test
+	public void getparmbyfile(){
+		String url=PropertyUtils.getProperty("data_source_url");
+		//String url= ConfigUtils.getPropertyValue("data_source_url");
+		System.out.println("url ======================================== " + url+"=============================");
+
 	}
 }

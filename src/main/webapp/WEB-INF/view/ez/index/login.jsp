@@ -16,7 +16,15 @@ String basePath = request.getScheme() + "://"
     <title>系统登录</title>
     <link rel="stylesheet" href="/static/css/loginp.css" />
     <style>
-        body{height:100%;background:#16a085;overflow:hidden;}
+        /*body{height:100%;background:#3c8dbc;overflow:hidden;}*/
+        body{height:100%;
+            background-color: #3c8dbc;
+            //background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zd…AiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InVybCgjdnNnZykiIC8+PC9zdmc+);
+            background-image: -webkit-gradient(linear, 0% 0%, 100% 100%, color-stop(0, #3f95ea), color-stop(1, #52d3aa));
+            background-image: -webkit-repeating-linear-gradient(top left, #3f95ea 0%, #52d3aa 100%);
+            background-image: repeating-linear-gradient(to bottom right, #3f95ea 0%, #52d3aa 100%);
+            background-image: -ms-repeating-linear-gradient(top left, #3f95ea 0%, #52d3aa 100%);
+            overflow:hidden;}
         canvas{z-index:-1;position:absolute;}
     </style>
 </head>
@@ -27,15 +35,17 @@ String basePath = request.getScheme() + "://"
         <strong>EzAadmin 后台管理系统</strong>
         <em>EzAadmin Management System</em>
     </dt>
-    <dd class="user_icon">
-        <input type="text" name="userName" id="username" placeholder="请输入账号" class="login_txtbx">
-    </dd>
-    <dd class="pwd_icon">
-        <input type="password" name="password" id="password" placeholder="请输入密码" class="login_txtbx">
-    </dd>
-    <dd>
-        <input type="button" onclick="login()" value="立即登陆" class="submit_btn">
-    </dd>
+    <form id="loginform" action="/ez/syslogin/login.do" method="post">
+        <dd class="user_icon">
+            <input type="text" name="username" id="username" placeholder="请输入账号" class="login_txtbx">
+        </dd>
+        <dd class="pwd_icon">
+            <input type="password" name="password" id="password" placeholder="请输入密码" class="login_txtbx">
+        </dd>
+        <dd>
+            <input type="button" onclick="login()" value="立即登陆" class="submit_btn">
+        </dd>
+    </form>
     <dd>
         <p>ezAdmin © www.chenez.cn 版权所有</p>
     </dd>
@@ -46,37 +56,19 @@ String basePath = request.getScheme() + "://"
 <script type="text/javascript" src="/static/js/Particleground.js" charset="utf-8"></script>
 <script>
     $(function(){
-        <c:if test="${id !=null && id == 1}">
-            top.location.href = "/ez/syslogin/loginsession/2.do";
-        </c:if>
-        <c:if test="${id !=null && id == 3}">
-            top.location.href = "/ez/syslogin/loginsession/4.do";
-        </c:if>
         //粒子背景特效
         $('body').particleground({
-            dotColor: '#5cbdaa',
-            lineColor: '#5cbdaa'
+            /*dotColor: '#5cbdaa',
+            lineColor: '#5cbdaa'*/
+            dotColor: 'rgba(255, 255, 255, 0.6)',
+            lineColor: 'rgba(255, 255, 255, 0.6)'
         });
     });
-</script>
-<script >
-    $(function() {
-        <c:if test="${id !=null && id == 2}">
-        top.layer.alert('您的账号正在另一客户端登录！', {icon: 7});
-        $.ajax({
-            url: "/ez/syslogin/removeSession.do",
-            type: "POST",
-            success: function (result) {
 
-            }
-        });
-        </c:if>
-        <c:if test="${id !=null && id == 4}">
-        top.layer.alert('会话超时，请重新登录！', {icon: 7});
-        </c:if>
-    });
-</script>
-<script>
+    <c:if test="${!empty loginmessage}">
+        top.layer.alert("${loginmessage}", {icon: 7});
+    </c:if>
+
     //监听enter事件
     $(function(){
         $("#username").focus();
@@ -94,14 +86,14 @@ String basePath = request.getScheme() + "://"
     //客户端校验
     function check() {
         if ($("#username").val() == "") {
-            layer.msg("用户名不能为空！", {icon: 7});
+            top.layer.msg("用户名不能为空！", {icon: 7});
             $("#username").focus();
             return false;
         } else {
             $("#username").val(jQuery.trim($('#username').val()));
         }
         if ($("#password").val() == "") {
-            layer.msg("密码不能为空！", {icon: 7});
+            top.layer.msg("密码不能为空！", {icon: 7});
             $("#password").focus();
             return false;
         }
@@ -110,23 +102,13 @@ String basePath = request.getScheme() + "://"
     //登陆
     function login() {
         if (check()) {
-            var username = $("#username").val();
-            var password = md5($("#password").val());
-            //登录处理
-            $.post("/ez/syslogin/login.do",
-                    {"lognm": username, "logpwd": password},
-                    function (result) {
-                        if (result == null) {
-                            layer.msg('登陆失败！', {icon: 2});
-                            return false;
-                        } else if (result.status == "true" || result.status == true) {
-                            layer.msg('登陆成功！', {icon: 1});
-                            window.location.href = "/ez/syslogin/index.do";
-                        } else {
-                            layer.msg(result.message, {icon: 7});
-                            return false;
-                        }
-                    }, "json");
+            //$(".submit_btn").attr("disabled","disabled");
+            top.layer.load();
+            /*top.layer.msg('正在登陆中，请稍后...', {
+                icon: 16
+                ,shade: 0.01
+            });*/
+            $("#loginform").submit();
         }
     }
 </script>

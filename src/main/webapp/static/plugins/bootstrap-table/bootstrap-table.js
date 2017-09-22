@@ -318,9 +318,9 @@
         pageNumber: 1,
         pageSize: 10,
         pageList: [10, 25, 50, 100],
-        paginationHAlign: 'right', //right, left
+        paginationHAlign: 'left', //right, left
         paginationVAlign: 'bottom', //bottom, top, both
-        paginationDetailHAlign: 'left', //right, left
+        paginationDetailHAlign: 'right', //right, left
         paginationPreText: '&lsaquo;',
         paginationNextText: '&rsaquo;',
         search: false,
@@ -357,7 +357,7 @@
         searchTimeOut: 500,
         searchText: '',
         iconSize: undefined,
-        buttonsClass: 'default',
+        buttonsClass: 'default',//默认default
         iconsPrefix: 'glyphicon', // glyphicon of fa (font awesome)
         icons: {
             paginationSwitchDown: 'glyphicon-collapse-down icon-chevron-down',

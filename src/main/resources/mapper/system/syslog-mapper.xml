@@ -6,7 +6,11 @@
 <!-- 不使用namespace的话sql搜索定位会比较方便 -->
 <mapper namespace="com.ez.modules.system.dao.SysLogDao">
 
-		<resultMap id="SysLog" type="com.ez.modules.system.entity.SysLog">
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache" />
+
+	<resultMap id="SysLog" type="com.ez.modules.system.entity.SysLog">
         <result property="id" column="id"/>
         <result property="mehtoddescription" column="mehtoddescription"/>
         <result property="exceptionCode" column="exceptionCode"/>

@@ -34,7 +34,7 @@
 
     $.extend($.fn.bootstrapTable.locales, {
         formatExport: function () {
-            return 'Export data';
+            return '导出数据';
         }
     });
     $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);

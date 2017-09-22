@@ -1,6 +1,6 @@
 package com.ez.commons.util;
 
-import com.ez.commons.base.DataParseException;
+import com.ez.commons.exception.DataParseException;
 
 import java.text.DateFormat;
 import java.text.ParseException;

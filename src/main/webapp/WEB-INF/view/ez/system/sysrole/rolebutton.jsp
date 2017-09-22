@@ -55,12 +55,17 @@
         // 默认展开全部节点
         zTree.expandAll(true);
 
+        //让第三级按钮菜单横向排列
+        $("#tree").find("ul").find("ul").find("li").css("float","left");
+        $("#tree").find("ul").find("ul").append("<div class='clearfix'></div>");
+        $("#tree").find("ul").find("ul").find("li").find("span:first-child").css("background","none");
+        $("#tree").find("ul").find("ul").find("li").find("a").find("span:first-child").css("width","0");
         //让第四级按钮菜单横向排列
-        $("#tree").find("ul").find("ul").find("ul").find("li").css("float","left");
+/*      $("#tree").find("ul").find("ul").find("ul").find("li").css("float","left");
         $("#tree").find("ul").find("ul").find("ul").append("<div class='clearfix'></div>");
         $("#tree").find("ul").find("ul").find("ul").find("li").find("span:first-child").css("background","none");
         $("#tree").find("ul").find("ul").find("ul").find("li").find("a").find("span:first-child").css("width","0");
-
+*/
     });
     //Demo
     layui.use(['layer', 'form','jquery'], function(){

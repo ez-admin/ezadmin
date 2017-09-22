@@ -15,7 +15,7 @@ em.required{color:red;font-style:normal;padding-right: 5px;}
 .layui-form-label-quote{
     float: left;
     display: block;
-    padding: 6px 8px 0px 0px;
+    padding: 6px 8px 0 0;
     font-weight: normal;
     font-size: 14px!important;
 }
@@ -40,10 +40,10 @@ em.required{color:red;font-style:normal;padding-right: 5px;}
 }
 /*Boostrap table css*/
 body .fixed-table-toolbar:first-child{
-    padding: 5px 5px 0px;
+    padding: 5px 5px 0;
     margin-bottom: 10px!important;
     line-height:34px;
-    border-left: 5px solid #009688;
+    border-left: 5px solid #3c8dbc;
     border-radius: 0 2px 2px 0;
     background-color: #f2f2f2;
 }
@@ -64,3 +64,24 @@ body .fixed-table-toolbar:first-child .bs-bars,body .fixed-table-toolbar:first-c
     padding-left: 10px;
 }
 
+.body-group {padding-bottom:8px;margin-bottom:0;border-bottom:1px dotted #dddddd;}
+.control-input{
+    display: block;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.box-body {
+    margin:10px 15px;
+}

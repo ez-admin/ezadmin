@@ -5,33 +5,70 @@
 <html lang="en">
 <head>
 	<title>系统字典类型列表</title>
-	<%@ include file="/WEB-INF/view/ez/index/listpublictop.jsp"%>
+	<%
+		String path = request.getContextPath();
+		String basePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ path;
+	%>
+	<base href="<%=basePath%>">
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<%--<link rel="stylesheet" href="/static/plugins/layui/css/layui.css" media="all" />--%>
+	<link rel="stylesheet" href="/static/plugins/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/static/css/public.css" class="css">
+	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap.min.css">
+	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap-table.css">
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="/static/js/html5shiv.min.js"></script>
+	<script src="/static/js/respond.min.js"></script>
+	<![endif]-->
+
+	<script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
+	<script type="text/javascript" src="/static/plugins/layer/layer.js"></script>
+	<%--<script type="text/javascript" src="/static/plugins/layui/lay/dest/layui.all.js"></script>--%>
+	<script src="/static/plugins/bootstrap-table/bootstrap.min.js"></script>
+	<script src="/static/plugins/bootstrap-table/bootstrap-table.js"></script>
+	<script src="/static/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+	<script src="/static/plugins/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
+	<script src="/static/plugins/bootstrap-table/extensions/tableExport/tableExport.js"></script>
+
+	<%--<%@ include file="/WEB-INF/view/ez/index/listpublictop.jsp"%>--%>
 </head>
 
 <body>
-	<form class="layui-form" id="formSearch">
+	<form id="formSearch" class="form-inline">
         <shiro:hasPermission name="sysdictype_query">
-		<div class="layui-input-inline">
-			<input id="code" name="code" maxlength="4" placeholder="请输入类型编码" type="text" class="layui-input-quote">
+		<div class="form-group">
+			<input id="code" name="code" maxlength="4" placeholder="请输入类型编码" type="text" class="form-control">
 		</div>
-		<div class="layui-input-inline">
-			<input id="name" name="name" placeholder="请输入类型名称" type="text" class="layui-input-quote">
+		<div class="form-group">
+			<input id="name" name="name"  placeholder="请输入类型名称" type="text" class="form-control">
 		</div>
-		<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
-        </shiro:hasPermission>
-        <shiro:hasPermission name="sysdictype_add">
-		<button id="btn_add" type="button" class="layui-btn layui-btn-small">
-				<i class="fa fa-plus"></i>新增
-		</button>
-        </shiro:hasPermission>
-        <shiro:hasPermission name="sysdictype_deleteall">
-		<button id="btn_delete" type="button" class="layui-btn layui-btn-small">
-			<i class="fa fa-remove"></i>批量删除
-		</button>
+		<button type="button" id="btn_query" class="btn btn-primary"><i class="fa fa-search"></i>查询</button>
 		</shiro:hasPermission>
+		<div class="btn-group">
+			<shiro:hasPermission name="sysdictype_add">
+			<button id="btn_add" type="button" class="btn btn-primary">
+					<i class="fa fa-plus"></i>新增
+			</button>
+			</shiro:hasPermission>
+			<shiro:hasPermission name="sysdictype_deleteall">
+			<button id="btn_delete" type="button" class="btn btn-primary">
+				<i class="fa fa-remove"></i>批量删除
+			</button>
+			</shiro:hasPermission>
+		</div>
 	</form>
 	<table id="table"></table>
-	<%@ include file="/WEB-INF/view/ez/index/listpublicjs.jsp"%>
+<%--	<%@ include file="/WEB-INF/view/ez/index/listpublicjs.jsp"%>--%>
 <script>
 	$(function () {
 		//初始化表格
@@ -82,6 +119,13 @@
 			columns: [{
 				checkbox: true
 			}, {
+                filed: '',
+                title: '操作区',
+                width:'15%',
+                align:'center',
+                events: operateEvents,
+                formatter: operateFormatter
+            }, {
 				field: '',
 				title: '序号',
 				width:'5%',
@@ -111,13 +155,6 @@
 				width:'5%',
 				align:'center',
 				formatter:flagFormatter
-			},{
-				filed: '',
-				title: '操作区',
-				width:'15%',
-				align:'center',
-				events: operateEvents,
-				formatter: operateFormatter
 			} ]
 		});
 		//监听页面的回车事件

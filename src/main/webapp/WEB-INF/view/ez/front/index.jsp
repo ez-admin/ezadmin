@@ -27,8 +27,9 @@ String basePath = request.getScheme() + "://"
 	<!-- Magnific Popup -->
 	<link rel="stylesheet" href="/static/plugins/front/css/magnific-popup.css">
 	<!-- Bootstrap  -->
-	<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
-	<!-- 
+	<%--<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">--%>
+	<link rel="stylesheet" type="text/css" href="/static/plugins/bootstrap3.3.7/css/bootstrap.min.css">
+	<!--
 	Default Theme Style 
 	You can change the style.css (default color purple) to one of these styles
 	1. pink.css
@@ -688,7 +689,8 @@ String basePath = request.getScheme() + "://"
 	<!-- jQuery Easing -->
 	<script src="/static/plugins/front/js/jquery.easing.1.3.js"></script>
 	<!-- Bootstrap -->
-	<script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
+	<%--<script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>--%>
+	<script src="/static/plugins/bootstrap3.3.7/js/bootstrap.min.js"></script>
 	<!-- Waypoints -->
 	<script src="/static/plugins/front/js/jquery.waypoints.min.js"></script>
 	<!-- Stellar Parallax -->

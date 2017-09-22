@@ -28,22 +28,27 @@ http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcac
     <!-- 启动对@AspectJ注解的支持 -->
     <aop:aspectj-autoproxy />
 
-    <!-- 引入属性文件 放在最开头,在使用spring之前就引入,里面的变量才能被引用-->
-    <context:property-placeholder location="classpath*:properties/*.properties"/>
-    <!--
-    引入属性文件也可以用这种写法
+    <!-- 引入属性文件写法一 放在最开头,在使用spring之前就引入,里面的变量才能被引用-->
+    <!--<context:property-placeholder location="classpath*:properties/*.properties"/>-->
+    <!--引入属性文件写法二 也可以用这种写法
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="classpath:config.properties" />
+    </bean>-->
+    <!--引入属性文件写法三 也可以用这种写法-->
+    <bean class="com.ez.commons.support.PropertyUtils">
+        <property name="location">
+            <value>classpath:properties/config-dev.properties</value>
+        </property>
     </bean>
-    -->
 
-    <!-- 使用阿里的druid配置数据源 start-->
+
+   <!-- 使用阿里的druid配置数据源 start-->
     <!--具体查看官网信息：https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_DruidDataSource%E5%8F%82%E8%80%83%E9%85%8D%E7%BD%AE-->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close" >
         <!--这三个变量读取config.properties的-->
         <property name="url" value="${data_source_url}"/>
-        <property name="username" value="${data_source_username}"/>
-        <property name="password" value="${data_source_password}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
         <!-- 初始化连接大小 -->
         <property name="initialSize" value="1"/>
         <!-- 初始化连接池最大使用连接数量 -->
@@ -77,10 +82,10 @@ http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcac
         <!--官网信息：https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_StatFilter-->
         <!--mergeSql可以合并输出的sql，方便查看，但是在mybatis框架中使用这个则无法监控sql,需要用stat-->
         <!--<property name="filters" value="mergeSql,log4j"/>-->
-        <!--<property name="filters" value="mergeSql,wall"/>-->
-        <!--<property name="filters" value="stat"/>-->
+        <!--<property name="filters" value="mergeSql,wall"/>--><!--防御sql注入-->
+        <!--<property name="filters" value="stat"/>--><!--监控统计-->
         <!--<property name="filters" value="mergeSql"/>-->
-        <property name="filters" value="stat,log4j"/>
+        <property name="filters" value="stat,log4j"/><!--日志-->
     </bean>
     <!-- 使用阿里的druid配置数据源 end-->
 
@@ -92,7 +97,7 @@ http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcac
     <!--http://blog.csdn.net/u012763117/article/details/17253849-->
     <!--http://casheen.iteye.com/blog/295348-->
     <!--http://blog.csdn.net/zhang854429783/article/details/6785574-->
-    <context:component-scan base-package="com.ez.**.**.service,com.ez.commons.annotation,com.ez.commons.interceptor"/>
+    <context:component-scan base-package="com.ez.**.**.service,com.ez.commons.annotation,com.ez.commons.scheduled"/>
     <!--<context:component-scan base-package="com.ez.**.servcom.ez.commons.annotationtcom.ez.commons.interceptorpcom.ez.commons.threadread"/>添加扫描线程包-->
 
 

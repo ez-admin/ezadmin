@@ -13,14 +13,15 @@ public class PubConstants {
 	/*session相关配置*/
 	public static final String SESSION_ROLE_RIGHTS = "sessionRoleRights";
 	public static final String SESSION_allmenuList = "allmenuList";		//全部菜单
-	//public static final String SESSION_FIRSTMENULIST= "firstmenulist";  //一级菜单
+	public static final String SESSION_MENULIST= "menulist";  //权限菜单 用户已有菜单权限的菜单
 	public static final String SESSION_SYSUSER = "sysuser";				//用户对象
 	public static final String SESSION_LOGNM = "lognm";			//用户名
 	public static final String SESSION_SYSTEMBACKPAGESIZE="systemBackPageSize";//系统分页每页显示数
+	public static final String SESSION_SYSLOG = "syslog";// 登录成功记录
 
 	/*停用启用开关*/
 	public static final String OPEN = "1";//启用
-	public static final String CLOSE = "0";//停用
+	public static final String CLOSE = "0";//锁定
 	/*是否开关*/
 	public static final String YES = "1";//是
 	public static final String NO = "0";//否

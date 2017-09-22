@@ -6,6 +6,10 @@
 <!-- 不使用namespace的话sql搜索定位会比较方便 -->
 <mapper namespace="com.ez.modules.system.dao.SysMenuDao">
 
+	<!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache" />
+
 	<resultMap id="SysMenu" type="com.ez.modules.system.entity.SysMenu">
         <result property="menuId" column="MENU_ID"/>
         <result property="menuName" column="MENU_NAME"/>
@@ -249,8 +253,12 @@
 		SELECT MENU_ID
 		FROM sys_menu
 	</select>
+	<select id="findAllMenuList" resultMap="SysMenu">
+		SELECT <include refid="selectId" />
+		FROM sys_menu
+	</select>
 
-	<!-- 更新all -->
+    <!-- 更新all -->
 	<update id="updateAll" parameterType="com.ez.modules.system.entity.SysMenu">
 	    UPDATE sys_menu SET
 	        MENU_NAME = #{menuName} ,

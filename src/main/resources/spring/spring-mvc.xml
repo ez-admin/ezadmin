@@ -23,15 +23,15 @@
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
     <!-- 访问拦截  -->
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <!-- 需排除拦截的地址 -->
-            <!--<mvc:exclude-mapping path="/" />
-            <mvc:exclude-mapping path="/test" />-->
-            <bean class="com.ez.commons.interceptor.LoginHandlerInterceptor"/>
-        </mvc:interceptor>
-    </mvc:interceptors>
+    <!--<mvc:interceptors>-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/**"/>-->
+            <!--&lt;!&ndash; 需排除拦截的地址 &ndash;&gt;-->
+            <!--&lt;!&ndash;<mvc:exclude-mapping path="/" />-->
+            <!--<mvc:exclude-mapping path="/test" />&ndash;&gt;-->
+            <!--<bean class="com.ez.commons.interceptor.LoginHandlerInterceptor"/>-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
 
 
     <!-- 配置注解驱动 -->

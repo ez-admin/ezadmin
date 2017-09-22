@@ -87,7 +87,6 @@ public  class SystemLogAspect {
                 logger.info("请求人:{}",sysUser.getLognm());
                 logger.info("请求IP:{}",ip);
             }
-
             //保存数据库
             syslogService.add(log);
             logger.info("=====前置通知结束=====");
@@ -158,11 +157,6 @@ public  class SystemLogAspect {
             ex.printStackTrace();
             logger.error("异常通知:",ex.getStackTrace());
         }
-         /*==========记录本地异常日志==========*/
-        /*logger.info("异常方法:[{}]",joinPoint.getTarget().getClass().getName());
-        logger.info("异常代码:[{}]",joinPoint.getSignature().getName()+ e.getClass().getName());
-        logger.info("异常信息:[{}]]",e.getMessage());
-        logger.info("参数:[{}]",params);*/
 
     }
 

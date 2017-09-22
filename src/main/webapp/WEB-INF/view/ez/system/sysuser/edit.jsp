@@ -4,7 +4,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-	<title>系统字典名称新增</title>
+	<title>系统用户名称修改</title>
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
 	<style>
 		.replaceselect .layui-form-select{

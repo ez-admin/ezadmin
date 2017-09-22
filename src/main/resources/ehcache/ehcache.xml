@@ -6,19 +6,7 @@
     <!-- 默认缓存配置. 自动失效：最后一次访问时间间隔300秒失效，若没有访问过自创建时间600秒失效。-->
     <defaultCache maxEntriesLocalHeap="1000" eternal="false" timeToIdleSeconds="300" timeToLiveSeconds="600"
                   overflowToDisk="true" statistics="true"/>
-   <!-- <defaultCache
-            maxElementsInMemory="10000"  
-            eternal="false"  
-            timeToIdleSeconds="120"  
-            timeToLiveSeconds="120"  
-            overflowToDisk="true"  
-            maxElementsOnDisk="10000000"  
-            diskPersistent="false"  
-            diskExpiryThreadIntervalSeconds="120"  
-            memoryStoreEvictionPolicy="LRU"  
-            /> -->
-      <!--  
-    name：Cache的唯一标识  
+<!--name：Cache的唯一标识
     maxElementsInMemory：内存中最大缓存对象数  
     maxElementsOnDisk：磁盘中最大缓存对象数，若是0表示无穷大  
     eternal：Element是否永久有效，一但设置了，timeout将不起作用  
@@ -28,6 +16,6 @@
     diskPersistent：是否缓存虚拟机重启期数据  
     diskExpiryThreadIntervalSeconds：磁盘失效线程运行时间间隔，默认是120秒  
     diskSpoolBufferSizeMB：这个参数设置DiskStore（磁盘缓存）的缓存区大小。默认是30MB。每个Cache都应该有自己的一个缓冲区  
-     memoryStoreEvictionPolicy：当达到maxElementsInMemory限制时，Ehcache将会根据指定的策略去清理内存。默认策略是LRU（最近最少使用）。你可以设置为FIFO（先进先出）或是LFU（较少使用）   
+    memoryStoreEvictionPolicy：当达到maxElementsInMemory限制时，Ehcache将会根据指定的策略去清理内存。默认策略是LRU（最近最少使用）。你可以设置为FIFO（先进先出）或是LFU（较少使用）
     -->  
 </ehcache>  

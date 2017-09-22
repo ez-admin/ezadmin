@@ -1,10 +1,9 @@
 package com.ez.commons.exception;
 
 import com.alibaba.fastjson.JSONObject;
-import com.ez.commons.base.DataParseException;
 import com.ez.commons.util.HttpCode;
 import com.ez.commons.util.WebTool;
-import org.apache.shiro.session.ExpiredSessionException;
+import org.apache.shiro.authc.AuthenticationException;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,10 +29,10 @@ public class MyExceptionHandler implements HandlerExceptionResolver {
             if (ex instanceof DataParseException) {//日期类型转换异常
                 map.put("httpCode", HttpCode.DATEPARSE_ERROR.value());
                 map.put("message","日期类型出错，请联系系统管理员！");
-            } else if( ex instanceof ExpiredSessionException){
-                System.out.println("我进入session 失效异常了");
-                map.put("httpCode", HttpCode.DATEPARSE_ERROR.value());
-                map.put("message","我进入了失效session异常了");
+            } else if( ex instanceof AuthenticationException){
+                System.out.println("我进入AuthenticationException异常了");
+                map.put("httpCode", HttpCode.LOGIN_FAIL.value());
+                map.put("message",ex.getMessage());
             } else {
                 map.put("httpCode", HttpCode.INTERNAL_SERVER_ERROR.value());
                 map.put("message","系统出错，请联系系统管理员！");
