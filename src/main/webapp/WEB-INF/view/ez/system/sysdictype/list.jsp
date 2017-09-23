@@ -217,7 +217,7 @@
 			title: '新增',
 			maxmin: true,
 			shadeClose: true, //点击遮罩关闭层
-			area : ['600px' , '430px'],
+			area : ['450px' , '450px'],
 			content: '/ez/system/sysdictype/addUI.do',
 			end:function(){
 				$("#table").bootstrapTable('refresh');//刷新表格
@@ -255,7 +255,7 @@
 				title: '查看',
 				maxmin: true,
 				shadeClose: true, //点击遮罩关闭层
-				area : ['600px' , '430px'],
+				area : ['450px' , '450px'],
 				content: '/ez/system/sysdictype/getById.do?typeKey=2&sysdictypeId='+row.code,
 			});
 		},
@@ -265,7 +265,7 @@
 				title: '编辑',
 				maxmin: true,
 				shadeClose: true, //点击遮罩关闭层
-				area : ['600px' , '430px'],
+				area : ['450px' , '450px'],
 				content: '/ez/system/sysdictype/getById.do?typeKey=1&sysdictypeId='+row.code,
 				end:function(){
 					$("#table").bootstrapTable('refresh');//刷新表格

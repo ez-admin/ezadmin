@@ -167,7 +167,7 @@
 <script type="text/javascript" src="/static/plugins/select2tree/js/zh-CN.js" charset="utf-8"></script>
 <script type="text/javascript" src="/static/plugins/select2tree/js/select2tree.js" charset="utf-8"></script>
 <%--MD5--%>
-<script type="text/javascript" src="/static/js/md5.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/plugins/md5/md5.min.js" charset="utf-8"></script>
 <script>
 	//select2插件
 	$(function() {

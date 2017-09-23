@@ -11,8 +11,6 @@
     <base href="<%=basePath%>">
     <meta charset="UTF-8">
     <title>首页</title>
-    <link rel="stylesheet" href="/static/plugins/layui/css/layui.css" media="all" />
-    <link rel="stylesheet" href="/static/css/main.css" />
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="/static/js/html5shiv.min.js"></script>

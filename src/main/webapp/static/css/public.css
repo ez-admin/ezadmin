@@ -10,7 +10,7 @@
 .layui-hidden{
     display: none;
 }
-em.required{color:red;font-style:normal;padding-right: 5px;}
+em.required{color:red;font-style:normal}
 
 .layui-form-label-quote{
     float: left;
@@ -64,24 +64,16 @@ body .fixed-table-toolbar:first-child .bs-bars,body .fixed-table-toolbar:first-c
     padding-left: 10px;
 }
 
-.body-group {padding-bottom:8px;margin-bottom:0;border-bottom:1px dotted #dddddd;}
-.control-input{
-    display: block;
-    height: 34px;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+#formid {
+    margin: 15px auto;
 }
-.box-body {
-    margin:10px 15px;
+span.help-block {
+    font-size: 12px;
+}
+.help-block i{
+    padding-right:5px;
+}
+.m-b-none {
+    margin-bottom: 0;
+    margin-top: 0;
 }

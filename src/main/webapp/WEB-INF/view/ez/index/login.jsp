@@ -52,7 +52,7 @@ String basePath = request.getScheme() + "://"
 </dl>
 <script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
 <script type="text/javascript" src="/static/plugins/layer/layer.js"></script>
-<script type="text/javascript" src="/static/js/md5.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/plugins/md5/md5.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="/static/js/Particleground.js" charset="utf-8"></script>
 <script>
     $(function(){
