@@ -6,14 +6,13 @@
 
 package com.ez.modules.system.service.impl;
 
+import com.ez.commons.annotation.ServiceImplClassDescription;
+import com.ez.commons.base.service.impl.BaseServiceImpl;
 import com.ez.modules.system.dao.SysMenuDao;
 import com.ez.modules.system.dao.SysRoleDao;
 import com.ez.modules.system.dao.SysUserDao;
 import com.ez.modules.system.dao.SysUserRoleDao;
-import com.ez.modules.system.entity.SysMenu;
-import com.ez.modules.system.entity.SysRole;
-import com.ez.modules.system.entity.SysUser;
-import com.ez.modules.system.entity.SysUserRole;
+import com.ez.modules.system.entity.*;
 import com.ez.modules.system.service.SysRoleService;
 import com.ez.commons.util.Common;
 import com.ez.commons.util.PubConstants;
@@ -39,7 +38,8 @@ import java.util.List;
  */
 @Transactional
 @Service("sysRoleService")
-public class SysRoleServiceImpl implements SysRoleService {
+@ServiceImplClassDescription(description = "角色管理")
+public class SysRoleServiceImpl extends BaseServiceImpl<SysRole> implements SysRoleService {
 	@Resource
 	private SysRoleDao sysRoleDao;
 	@Resource
@@ -63,7 +63,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 		String USERNAME = session.getAttribute(PubConstants.SESSION_LOGNM).toString();	//获取当前登录者loginname
 		Boolean isAdmin = "admin".equals(USERNAME);
 		if (!isAdmin){//不是超级管理员
-			sysRole.setRoleType("0");//查询roleType不等于0的角色
+			//sysRole.setRoleType("0");//查询roleType不等于0的角色
 		}
 		List<SysRole> list = sysRoleDao.query(sysRole);
 		return list;
@@ -81,7 +81,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 		String USERNAME = session.getAttribute(PubConstants.SESSION_LOGNM).toString();	//获取当前登录者loginname
 		Boolean isAdmin = "admin".equals(USERNAME);
 		if (!isAdmin){//不是超级管理员
-			sysRole.setRoleType("0");//查询roleType不等于0的角色
+			//sysRole.setRoleType("0");//查询roleType不等于0的角色
 		}
 		List<SysRole> list = sysRoleDao.query(sysRole);
 		return list;
@@ -95,7 +95,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 	//@PreAuthorize("hasRole('ROLE_*')")
 	public void add(SysRole sysRole) {
 		String uuid= UuidUtil.get32UUID();
-		sysRole.setRoleId(uuid);
+		//sysRole.setRoleId(uuid);
 		/*sysRole.setQxId(uuid);
 		sysRole.setAddQx("1");
 		sysRole.setDelQx("1");
@@ -148,11 +148,10 @@ public class SysRoleServiceImpl implements SysRoleService {
 	/**
 	 * Created by chenez on 2017/5/13 20:26
 	 */
-	//@PreAuthorize("hasRole('ROLE_*')")
 	public void modify(SysRole sysRole) {
 		sysRoleDao.modify(sysRole);
 		//查询拥有该角色的用户列表
-		List<SysUserRole> sysUserRoleList=sysUserRoleDao.findByRoleid(sysRole.getRoleId());
+		List<SysUserRole> sysUserRoleList=sysUserRoleDao.findByRoleid(sysRole.getRoleId().toString());
 		if (null!=sysUserRoleList && sysUserRoleList.size()>0){
 			for (int i = 0; i < sysUserRoleList.size(); i++) {
 				List<SysMenu> allmenuList=new ArrayList<SysMenu>();

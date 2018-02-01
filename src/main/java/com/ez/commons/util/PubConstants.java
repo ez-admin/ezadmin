@@ -25,6 +25,9 @@ public class PubConstants {
 	/*是否开关*/
 	public static final String YES = "1";//是
 	public static final String NO = "0";//否
+	/*成功失败*/
+	public static final boolean TRUE =true;//成功
+	public static final boolean FALSE =false;//失败
 
 	/*登陆返回类型*/
 	public static final int LOGIN_SUCCESS = 1;//登陆成功

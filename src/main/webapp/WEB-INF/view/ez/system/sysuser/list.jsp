@@ -2,7 +2,7 @@
 		 pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/ez/index/tablibs.jsp"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 	<title>用户列表</title>
 	<%@ include file="/WEB-INF/view/ez/index/listpublictop.jsp"%>

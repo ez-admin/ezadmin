@@ -185,29 +185,9 @@
 		PARENT_ID = #{parentId}
 		order by MENU_ORDER
 	</select>
-	<select id="findParentIdList" resultType="java.lang.String" >
-		SELECT PARENT_ID
-		FROM sys_menu
-		GROUP BY PARENT_ID
-
-	</select>
 	<select id="findAllList" resultMap="SysMenu" >
 		SELECT <include refid="selectId" />
 		FROM sys_menu
-	</select>
-	<select id="findFisrtMenu" resultType="com.ez.modules.login.entity.MenuTitle" >
-		SELECT <include refid="selectMenutitle" />
-		FROM sys_menu
-		WHERE
-		PARENT_ID = "0"
-		order by MENU_ORDER
-	</select>
-	<select id="getByParentId" resultType="com.ez.modules.login.entity.MenuTitle" parameterType="String" >
-		SELECT <include refid="selectMenutitle" />
-		FROM sys_menu
-		WHERE
-		PARENT_ID = #{parentId}
-		order by MENU_ORDER
 	</select>
 	<select id="getParentMenu" resultMap="SysMenu" parameterType="com.ez.modules.system.entity.SysMenu" useCache="false">
 		SELECT <include refid="selectId" />

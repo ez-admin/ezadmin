@@ -18,5 +18,4 @@ import com.ez.modules.system.entity.SysOption;
  */
 public interface SysOptionService extends BaseService<SysOption> {
 
-    /*void test();*/
 }

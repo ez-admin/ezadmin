@@ -10,6 +10,7 @@ import java.util.Properties;
 
 /**
  * Created by chenez on 2017/9/20.
+ * 配置文件工具
  */
 public class PropertyUtils extends PropertyPlaceholderConfigurer {
     private static Map<String,String> propertyMap;

@@ -4,17 +4,16 @@
 package com.ez.commons.security;
 
 
-import com.ez.commons.exception.UserLoginLockRequiredException;
 import com.ez.commons.util.MD5;
 import com.ez.commons.util.PubConstants;
-import com.ez.modules.system.entity.SysLog;
 import com.ez.modules.system.entity.SysUser;
 import com.ez.modules.system.service.SysLogService;
 import com.ez.modules.system.service.SysUserService;
-import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +21,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import static com.ez.commons.util.Common.toIpAddr;
 

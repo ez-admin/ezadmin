@@ -2,11 +2,14 @@ package com.ez.modules.system.controller;
 
 import com.ez.commons.annotation.SystemLogController;
 import com.ez.commons.base.BaseController;
+import com.ez.commons.util.PubConstants;
 import com.ez.modules.system.entity.SysDictionary;
 import com.ez.modules.system.service.SysDictionaryService;
 import com.ez.commons.util.WebTool;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,23 +54,24 @@ public class SysDictionaryController extends BaseController {
 	 */
 	@RequestMapping(value="addUI")
 	@SystemLogController(description = "跳到字典名称新增页面")
-	public String addUI(Model model){
+	public String addUI(){
 		return "/ez/system/sysdictionary/add";
 	}
 	
 	/**
 	 * 保存新增
-	 * @param model
 	 * @param sysdictionary
 	 * @return
 	 */
+	@RequiresPermissions("sysdictionary_add")
 	@RequestMapping(value="add")
 	@SystemLogController(description = "保存字典名称新增信息")
-	public String add(Model model, SysDictionary sysdictionary, HttpServletResponse response, HttpServletRequest request){
-		String result="{\"msg\":\"suc\"}";
+	@ResponseBody
+	public Map<String, Object> add(SysDictionary sysdictionary){
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("status", PubConstants.TRUE);
 		sysDictionaryService.add(sysdictionary);
-		 WebTool.writeJson(result, response);
-		 return null;
+		return map;
 	}
 	/**
 	 * post方式分页查询
@@ -88,17 +92,18 @@ public class SysDictionaryController extends BaseController {
 	
 	/**
 	 * 根据id删除
-	 * @param model
 	 * @param ids
 	 * @return
 	 */
+	@RequiresPermissions("sysdictionary_delete")
 	@RequestMapping(value="deleteById",method=RequestMethod.POST)
 	@SystemLogController(description = "删除字典名称信息")
-	public String deleteById(Model model,String ids, HttpServletResponse response){
-		String result="{\"status\":1}";
+	@ResponseBody
+	public Map<String, Object> deleteById(String ids){
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("status",PubConstants.TRUE);
 		sysDictionaryService.delete(ids);
-		WebTool.writeJson(result, response);
-		return null;
+		return map;
 	}
 	
 	/**
@@ -108,6 +113,7 @@ public class SysDictionaryController extends BaseController {
 	 * @param typeKey
 	 * @return
 	 */
+	@RequiresPermissions(value={"sysdictionary_view","sysdictionary_modify"},logical= Logical.OR)
 	@RequestMapping(value="getById")
 	@SystemLogController(description = "跳到查询&修改字典名称单条记录页面")
 	public String getById(Model model,String sysdictionaryId,int typeKey){
@@ -124,38 +130,36 @@ public class SysDictionaryController extends BaseController {
 	
 	/**
 	 * 更新修改的信息
-	 * @param model
 	 * @param sysdictionary
-	 *
 	 * @return
 	 */
+	@RequiresPermissions("sysdictionary_modify")
 	@RequestMapping(value="update",method=RequestMethod.POST)
 	@SystemLogController(description = "更新修改字典名称的信息")
-	public String updateSysDictionary(Model model,SysDictionary sysdictionary,HttpServletResponse response){		
-		String result="{\"msg\":\"suc\"}";
+	@ResponseBody
+	public Map<String, Object> updateSysDictionary(SysDictionary sysdictionary){
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("status", PubConstants.TRUE);
 		sysDictionaryService.modify(sysdictionary);
-		 WebTool.writeJson(result, response);
-		 return null;		
-		
+		return map;
 	}
-	
-	
+
 	/**
 	 * 批量删除数据
-	 * 
-	 * @param model
 	 * @param ids
 	 * @return
 	 */
+	@RequiresPermissions("sysdictionary_deleteall")
 	@RequestMapping(value = "deleteAll")
-	@SystemLogController(description = "批量删除菜单名称的信息")
-	public String deleteAll(String[] ids, Model model, HttpServletResponse response) {
-		String result = "{\"status\":1}";
+	@SystemLogController(description = "批量删除字典名称的信息")
+	@ResponseBody
+	public Map<String, Object> deleteAll(String[] ids) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("status",PubConstants.TRUE);
 		for (String id : ids) {
 			sysDictionaryService.delete(id);
 		}
-		WebTool.writeJson(result, response);
-		return null;
+		return map;
 	}
     /**
      * 数据字典单选下拉框

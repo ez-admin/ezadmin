@@ -6,6 +6,7 @@
 
 package com.ez.modules.system.service.impl;
 
+import com.ez.commons.annotation.ServiceImplClassDescription;
 import com.ez.commons.annotation.SystemLogService;
 import com.ez.commons.json.TreeNode;
 import com.ez.modules.system.dao.SysOrgDao;
@@ -31,6 +32,7 @@ import java.util.List;
  */
 @Transactional
 @Service("sysOrgService")
+@ServiceImplClassDescription(description = "组织管理")
 public class SysOrgServiceImpl implements SysOrgService {
 	@Autowired
 	private SysOrgDao sysOrgDao;

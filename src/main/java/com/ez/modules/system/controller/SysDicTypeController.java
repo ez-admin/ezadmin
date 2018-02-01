@@ -1,19 +1,20 @@
-/*
- * Powered By [chenen_genetrator]
- * version 1.0
- * Since 2016 - 2017
- */
-
-
 package com.ez.modules.system.controller;
 
 import com.ez.commons.annotation.SystemLogController;
 import com.ez.commons.base.BaseController;
+import com.ez.commons.json.Entity;
+import com.ez.commons.util.PubConstants;
 import com.ez.modules.system.entity.SysDicType;
 import com.ez.modules.system.service.SysDicTypeService;
-import com.ez.commons.util.WebTool;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +36,7 @@ import java.util.Map;
 @Controller
 @RequestMapping(value="/ez/system/sysdictype/")
 public class SysDicTypeController extends BaseController {
-
+    private static final Logger logger = LoggerFactory.getLogger(SysDicTypeController.class);
     @Autowired
     private SysDicTypeService sysDictypeService;
 
@@ -61,28 +61,28 @@ public class SysDicTypeController extends BaseController {
 
     /**
      * 保存新增
-     * @param model
      * @param sysdictype
      * @return
      */
-    @RequestMapping(value="add")
+    @RequiresPermissions("sysdictype_add")
+    @RequestMapping(value="add",method = RequestMethod.POST)
     @SystemLogController(description = "保存字典类型新增信息")
-    public String add(Model model, SysDicType sysdictype, HttpServletResponse response, HttpServletRequest request){
-        String result="{\"msg\":\"suc\"}";
+    @ResponseBody
+    public Map<String, Object> add(SysDicType sysdictype){
+        Map<String, Object> map=new HashMap<String, Object>();
+        map.put("status", PubConstants.TRUE);
         SysDicType checkcodeSysDictype = sysDictypeService.getById(sysdictype.getCode());
         SysDicType checknameSysDictype = sysDictypeService.getByName(sysdictype.getName());
         if (checkcodeSysDictype != null) {
-            result = "{\"msg\":\"fail\",\"message\":\"字典类型编码重复,请重新输入!\"}";
+            map.put("status", PubConstants.FALSE);
+            map.put("message","字典类型编码重复,请重新输入!");
         } else if (checknameSysDictype != null) {
-            result = "{\"msg\":\"fail\",\"message\":\"字符类型名称重复,请重新输入!\"}";
+            map.put("status", PubConstants.FALSE);
+            map.put("message","字典类型编码名称重复,请重新输入!");
         } else {
-            if (!"1".equals(sysdictype.getFlag())) {
-                sysdictype.setFlag("0");
-            }
             sysDictypeService.add(sysdictype);
         }
-        WebTool.writeJson(result, response);
-        return null;
+        return map;
     }
 
     /**
@@ -105,17 +105,18 @@ public class SysDicTypeController extends BaseController {
 
     /**
      * 根据id删除
-     * @param model
      * @param ids
      * @return
      */
+    @RequiresPermissions("sysdictype_delete")
     @RequestMapping(value="deleteById",method=RequestMethod.POST)
     @SystemLogController(description = "删除字典类型信息")
-    public String deleteById(Model model,String ids, HttpServletResponse response){
-        String result="{\"status\":1}";
+    @ResponseBody
+    public Map<String, Object> deleteById(String ids){
+        Map<String, Object> map=new HashMap<String, Object>();
+        map.put("status",PubConstants.TRUE);
         sysDictypeService.delete(ids);
-        WebTool.writeJson(result, response);
-        return null;
+        return map;
     }
 
     /**
@@ -125,6 +126,7 @@ public class SysDicTypeController extends BaseController {
      * @param typeKey
      * @return
      */
+    @RequiresPermissions(value={"sysdictype_view","sysdictype_modify"},logical= Logical.OR)
     @RequestMapping(value="getById")
     @SystemLogController(description = "跳到查询&修改字典类型单条记录页面")
     public String getById(Model model,String sysdictypeId,Integer typeKey){
@@ -145,63 +147,58 @@ public class SysDicTypeController extends BaseController {
      * @param sysdictype
      * @return
      */
+    @RequiresPermissions("sysdictype_modify")
     @RequestMapping(value="update",method=RequestMethod.POST)
     @SystemLogController(description = "更新修改字典类型的信息")
-    public String updateSysDictype(SysDicType sysdictype, HttpServletRequest request, HttpServletResponse response){
-        String result="{\"msg\":\"suc\"}";
+    @ResponseBody
+    public Map<String, Object> updateSysDictype(SysDicType sysdictype, HttpServletRequest request){
+        Map<String, Object> map=new HashMap<String, Object>();
+        map.put("status",PubConstants.TRUE);
         String oldname=request.getParameter("oldname");
         SysDicType checknameSysDictype=sysDictypeService.getByName(sysdictype.getName());
         if(checknameSysDictype!=null && !oldname.equals(sysdictype.getName())){
-            result="{\"msg\":\"fail\",\"message\":\"字符类型名称重复,请重新输入!\"}";
+            map.put("status",PubConstants.FALSE);
+            map.put("message","字典类型名称重复,请重新输入!");
         }else {
-            if (!"1".equals(sysdictype.getFlag())){
-                sysdictype.setFlag("0");
-            }
             sysDictypeService.modify(sysdictype);
         }
-        WebTool.writeJson(result, response);
-        return null;
+        return map;
     }
 
 
     /**
      * 批量删除数据
-     *
-     * @param model
      * @param ids
      * @return
      */
+    @RequiresPermissions("sysdictype_deleteall")
     @RequestMapping(value = "deleteAll")
     @SystemLogController(description = "批量删除字典类型信息")
-    public String deleteAll(String[] ids, Model model, HttpServletResponse response) {
-        String result = "{\"status\":1}";
+    @ResponseBody
+    public Map<String, Object> deleteAll(String[] ids) {
+        Map<String, Object> map=new HashMap<String, Object>();
+        map.put("status",PubConstants.TRUE);
         for (String id : ids) {
             sysDictypeService.delete(id);
         }
-        WebTool.writeJson(result, response);
-        return null;
+        return map;
     }
     /**
      * 数据字典单选下拉框
      * @param code
-     * @param response
      * @return
      */
     @RequestMapping(value="getSdBySdtCode")
     @ResponseBody
-    public String getSdBySdtCode(String code,String selected,HttpServletResponse response){
-        //字典类型编码
-        List<SysDicType> sysDictypes = sysDictypeService.getSdBySdtCode(code);
-        String result="";
-        for(SysDicType sd : sysDictypes) {
-            if (selected!=null  && selected.equals(sd.getCode())){
-                result+="<option value="+sd.getCode()+" selected >"+sd.getName()+"</option>";
-            }else {
-                result+="<option value="+sd.getCode()+">"+sd.getName()+"</option>";
-            }
+    public Map<String,Object> getSdBySdtCode(String code){
+        Map<String, Object> map=new HashMap<String, Object>();
+        List<Entity> entityList = sysDictypeService.getSdBySdtCode(code);
+        //创建json集合
+        JSONArray jsonArray= JSONArray.fromObject(entityList);
+        if (jsonArray != null && jsonArray.size()>0) {
+            map.put("data",jsonArray);
         }
-        WebTool.writeHtml(result, response);
-        return null;
+        return map;
     }
 
 }

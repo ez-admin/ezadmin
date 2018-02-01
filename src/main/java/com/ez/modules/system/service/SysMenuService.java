@@ -1,7 +1,9 @@
 
 package com.ez.modules.system.service;
 
+import com.ez.commons.base.service.BaseService;
 import com.ez.modules.login.entity.MenuTitle;
+import com.ez.modules.system.entity.SysDicType;
 import com.ez.modules.system.entity.SysMenu;
 import com.github.pagehelper.Page;
 import org.apache.shiro.session.Session;
@@ -14,29 +16,7 @@ import java.util.List;
  * @version 1.0
  */
 
-public interface SysMenuService{
-
-	List<SysMenu> query(Page<SysMenu> page, SysMenu sysMenu);
-
-	List<SysMenu> queryAll(SysMenu sysMenu);
-
-	void add(SysMenu sysMenu);
-	
-	void addAll(SysMenu sysMenu);
-	
-	void delete(String id);
-	
-	void modify(SysMenu sysMenu);
-	
-	SysMenu getById(String id);
-	
-	List<SysMenu> findAll();
-
-	List<SysMenu> findAllList();
-
-    List<MenuTitle> findFisrtMenu();
-
-    String getByParentId(String parentid);
+public interface SysMenuService extends BaseService<SysMenu> {
 
     List<SysMenu> getParentMenu(Page<SysMenu> page, SysMenu sysmenu);
 
@@ -46,13 +26,9 @@ public interface SysMenuService{
 
 	List<SysMenu> getChildrenMenuAll(SysMenu sysmenu);
 
-	List<SysMenu> listAllMenu();
-
 	List<SysMenu> listAllMenuButton(String rights);
 
     List<String> findmenuids();
-
-	List<SysMenu> findAllMenuList(String userRights);
 
 	List<SysMenu> findMenuList(String userRights, Session session);
 }

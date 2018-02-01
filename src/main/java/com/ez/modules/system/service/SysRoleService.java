@@ -6,6 +6,8 @@
 
 package com.ez.modules.system.service;
 
+import com.ez.commons.base.service.BaseService;
+import com.ez.modules.system.entity.SysDicType;
 import com.ez.modules.system.entity.SysRole;
 import com.github.pagehelper.Page;
 
@@ -18,22 +20,6 @@ import java.util.List;
  * @version 1.0
  */
 
-public interface SysRoleService{
-
-	List<SysRole> query(Page<SysRole> page, SysRole sysRole);
-
-	List<SysRole> queryAll(SysRole sysRole);
-
-	void add(SysRole sysRole);
-	
-	void addAll(SysRole sysRole);
-	
-	void delete(String id);
-	
-	void modify(SysRole sysRole);
-	
-	SysRole getById(String id);
-	
-	List<SysRole> findAll();
+public interface SysRoleService extends BaseService<SysRole> {
 
 }

@@ -14,6 +14,5 @@ public interface SysLogDao extends BaseDao<SysLog> {
 
     void deleteThreeMonthBefore(String threeMonthBefore);
 
-
     SysLog getByUseId(String userno);
 }

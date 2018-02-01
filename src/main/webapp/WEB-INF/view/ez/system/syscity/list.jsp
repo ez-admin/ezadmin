@@ -2,37 +2,37 @@
 		 pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/ez/index/tablibs.jsp"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 	<title>城市区域列表</title>
 	<%@ include file="/WEB-INF/view/ez/index/listpublicsubtop.jsp"%>
 </head>
 <body>
 <blockquote class="layui-elem-quote" style="padding: 8px 15px">
-	<form class="layui-form" id="formSearch">
+	<form id="formSearch" class="form-inline">
 		<shiro:hasPermission name="syscity_query">
-		<input type="text" style="display: none"><%--enter事件生效--%>
-		<div class="layui-input-inline">
-			<input id="name" name="name" placeholder="请输入区域名" type="text" class="layui-input-quote" maxlength="20" autocomplete="off">
+		<input type="text" style="display: none"><!--enter事件生效-->
+		<div class="form-group">
+			<input id="name" name="name" placeholder="请输入区域名" type="text" class="form-control" maxlength="20">
 		</div>
-		<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
+		<button class="btn btn-primary" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
 		</shiro:hasPermission>
-			<div id="toolbar" class="btn-group pull-right">
-				<shiro:hasPermission name="syscity_upload">
-				<button id="btn_upload" type="button" class="layui-btn layui-btn-small">
+		<div class="btn-group">
+			<shiro:hasPermission name="syscity_upload">
+				<button id="btn_upload" type="button" class="btn btn-primary">
 					<i class="fa fa-upload"></i>上传
 				</button>
 				<input type="hidden" id="uploadfilepath" name="uploadfilepath">
-				</shiro:hasPermission>
-				<shiro:hasPermission name="syscity_add">
-				<button id="btn_add" type="button" class="layui-btn layui-btn-small">
-					<i class="fa fa-plus"></i>新增一级区域
+			</shiro:hasPermission>
+			<shiro:hasPermission name="syscity_add">
+				<button id="btn_add" type="button" class="btn btn-primary">
+					<i class="fa fa-plus"></i>新增一级城市区域
 				</button>
-				</shiro:hasPermission>
-			</div>
+			</shiro:hasPermission>
+		</div>
+		<div class="clear"></div>
 	</form>
 </blockquote>
-
 <table id="table"></table>
 <%@ include file="/WEB-INF/view/ez/index/listpublicsubjs.jsp"%>
 <script>
@@ -68,17 +68,12 @@
 			detailView: true,                  //是否显示父子表
 			columns: [
 				/*{checkbox: true, width:'2%'},*/
-				{field: '', title: '序号', align: 'center',  formatter: function (value, row, index) {return index+1;}},
-				{field: 'name', title: '区域名称', align: 'center', sortName:'name',sortable: true},
-                {field: 'id', title: '区域id', align: 'center', sortName:'id',sortable: true},
-				{field: 'parentId', title: '父级区域id', align: 'center', sortName:'parentId',sortable: true},
-				{
-					filed: '',
-					title: '操作区',
-					align: 'center',
-					events: operateEvents,
-					formatter: operateFormatter
-                } ],
+                { filed: '', title: '操作区', align: 'center',width:'40%', events: operateEvents, formatter: operateFormatter},
+                {field: '', title: '序号', align: 'center',width:'5%',  formatter: function (value, row, index) {return index+1;}},
+				{field: 'name', title: '区域名称', align: 'center',width:'35%', sortName:'name',sortable: true},
+                {field: 'id', title: '区域id', align: 'center', width:'10%',sortName:'id',sortable: true},
+				{field: 'parentId', title: '父级区域id', align: 'center',width:'10%', sortName:'parentId',sortable: true}
+				],
             //注册加载子表的事件。注意下这里的三个参数！
             onExpandRow: function (index, row, $detail) {
                 expandTable(index, row, $detail);
@@ -134,19 +129,15 @@
             showToggle:false,                   //是否显示详细视图和列表视图的切换按钮
             cardView: false,                    //是否显示详细视图
             detailView: true,                  //是否显示父子表
+            showHeader:false,                    //是否显示列头
             columns: [
                /* {checkbox: true, width:'2%'},*/
-                {field: '', title: '序号', align: 'center',  formatter: function (value, row, index) {return index+1;}},
-                {field: 'name', title: '区域名称', align: 'center', sortName:'name',sortable: true},
-                {field: 'id', title: '区域id', align: 'center', sortName:'id',sortable: true},
-                {field: 'parentId', title: '父级区域id', align: 'center', sortName:'parentId',sortable: true},
-                {
-                    filed: '',
-                    title: '操作区',
-                    align: 'center',
-                    events: operateEvents,
-                    formatter: operateFormatter
-                } ],
+                {filed: '', title: '操作区', align: 'center',width:'40%', events: operateEvents, formatter: operateFormatter},
+                {field: '', title: '序号', align: 'center',width:'5%',   formatter: function (value, row, index) {return index+1;}},
+                {field: 'name', title: '区域名称', align: 'center',width:'35%',  sortName:'name',sortable: true},
+                {field: 'id', title: '区域id', align: 'center',width:'10%',  sortName:'id',sortable: true},
+                {field: 'parentId', title: '父级区域id', align: 'center',width:'10%',  sortName:'parentId',sortable: true}
+                ],
             //注册加载子表的事件。注意下这里的三个参数！
             onExpandRow: function (index, row, $detail) {
                 expandTable(index, row, $detail);

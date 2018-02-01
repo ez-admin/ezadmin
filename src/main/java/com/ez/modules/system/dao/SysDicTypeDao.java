@@ -7,6 +7,7 @@
 package com.ez.modules.system.dao;
 
 import com.ez.commons.base.BaseDao;
+import com.ez.commons.json.Entity;
 import com.ez.modules.system.entity.SysDicType;
 import org.springframework.dao.DataAccessException;
 
@@ -19,6 +20,6 @@ import java.util.List;
  * @version 1.0
  */
 public interface SysDicTypeDao extends BaseDao<SysDicType>{
-	List<SysDicType> getSdBySdtCode(String code) throws DataAccessException;
-    SysDicType getByName(String name) throws DataAccessException;
+	List<Entity> getSdBySdtCode(String code);
+    SysDicType getByName(String name);
 }

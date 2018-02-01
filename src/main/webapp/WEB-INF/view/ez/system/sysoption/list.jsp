@@ -5,32 +5,34 @@
 <html lang="en">
 <head>
 	<title>系统设置列表</title>
-	<%@ include file="/WEB-INF/view/ez/index/listpublictop.jsp"%>
+	<%@ include file="/WEB-INF/view/ez/index/listhead.jsp"%>
 </head>
 <body>
-<form class="layui-form" id="formSearch">
+<form class="form-inline" id="formSearch">
 	<shiro:hasPermission name="sysoption_query">
-	<div class="layui-input-inline">
-		<input id="optionValue" name="optionValue" placeholder="请输入参数值" type="text" class="layui-input-quote" maxlength="65535" autocomplete="off">
+		<div class="form-group">
+			<input id="optionValue" name="optionValue" placeholder="请输入参数值" type="text" class="form-control" maxlength="65535">
+		</div>
+		<div class="form-group">
+			<input id="optionName" name="optionName" placeholder="请输入参数名称" type="text" class="form-control" maxlength="100" autocomplete="off">
+		</div>
+		<button type="button" id="btn_query" class="btn btn-primary"><i class="fa fa-search"></i>查询</button>
+	</shiro:hasPermission>
+	<div class="btn-group">
+		<shiro:hasPermission name="sysoption_add">
+			<button id="btn_add" type="button" class="btn btn-primary">
+				<i class="fa fa-plus"></i>新增
+			</button>
+		</shiro:hasPermission>
+		<shiro:hasPermission name="sysoption_deleteall">
+			<button id="btn_delete" type="button" class="btn btn-primary">
+				<i class="fa fa-remove"></i>批量删除
+			</button>
+		</shiro:hasPermission>
 	</div>
-	<div class="layui-input-inline">
-		<input id="optionName" name="optionName" placeholder="请输入参数名称" type="text" class="layui-input-quote" maxlength="100" autocomplete="off">
-	</div>
-	<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
-	</shiro:hasPermission>
-	<shiro:hasPermission name="sysoption_add">
-	<button id="btn_add" type="button" class="layui-btn layui-btn-small">
-		<i class="fa fa-plus"></i>新增
-	</button>
-	</shiro:hasPermission>
-	<shiro:hasPermission name="sysoption_deleteall">
-		<button id="btn_delete" type="button" class="layui-btn layui-btn-small">
-			<i class="fa fa-remove"></i>批量删除
-		</button>
-	</shiro:hasPermission>
 </form>
+
 <table id="table"></table>
-<%@ include file="/WEB-INF/view/ez/index/listpublicjs.jsp"%>
 <script>
 	$(function () {
 		//初始化表格
@@ -73,17 +75,10 @@
 			detailView: false,                  //是否显示父子表
 			columns: [
 				{checkbox: true, width:'2%'},
-				{field: '', title: '序号', align: 'center', width:'5%', formatter: function (value, row, index) {return index+1;}},
+                {filed: '', title: '操作区', align: 'center', width: '13%', events: operateEvents, formatter: operateFormatter},
+                {field: '', title: '序号', align: 'center', width:'5%', formatter: function (value, row, index) {return index+1;}},
 				{field: 'optionValue', title: '参数值', align: 'center', width:'28%',sortName:'OPTION_VALUE',sortable: true},
-				{field: 'optionName', title: '参数名称', align: 'center', width:'28%',sortName:'OPTION_NAME',sortable: true},
-				 {
-					filed: '',
-					title: '操作区',
-					align: 'center',
-					width:'13%',
-					events: operateEvents,
-					formatter: operateFormatter
-				}
+				{field: 'optionName', title: '参数名称', align: 'center', width:'28%',sortName:'OPTION_NAME',sortable: true}
 			]
 		});
 		//监听页面的回车事件

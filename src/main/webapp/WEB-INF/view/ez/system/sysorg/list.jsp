@@ -8,21 +8,18 @@
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
 	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap.min.css">
 	<script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
-	<script type="text/javascript" src="/static/plugins/layui/layui.js" charset="utf-8"></script>
-	<script type="text/javascript" src="/static/plugins/layui/lay/dest/layui.all.js"></script>
+	<script type="text/javascript" src="/static/plugins/layer/layer.js"></script>
+	<!-- iCheck -->
+	<link rel="stylesheet" href="/static/plugins/iCheck/custom.css">
+	<script src="/static/plugins/iCheck/icheck.min.js"></script>
+	<%--<script type="text/javascript" src="/static/plugins/layui/layui.js" charset="utf-8"></script>
+	<script type="text/javascript" src="/static/plugins/layui/lay/dest/layui.all.js"></script>--%>
 	<!--树组件start -->
 	<script type="text/javascript" src="/static/plugins/zTree/qui/ztree.js"></script>
 	<link href="/static/plugins/zTree/qui/ztree.css" rel="stylesheet" type="text/css"/>
 	<!--树组件end -->
 	<style>
-		.layui-form-label {width: auto!important;  }
 		.ztree li span { line-height: inherit; margin-right: 2px; }
-		.layui-input-block { margin-left: 90px; }
-		.layui-input, .layui-select, .layui-textarea { height:30px;line-height: 30px; }
-		.layui-form-label { padding: 3px 10px; }
-		.layui-form-radio { line-height: 19px; }
-		.layui-form-item .layui-input-inline { width: 60%; margin-left: 14px; }
-		.layui-form-mid { padding:0; }
 		.ztree li span {
 			font-size: 12px!important;
 		}
@@ -31,73 +28,70 @@
 <body>
 	<div class="container-fluid">
 		<div class="row">
-
-			<div class="site-tips col-md-6" style=" padding: 10px;  vertical-align: top;">
-				<form class="layui-form" action="">
-					<div class="layui-form-item">
-						<label class="layui-form-label">部门名称：</label>
-						<div class="layui-input-block">
-							<input type="text"  id="selectNode" readOnly class="layui-input layui-disabled"/>
+			<div class="site-tips-left col-md-6">
+				<div>
+					<ul id="tree-1" class="ztree"></ul>
+				</div>
+			</div>
+			<div class="site-tips-right col-md-6" >
+				<form class="form-horizontal" action="">
+					<div class="form-group">
+						<label class="col-md-2 control-label">部门名称：</label>
+						<div class="col-md-10">
+							<input type="text"  id="selectNode" readOnly class="form-control"/>
 							<input type="hidden" id="selectNodeid"/>
 						</div>
 					</div>
-					<div class="layui-form-item">
-						<label class="layui-form-label">描述：</label>
-						<div class="layui-input-block">
-							<input type="text" id="nodeDes" class="layui-input"/>
+					<div class="form-group">
+						<label class="col-md-2 control-label">描述：</label>
+						<div class="col-md-10">
+							<input type="text" id="nodeDes" class="form-control"/>
 						</div>
 					</div>
-					<div class="layui-form-item">
-						<label class="layui-form-label">负责人：</label>
-						<div class="layui-input-inline">
-							<input type="text" id="nodePerson" readonly  class="layui-input layui-disabled"/>
+					<div class="form-group">
+						<label class="col-md-2 control-label">负责人：</label>
+						<div class="col-md-7">
+							<input type="text" id="nodePerson" readonly  class="form-control"/>
 							<input type="hidden" id="userId" />
 						</div>
 						<shiro:hasPermission name="sysorg_query">
-						<div class="layui-form-mid layui-word-aux">
-							<button type="button" class="layui-btn layui-btn-small" onclick="selectUser()">
+						<div class="col-md-3">
+							<button type="button" class="btn btn-primary" onclick="selectUser()">
 								选择负责人
 							</button>
 						</div>
 						</shiro:hasPermission>
 					</div>
-					<div class="layui-form-item">
-						<label class="layui-form-label">电话：</label>
-						<div class="layui-input-block">
-							<input type="text" id="nodePhone" class="layui-input"/>
+					<div class="form-group">
+						<label class="col-md-2 control-label">电话：</label>
+						<div class="col-md-10">
+							<input type="text" id="nodePhone" class="form-control"/>
 						</div>
 					</div>
-					<div class="layui-form-item">
-						<label class="layui-form-label">组织类型：</label>
-						<div class="layui-input-block">
-							<input type="radio" id="nodetype"  name="nodetype" value="0" title="组织">
-							<input type="radio" id="nodetype1"  name="nodetype" value="1" title="部门">
+					<div class="form-group">
+						<label class="col-md-2 control-label">组织类型：</label>
+						<div class="col-md-10">
+							<label class="radio-inline i-checks">
+								<input type="radio" id="nodetype1" checked="" value="1" name="nodetype">&nbsp;&nbsp;部门
+							</label>
+							<label class="radio-inline i-checks">
+								<input type="radio" id="nodetype" value="0" name="nodetype" >&nbsp;&nbsp;组织
+							</label>
 						</div>
 					</div>
-					<div class="layui-form-item">
+					<div class="form-group">
 						<shiro:hasPermission name="sysorg_submit">
-						<div class="layui-input-block">
-							<button type="button" class="layui-btn" id="btn_update">提交</button>
-							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						<div class="col-md-offset-2 col-md-4">
+							<button type="button" class="btn btn-primary" id="btn_update">提交</button>
+							<button type="reset" class="btn btn-default">重置</button>
 						</div>
 						</shiro:hasPermission>
 					</div>
 				</form>
 			</div>
-			<div class="col-md-6" style="  padding: 10px; border: 1px solid #ddd; overflow: auto;">
-				<div>
-					<ul id="tree-1" class="ztree"></ul>
-				</div>
-			</div>
 		</div>
 	</div>
 <script type="text/javascript">
-	//渲染form表单
-	layui.use('form', function(){
-		var form = layui.form();
-		form.render('radio');
-	});
-	var layer = layui.layer;
 	//设定不可编辑的节点id
 	var noeditArray=["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17"];
 
@@ -139,7 +133,9 @@
 
 	//初始化函数
 	$(function (){
-		//初始化树
+        $('.i-checks').iCheck({checkboxClass: 'icheckbox_square-blue', radioClass: 'iradio_square-blue'});
+
+        //初始化树
 		getOrgTreeData();
 
 		//监听按钮点击事件
@@ -194,7 +190,7 @@
 				$.fn.zTree.init($("#tree-1"), setting1, nodes);
 			},
 			error : function(a){
-				layer.msg("访问服务器端出错！");
+				top.layer.msg("访问服务器端出错！");
 			},
 			dataType : 'json'
 		});
@@ -212,10 +208,6 @@
 		setForm(treeNode.name,treeNode.desc,treeNode.manager,treeNode.phone,treeNode.menuType);
 		$("#selectNodeid").val(treeNode.id);
         $("input[name='nodetype'][value='"+treeNode.menuType+"']").click();
-        layui.use('form', function(){
-            var form = layui.form();
-            form.render('radio');
-        });
 
 	}
 
@@ -227,7 +219,7 @@
 	//确认是否进入编辑状态
 	function beforeEditName1(treeId, treeNode) {
 		if(treeNode.id==0){
-			top.Dialog.alert("根节点不能修改！");
+			top.layer.alert("根节点不能修改！");
 			return false;
 		}
 		/*else if(getPosition(treeNode.id,noeditArray)!=-1){
@@ -312,7 +304,7 @@
 	//确认是否删除+删除处理
 	function beforeRemove1(treeId, treeNode) {
 		if(treeNode.id==0){
-			layer.msg("根节点不能删除！");
+			top.layer.msg("根节点不能删除！");
 			return false;
 		}
 		/*else if(getPosition(treeNode.id,noeditArray)!=-1){
@@ -379,11 +371,9 @@
 		$("#nodePerson").val(val3 == 'null' ? '' : val3);
 		$("#nodePhone").val(val4 == 'null' ? '' : val4);
 		if(val5=="0"){
-			$("#nodetype").attr("checked",true);
-			layui.use('form', function(){var form = layui.form();form.render('radio');});
+            $('#nodetype').iCheck('check');
 		}else if(val5=="1"){
-			$("#nodetype1").attr("checked",true);
-			layui.use('form', function(){var form = layui.form();form.render('radio'); });
+            $('#nodetype1').iCheck('check');
 		}
 
 	}

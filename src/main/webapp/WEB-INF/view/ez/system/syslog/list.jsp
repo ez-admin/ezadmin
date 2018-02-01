@@ -2,35 +2,25 @@
 		 pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/ez/index/tablibs.jsp"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 	<title>系统日志列表</title>
-	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
-	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap.min.css">
-	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap-table.css">
-	<script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
-	<script type="text/javascript" src="/static/plugins/layui/lay/dest/layui.all.js"></script>
-	<script src="/static/plugins/bootstrap-table/bootstrap.min.js"></script>
-	<script src="/static/plugins/bootstrap-table/bootstrap-table.js"></script>
-	<script src="/static/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-	<script src="/static/plugins/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
-	<script src="/static/plugins/bootstrap-table/extensions/tableExport/tableExport.js"></script>
+	<%@ include file="/WEB-INF/view/ez/index/listhead.jsp"%>
 </head>
 
 <body>
-	<form class="layui-form" id="formSearch">
-		<shiro:hasPermission name="syslog_query">
-		<div class="layui-input-inline">
-			<input id="mehtoddescription" name="mehtoddescription"  placeholder="请输入方法描述" type="text" class="layui-input-quote">
+<form class="form-inline" id="formSearch">
+	<shiro:hasPermission name="syslog_query">
+		<div class="form-group">
+			<input id="mehtoddescription" name="mehtoddescription"  placeholder="请输入方法描述" type="text" class="form-control">
 		</div>
-		<div class="layui-input-inline">
-			<input id="usernm" name="usernm" placeholder="请输入操作员" type="text" class="layui-input-quote">
+		<div class="form-group">
+			<input id="usernm" name="usernm" placeholder="请输入操作员" type="text" class="form-control">
 		</div>
-		<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
-		</shiro:hasPermission>
-	</form>
-	<table id="table"></table>
-
+		<button class="btn btn-primary" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
+	</shiro:hasPermission>
+</form>
+<table id="table"></table>
 <script>
 	$(function () {
 		//初始化表格
@@ -98,12 +88,6 @@
 				align: 'center',
 				width: '5%',
 				formatter:logTypeFormatter
-			/*}, {
-				field: 'method',
-				title: '方法名称',
-				align: 'center',
-				width: '10%'*/
-
 			}, {
 				field: 'exceptionCode',
 				title: '异常代码',
@@ -149,43 +133,7 @@
 	$("#btn_query").click(function () {
 		$("#table").bootstrapTable('refresh');
 	});
-	//新增
-	$("#btn_add").click(function () {
-		top.layer.open({
-			type: 2,//iframe层
-			title: '新增',
-			maxmin: true,
-			shadeClose: true, //点击遮罩关闭层
-			area : ['600px' , '430px'],
-			content: '/ez/system/sysdictionary/addUI.do',
-			end:function(){
-				$("#table").bootstrapTable('refresh');//刷新表格
-			}
-		});
-	});
-	//删除
-	$("#btn_delete").click(function () {
-		var arrselections = $("#table").bootstrapTable('getSelections');
-		if (arrselections.length <= 0) {
-			top.layer.msg('请选择有效数据!',{icon: 7});
-			return;
-		}
-		top.layer.confirm("确认要删除选择的数据吗？",{icon: 7},function(index){
-			//删除记录
-			$.ajax({
-				url: "/ez/system/sysdictionary/deleteAll.do",
-				type: "POST",
-				//获取所有选中行
-				data: getSelectId(arrselections),
-				success: function (result) {
-					//删除后的提示
-					handleResult(result.status,result.message);
-				}
-			});
-			//关闭
-			closeWin(index);
-		});
-	});
+	//日志类型
 	function logTypeFormatter(value, row, index) {
 		var a="未知类型";
 		if(value==0){
@@ -194,88 +142,6 @@
 			a="异常记录";
 		}
 		return a;
-	}
-	//操作区
-	function operateFormatter(value, row, index) {
-		if (row.code!=null && row.code!="" && row.code!=undefined){
-			return [
-				'<a class="view" href="javascript:void(0)" title="查看">',
-				'查看',
-				'</a>    ',
-				'<a class="edit" href="javascript:void(0)" title="修改">',
-				'修改',
-				'</a>    ',
-				'<a class="remove" href="javascript:void(0)" title="删除">',
-				'删除',
-				'</a>'
-			].join('');
-		}
-	};
-	//操作区事件
-	window.operateEvents = {
-		'click .view': function (e, value, row, index) {
-			top.layer.open({
-				type: 2,//iframe层
-				title: '查看',
-				maxmin: true,
-				shadeClose: true, //点击遮罩关闭层
-				area : ['600px' , '430px'],
-				content: '/ez/system/sysdictionary/getById.do?typeKey=2&sysdictionaryId='+row.id,
-			});
-		},
-		'click .edit': function (e, value, row, index) {
-			top.layer.open({
-				type: 2,//iframe层
-				title: '编辑',
-				maxmin: true,
-				shadeClose: true, //点击遮罩关闭层
-				area : ['600px' , '430px'],
-				content: '/ez/system/sysdictionary/getById.do?typeKey=1&sysdictionaryId='+row.id,
-				end:function(){
-					$("#table").bootstrapTable('refresh');//刷新表格
-				}
-			});
-		},
-		'click .remove': function (e, value, row, index) {
-			top.layer.confirm("确认要删除该行的数据吗？",{icon: 7},function(index){
-				//删除记录
-				$.ajax({
-					url: "/ez/system/sysdictionary/deleteById.do",
-					type: "POST",
-					data: { "ids": row.id },
-					success: function (result) {
-						handleResult(result.status,result.message);
-					}
-				});
-				closeWin(index);
-			});
-		}
-	};
-	//获取所有选中行获取选中行的id 格式为 "ids":1,2
-	function getSelectId(arrselections) {
-		var arrselectionsLength = arrselections.length;
-		var ids = "";
-		for(var i = 0;i<arrselectionsLength;i++) {
-			ids += arrselections[i].id ;
-			if(i!=arrselectionsLength-1){
-				ids += ",";
-			}
-		}
-		return {"ids":ids};
-	}
-	//删除后的提示
-	function handleResult(status,message){
-		if(status =="1"){
-			top.layer.msg('删除成功！',{icon: 1});
-		}else{
-			top.layer.msg('删除失败！'+message,{icon: 2});
-		}
-	}
-	//关闭弹窗并刷新
-	function closeWin(index){
-		location.reload();
-		//$("#table").bootstrapTable('refresh');
-		top.layer.close(index);
 	}
 	//获取表格高度
 	function getHeight() {

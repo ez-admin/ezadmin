@@ -9,7 +9,6 @@
 	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap.min.css">
 	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap-table.css">
 	<script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
-	<script type="text/javascript" src="/static/plugins/layui/lay/dest/layui.all.js"></script>
 	<script src="/static/plugins/bootstrap-table/bootstrap.min.js"></script>
 	<script src="/static/plugins/bootstrap-table/bootstrap-table.js"></script>
 	<script src="/static/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
@@ -22,16 +21,15 @@
 	</style>
 </head>
 
-<body>
-<form class="layui-form" id="formSearch">
-	<div class="layui-input-inline">
-		<input id="lognm" name="lognm" placeholder="请输入登陆账号" type="text" class="layui-input-quote">
+<body class="container-fluid">
+<form class="form-horizontal" id="formSearch">
+	<div class="form-group">
+		<input id="lognm" name="lognm" placeholder="请输入登陆账号" type="text" class="form-control">
 	</div>
-	<div class="layui-input-inline">
-		<input id="userrelnm" name="userrelnm" placeholder="请输入用户姓名" type="text" class="layui-input-quote">
+	<div class="form-group">
+		<input id="userrelnm" name="userrelnm" placeholder="请输入用户姓名" type="text" class="form-control">
 	</div>
-	<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
-
+	<button class="btn btn-primary" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
 </form>
 <table id="table"></table>
 
@@ -156,9 +154,10 @@
 	//操作区事件
 	window.operateEvents = {
 		'click .select': function (e, value, row, index) {
-			//var userName = parent.frames["ezsystemsysorglist"].document.getElementById('userId').value;
+			var userName = parent.frames["ezsystemsysorglist"].document.getElementById('userId').value;
 			$(window.parent.ezsystemsysorglist.document).find('#userId').val(row.userno);
 			$(window.parent.ezsystemsysorglist.document).find('#nodePerson').val(row.userrelnm);
+			console.log(userName);
 			top.layer.closeAll();
 		}
 	};

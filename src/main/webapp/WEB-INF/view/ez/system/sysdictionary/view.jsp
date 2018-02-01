@@ -1,13 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/ez/index/tablibs.jsp"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<!DOCTYPE html>
+<html lang="zh-cn">
 <head>
 	<title>系统字典名称新增</title>
-	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
+	<%@ include file="/WEB-INF/view/ez/index/aevhead.jsp"%>
 </head>
-<body>
+<body class="container-fluid">
+<form class="form-horizontal" id="formid">
+	<div class="form-group">
+		<label for="code" class="col-sm-2 control-label"><em class="required">*</em>字典类型：</label>
+		<div class="col-sm-10">
+			<select class="form-control" id="code" name="code" readonly disabled>
+				<option value="${sysdictionary.code}" selected="selected" >${sysdictionary.codeName}</option>
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="sdkey" class="col-sm-2 control-label"><em class="required">*</em>字典key值:</label>
+		<div class="col-sm-10">
+			<input type="text" name="sdkey" id="sdkey" value="${sysdictionary.sdkey}" readonly maxlength="4" placeholder="输入字典key值"  class="form-control">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="sdvalue" class="col-sm-2 control-label"><em class="required">*</em>字典value值:</label>
+		<div class="col-sm-10">
+			<input type="text" name="sdvalue" id="sdvalue" value="${sysdictionary.sdvalue}" readonly maxlength="4" placeholder="输入字典value值"  class="form-control">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="remark" class="col-sm-2 control-label">备注：</label>
+		<div class="col-sm-10">
+			<textarea id="remark" name="remark" class="form-control" readonly>${sysdictionary.remark}</textarea>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="button" class="btn btn-primary" onclick="top.layer.closeAll()">关闭</button>
+		</div>
+	</div>
+</form>
+
+<%--<body class="container-fluid">
 <div class="layui-field-box">
 	<form id="formid" class="layui-form">
 		<input type="hidden" name="id" value="${sysdictionary.id}">
@@ -63,6 +98,6 @@
         });
 
 	});
-</script>
+</script>--%>
 </body>
 </html>

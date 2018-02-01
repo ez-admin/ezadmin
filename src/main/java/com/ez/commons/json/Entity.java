@@ -1,20 +1,32 @@
 package com.ez.commons.json;
 
 
+import java.io.Serializable;
 
-public class Entity {
-	private String key;
-	private String value;
-	public String getKey() {
-		return key;
+/**
+ * @auther chenez
+ * @description select2 远程请求
+ * @date 2017/9/26  17:08
+ */
+public class Entity implements Serializable {
+	private static final long serialVersionUID = -120702763584864885L;
+	private Integer id;
+	private String text;
+
+	public Integer getId() {
+		return id;
 	}
-	public void setKey(String key) {
-		this.key = key;
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
-	public String getValue() {
-		return value;
+
+	public String getText() {
+		return text;
 	}
-	public void setValue(String value) {
-		this.value = value;
+
+	public void setText(String text) {
+		this.text = text;
 	}
+
 }

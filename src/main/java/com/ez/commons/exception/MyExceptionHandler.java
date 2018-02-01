@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.ez.commons.util.HttpCode;
 import com.ez.commons.util.WebTool;
 import org.apache.shiro.authc.AuthenticationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,6 +19,8 @@ import java.util.Map;
  */
 public class MyExceptionHandler implements HandlerExceptionResolver {
 
+    private static final Logger logger = LoggerFactory.getLogger(MyExceptionHandler.class);
+
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
                                          Exception ex) {
         //是否异步请求
@@ -29,17 +33,18 @@ public class MyExceptionHandler implements HandlerExceptionResolver {
             if (ex instanceof DataParseException) {//日期类型转换异常
                 map.put("httpCode", HttpCode.DATEPARSE_ERROR.value());
                 map.put("message","日期类型出错，请联系系统管理员！");
+                logger.info("DataParseException+异常代码,异常信息",HttpCode.DATEPARSE_ERROR.value(),ex.getMessage());
             } else if( ex instanceof AuthenticationException){
                 System.out.println("我进入AuthenticationException异常了");
                 map.put("httpCode", HttpCode.LOGIN_FAIL.value());
                 map.put("message",ex.getMessage());
             } else {
+                logger.info("");
                 map.put("httpCode", HttpCode.INTERNAL_SERVER_ERROR.value());
                 map.put("message","系统出错，请联系系统管理员！");
             }
             return new ModelAndView("/error/error", map);
         }else{
-
             JSONObject jsonObject=new JSONObject();
             if (ex instanceof DataParseException) {//日期类型转换异常
                 jsonObject.put("message","日期类型出错，请联系系统管理员！");

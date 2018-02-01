@@ -6,8 +6,9 @@
 
 package com.ez.modules.system.service;
 
+import com.ez.commons.base.service.BaseService;
+import com.ez.commons.json.Entity;
 import com.ez.modules.system.entity.SysDicType;
-import com.github.pagehelper.Page;
 
 import java.util.List;
 
@@ -18,25 +19,9 @@ import java.util.List;
  * @version 1.0
  */
 
-public interface SysDicTypeService {
+public interface SysDicTypeService extends BaseService<SysDicType> {
 
-	List<SysDicType> query(Page<SysDicType> page, SysDicType sysDictype);
-
-	List<SysDicType> queryAll(SysDicType sysDictype);
-
-	void add(SysDicType sysDictype);
-	
-	void addAll(SysDicType sysDictype);
-	
-	void delete(String id);
-	
-	void modify(SysDicType sysDictype);
-	
-	SysDicType getById(String id);
-	
-	List<SysDicType> findAll();
-
-	List<SysDicType> getSdBySdtCode(String code);
+	List<Entity> getSdBySdtCode(String code);
 
 	SysDicType getByName(String name);
 }

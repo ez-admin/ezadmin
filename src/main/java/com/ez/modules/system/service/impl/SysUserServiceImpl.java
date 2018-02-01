@@ -1,5 +1,6 @@
 package com.ez.modules.system.service.impl;
 
+import com.ez.commons.annotation.ServiceImplClassDescription;
 import com.ez.modules.system.dao.SysUserDao;
 import com.ez.modules.system.dao.SysUserRoleDao;
 import com.ez.modules.system.entity.SysUser;
@@ -23,6 +24,7 @@ import java.util.List;
  */
 @Transactional
 @Service("sysUserService")
+@ServiceImplClassDescription(description = "用户管理")
 public class SysUserServiceImpl implements SysUserService {
 	@Resource
 	private SysUserDao sysUserDao;

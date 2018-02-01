@@ -68,11 +68,11 @@ public  class SystemLogAspect {
         String ip = request.getRemoteAddr();
         try {
             //*========控制台输出=========*//
-            logger.info("=====前置通知开始=====");
-            logger.info("请求方法:{}.{}()",joinPoint.getTarget().getClass().getName(),joinPoint.getSignature().getName());
-            logger.info("方法描述:{}",getControllerMethodDescription(joinPoint));
+            //logger.info("=====前置通知开始=====");
+            //logger.info("请求方法:{}.{}()",joinPoint.getTarget().getClass().getName(),joinPoint.getSignature().getName());
+            //logger.info("方法描述:{}",getControllerMethodDescription(joinPoint));
             //*========数据库日志=========*//
-            logger.info("{}请求descript:{}",getControllerMethodDescription(joinPoint).length(),getControllerMethodDescription(joinPoint));
+            //logger.info("{}请求descript:{}",getControllerMethodDescription(joinPoint).length(),getControllerMethodDescription(joinPoint));
             SysLog log = new SysLog();
             log.setMehtoddescription(getControllerMethodDescription(joinPoint));
             log.setMethod((joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));
@@ -84,16 +84,16 @@ public  class SystemLogAspect {
             log.setCreateDate(FormatDateUtil.getFormatDate("yyyy-MM-dd HH:mm:ss"));
             if(sysUser!=null){
                 log.setUserno( sysUser.getUserno() );
-                logger.info("请求人:{}",sysUser.getLognm());
-                logger.info("请求IP:{}",ip);
+                //logger.info("请求人:{}",sysUser.getLognm());
+                //logger.info("请求IP:{}",ip);
             }
             //保存数据库
             syslogService.add(log);
-            logger.info("=====前置通知结束=====");
+            //logger.info("=====前置通知结束=====");
         }  catch (Exception e) {
             //记录本地异常日志
             e.printStackTrace();
-            logger.error("前置通知异常:",e.getMessage());
+            //logger.error("前置通知异常:",e.getMessage());
         }
     }
 
@@ -148,9 +148,6 @@ public  class SystemLogAspect {
             }
             //保存数据库
             syslogService.add(log);
-            /*利用线程保存，无法避开事务的问题
-            LogThread logThread=new LogThread(log);
-            logThread.run();*/
             logger.info("=====异常通知结束=====");
         }  catch (Exception ex) {
             //记录本地异常日志

@@ -13,7 +13,6 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
 
-<link rel="stylesheet" href="/static/plugins/layui/css/layui.css" media="all" />
 <link rel="stylesheet" href="/static/plugins/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="/static/css/public.css" class="css">
 

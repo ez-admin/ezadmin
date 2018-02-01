@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface SysDictionaryDao extends BaseDao<SysDictionary> {
 
-    List<SysDictionary> findSdBySdtCode(String code) throws DataAccessException;
+    List<SysDictionary> findSdBySdtCode(String code);
 
-    void deleteByCode(String id) throws DataAccessException;
+    void deleteByCode(String id);
 }

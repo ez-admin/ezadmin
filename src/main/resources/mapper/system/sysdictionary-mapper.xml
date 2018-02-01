@@ -16,7 +16,7 @@
         <result property="sdvalue" column="SDVALUE"/>
         <result property="sdkey" column="SDKEY"/>
         <result property="remark" column="REMARK"/>
-        <result property="name" column="NAME"/>
+        <result property="codeName" column="CODENAME"/>
 	</resultMap>
 	
 	<sql id="selectId">
@@ -37,12 +37,12 @@
 		SELECT
 			ID,
 			a.CODE,
-			b.name,
+			b.NAME CODENAME,
 			SDVALUE,
 			SDKEY,
 			a.REMARK
 		FROM sys_dictionary a
-		LEFT JOIN sys_dictype b on a.CODE=b.code
+		LEFT JOIN sys_dictype b on a.CODE=b.CODE
 		<include refid="querywhere"/>
 	</select>
 
@@ -52,8 +52,8 @@
 			<if test="@Ognl@isNotEmpty(code)">
 				AND a.CODE like '%${code}%'
 			</if>
-			<if test="@Ognl@isNotEmpty(name)">
-				AND b.name like '%${name}%'
+			<if test="@Ognl@isNotEmpty(codeName)">
+				AND b.name like '%${codeName}%'
 			</if>
 			<if test="@Ognl@isNotEmpty(sdvalue)">
 				AND a.SDVALUE like '%${sdvalue}%'
@@ -165,9 +165,16 @@
 
 	<!-- 根据主键查实体 -->
 	<select id="getById" parameterType="String" resultMap="SysDictionary">
-		SELECT <include refid="selectId" />
-		    FROM sys_dictionary 
-	        WHERE 
+		SELECT
+			ID,
+			a.CODE,
+			b.NAME CODENAME,
+			SDVALUE,
+			SDKEY,
+			a.REMARK
+		FROM sys_dictionary a
+		LEFT JOIN sys_dictype b on a.CODE=b.CODE
+		WHERE
         ID = #{id} 
 	</select>
     <select id="findSdBySdtCode" parameterType="String" resultType="com.ez.modules.system.entity.SysDictionary">

@@ -50,8 +50,9 @@ public class SysDictionary extends BaseEntity implements java.io.Serializable{
 	/**字典备注==>db_column: REMARK*/
 	private String remark;
 	//columns END
-
-	private String name;
+	//表外字段
+	/**字典类型编码名称==>db_column: codeName*/
+	private String codeName;
 
 	public void setId(Integer value) {
 		this.id = value;
@@ -89,12 +90,12 @@ public class SysDictionary extends BaseEntity implements java.io.Serializable{
 		return this.remark;
 	}
 
-	public String getName() {
-		return name;
+	public String getCodeName() {
+		return codeName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setCodeName(String codeName) {
+		this.codeName = codeName;
 	}
 
 	public String toString() {

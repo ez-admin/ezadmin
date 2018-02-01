@@ -20,24 +20,18 @@ import java.util.List;
  * @version 1.0
  */
 public interface SysMenuDao extends BaseDao<SysMenu> {
-	List<SysMenu> findAllByParentid(String parentId) throws DataAccessException;
+	List<SysMenu> findAllByParentid(String parentId);
 
-	List<String> findParentIdList() throws DataAccessException;
+	List<SysMenu> findAllList();
 
-	List<SysMenu> findAllList() throws DataAccessException;
+	List<SysMenu> getParentMenu(SysMenu sysmenu);
 
-    List<MenuTitle> findFisrtMenu() throws DataAccessException;
+	List<SysMenu> getChildrenMenu(SysMenu sysmenu);
 
-	List<MenuTitle> getByParentId(String parentid) throws DataAccessException;
+	List<SysMenu> findAllListMenu(SysMenu sysMenu);
 
-	List<SysMenu> getParentMenu(SysMenu sysmenu) throws DataAccessException;
+    List<String> findmenuids();
 
-	List<SysMenu> getChildrenMenu(SysMenu sysmenu) throws DataAccessException;
-
-	List<SysMenu> findAllListMenu(SysMenu sysMenu) throws DataAccessException;
-
-    List<String> findmenuids() throws DataAccessException;
-
-	List<SysMenu> findAllMenuList() throws DataAccessException;
+	List<SysMenu> findAllMenuList();
 
 }

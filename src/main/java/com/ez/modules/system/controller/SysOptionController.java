@@ -9,12 +9,14 @@ package com.ez.modules.system.controller;
 
 import com.ez.commons.annotation.SystemLogController;
 import com.ez.commons.base.BaseController;
+import com.ez.commons.util.PubConstants;
 import com.ez.modules.system.entity.SysOption;
 import com.ez.modules.system.entity.SysOptionList;
 import com.ez.modules.system.service.SysOptionService;
-import com.ez.commons.util.WebTool;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -79,13 +81,15 @@ public class SysOptionController extends BaseController {
 	 * @param sysoption
 	 * @return
 	 */
+	@RequiresPermissions("sysoption_add")
 	@RequestMapping(value="add")
 	@SystemLogController(description = "保存系统设置新增信息")
-	public String add(SysOption sysoption,HttpServletResponse response){
-		String result="{\"msg\":\"suc\"}";
+	@ResponseBody
+	public Map<String, Object> add(SysOption sysoption,HttpServletResponse response){
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("status", PubConstants.TRUE);
 		sysOptionService.add(sysoption);
-		WebTool.writeJson(result, response);
-		return null;
+		return map;
 	}
 	
 	/**
@@ -108,17 +112,18 @@ public class SysOptionController extends BaseController {
 	
 	/**
 	 * 根据id删除
-	 * @param model
 	 * @param ids
 	 * @return
 	 */
+	@RequiresPermissions("sysoption_delete")
 	@RequestMapping(value="deleteById",method=RequestMethod.POST)
 	@SystemLogController(description = "删除系统设置信息")
-	public String deleteById(Model model,String ids, HttpServletResponse response){
-		String result="{\"status\":1}";
+	@ResponseBody
+	public Map<String, Object> deleteById(String ids){
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("status",PubConstants.TRUE);
 		sysOptionService.delete(ids);
-		WebTool.writeJson(result, response);
-		return null;
+		return map;
 	}
 	
 	/**
@@ -128,6 +133,7 @@ public class SysOptionController extends BaseController {
 	 * @param typeKey
 	 * @return
 	 */
+	@RequiresPermissions(value={"sysoption_view","sysoption_modify"},logical= Logical.OR)
 	@RequestMapping(value="getById")
 	@SystemLogController(description = "跳到查询&修改系统设置单条记录页面")
 	public String getById(Model model,String sysoptionId,Integer typeKey){
@@ -144,52 +150,54 @@ public class SysOptionController extends BaseController {
 	
 	/**
 	 * 更新修改的信息
-	 * @param model
 	 * @param sysoption
 	 * @return
 	 */
+	@RequiresPermissions("sysoption_modify")
 	@RequestMapping(value="update",method=RequestMethod.POST)
 	@SystemLogController(description = "更新修改系统设置的信息")
-	public String updateSysOption(Model model,SysOption sysoption,HttpServletResponse response){
-		String result="{\"msg\":\"suc\"}";
+	@ResponseBody
+	public Map<String, Object> updateSysOption(SysOption sysoption){
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("status",PubConstants.TRUE);
 		sysOptionService.modify(sysoption);
-		 WebTool.writeJson(result, response);
-		 return null;		
+		return map;
 	}
 	/**
 	 * 更新修改的信息
-	 * @param model
 	 * @param sysOptionList
 	 * @return
 	 */
+	@RequiresPermissions("option_listmodify")
 	@RequestMapping(value="updateList",method=RequestMethod.POST)
 	@SystemLogController(description = "更新修改系统设置列表的信息")
-	public String updateList(Model model, SysOptionList sysOptionList, HttpServletResponse response){
-		String result="{\"msg\":\"suc\"}";
+	@ResponseBody
+	public Map<String, Object> updateList(SysOptionList sysOptionList){
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("status",PubConstants.TRUE);
 		List<SysOption> optionList=sysOptionList.getSysOptionList();
 		if (null != optionList && optionList.size()>0){
 			for (SysOption sysOption :optionList){
 				sysOptionService.modify(sysOption);
 			}
 		}
-		WebTool.writeJson(result, response);
-		return null;
+		return map;
 	}
 	/**
 	 * 批量删除数据
-	 * @param response
 	 * @param ids
 	 * @return
 	 */
+	@RequiresPermissions("option_deleteall")
 	@RequestMapping(value = "deleteAll")
 	@SystemLogController(description = "批量删除系统设置信息")
-	public String deleteAll(String[] ids, HttpServletResponse response) {
-		String result = "{\"status\":1}";
+	public Map<String, Object> deleteAll(String[] ids) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("status",PubConstants.TRUE);
 		for (String id : ids) {
 			sysOptionService.delete(id);
 		}
-		WebTool.writeJson(result, response);
-		return null;
+		return map;
 	}
 	
 }

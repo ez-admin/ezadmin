@@ -2,34 +2,35 @@
 		 pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/ez/index/tablibs.jsp"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 	<title>角色名称列表</title>
-	<%@ include file="/WEB-INF/view/ez/index/listpublictop.jsp"%>
+	<%@ include file="/WEB-INF/view/ez/index/listhead.jsp"%>
 </head>
 <body>
-	<form class="layui-form" id="formSearch">
+	<form class="form-inline" id="formSearch">
 		<shiro:hasPermission name="sysrole_query">
 		<%--下面一行代码是处理，当只有一个查询框的时候，enter事件会把input框清空：此问题留后人研究--%>
 		<input type="text" style="display: none">
-		<div class="layui-input-inline">
-			<input id="roleName" name="roleName" placeholder="请输入角色名称" type="text" class="layui-input-quote">
+		<div class="form-group">
+			<input id="roleName" name="roleName" placeholder="请输入角色名称" type="text" class="form-control">
 		</div>
-		<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
+		<button class="btn btn-primary" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
 		</shiro:hasPermission>
-		<shiro:hasPermission name="sysrole_add">
-		<button id="btn_add" type="button" class="layui-btn layui-btn-small">
-				<i class="fa fa-plus"></i>新增
-		</button>
-		</shiro:hasPermission>
-		<shiro:hasPermission name="sysrole_deleteall">
-		<button id="btn_delete" type="button" class="layui-btn layui-btn-small">
-			<i class="fa fa-remove"></i>批量删除
-		</button>
-		</shiro:hasPermission>
+		<div class="btn-group">
+			<shiro:hasPermission name="sysrole_add">
+			<button id="btn_add" type="button" class="btn btn-primary">
+					<i class="fa fa-plus"></i>新增
+			</button>
+			</shiro:hasPermission>
+			<shiro:hasPermission name="sysrole_deleteall">
+			<button id="btn_delete" type="button" class="btn btn-primary">
+				<i class="fa fa-remove"></i>批量删除
+			</button>
+			</shiro:hasPermission>
+		</div>
 	</form>
 	<table id="table"></table>
-	<%@ include file="/WEB-INF/view/ez/index/listpublicjs.jsp"%>
 <script>
 	$(function () {
 		//初始化表格
@@ -72,32 +73,43 @@
 			detailView: false,                  //是否显示父子表
 			columns: [{
 				checkbox: true
-			}, {
+			},{
+                filed: '',
+                title: '操作区',
+                align: 'center',
+                width:'35%',
+                events: operateEvents,
+                formatter: operateFormatter
+/*            }, {
 				field: '',
 				title: '序号',
 				align: 'center',
 				width:'5%',
 				formatter: function (value, row, index) {
 					return index+1;
-				}
+				}*/
+            }, {
+                field: 'roleId',
+                title: '角色ID',
+                align: 'center',
+                sortName:'role_id',
+                sortable: true,
+                width:'5%'
 			}, {
 				field: 'roleName',
 				title: '角色名称',
 				align: 'center',
+                sortName:'ROLE_NAME',
+                sortable: true,
 				width:'30%'
 			}, {
-				field: 'roleType',
-				title: '角色类型',
+				field: 'roleLvel',
+				title: '角色等级',
+                sortName:'ROLE_LVEL',
+                sortable: true,
 				align: 'center',
-				width:'30%',
-				formatter:roleTypeFormatter
-			},{
-				filed: '',
-				title: '操作区',
-				align: 'center',
-				width:'35%',
-				events: operateEvents,
-				formatter: operateFormatter
+				width:'30%'
+
 			} ]
 		});
 		//监听页面的回车事件
@@ -128,7 +140,7 @@
 			title: '新增',
 			maxmin: true,
 			shadeClose: true, //点击遮罩关闭层
-			area : ['600px' , '300px'],
+			area : ['1000px' , '600px'],
 			content: '/ez/system/sysrole/addUI.do',
 			end:function(){
 				$("#table").bootstrapTable('refresh');//刷新表格
@@ -145,42 +157,29 @@
 		top.layer.confirm("确认要删除选择的数据吗？",{icon: 7},function(index){
 			//删除记录
 			$.ajax({
-				url: "/ez/system/sysdictionary/deleteAll.do",
+				url: "/ez/system/sysrole/deleteAll.do",
 				type: "POST",
 				//获取所有选中行
 				data: getSelectId(arrselections),
+				dataType:"json",
 				success: function (result) {
 					//删除后的提示
-					handleResult(result.status,result.message);
+					handleResult(result);
 				}
 			});
 			//关闭
 			closeWin(index);
 		});
 	});
-	//角色类型
-	function roleTypeFormatter(value, row, index) {
-		var a="未知角色";
-		if (value==0){
-			a="开发者角色";
-		}else if(value==1){
-			a="系统管理角色";
-		}else if(value==2){
-			a="业务管理角色";
-		}else if(value==3){
-			a="前台会员角色";
-		}
-		return a;
-	}
 	//操作区
 	function operateFormatter(value, row, index) {
 		/*if (row.roleId!="1"){*/
 			return [
-				<shiro:hasPermission name="sysrole_view">
+				<%--<shiro:hasPermission name="sysrole_view">
                 '<a class="rolebutton" href="javascript:void(0)" title="分配权限">',
                 '分配权限',
                 '</a>    ',
-				</shiro:hasPermission>
+				</shiro:hasPermission>--%>
 				<shiro:hasPermission name="sysrole_modify">
 				'<a class="edit" href="javascript:void(0)" title="修改">',
 				'修改',
@@ -196,7 +195,7 @@
 	};
 	//操作区事件
 	window.operateEvents = {
-        'click .rolebutton': function (e, value, row, index) {
+        /*'click .rolebutton': function (e, value, row, index) {
             top.layer.open({
                 type: 2,//iframe层
                 title: '分配权限',
@@ -208,7 +207,7 @@
                     $("#table").bootstrapTable('refresh');//刷新表格
                 }
             });
-        },
+        },*/
 		'click .edit': function (e, value, row, index) {
 			top.layer.open({
 				type: 2,//iframe层
@@ -230,8 +229,9 @@
 					type: "POST",
 					async: false,
 					data: { "ids": row.roleId },
+					dataType:"json",
 					success: function (result) {
-						handleResult(result.status,result.message);
+						handleResult(result);
 					}
 				});
 				closeWin(index);
@@ -243,7 +243,7 @@
 		var arrselectionsLength = arrselections.length;
 		var ids = "";
 		for(var i = 0;i<arrselectionsLength;i++) {
-			ids += arrselections[i].id ;
+			ids += arrselections[i].roleId;
 			if(i!=arrselectionsLength-1){
 				ids += ",";
 			}
@@ -251,12 +251,22 @@
 		return {"ids":ids};
 	}
 	//删除后的提示
-	function handleResult(status,message){
-		if(status =="1"){
-			top.layer.msg('删除成功！',{icon: 1});
-		}else{
-			top.layer.msg('删除失败！'+message,{icon: 2});
-		}
+	function handleResult(result){
+        if (result.status) {
+            top.layer.msg('删除成功！',{icon: 1});
+        } else {
+            if (result.falsemsg != null){
+                var obj = eval("("+result.falsemsg+")");//把json转为object对象
+                var trs = "";
+                $.each(obj, function (n, value) {
+                    //alert(n + ' ' + value);
+                    trs +=value.rolename + ":" + value.msg + "<br>";
+                });
+                top.layer.alert(trs,{area: ['500px', '300px']});
+            }else {
+            	top.layer.msg('删除失败！'+result.message,{icon: 2});
+			}
+        }
 	}
 	//关闭弹窗并刷新
 	function closeWin(index){
@@ -266,7 +276,7 @@
 	}
 	//获取表格高度
 	function getHeight() {
-		return $(window).height()-5;
+		return $(window).height()-10;
 		/*return $(window).height() - $('.fixed-table-toolbar').outerHeight(true);*/
 	}
 </script>

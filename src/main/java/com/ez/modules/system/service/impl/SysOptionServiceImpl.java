@@ -25,20 +25,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("sysOptionService")
 @ServiceImplClassDescription(description = "系统设置")
 public class SysOptionServiceImpl extends BaseServiceImpl<SysOption> implements SysOptionService{
-   //method one
-   /* @Resource(name="sysOptionDao")
-    public void setDao(BaseDao<SysOption> dao) {
-        super.setDao(dao);
-    }
-    */
-   //method two
-    @Autowired
-    private SysOptionDao sysOptionDao;
 
-
-    /*test
-    @Override
-    public void test() throws DataFormatException {
-        sysOptionDao.test();
-    }*/
 }

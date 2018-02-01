@@ -15,12 +15,17 @@
         <result property="remark" column="REMARK"/>
         <result property="flag" column="FLAG"/>
 	</resultMap>
+
+	<resultMap id="selectIdEntity" type="com.ez.commons.json.Entity">
+		<result property="id" column="CODE"/>
+		<result property="text" column="NAME"/>
+	</resultMap>
 	
 	<sql id="selectId">
 		CODE,
-NAME,
-REMARK,
-FLAG
+		NAME,
+		REMARK,
+		FLAG
     </sql>
     
     <select id="findAll" resultMap="SysDictype">
@@ -127,7 +132,7 @@ FLAG
 	        WHERE 
         CODE = #{id}
 	</select>
-	<select id="getSdBySdtCode" resultType="com.ez.modules.system.entity.SysDicType" parameterType="String">
+	<select id="getSdBySdtCode" resultMap="selectIdEntity" parameterType="String">
 		SELECT <include refid="selectId" />
 		FROM sys_dictype
 		<if test="@Ognl@isNotEmpty(code)">

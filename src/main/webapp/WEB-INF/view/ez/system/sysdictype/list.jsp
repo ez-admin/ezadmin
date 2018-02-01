@@ -2,82 +2,45 @@
 		 pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/ez/index/tablibs.jsp"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 	<title>系统字典类型列表</title>
-	<%
-		String path = request.getContextPath();
-		String basePath = request.getScheme() + "://"
-				+ request.getServerName() + ":" + request.getServerPort()
-				+ path;
-	%>
-	<base href="<%=basePath%>">
-	<meta charset="utf-8">
-	<meta name="renderer" content="webkit">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="format-detection" content="telephone=no">
-	<%--<link rel="stylesheet" href="/static/plugins/layui/css/layui.css" media="all" />--%>
-	<link rel="stylesheet" href="/static/plugins/font-awesome/css/font-awesome.min.css">
-	<link rel="stylesheet" href="/static/css/public.css" class="css">
-	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap.min.css">
-	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap-table.css">
-
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-	<script src="/static/js/html5shiv.min.js"></script>
-	<script src="/static/js/respond.min.js"></script>
-	<![endif]-->
-
-	<script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
-	<script type="text/javascript" src="/static/plugins/layer/layer.js"></script>
-	<%--<script type="text/javascript" src="/static/plugins/layui/lay/dest/layui.all.js"></script>--%>
-	<script src="/static/plugins/bootstrap-table/bootstrap.min.js"></script>
-	<script src="/static/plugins/bootstrap-table/bootstrap-table.js"></script>
-	<script src="/static/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-	<script src="/static/plugins/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
-	<script src="/static/plugins/bootstrap-table/extensions/tableExport/tableExport.js"></script>
-
-	<%--<%@ include file="/WEB-INF/view/ez/index/listpublictop.jsp"%>--%>
+	<%@ include file="/WEB-INF/view/ez/index/listhead.jsp"%>
 </head>
-
 <body>
-	<form id="formSearch" class="form-inline">
-        <shiro:hasPermission name="sysdictype_query">
-		<div class="form-group">
-			<input id="code" name="code" maxlength="4" placeholder="请输入类型编码" type="text" class="form-control">
-		</div>
-		<div class="form-group">
-			<input id="name" name="name"  placeholder="请输入类型名称" type="text" class="form-control">
-		</div>
-		<button type="button" id="btn_query" class="btn btn-primary"><i class="fa fa-search"></i>查询</button>
+<form id="formSearch" class="form-inline">
+	<shiro:hasPermission name="sysdictype_query">
+	<div class="form-group">
+		<input id="code" name="code" maxlength="4" placeholder="请输入类型编码" type="text" class="form-control">
+	</div>
+	<div class="form-group">
+		<input id="name" name="name"  placeholder="请输入类型名称" type="text" class="form-control">
+	</div>
+	<button type="button" id="btn_query" class="btn btn-primary"><i class="fa fa-search"></i>查询</button>
+	</shiro:hasPermission>
+	<div class="btn-group">
+		<shiro:hasPermission name="sysdictype_add">
+		<button id="btn_add" type="button" class="btn btn-primary">
+				<i class="fa fa-plus"></i>新增
+		</button>
 		</shiro:hasPermission>
-		<div class="btn-group">
-			<shiro:hasPermission name="sysdictype_add">
-			<button id="btn_add" type="button" class="btn btn-primary">
-					<i class="fa fa-plus"></i>新增
-			</button>
-			</shiro:hasPermission>
-			<shiro:hasPermission name="sysdictype_deleteall">
-			<button id="btn_delete" type="button" class="btn btn-primary">
-				<i class="fa fa-remove"></i>批量删除
-			</button>
-			</shiro:hasPermission>
-		</div>
-	</form>
-	<table id="table"></table>
-<%--	<%@ include file="/WEB-INF/view/ez/index/listpublicjs.jsp"%>--%>
+		<shiro:hasPermission name="sysdictype_deleteall">
+		<button id="btn_delete" type="button" class="btn btn-primary">
+			<i class="fa fa-remove"></i>批量删除
+		</button>
+		</shiro:hasPermission>
+	</div>
+</form>
+<table id="table"></table>
 <script>
 	$(function () {
 		//初始化表格
 		$('#table').bootstrapTable({
 			url: 'ez/system/sysdictype/showlist.do',
 			method: 'post',                      //请求方式（*）
-            <shiro:hasPermission name="sysdictype_export">
-            showExport: true,//显示导出按钮
-            </shiro:hasPermission>
+			<shiro:hasPermission name="sysdictype_export">
+			showExport: true,//显示导出按钮
+			</shiro:hasPermission>
 			exportDataType: "basic",//导出类型
 			toolbar: '#formSearch',                //工具按钮用哪个容器
 			striped: true,                      //是否显示行间隔色
@@ -88,13 +51,6 @@
 			sortOrder: "asc",                   //排序方式
 			sortName: "code",
 			queryParams: queryParams=function(params) {
-				/*return {
-					pageNum:params.offset/params.limit+1,
-					pageSize:params.limit,
-					orderBy: params.sort+" "+ params.order,
-					code: $("#code").val(),
-					name: $("#name").val()
-				};*/
 				var pageNum=params.offset/params.limit+1;
 				return $('#formSearch').serialize()+
 						"&pageNum="+pageNum+
@@ -116,46 +72,15 @@
 			showToggle:false,                   //是否显示详细视图和列表视图的切换按钮
 			cardView: false,                    //是否显示详细视图
 			detailView: false,                  //是否显示父子表
-			columns: [{
-				checkbox: true
-			}, {
-                filed: '',
-                title: '操作区',
-                width:'15%',
-                align:'center',
-                events: operateEvents,
-                formatter: operateFormatter
-            }, {
-				field: '',
-				title: '序号',
-				width:'5%',
-				align:'center',
-				formatter: function (value, row, index) {
-					return index+1;
-				}
-			}, {
-				field: 'code',
-				title: '类型编码',
-				width:'10%',
-				align:'center',
-				sortable: true
-			}, {
-				field: 'name',
-				title: '类型名称',
-				width:'15%',
-				align:'center',
-			}, {
-				field: 'remark',
-				title: '字典备注',
-				width:'50%',
-				align:'center'
-			}, {
-				field: 'flag',
-				title: '是否启用',
-				width:'5%',
-				align:'center',
-				formatter:flagFormatter
-			} ]
+			columns: [
+				{checkbox: true}
+			    , { filed: '', title: '操作区', width:'15%', align:'center', events: operateEvents, formatter: operateFormatter}
+			    , { field: '', title: '序号', width:'5%', align:'center', formatter: function (value, row, index) { return index+1; }}
+			    , { field: 'code', title: '类型编码', width:'10%', align:'center', sortable: true}
+			    , { field: 'name', title: '类型名称', width:'15%', align:'center'}
+                , { field: 'remark', title: '字典备注', width:'50%', align:'center'}
+                , { field: 'flag', title: '是否启用', width:'5%', align:'center', formatter:flagFormatter}
+            ]
 		});
 		//监听页面的回车事件
 		document.onkeydown = function (e) {
@@ -189,21 +114,21 @@
 	//操作区
 	function operateFormatter(value, row, index) {
 		return [
-            <shiro:hasPermission name="sysdictype_view">
-            '<a class="view" href="javascript:void(0)" title="查看">',
-            '查看',
-            '</a>    ',
-            </shiro:hasPermission>
-            <shiro:hasPermission name="sysdictype_modify">
-            '<a class="edit" href="javascript:void(0)" title="修改">',
-            '修改',
-            '</a>    ',
-            </shiro:hasPermission>
-            <shiro:hasPermission name="sysdictype_delete">
-            '<a class="remove" href="javascript:void(0)" title="删除">',
-            '删除',
-            '</a>'
-            </shiro:hasPermission>
+			<shiro:hasPermission name="sysdictype_view">
+			'<a class="view" href="javascript:void(0)" title="查看">',
+			'查看',
+			'</a>    ',
+			</shiro:hasPermission>
+			<shiro:hasPermission name="sysdictype_modify">
+			'<a class="edit" href="javascript:void(0)" title="修改">',
+			'修改',
+			'</a>    ',
+			</shiro:hasPermission>
+			<shiro:hasPermission name="sysdictype_delete">
+			'<a class="remove" href="javascript:void(0)" title="删除">',
+			'删除',
+			'</a>'
+			</shiro:hasPermission>
 		].join('');
 	};
 	//刷新
@@ -238,9 +163,10 @@
 				type: "POST",
 				//获取所有选中行
 				data: getSelectId(arrselections),
+				dataType:"json",
 				success: function (result) {
 					//删除后的提示
-					handleResult(result.status,result.message);
+					handleResult(result);
 				}
 			});
 			//关闭
@@ -279,8 +205,9 @@
 					url: "/ez/system/sysdictype/deleteById.do",
 					type: "POST",
 					data: { "ids": row.code },
+					dataType:"json",
 					success: function (result) {
-						handleResult(result.status,result.message);
+						handleResult(result);
 					}
 				});
 				closeWin(index);
@@ -300,17 +227,17 @@
 		return {"ids":ids};
 	}
 	//删除后的提示
-	function handleResult(status,message){
-		if(status =="1"){
+	function handleResult(result){
+		if (result.status) {
 			top.layer.msg('删除成功！',{icon: 1});
-		}else{
-			top.layer.msg('删除失败！'+message,{icon: 2});
+		} else {
+			top.layer.msg('删除失败！'+result.message,{icon: 2});
 		}
+
 	}
 	//关闭弹窗并刷新
 	function closeWin(index){
 		location.reload();
-		//$("#table").bootstrapTable('refresh');
 		top.layer.close(index);
 	}
 	//获取表格高度

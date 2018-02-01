@@ -2,35 +2,36 @@
 		 pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/ez/index/tablibs.jsp"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 	<title>系统字典名称列表</title>
-	<%@ include file="/WEB-INF/view/ez/index/listpublictop.jsp"%>
+	<%@ include file="/WEB-INF/view/ez/index/listhead.jsp"%>
 </head>
 <body>
-	<form class="layui-form" id="formSearch">
-		<shiro:hasPermission name="sysdictionary_query">
-		<div class="layui-input-inline">
-			<input id="code" name="code" maxlength="4" placeholder="请输入类型编码" type="text" class="layui-input-quote">
-		</div>
-		<div class="layui-input-inline">
-			<input id="name" name="name" placeholder="请输入类型名称" type="text" class="layui-input-quote">
-		</div>
-		<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
-		</shiro:hasPermission>
+<form class="form-inline" id="formSearch">
+	<shiro:hasPermission name="sysdictionary_query">
+	<div class="form-group">
+		<input id="code" name="code" maxlength="4" placeholder="请输入类型编码" type="text" class="form-control">
+	</div>
+	<div class="form-group">
+		<input id="codeName" name="codeName"  placeholder="请输入类型名称" type="text" class="form-control">
+	</div>
+	<button type="button" id="btn_query" class="btn btn-primary"><i class="fa fa-search"></i>查询</button>
+	</shiro:hasPermission>
+	<div class="btn-group">
 		<shiro:hasPermission name="sysdictionary_add">
-		<button id="btn_add" type="button" class="layui-btn layui-btn-small">
-				<i class="fa fa-plus"></i>新增
+		<button id="btn_add" type="button" class="btn btn-primary">
+			<i class="fa fa-plus"></i>新增
 		</button>
 		</shiro:hasPermission>
 		<shiro:hasPermission name="sysdictionary_deleteall">
-		<button id="btn_delete" type="button" class="layui-btn layui-btn-small">
+		<button id="btn_delete" type="button" class="btn btn-primary">
 			<i class="fa fa-remove"></i>批量删除
 		</button>
 		</shiro:hasPermission>
-	</form>
+	</div>
+</form>
 <table id="table"></table>
-<%@ include file="/WEB-INF/view/ez/index/listpublicjs.jsp"%>
 <script>
 	$(function () {
 		//初始化表格
@@ -50,13 +51,6 @@
 			sortOrder: "asc",                   //排序方式
 			sortName: "code",
 			queryParams: queryParams=function(params) {
-				/*return {
-					pageNum:params.offset/params.limit+1,
-					pageSize:params.limit,
-					orderBy: params.sort+" "+ params.order,
-					code: $("#code").val(),
-					name: $("#name").val()
-				};*/
 				var pageNum=params.offset/params.limit+1;
 				return $('#formSearch').serialize()+
 						"&pageNum="+pageNum+
@@ -78,55 +72,17 @@
 			showToggle:false,                   //是否显示详细视图和列表视图的切换按钮
 			cardView: false,                    //是否显示详细视图
 			detailView: false,                  //是否显示父子表
-			columns: [{
-				checkbox: true
-			}, {
-				field: '',
-				title: '序号',
-				align: 'center',
-				width:'5%',
-				formatter: function (value, row, index) {
-					return index+1;
-				}
-			}, {
-				field: 'code',
-				title: '字典类型编码',
-				align: 'center',
-				width:'10%',
-				sortable: true
-			}, {
-				field: 'name',
-				title: '字典类型名称',
-				width:'15%',
-				align: 'center'
-			}, {
-				field: 'sdkey',
-				title: '字典KEY',
-				align: 'center',
-				width:'20%'
-			}, {
-				field: 'sdvalue',
-				title: '字典VALUE',
-				align: 'center',
-				width:'5%'
-			}, {
-				field: 'remark',
-				title: '字典备注',
-				align: 'center',
-				width:'30%'
-			},{
-				filed: '',
-				title: '操作区',
-				align: 'center',
-				width:'15%',
-				events: operateEvents,
-				formatter: operateFormatter
-			} ]
+			columns: [
+			    { checkbox: true}
+                , { filed: '', title: '操作区', align: 'center', width:'15%', events: operateEvents, formatter: operateFormatter}
+				, { field: '', title: '序号', align: 'center', width:'5%', formatter: function (value, row, index) { return index+1; }}
+				, { field: 'code', title: '字典类型编码', align: 'center', width: '10%', sortable: true}
+				, { field: 'codeName', title: '字典类型名称', width: '15%', align: 'center'}
+				, { field: 'sdkey', title: '字典KEY', align: 'center', width: '20%'}
+				, { field: 'sdvalue', title: '字典VALUE', align: 'center', width:'5%'}
+				, { field: 'remark', title: '字典备注', align: 'center', width:'30%'}
+            ]
 		});
-
-		/*$table.bootstrapTable('destroy').bootstrapTable({
-			exportDataType: $(this).val()
-		});*/
 		//监听页面的回车事件
 		document.onkeydown = function (e) {
 			var theEvent = window.event || e;
@@ -176,9 +132,10 @@
 				type: "POST",
 				//获取所有选中行
 				data: getSelectId(arrselections),
+				dataType: 'json',
 				success: function (result) {
 					//删除后的提示
-					handleResult(result.status,result.message);
+					handleResult(result);
 				}
 			});
 			//关闭
@@ -239,8 +196,9 @@
 					url: "/ez/system/sysdictionary/deleteById.do",
 					type: "POST",
 					data: { "ids": row.id },
+					dataType: 'json',
 					success: function (result) {
-						handleResult(result.status,result.message);
+						handleResult(result);
 					}
 				});
 				closeWin(index);
@@ -260,11 +218,11 @@
 		return {"ids":ids};
 	}
 	//删除后的提示
-	function handleResult(status,message){
-		if(status =="1"){
+	function handleResult(result){
+		if(result.status){
 			top.layer.msg('删除成功！',{icon: 1});
 		}else{
-			top.layer.msg('删除失败！'+message,{icon: 2});
+			top.layer.msg('删除失败！'+result.message,{icon: 2});
 		}
 	}
 	//关闭弹窗并刷新

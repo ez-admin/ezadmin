@@ -5,53 +5,34 @@
 <html lang="en">
 <head>
 	<title>查看系统设置信息</title>
-	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
-	<script type="text/javascript" src="/static/plugins/layui/layui.js" charset="utf-8"></script>
+	<%@ include file="/WEB-INF/view/ez/index/aevhead.jsp"%>
 </head>
-<body>
-<div class="layui-field-box">
-	<form id="formid" class="layui-form">
-		<div class="layui-form-item">
-			<label class="layui-form-label"><em class="required">*</em>参数id:</label>
-			<div class="layui-input-block">
-				<input type="text" name="oid" value="${sysoption.oid}"   lay-verify="required" placeholder="请输入参数id" autocomplete="off" class="layui-input layui-disabled" readonly>
-			</div>
+<body class="container-fluid">
+<form class="form-horizontal" id="formid">
+	<div class="form-group">
+		<label for="optionValue" class="col-sm-2 control-label"><em class="required">*</em>参数值:</label>
+		<div class="col-sm-10">
+			<textarea id="optionValue" name="optionValue" class="form-control" readonly >${sysoption.optionValue}</textarea>
 		</div>
+	</div>
+	<div class="form-group">
+		<label for="optionName" class="col-sm-2 control-label"><em class="required">*</em>参数名称:</label>
+		<div class="col-sm-10">
+			<input type="text" name="optionName" id="optionName" value="${sysoption.optionName}" readonly maxlength="100" placeholder="输入参数名称"  class="form-control">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="optionOrder" class="col-sm-2 control-label"><em class="required">*</em>参数顺序:</label>
+		<div class="col-sm-10">
+			<input type="number" id="optionOrder" value="${sysoption.optionOrder}" name="optionOrder" readonly placeholder="请输入参数顺序"  class="form-control">
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="button" class="btn btn-primary" onclick="top.layer.closeAll()">关闭</button>
+		</div>
+	</div>
+</form>
 
-		<div class="layui-form-item layui-form-text">
-			<label class="layui-form-label"> <em class="required">*</em>参数值：</label>
-			<div class="layui-input-block">
-				<textarea name="optionValue"  placeholder="请输入参数值" class="layui-textarea layui-disabled" readonly>${sysoption.optionValue}</textarea>
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label"><em class="required">*</em>参数名称:</label>
-			<div class="layui-input-block">
-				<input type="text" name="optionName" value="${sysoption.optionName}"  placeholder="请输入参数名称" autocomplete="off" class="layui-input layui-disabled" readonly>
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">参数排序:</label>
-			<div class="layui-input-block">
-				<input type="number" name="optionOrder" value="${sysoption.optionOrder}" class="layui-input layui-disabled" readonly>
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<div class="layui-input-block">
-				<button class="layui-btn" onclick="top.layer.closeAll()">关闭</button>
-			</div>
-		</div>
-	</form>
-</div>
-<script>
-	//Demo
-	layui.use(['layer', 'form','jquery','laydate'], function(){
-		var layer = layui.layer
-				,form = layui.form()
-				,$ = layui.jquery
-				,laydate = layui.laydate;
-
-	});
-</script>
 </body>
 </html>

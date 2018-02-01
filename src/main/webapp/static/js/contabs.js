@@ -136,9 +136,11 @@ $(function () {
         if (flag) {
             var str = '<a href="javascript:;" class="active J_menuTab" data-id="' + dataUrl + '">' + menuName + ' <i class="fa fa-times-circle"></i></a>';
             $('.J_menuTab').removeClass('active');
-
+            //add by chenez for tab iframename at 2017-11-17 14:19
+            var dataUrlId=dataUrl.replace('.do','').replace('.html','').replace(/\//g,'');
             // 添加选项卡对应的iframe
-            var str1 = '<iframe class="J_iframe" name="iframe' + dataIndex + '" width="100%" height="100%" src="' + dataUrl + '" frameborder="0" data-id="' + dataUrl + '" seamless></iframe>';
+            var str1 = '<iframe class="J_iframe" name="' + dataUrlId + '" width="100%" height="100%" src="' + dataUrl + '" frameborder="0" data-id="' + dataUrl + '" seamless></iframe>';
+            //var str1 = '<iframe class="J_iframe" name="iframe' + dataIndex + '" width="100%" height="100%" src="' + dataUrl + '" frameborder="0" data-id="' + dataUrl + '" seamless></iframe>';
             $('.J_mainContent').find('iframe.J_iframe').hide().parents('.J_mainContent').append(str1);
 
             //显示loading提示

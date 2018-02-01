@@ -6,6 +6,7 @@
 
 package com.ez.modules.system.service.impl;
 
+import com.ez.commons.annotation.ServiceImplClassDescription;
 import com.ez.commons.base.service.impl.BaseServiceImpl;
 import com.ez.modules.system.dao.SysMenuDao;
 import com.ez.modules.system.dao.SysRoleDao;
@@ -31,6 +32,7 @@ import java.util.List;
  */
 @Transactional
 @Service("sysUserRoleService")
+@ServiceImplClassDescription(description = "用户角色管理")
 public class SysUserRoleServiceImpl extends BaseServiceImpl<SysUserRole> implements SysUserRoleService {
 	@Autowired
 	private SysUserRoleDao sysUserRoleDao;

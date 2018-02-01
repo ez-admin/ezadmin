@@ -2,36 +2,36 @@
          pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/ez/index/tablibs.jsp"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
     <title>系统字典名称列表</title>
     <%@ include file="/WEB-INF/view/ez/index/listpublicsubtop.jsp"%>
 </head>
 <body>
 <blockquote class="layui-elem-quote" style="padding: 8px 15px">
-    <form class="layui-form" id="formSearch">
+    <form id="formSearch" class="form-inline">
         <shiro:hasPermission name="sysmenu_query">
-        <div class="layui-input-inline">
-            <input id="menuId" name="menuId"  placeholder="请输入菜单ID" type="text" class="layui-input-quote">
-        </div>
-        <div class="layui-input-inline">
-            <input id="menuName" name="menuName" placeholder="请输入菜单名称" type="text" class="layui-input-quote">
-        </div>
-        <button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
+            <div class="form-group">
+                <input id="menuId" name="menuId"  placeholder="请输入菜单ID" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <input id="menuName" name="menuName" placeholder="请输入菜单名称" type="text" class="form-control">
+            </div>
+            <button type="button" id="btn_query" class="btn btn-primary"><i class="fa fa-search"></i>查询</button>
         </shiro:hasPermission>
-        <shiro:hasPermission name="sysmenu_addfirst">
-        <div id="toolbar" class="btn-group pull-right">
-            <button id="btn_add" type="button" class="layui-btn layui-btn-small">
-                <i class="fa fa-plus"></i>新增一级菜单
-            </button>
+        <div class="btn-group">
+            <shiro:hasPermission name="sysmenu_addfirst">
+                <button id="btn_add" type="button" class="btn btn-primary">
+                    <i class="fa fa-plus"></i>新增一级菜单
+                </button>
+            </shiro:hasPermission>
         </div>
-        </shiro:hasPermission>
         <div class="clear"></div>
     </form>
 </blockquote>
 <table id="table"></table>
 <%@ include file="/WEB-INF/view/ez/index/listpublicsubjs.jsp"%>
-<script>
+<script type="text/javascript">
     $(function () {
         //初始化表格
         $('#table').bootstrapTable({
@@ -65,42 +65,51 @@
             showToggle:false,                   //是否显示详细视图和列表视图的切换按钮
             cardView: false,                    //是否显示详细视图
             detailView: true,                  //是否显示父子表
-            columns: [{
+            columns: [
+            {
+                filed: '',
+                title: '操作区',
+                width: '20%',
+                align: 'center',
+                events: operateEvents,
+                formatter: operateFormatter
+            },{
                 field: 'menuName',
                 title: '菜单名称',
+                width: '19%',
                 align: 'center'
             }, {
                 field: 'menuIcon',
                 title: '菜单图标',
+                width: '5%',
                 align: 'center',
                 formatter:  menuicon
             }, {
                 field: 'menuUrl',
                 title: '菜单地址',
+                width: '30%',
                 align: 'center'
             }, {
                 field: 'menuId',
-                title: '菜单Id',
+                title: '菜单主键',
+                width: '5%',
                 align: 'center'
             }, {
                 field: 'parentId',
-                title: '父级菜单Id',
+                title: '父级主键',
+                width: '5%',
                 align: 'center'
             }, {
                 field: 'menuOrder',
                 title: '菜单顺序',
+                width: '5%',
                 align: 'center'
             }, {
                 field: 'menuType',
                 title: '菜单类型',
+                width: '10%',
                 align: 'center',
                 formatter: menuTypeFormatter
-            },{
-                filed: '',
-                title: '操作区',
-                align: 'center',
-                events: operateEvents,
-                formatter: operateFormatter
             } ],
             //注册加载子表的事件。注意下这里的三个参数！
             onExpandRow: function (index, row, $detail) {
@@ -158,44 +167,53 @@
             showToggle:false,                   //是否显示详细视图和列表视图的切换按钮
             cardView: false,                    //是否显示详细视图
             detailView: true,                   //是否显示父子表
-            showHeader:true,                    //是否显示列头
-            columns: [{
+            showHeader:false,                    //是否显示列头
+            columns: [
+            {
+                filed: '',
+                title: '操作区',
+                width: '20%',
+                align: 'center',
+                events: operateEvents,
+                formatter: operateFormatter
+            },{
                 field: 'menuName',
                 title: '菜单名称',
+                width: '19%',
                 align: 'center'
             }, {
                 field: 'menuIcon',
                 title: '菜单图标',
+                width: '5%',
                 align: 'center',
                 formatter:  menuicon
             }, {
                 field: 'menuUrl',
                 title: '菜单地址',
+                width: '30%',
                 align: 'center'
             }, {
                 field: 'menuId',
-                title: '菜单Id',
+                title: '菜单主键',
+                width: '5%',
                 align: 'center'
             }, {
                 field: 'parentId',
-                title: '父级菜单Id',
+                title: '父级主键',
+                width: '5%',
                 align: 'center'
             }, {
                 field: 'menuOrder',
                 title: '菜单顺序',
+                width: '5%',
                 align: 'center'
             }, {
                 field: 'menuType',
                 title: '菜单类型',
+                width: '10%',
                 align: 'center',
                 formatter: menuTypeFormatter
-            },{
-                filed: '',
-                title: '操作区',
-                align: 'center',
-                events: operateEvents,
-                formatter: operateFormatter
-            } ],
+            }],
             //注册加载子表的事件。注意下这里的三个参数！
             onExpandRow: function (index, row, $detail) {
                 expandTable(index, row, $detail);
@@ -213,7 +231,7 @@
             title: '新增一级菜单',
             maxmin: true,
             shadeClose: true, //点击遮罩关闭层
-            area : ['600px' , '450px'],
+            area : ['600px' , '550px'],
             content: '/ez/system/sysmenu/addUI.do',
             end:function(){
                 $("#table").bootstrapTable('refresh');//刷新表格
@@ -272,7 +290,7 @@
                 title: '新增子菜单',
                 maxmin: true,
                 shadeClose: true, //点击遮罩关闭层
-                area : ['600px' , '500px'],
+                area : ['600px' , '580px'],
                 content: '/ez/system/sysmenu/addSub.do?parentId='+row.menuId,
                 end:function(){
                     $("#table").bootstrapTable('refresh');//刷新表格
@@ -285,8 +303,8 @@
                 title: '查看',
                 maxmin: true,
                 shadeClose: true, //点击遮罩关闭层
-                area : ['600px' , '560px'],
-                content: '/ez/system/sysmenu/getById.do?typeKey=2&sysmenuId='+row.menuId,
+                area : ['600px' , '580px'],
+                content: '/ez/system/sysmenu/getById.do?typeKey=2&sysmenuId='+row.menuId
             });
         },
         'click .edit': function (e, value, row, index) {
@@ -310,8 +328,9 @@
                     type: "POST",
                     async:false,
                     data: { "ids": row.menuId },
+                    dataType:"json",
                     success: function (result) {
-                        handleResult(result.status,result.message);
+                        handleResult(result);
                     }
                 });
                 closeWin(index);
@@ -319,11 +338,11 @@
         }
     };
     //删除后的提示
-    function handleResult(status,message){
-        if(status =="1"){
+    function handleResult(result){
+        if(result.status){
             top.layer.msg('删除成功！',{icon: 1});
         }else{
-            top.layer.msg('删除失败！'+message,{icon: 2});
+            top.layer.msg('删除失败！'+result.message,{icon: 2});
         }
     }
     //关闭弹窗并刷新

@@ -1,3 +1,7 @@
+html ,body,.wrapper {
+    height: 100%!important;
+    font-family: 'Helvetica Neue',Helvetica,Arial,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;!important;
+}
 /**
  * Created by chenez on 2016/12/29 21:49.
  * 用于界面修改时，尽量参考公共样式，避免在页面在写冗长的样式代码
@@ -6,7 +10,7 @@
 .fs12 {font-size:12px;}.fs14{font-size:14px;}.fs16{font-size:16px;}.fs18{font-size:18px;}.fs20{font-size:20px;}.fs22{font-size:22px;}.fs24{font-size:24px;}.fs26{font-size:26px;}.fs28{font-size:28px;}.fs30{font-size:30px;}
 /*color*/
 .green{color:#5FB878}.darkgreen{color:#009688}.darkblack{color:#393D49}.blue{color:#1E9FFF}
-.yellow{color:#F7B824}.red{color:#FF5722}.lightblue{color:#01AAED}.lightblack{color:#2F4056}
+.yellow{color:#F7B824}.red{color:#dd4b39}.lightblue{color:#01AAED}.lightblack{color:#2F4056}
 .layui-hidden{
     display: none;
 }
@@ -53,12 +57,18 @@ body .fixed-table-toolbar:first-child .bs-bars,body .fixed-table-toolbar:first-c
 .clear{
     clear: both;
 }
-.site-tips {
+.site-tips-right {
     margin-bottom: 10px;
     padding: 15px;
     line-height: 22px;
-    border-left: 5px solid #0078AD;
-    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    border-top: 2px solid #0078AD;
+}
+.site-tips-left {
+    padding: 10px;
+    border: 1px solid #ddd;
+    overflow: auto;
+    border-top: 2px solid #0078AD;
 }
 #side cite{
     padding-left: 10px;

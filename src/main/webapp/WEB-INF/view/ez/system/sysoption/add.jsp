@@ -2,12 +2,76 @@
 		 pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/ez/index/tablibs.jsp"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 	<title>系统设置新增</title>
-	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
-	<script type="text/javascript" src="/static/plugins/layui/layui.js" charset="utf-8"></script>
+	<%@ include file="/WEB-INF/view/ez/index/aevhead.jsp"%>
 </head>
+<body class="container-fluid">
+<form class="form-horizontal" id="formid">
+	<div class="form-group">
+		<label for="oid" class="col-sm-2 control-label"><em class="required">*</em>参数id：</label>
+		<div class="col-sm-10">
+			<input type="text" id="oid" name="oid" required placeholder="请输入参数id" class="form-control">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="optionValue" class="col-sm-2 control-label"><em class="required">*</em>参数值:</label>
+		<div class="col-sm-10">
+			<textarea id="optionValue" name="optionValue" class="form-control" ></textarea>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="optionName" class="col-sm-2 control-label"><em class="required">*</em>参数名称:</label>
+		<div class="col-sm-10">
+			<input type="text" name="optionName" id="optionName" required maxlength="100" placeholder="输入参数名称"  class="form-control">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="optionOrder" class="col-sm-2 control-label"><em class="required">*</em>参数顺序:</label>
+		<div class="col-sm-10">
+			<input type="number" id="optionOrder" value="1" name="optionOrder" required placeholder="请输入参数顺序"  class="form-control">
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-primary">保存</button>
+			<button type="reset" class="btn btn-default">重置</button>
+		</div>
+	</div>
+</form>
+<script type="text/javascript">
+    $(function() {
+        //表单验证加提交
+        $("#formid").validate({
+            submitHandler: function(form){
+                $.ajax({
+                    url: "/ez/system/sysoption/add.do",
+                    type: "POST",
+                    data:$('#formid').serialize(),// 你的formid
+                    dataType: 'json',
+                    beforeSend: function () {
+                        // 禁用按钮防止重复提交
+                        $("button[type='submit']").attr({ disabled: "disabled" });
+                    },
+                    complete: function () {
+                        $("button[type='submit']").removeAttr("disabled");
+                    },
+                    success: function (result) {
+                        if(result.status){
+                            //关闭窗口
+                            top.layer.closeAll();
+                            top.layer.msg('保存成功!',{icon: 1});
+                        }else{
+                            top.layer.msg('保存失败!'+result.message,{icon: 2,time: 5000});
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>
+<%--
 <body>
 <div class="layui-field-box">
 	<form id="formid" class="layui-form">
@@ -43,8 +107,8 @@
 			</div>
 		</div>
 	</form>
-</div>
-<script>
+</div>--%>
+<%--<script>
 	//Demo
 	layui.use(['layer', 'form','jquery','laydate'], function(){
 		var layer = layui.layer
@@ -71,6 +135,6 @@
 			return false;
 		});
 	});
-</script>
+</script>--%>
 </body>
 </html>
