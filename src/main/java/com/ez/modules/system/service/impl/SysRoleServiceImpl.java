@@ -60,7 +60,9 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole> implements SysR
 	public List<SysRole> query(Page<SysRole> page, SysRole sysRole) {
 		PageHelper.startPage(page.getPageNum(),page.getPageSize(),page.getOrderBy());
 		Session session = SecurityUtils.getSubject().getSession();
-		String USERNAME = session.getAttribute(PubConstants.SESSION_LOGNM).toString();	//获取当前登录者loginname
+		String USERNAME = session.getAttribute(PubConstants.SESSION_SYSUSER).toString();
+		//TODO 用户管理改好后，通过用户id判断是否是系统管理员
+		//SysUser sysUser = (SysUser)session.getAttribute(PubConstants.SESSION_SYSUSER);//获取当前登录者loginname
 		Boolean isAdmin = "admin".equals(USERNAME);
 		if (!isAdmin){//不是超级管理员
 			//sysRole.setRoleType("0");//查询roleType不等于0的角色
@@ -79,6 +81,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole> implements SysR
 	public List<SysRole> queryAll(SysRole sysRole) {
 		Session session = SecurityUtils.getSubject().getSession();
 		String USERNAME = session.getAttribute(PubConstants.SESSION_LOGNM).toString();	//获取当前登录者loginname
+		//TODO 用户管理改好后，通过用户id判断是否是系统管理员
 		Boolean isAdmin = "admin".equals(USERNAME);
 		if (!isAdmin){//不是超级管理员
 			//sysRole.setRoleType("0");//查询roleType不等于0的角色
@@ -86,26 +89,6 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole> implements SysR
 		List<SysRole> list = sysRoleDao.query(sysRole);
 		return list;
 	}
-	
-	/**
-	 * 新增操作
-	 * @param sysRole
-	 * @return
-	 */
-	//@PreAuthorize("hasRole('ROLE_*')")
-	/*public void add(SysRole sysRole) {
-		String uuid= UuidUtil.get32UUID();
-		//sysRole.setRoleId(uuid);
-		*//*sysRole.setQxId(uuid);
-		sysRole.setAddQx("1");
-		sysRole.setDelQx("1");
-		sysRole.setEditQx("1");
-		sysRole.setChaQx("1");
-		sysRole.setRights("1");*//*
-		sysRoleDao.add(sysRole);
-
-
-	}*/
 	
 	/**
 	 * 新增操作

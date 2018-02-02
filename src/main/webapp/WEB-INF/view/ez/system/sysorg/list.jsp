@@ -12,8 +12,6 @@
 	<!-- iCheck -->
 	<link rel="stylesheet" href="/static/plugins/iCheck/custom.css">
 	<script src="/static/plugins/iCheck/icheck.min.js"></script>
-	<%--<script type="text/javascript" src="/static/plugins/layui/layui.js" charset="utf-8"></script>
-	<script type="text/javascript" src="/static/plugins/layui/lay/dest/layui.all.js"></script>--%>
 	<!--树组件start -->
 	<script type="text/javascript" src="/static/plugins/zTree/qui/ztree.js"></script>
 	<link href="/static/plugins/zTree/qui/ztree.css" rel="stylesheet" type="text/css"/>

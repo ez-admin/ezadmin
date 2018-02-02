@@ -5,11 +5,10 @@
 <html lang="zh-cn">
 <head>
 	<title>用户列表</title>
-	<%@ include file="/WEB-INF/view/ez/index/listpublictop.jsp"%>
-	<%@ include file="/WEB-INF/view/ez/index/listpublicjs.jsp"%>
+	<%@ include file="/WEB-INF/view/ez/index/listhead.jsp"%>
 	<!--树组件start -->
-	<script type="text/javascript" src="/static/plugins/zTree/qui/ztree.js"></script>
 	<link href="/static/plugins/zTree/qui/ztree.css" rel="stylesheet" type="text/css"/>
+	<script type="text/javascript" src="/static/plugins/zTree/qui/ztree.js"></script>
 	<!--树组件end -->
 	<style>
 		.ztree li span {
@@ -32,31 +31,40 @@
 	</div>
 
 
-	<form class="layui-form" id="formSearch">
+	<form class="form-inline" id="formSearch">
+
 		<input type="hidden" id="userOrgId" name="dptno" />
+
 		<shiro:hasPermission name="sysuser_query">
-		<div class="layui-input-inline">
-			<input id="lognm" name="lognm" placeholder="请输入登陆账号" type="text" class="layui-input-quote">
+		<div class="form-group">
+			<label class="col-md-4 control-label">登陆账号：</label>
+			<div class="col-md-6">
+				<input type="text" id="lognm" name="lognm" placeholder="请输入登陆账号"  class="form-control"/>
+			</div>
 		</div>
-		<div class="layui-input-inline">
-			<input id="userrelnm" name="userrelnm" placeholder="请输入用户姓名" type="text" class="layui-input-quote">
+		<div class="form-group">
+			<label class="col-md-4 control-label">用户姓名：</label>
+			<div class="col-md-6">
+				<input type="text" id="userrelnm" name="userrelnm" class="form-control"/>
+			</div>
 		</div>
-		<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
+		<button type="button" id="btn_query" class="btn btn-primary"><i class="fa fa-search"></i>查询</button>
 		</shiro:hasPermission>
-		<shiro:hasPermission name="sysuser_add">
-			<button id="btn_add" type="button" class="layui-btn layui-btn-small">
+		<div class="btn-group">
+			<shiro:hasPermission name="sysuser_add">
+			<button id="btn_add" type="button" class="btn btn-primary">
 				<i class="fa fa-plus"></i>新增
 			</button>
-		</shiro:hasPermission>
-		<shiro:hasPermission name="sysuser_deleteall">
-			<button id="btn_delete" type="button" class="layui-btn layui-btn-small">
+			</shiro:hasPermission>
+			<shiro:hasPermission name="sysuser_deleteall">
+			<button id="btn_delete" type="button" class="btn btn-primary">
 				<i class="fa fa-remove"></i>批量删除
 			</button>
-		</shiro:hasPermission>
+			</shiro:hasPermission>
+		</div>
 	</form>
 
 <script>
-	var layer = layui.layer;
 	//定义选中的树节点
 	var selectTreeNode = null;
 	//定义树节点初始数据
