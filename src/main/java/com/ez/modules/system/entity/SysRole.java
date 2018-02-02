@@ -42,11 +42,11 @@ public class SysRole extends BaseEntity implements java.io.Serializable{
 
 	
 	//columns START
-	/**roleId==>db_column: ROLE_ID*/
+	/**角色id==>db_column: ROLE_ID*/
 	private Integer roleId;
-	/**roleName==>db_column: ROLE_NAME*/
+	/**角色名称==>db_column: ROLE_NAME*/
 	private String roleName;
-	/**rights==>db_column: RIGHTS*/
+	/**角色权限==>db_column: RIGHTS*/
 	private String rights;
 	/**角色等级==>db_column: ROLE_LVEL*/
 	private Integer roleLvel;

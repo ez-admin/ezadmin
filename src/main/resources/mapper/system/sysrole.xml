@@ -56,10 +56,10 @@
 	</sql>
 
 	<!-- 总记录数 -->
-	<select id="count" parameterType="com.ez.modules.system.entity.SysRole" resultType="int">
+	<!--<select id="count" parameterType="com.ez.modules.system.entity.SysRole" resultType="int">
 		select count(0) from sys_role
 		<include refid="querywhere"/>
-	</select>
+	</select>-->
 	
 	<!-- 新增 -->
 	<insert id="addAll" parameterType="com.ez.modules.system.entity.SysRole" useGeneratedKeys="true" keyProperty="roleId">
@@ -120,14 +120,14 @@
 	</select>
 	
 	<!-- 更新all -->
-	<update id="updateAll" parameterType="com.ez.modules.system.entity.SysRole">
+	<!--<update id="updateAll" parameterType="com.ez.modules.system.entity.SysRole">
 	    UPDATE sys_role SET
 	        ROLE_NAME = #{roleName} ,
 	        RIGHTS = #{rights} ,
 	        ROLE_LVEL = #{roleLvel} 
         WHERE 
 	        ROLE_ID = #{roleId} 
-	</update>
+	</update>-->
 	
 	<sql id="updateset">
 	<set>

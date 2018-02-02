@@ -93,19 +93,19 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole> implements SysR
 	 * @return
 	 */
 	//@PreAuthorize("hasRole('ROLE_*')")
-	public void add(SysRole sysRole) {
+	/*public void add(SysRole sysRole) {
 		String uuid= UuidUtil.get32UUID();
 		//sysRole.setRoleId(uuid);
-		/*sysRole.setQxId(uuid);
+		*//*sysRole.setQxId(uuid);
 		sysRole.setAddQx("1");
 		sysRole.setDelQx("1");
 		sysRole.setEditQx("1");
 		sysRole.setChaQx("1");
-		sysRole.setRights("1");*/
+		sysRole.setRights("1");*//*
 		sysRoleDao.add(sysRole);
 
 
-	}
+	}*/
 	
 	/**
 	 * 新增操作
