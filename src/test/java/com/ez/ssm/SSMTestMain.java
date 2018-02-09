@@ -6,7 +6,9 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by chenez on 2017/2/27.
@@ -15,24 +17,52 @@ public class SSMTestMain {
 
     public static void main(String[] args) throws Exception{
         /*1、json转换*/
-/*        Student stu=new Student();
-        stu.setName("JSON");
+        Student stu=new Student();
+        Student stu1=new Student();
+        stu.setName("zhangsan");
         stu.setAge("23");
         stu.setAddress("北京市西城区");
+        stu1.setName("lisi");
+        stu1.setAge("24");
+        stu1.setAddress("南京市浦口区");
 
-        //1、使用JSONObject
-        JSONObject json = JSONObject.fromObject(stu);
+        School school=new School();
+        school.setNAME("张八岭中学");
+        school.setAGE("90年历史");
+        school.setADDRESS("安徽省明光市张八岭镇");
+
+        Map<String,Student> map=new HashMap<String,Student>();
+        map.put("zhangsan",stu);
+        map.put("lisi",stu1);
+
+
+        //net.sf.json.JSONObject
+        //1、使用JSONObject转对象
+        JSONObject jsonBean = JSONObject.fromObject(stu);
         //2、使用JSONArray
-        JSONArray array=JSONArray.fromObject(stu);
+        JSONArray arrayBean=JSONArray.fromObject(stu);
+        //3、使用JSONObject转map
+        JSONObject jsonMap = JSONObject.fromObject(map);
+        //4、创建新的jsonobject对象
+        JSONObject jsonNew=new JSONObject();
+        jsonNew.put("stu",stu);
+        jsonNew.put("jsonmap",jsonMap);
+        jsonNew.put("school",school);
 
-        String strJson=json.toString();
-        String strArray=array.toString();
-        System.out.println("strArray = " + strArray);
-        System.out.println("strJson = " + strJson);*/
+        //com.alibaba.fastjson.JSONObject(json直接put的java bean对象)
+        com.alibaba.fastjson.JSONObject fastjson=new com.alibaba.fastjson.JSONObject();
+        fastjson.put("school",school);
+
+        System.out.println("jsonBean = " + jsonBean);
+        System.out.println("arrayBean = " + arrayBean);
+        System.out.println("jsonMap = " + jsonMap);
+        System.out.println("jsonNew = " + jsonNew);
+        System.out.println("fastjson = " + fastjson);
+
 
         /*2、java反射*/
         //获取类
-/*        Class c = Class.forName("Student");
+        /*Class c = Class.forName("Student");
         //获取id属性
         Field idF = c.getDeclaredField("age");
         //实例化这个类赋给o
@@ -45,7 +75,7 @@ public class SSMTestMain {
         System.out.println(idF.get(o));
         */
         /*3、替换反斜杠*/
-        String s =  "2016\\07\\520942006536.PDF";
+        /*String s =  "2016\\07\\520942006536.PDF";
         System.out.println("s = " + s);
 
         //s=s.replace("\\", "\\\\\\");
@@ -58,10 +88,39 @@ public class SSMTestMain {
         System.out.println("ss = " + ss);
 
         //把s中的反斜杠\ 替换为\\
-        /*System.out.println(s.replaceAll("\\\\", "\\\\\\\\\\\\"));
-        System.out.println(s.replace("\\", "\\\\\\"));
-*/
+        System.out.println(s.replaceAll("\\\\", "\\\\\\\\\\\\"));
+        System.out.println(s.replace("\\", "\\\\\\"));*/
 
+
+    }
+    public static class School{
+        private String NAME;
+        private String AGE;
+        private String ADDRESS;
+
+        public String getNAME() {
+            return NAME;
+        }
+
+        public void setNAME(String NAME) {
+            this.NAME = NAME;
+        }
+
+        public String getAGE() {
+            return AGE;
+        }
+
+        public void setAGE(String AGE) {
+            this.AGE = AGE;
+        }
+
+        public String getADDRESS() {
+            return ADDRESS;
+        }
+
+        public void setADDRESS(String ADDRESS) {
+            this.ADDRESS = ADDRESS;
+        }
     }
     public static class Student{
         private  String name;

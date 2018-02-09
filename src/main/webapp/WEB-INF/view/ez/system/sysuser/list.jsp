@@ -18,7 +18,7 @@
 </head>
 
 <body>
-	<div class="container-fluid">
+	<div class="container-fluid" style="padding-left: 0px">
 		<div class="row">
 			<div class="col-md-2">
 				<ul id="tree" class="ztree"></ul>
@@ -30,11 +30,8 @@
 		</div>
 	</div>
 
-
 	<form class="form-inline" id="formSearch">
-
 		<input type="hidden" id="userOrgId" name="dptno" />
-
 		<shiro:hasPermission name="sysuser_query">
 		<div class="form-group">
 			<label class="col-md-4 control-label">登陆账号：</label>
@@ -63,7 +60,6 @@
 			</shiro:hasPermission>
 		</div>
 	</form>
-
 <script>
 	//定义选中的树节点
 	var selectTreeNode = null;

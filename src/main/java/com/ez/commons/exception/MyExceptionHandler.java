@@ -21,16 +21,16 @@ public class MyExceptionHandler implements HandlerExceptionResolver {
 
     private static final Logger logger = LoggerFactory.getLogger(MyExceptionHandler.class);
 
+    @Override
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
                                          Exception ex) {
         //是否异步请求
-        if (!(request.getHeader("accept").indexOf("application/json") > -1 || (request
-                .getHeader("X-Requested-With")!= null && request
-                .getHeader("X-Requested-With").indexOf("XMLHttpRequest") > -1))) {
-
+        boolean isAsyn=!(request.getHeader("accept").indexOf("application/json") > -1 || (request.getHeader("X-Requested-With")!= null && request.getHeader("X-Requested-With").indexOf("XMLHttpRequest") > -1));
+        if (isAsyn) {
             Map<String, Object> map = new HashMap<String, Object>();
-            // 根据不同错误转向不同页面
-            if (ex instanceof DataParseException) {//日期类型转换异常
+            /**根据不同错误转向不同页面*/
+            //日期类型转换异常
+            if (ex instanceof DataParseException) {
                 map.put("httpCode", HttpCode.DATEPARSE_ERROR.value());
                 map.put("message","日期类型出错，请联系系统管理员！");
                 logger.info("DataParseException+异常代码,异常信息",HttpCode.DATEPARSE_ERROR.value(),ex.getMessage());
@@ -46,7 +46,8 @@ public class MyExceptionHandler implements HandlerExceptionResolver {
             return new ModelAndView("/error/error", map);
         }else{
             JSONObject jsonObject=new JSONObject();
-            if (ex instanceof DataParseException) {//日期类型转换异常
+            //日期类型转换异常
+            if (ex instanceof DataParseException) {
                 jsonObject.put("message","日期类型出错，请联系系统管理员！");
             } else {
                 jsonObject.put("message","系统出错，请联系系统管理员！");

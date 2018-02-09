@@ -1,5 +1,6 @@
 package com.ez.ssm;
 
+import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -13,7 +14,6 @@ public class SSMTest1 {
 	//权限和计算
 	@Test
 	public void singlon(){
-
 	}
 
 }

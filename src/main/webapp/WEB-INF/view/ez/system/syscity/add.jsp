@@ -10,8 +10,8 @@
 <body>
 
 <div class="layui-field-box">
-	<form id="formid" class="layui-form">
-		<blockquote class="layui-elem-quote">
+	<form id="formid" class="form-horizontal">
+		<blockquote >
 			<p>温馨提示：区域id要求为6位数的数字，数字规则请参考已存在的区域id的数字规则！</p>
 		</blockquote>
 		<div class="layui-form-item">

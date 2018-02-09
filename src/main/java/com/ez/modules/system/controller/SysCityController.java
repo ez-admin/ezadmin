@@ -10,6 +10,7 @@ package com.ez.modules.system.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.ez.commons.annotation.SystemLogController;
 import com.ez.commons.base.BaseController;
+import com.ez.commons.util.PubConstants;
 import com.ez.modules.system.entity.SysCity;
 import com.ez.modules.system.service.SysCityService;
 import com.ez.commons.util.Common;
@@ -314,13 +315,13 @@ public class SysCityController extends BaseController{
 	 * 上传文件 保存到服务器
 	 * @param file
 	 * @param request
-	 * @param response
 	 * @return
 	 */
 	@RequestMapping(value = "uploadfile",method=RequestMethod.POST)
-	public String uploadfile(@RequestParam("file") MultipartFile file, HttpServletRequest request,HttpServletResponse response){
-		JSONObject jsonObject=new JSONObject();
-		jsonObject.put("msg","suc");
+	@ResponseBody
+	public Map<String,Object> uploadfile(@RequestParam("file") MultipartFile file, HttpServletRequest request){
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("msg","suc");
 		String filename="";
 		String filelastname="";
 		if (!file.isEmpty()){
@@ -328,30 +329,30 @@ public class SysCityController extends BaseController{
 			filelastname=file.getOriginalFilename().substring(filename.lastIndexOf("."));
 		}
 		if(file.isEmpty()){
-			jsonObject.put("msg","fail");
-			jsonObject.put("message","您未上传Excel文件,请先上传！");
+			map.put("msg","fail");
+			map.put("message","您未上传Excel文件,请先上传！");
 		}else if(!filelastname.equalsIgnoreCase(".xls") && !filelastname.equalsIgnoreCase(".xlsx")) {
-			jsonObject.put("msg","fail");
-			jsonObject.put("message","上传的文件类型非Excel,请重新上传！");
+			map.put("msg","fail");
+			map.put("message","上传的文件类型非Excel,请重新上传！");
 		}else {
 			try {
 				String filedName1= UUID.randomUUID()+filename.substring(filename.lastIndexOf("."),filename.length());
 				String path=request.getSession().getServletContext().getRealPath("/")+"upload"+ File.separator+filedName1;
 				File dirfile =new File(request.getSession().getServletContext().getRealPath("/")+"upload");
-				if  (!dirfile .exists()  && !dirfile .isDirectory()){ dirfile .mkdir();}//如果文件夹不存在则创建
+				//如果文件夹不存在则创建
+				if  (!dirfile .exists()  && !dirfile .isDirectory()){ dirfile .mkdir();}
 				FileOutputStream fos = new FileOutputStream(path);
 				fos.write(file.getBytes());
 				fos.close();
-				jsonObject.put("path",path);
-				jsonObject.put("filename",filename);
+				map.put("path",path);
+				map.put("filename",filename);
 			} catch (Exception e) {
-				jsonObject.put("msg","fail");
-				jsonObject.put("message",WebTool.getErrorMsg(e.getMessage()));
+				map.put("msg","fail");
+				map.put("message",WebTool.getErrorMsg(e.getMessage()));
 				e.printStackTrace();
 			}
 		}
-		WebTool.writeJson(jsonObject.toString(), response);
-		return null;
+		return map;
 	}
 
 	/**
@@ -390,20 +391,24 @@ public class SysCityController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping(value = "uploadadd",method=RequestMethod.POST)
-	public String uploadadd(String filepath,HttpServletRequest request,HttpServletResponse response){
-		JSONObject jsonObject=new JSONObject();
-		jsonObject.put("msg","suc");
+	@ResponseBody
+    @SystemLogController(description = "新增上传数据信息")
+    public Map<String,Object> uploadadd(String filepath,HttpServletRequest request,HttpServletResponse response){
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("status", PubConstants.TRUE);
 		if (!filepath.isEmpty()){
-			try {
+			/*try {*/
 				sysCityService.uploadadd(filepath);
-			} catch (Exception e) {
-				jsonObject.put("msg","fail");
-				jsonObject.put("message",WebTool.getErrorMsg(e.getMessage()));
+			/*} catch (Exception e) {
+				map.put("status", PubConstants.FALSE);
+				map.put("message",WebTool.getErrorMsg(e.getMessage()));
 				e.printStackTrace();
-			}
+			}*/
+		}else {
+			map.put("status", PubConstants.FALSE);
+			map.put("message","上传文件为空，无法更新数据!");
 		}
-		WebTool.writeJson(jsonObject.toString(), response);
-		return null;
+		return map;
 	}
 
 	/**
@@ -414,21 +419,22 @@ public class SysCityController extends BaseController{
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping(value = "uploadmodify",method=RequestMethod.POST)
-	public String uploadmodify(String filepath,HttpServletRequest request,HttpServletResponse response){
-		JSONObject jsonObject=new JSONObject();
-		jsonObject.put("msg","suc");
+    @SystemLogController(description = "更新上传数据信息")
+    @RequestMapping(value = "uploadmodify",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> uploadmodify(String filepath,HttpServletRequest request,HttpServletResponse response){
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("status", PubConstants.TRUE);
 		if (!filepath.isEmpty()){
 			try {
 				sysCityService.uploadmodify(filepath);
 			} catch (Exception e) {
-				jsonObject.put("msg","fail");
-				jsonObject.put("message",WebTool.getErrorMsg(e.getMessage()));
+				map.put("status", PubConstants.FALSE);
+				map.put("message",WebTool.getErrorMsg(e.getMessage()));
 				e.printStackTrace();
 			}
 		}
-		WebTool.writeJson(jsonObject.toString(), response);
-		return null;
+		return map;
 	}
 
 	@RequestMapping(value="getSdBySdtCode")

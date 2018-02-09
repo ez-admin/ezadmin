@@ -80,11 +80,13 @@ public class SysCityServiceImpl extends BaseServiceImpl<SysCity> implements SysC
 	}
 
     @Override
-    public void uploadadd(String filepath) {
+	@SystemLogService(description = "新增上传数据异常")
+	public void uploadadd(String filepath) {
 		this.uploadpublic(filepath);
     }
 
 	@Override
+	@SystemLogService(description = "更新上传数据异常")
 	public void uploadmodify(String filepath) {
 		sysCityDao.deleteAll();
 		this.uploadpublic(filepath);
@@ -95,6 +97,7 @@ public class SysCityServiceImpl extends BaseServiceImpl<SysCity> implements SysC
         return sysCityDao.getChildrenCityById(parentId);
     }
 
+    @SystemLogService(description = "保存上传数据异常")
     public void uploadpublic(String filepath){
 		try {
 			//导入已存在的Excel文件，获得只读的工作薄对象
