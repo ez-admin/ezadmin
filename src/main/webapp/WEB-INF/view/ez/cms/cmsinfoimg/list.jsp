@@ -10,39 +10,39 @@
 	<link rel="stylesheet" href="/static/plugins/bootstrap-table/bootstrap-table.css">
 </head>
 <body>
-<form class="layui-form" id="formSearch">
+<form class="form" id="formSearch">
 	<shiro:hasPermission name="cmsinfoimg_query">
-	<div class="layui-input-inline">
-		<input id="emImageName" name="emImageName" placeholder="请输入图片名称" type="text" class="layui-input-quote" maxlength="25" autocomplete="off">
+	<div class="form-group">
+		<input id="emImageName" name="emImageName" placeholder="请输入图片名称" type="text" class="form-control" maxlength="25" autocomplete="off">
 	</div>
-	<%--<div class="layui-input-inline">
-		<input name="emImageInserttimeBegin" type="text"  class="layui-input" placeholder="请选择开始时间" lay-verify="date" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" />
+	<%--<div class="form-group">
+		<input name="emImageInserttimeBegin" type="text"  class="form-control" placeholder="请选择开始时间" lay-verify="date" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" />
 	</div>
 		--
-	<div class="layui-input-inline">
-		<input name="emImageInserttimeEnd" type="text"  class="layui-input" placeholder="请选择结束时间" lay-verify="date" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" />
+	<div class="form-group">
+		<input name="emImageInserttimeEnd" type="text"  class="form-control" placeholder="请选择结束时间" lay-verify="date" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" />
 	</div>--%>
-	<div class="layui-input-inline">
-		<select name="positionId" id="positionId">
+	<div class="form-group">
+		<select style="height:30px" name="positionId" id="positionId">
 			<option value="">请选择图片位置</option>
 		</select>
 	</div>
-	<div class="layui-input-inline">
-		<select name="emImageStat">
+	<div class="form-group">
+		<select style="height:30px" name="emImageStat">
 			<option value="">请选择发布状态</option>
 			<option value="0">禁用</option>
 			<option value="1">启用</option>
 		</select>
 	</div>
-	<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
+	<button class="btn btn-default" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
 	</shiro:hasPermission>
 	<shiro:hasPermission name="cmsinfoimg_add">
-		<button id="btn_add" type="button" class="layui-btn layui-btn-small">
+		<button id="btn_add" type="button" class="btn btn-default">
 			<i class="fa fa-plus"></i>新增
 		</button>
 	</shiro:hasPermission>
 	<shiro:hasPermission name="cmsinfoimg_deleteall">
-		<button id="btn_delete" type="button" class="layui-btn layui-btn-small">
+		<button id="btn_delete" type="button" class="btn btn-default">
 			<i class="fa fa-remove"></i>批量删除
 		</button>
 	</shiro:hasPermission>
@@ -51,7 +51,6 @@
 <table id="table"></table>
 
 <script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
-<script type="text/javascript" src="/static/plugins/layui/lay/dest/layui.all.js"></script>
 <script src="/static/plugins/bootstrap-table/bootstrap.min.js"></script>
 <script src="/static/plugins/bootstrap-table/bootstrap-table.js"></script>
 <script src="/static/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
@@ -59,7 +58,7 @@
 <script src="/static/plugins/bootstrap-table/extensions/tableExport/tableExport.js"></script>
 <script>
 	$(function () {
-        var form = layui.form();
+        /*var form = layui.form();
         //后台获取select值
         $.ajax({
             url: '/ez/system/sysdictionary/getSdBySdtCode.do',
@@ -70,7 +69,7 @@
                 $("#positionId").append(result);
                 form.render('select');
             }
-        });
+        });*/
 		//初始化表格
 		$('#table').bootstrapTable({
 			url: '/ez/cms/cmsinfoimg/showlist.do',

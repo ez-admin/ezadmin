@@ -8,38 +8,38 @@
 	<%@ include file="/WEB-INF/view/ez/index/listpublicsubtop.jsp"%>
 </head>
 <body>
-<blockquote class="layui-elem-quote" style="padding: 8px 15px">
-	<form class="layui-form" id="formSearch">
+<blockquote class="container" style="padding: 8px 15px">
+	<form class="form" id="formSearch">
 		<shiro:hasPermission name="cmsnode_query">
-		<div class="layui-input-inline">
-			<input id="cmsNodeName" name="cmsNodeName" placeholder="请输入栏目名称" type="text" class="layui-input-quote" maxlength="20" autocomplete="off">
+		<div class="form-group">
+			<input id="cmsNodeName" name="cmsNodeName" placeholder="请输入栏目名称" type="text" class="form-control" maxlength="20" autocomplete="off">
 		</div>
-		<div class="layui-input-inline">
-			<input id="cmsNodeCode" name="cmsNodeCode" placeholder="请输入栏目编码" type="text" class="layui-input-quote" maxlength="50" autocomplete="off">
+		<div class="form-group">
+			<input id="cmsNodeCode" name="cmsNodeCode" placeholder="请输入栏目编码" type="text" class="form-control" maxlength="50" autocomplete="off">
 		</div>
-		<%--<div class="layui-input-inline">
+		<%--<div class="form-group">
 			<select name="cmsNodeType" id="cmsNodeType">
 				<option value="">请选择栏目类型</option>
 			</select>
 		</div>
-		<div class="layui-input-inline">
+		<div class="form-group">
 			<select name="cmsNodeState" id="cmsNodeState">
 				<option value="">请选择栏目状态</option>
 				<option value="0">禁用</option>
 				<option value="1">启用</option>
 			</select>
 		</div>--%>
-		<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
+		<button class="btn btn-default" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
 		</shiro:hasPermission>
 
 		<div id="toolbar" class="btn-group pull-right">
 		<shiro:hasPermission name="cmsnode_add">
-			<button id="btn_add" type="button" class="layui-btn layui-btn-small">
+			<button id="btn_add" type="button" class="btn btn-default">
 				<i class="fa fa-plus"></i>新增
 			</button>
 		</shiro:hasPermission>
 		<shiro:hasPermission name="cmsnode_deleteall">
-			<button id="btn_delete" type="button" class="layui-btn layui-btn-small">
+			<button id="btn_delete" type="button" class="btn btn-default">
 				<i class="fa fa-remove"></i>批量删除
 			</button>
 		</shiro:hasPermission>

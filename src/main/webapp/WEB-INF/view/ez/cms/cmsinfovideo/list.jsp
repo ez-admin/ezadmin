@@ -8,32 +8,32 @@
 	<%@ include file="/WEB-INF/view/ez/index/listpublictop.jsp"%>
 </head>
 <body>
-<form class="layui-form" id="formSearch">
+<form class="form" id="formSearch">
 	<shiro:hasPermission name="cmsinfovideo_query">
-	<div class="layui-input-inline">
-		<input id="emVideoTitle" name="emVideoTitle" placeholder="请输入标题" type="text" class="layui-input-quote" maxlength="255" autocomplete="off">
+	<div class="form-group">
+		<input id="emVideoTitle" name="emVideoTitle" placeholder="请输入标题" type="text" class="form-control" maxlength="255" autocomplete="off">
 	</div>
-	<div class="layui-input-inline">
-		<select name="positionId" id="positionId">
+	<div class="form-group">
+		<select style="height:30px" name="positionId" id="positionId">
 			<option value="">请选择视频位置</option>
 		</select>
 	</div>
-	<div class="layui-input-inline">
-		<select name="emVideoStat">
+	<div class="form-group">
+		<select style="height:30px" name="emVideoStat">
 			<option value="">请选择发布状态</option>
 			<option value="0">禁用</option>
 			<option value="1">启用</option>
 		</select>
 	</div>
-	<button class="layui-btn layui-btn-small" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
+	<button class="btn btn-default" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
 	</shiro:hasPermission>
 	<shiro:hasPermission name="cmsinfovideo_add">
-		<button id="btn_add" type="button" class="layui-btn layui-btn-small">
+		<button id="btn_add" type="button" class="btn btn-default">
 			<i class="fa fa-plus"></i>新增
 		</button>
 	</shiro:hasPermission>
 	<shiro:hasPermission name="cmsinfovideo_deleteall">
-		<button id="btn_delete" type="button" class="layui-btn layui-btn-small">
+		<button id="btn_delete" type="button" class="btn btn-default">
 			<i class="fa fa-remove"></i>批量删除
 		</button>
 	</shiro:hasPermission>
@@ -43,7 +43,7 @@
 <%@ include file="/WEB-INF/view/ez/index/listpublicjs.jsp"%>
 <script>
 	$(function () {
-        var form = layui.form();
+        /*var form = layui.form();
         //后台获取select值
         $.ajax({
             url: '/ez/system/sysdictionary/getSdBySdtCode.do',
@@ -54,7 +54,7 @@
                 $("#positionId").append(result);
                 form.render('select');
             }
-        });
+        });*/
 		//初始化表格
 		$('#table').bootstrapTable({
 			url: '/ez/cms/cmsinfovideo/showlist.do',
