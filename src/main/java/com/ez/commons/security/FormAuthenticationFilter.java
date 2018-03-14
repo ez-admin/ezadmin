@@ -9,6 +9,7 @@ import com.ez.commons.util.PubConstants;
 import com.ez.modules.system.entity.SysUser;
 import com.ez.modules.system.service.SysLogService;
 import com.ez.modules.system.service.SysUserService;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -39,10 +40,10 @@ public class FormAuthenticationFilter extends org.apache.shiro.web.filter.authc.
 
 	protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) {
 		String username = getUsername(request);
+		//md5加密
 		String password = MD5.md5(getPassword(request));
-		if (password==null){
-			password = "";
-		}
+		//判空处理
+		password = password==null?"":password;
 		boolean rememberMe = isRememberMe(request);
 
 		return new UsernamePasswordToken(username, password,rememberMe);
