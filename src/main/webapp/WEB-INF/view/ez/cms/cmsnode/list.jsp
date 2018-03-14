@@ -8,8 +8,8 @@
 	<%@ include file="/WEB-INF/view/ez/index/listpublicsubtop.jsp"%>
 </head>
 <body>
-<blockquote class="container" style="padding: 8px 15px">
-	<form class="form" id="formSearch">
+<blockquote class="layui-elem-quote" style="padding: 8px 15px">
+	<form class="form-inline" id="formSearch">
 		<shiro:hasPermission name="cmsnode_query">
 		<div class="form-group">
 			<input id="cmsNodeName" name="cmsNodeName" placeholder="请输入栏目名称" type="text" class="form-control" maxlength="20" autocomplete="off">
@@ -17,29 +17,29 @@
 		<div class="form-group">
 			<input id="cmsNodeCode" name="cmsNodeCode" placeholder="请输入栏目编码" type="text" class="form-control" maxlength="50" autocomplete="off">
 		</div>
-		<%--<div class="form-group">
+		<%--<div class="layui-input-inline">
 			<select name="cmsNodeType" id="cmsNodeType">
 				<option value="">请选择栏目类型</option>
 			</select>
 		</div>
-		<div class="form-group">
+		<div class="layui-input-inline">
 			<select name="cmsNodeState" id="cmsNodeState">
 				<option value="">请选择栏目状态</option>
 				<option value="0">禁用</option>
 				<option value="1">启用</option>
 			</select>
 		</div>--%>
-		<button class="btn btn-default" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
+			<button type="button" id="btn_query" class="btn btn-primary"><i class="fa fa-search"></i>查询</button>
 		</shiro:hasPermission>
 
-		<div id="toolbar" class="btn-group pull-right">
+		<div id="toolbar" class="btn-group">
 		<shiro:hasPermission name="cmsnode_add">
-			<button id="btn_add" type="button" class="btn btn-default">
+			<button id="btn_add" type="button" class="btn btn-primary">
 				<i class="fa fa-plus"></i>新增
 			</button>
 		</shiro:hasPermission>
 		<shiro:hasPermission name="cmsnode_deleteall">
-			<button id="btn_delete" type="button" class="btn btn-default">
+			<button id="btn_delete" type="button" class="btn btn-primary">
 				<i class="fa fa-remove"></i>批量删除
 			</button>
 		</shiro:hasPermission>
@@ -50,25 +50,13 @@
 <%@ include file="/WEB-INF/view/ez/index/listpublicsubjs.jsp"%>
 <script>
 	$(function () {
-        /*var form = layui.form();
-        //后台获取select值
-        $.ajax({
-            url: '/ez/system/sysdictionary/getSdBySdtCode.do',
-            type: "POST",
-            data:{code:1026},
-            dataType: 'html',//(string)预期返回的数据类型。xml,html,json,text等
-            success: function (result) {
-                $("#cmsNodeType").append(result);
-                form.render('select');
-            }
-        });*/
 		//初始化表格
 		$('#table').bootstrapTable({
 			url: '/ez/cms/cmsnode/getParentList.do',
             method: 'post',                      //请求方式（*）
             striped: true,                      //是否显示行间隔色
             cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
-            pagination: false,                   //是否显示分页（*）
+            pagination: false,                 //是否显示分页（*）
             contentType: "application/x-www-form-urlencoded;charset=UTF-8",//请求数据内容格式 默认是 application/json 自己根据格式自行服务端处理
             sortable: true,
             sortOrder: "asc",
@@ -316,6 +304,8 @@
 				$.ajax({
 					url: "/ez/cms/cmsnode/deleteById.do",
 					type: "POST",
+                    async:false,
+                    dataType: "json",
 					data: { "ids": row.cmsNodeId },
 					success: function (result) {
 						handleResult(result.status,result.message);

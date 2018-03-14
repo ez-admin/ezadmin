@@ -57,7 +57,7 @@ public class CmsNodeController extends BaseController {
 	 * 跳到新增页面
 	 * @return
 	 */
-	@RequestMapping(value="addUI")
+	@RequestMapping(value="addUI.do")
 	@SystemLogController(description = "跳到栏目管理新增页面")
 	public String addUI(){
 		return "/ez/cms/cmsnode/add";
@@ -65,18 +65,17 @@ public class CmsNodeController extends BaseController {
 	
 	/**
 	 * 保存新增
-	 * @param response
 	 * @param cmsnode
 	 * @return
 	 */
-	@RequestMapping(value="add")
-	@RequiresPermissions("cmsnode_add")
+	@RequestMapping(value="add.do")
+	@ResponseBody
 	@SystemLogController(description = "保存栏目管理新增信息")
-	public String add(CmsNode cmsnode,HttpServletResponse response){
-		String result="{\"msg\":\"suc\"}";
+	public Map<String, String> add(CmsNode cmsnode){
 		cmsNodeService.add(cmsnode);
-		WebTool.writeJson(result, response);
-		return null;
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("msg","suc");
+		return map;
 	}
 	
 	/**
@@ -99,18 +98,18 @@ public class CmsNodeController extends BaseController {
 	
 	/**
 	 * 根据id删除
-	 * @param model
 	 * @param ids
 	 * @return
 	 */
 	@RequestMapping(value="deleteById",method=RequestMethod.POST)
+	@ResponseBody
 	@RequiresPermissions("cmsnode_delete")
 	@SystemLogController(description = "删除栏目管理信息")
-	public String deleteById(Model model,String ids, HttpServletResponse response){
-		String result="{\"status\":1}";
+	public Map<String,Object> deleteById(String ids){
 		cmsNodeService.delete(ids);
-		WebTool.writeJson(result, response);
-		return null;
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("status","1");
+		return map;
 	}
 	
 	/**
@@ -136,22 +135,22 @@ public class CmsNodeController extends BaseController {
 	
 	/**
 	 * 更新修改的信息
-	 * @param model
 	 * @param cmsnode
 	 * @return
 	 */
 	@RequestMapping(value="update",method=RequestMethod.POST)
+	@ResponseBody
 	@RequiresPermissions("cmsnode_modify")
 	@SystemLogController(description = "更新修改栏目管理的信息")
-	public String updateCmsNode(Model model,CmsNode cmsnode,HttpServletResponse response){
-		String result="{\"msg\":\"suc\"}";
+	public Map<String,Object> updateCmsNode(CmsNode cmsnode){
 		if (null==cmsnode.getCmsNodeState()){
 			cmsnode.setCmsNodeState(0);
 		}
 		cmsnode.setCmsNodeInserttime(DateUtil.getNowDate());
 		cmsNodeService.modify(cmsnode);
-		 WebTool.writeJson(result, response);
-		 return null;		
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("msg","suc");
+		return map;
 	}
 
 	/**
@@ -161,15 +160,17 @@ public class CmsNodeController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "deleteAll")
+	@ResponseBody
 	@RequiresPermissions("cmsnode_deleteall")
 	@SystemLogController(description = "批量删除栏目管理信息")
-	public String deleteAll(String[] ids, HttpServletResponse response) {
-		String result = "{\"status\":1,\"message\":\"删除成功！\"}";
+	public Map<String,Object> deleteAll(String[] ids, HttpServletResponse response) {
 		for (String id : ids) {
 			cmsNodeService.delete(id);
 		}
-		WebTool.writeJson(result, response);
-		return null;
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("status","1");
+		map.put("message","删除成功！");
+		return map;
 	}
 	/**
 	 * post方式不分页查询
