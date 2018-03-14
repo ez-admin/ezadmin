@@ -65,18 +65,18 @@ public class CmsTagController extends BaseController {
 	
 	/**
 	 * 保存新增
-	 * @param response
 	 * @param cmstag
 	 * @return
 	 */
 	@RequestMapping(value="add")
+	@ResponseBody
 	@RequiresPermissions("cmstag_add")
 	@SystemLogController(description = "保存标签表新增信息")
-	public String add(CmsTag cmstag,HttpServletResponse response){
-		String result="{\"msg\":\"suc\"}";
+	public Map<String,Object> add(CmsTag cmstag){
 		cmsTagService.add(cmstag);
-		 WebTool.writeJson(result, response);
-		 return null;
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("msg","suc");
+		return map;
 	}
 	
 	/**
@@ -99,18 +99,20 @@ public class CmsTagController extends BaseController {
 	
 	/**
 	 * 根据id删除
-	 * @param model
 	 * @param ids
 	 * @return
 	 */
 	@RequestMapping(value="deleteById",method=RequestMethod.POST)
+	@ResponseBody
 	@RequiresPermissions("cmstag_delete")
 	@SystemLogController(description = "删除标签表信息")
-	public String deleteById(Model model,String ids, HttpServletResponse response){
+	public Map<String,Object> deleteById(String ids){
 		String result="{\"status\":1,\"message\":\"删除成功！\"}";
 		cmsTagService.delete(ids);
-		WebTool.writeJson(result, response);
-		return null;
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("status",1);
+		map.put("message","删除成功！");
+		return map;
 	}
 	
 	/**
@@ -136,49 +138,48 @@ public class CmsTagController extends BaseController {
 	
 	/**
 	 * 更新修改的信息
-	 * @param model
 	 * @param cmstag
 	 * @return
 	 */
 	@RequestMapping(value="update",method=RequestMethod.POST)
+	@ResponseBody
 	@RequiresPermissions("cmstag_modify")
 	@SystemLogController(description = "更新修改标签表的信息")
-	public String updateCmsTag(Model model,CmsTag cmstag,HttpServletResponse response){
-		String result="{\"msg\":\"suc\"}";
+	public Map<String,Object> updateCmsTag(CmsTag cmstag){
 		Date A=DateUtil.getNowDate();
 		cmstag.setCmsCreationTime(A);
 		cmsTagService.modify(cmstag);
-		 WebTool.writeJson(result, response);
-		 return null;		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("msg","suc");
+		return map;
 	}
 
 	/**
 	 * 批量删除数据
-	 * @param response
 	 * @param ids
 	 * @return
 	 */
 	@RequestMapping(value = "deleteAll")
+	@ResponseBody
 	@RequiresPermissions("cmstag_deleteall")
 	@SystemLogController(description = "批量删除标签表信息")
-	public String deleteAll(String[] ids, HttpServletResponse response) {
-		String result = "{\"status\":1}";
+	public Map<String,Object> deleteAll(String[] ids) {
 		for (String id : ids) {
 			cmsTagService.delete(id);
 		}
-		WebTool.writeJson(result, response);
-		return null;
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("status",1);
+		return map;
 	}
 	/**
 	 * 数据字典单选下拉框
 	 * @param id
-	 * @param response
 	 * @return
 	 */
 	@RequestMapping(value="getSdBySdtCode")
 	@ResponseBody
 	@Deprecated//弃用
-	public String getSdBySdtCode(String id,String selected,HttpServletResponse response){
+	public Map<String,Object> getSdBySdtCode(String id,String selected){
 		//字典类型编码
 		List<CmsTag> cmsTags = cmsTagService.findSdBySdtCode(id);
 		String result="";
@@ -189,8 +190,9 @@ public class CmsTagController extends BaseController {
 				result+="<option value=\""+sd.getCmsTagId()+ "\">"+sd.getCmsName()+"</option>";
 			}
 		}
-		WebTool.writeHtml(result, response);
-		return null;
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("result",result);
+		return map;
 	}
 }
 

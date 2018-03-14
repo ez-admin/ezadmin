@@ -8,30 +8,32 @@
 	<%@ include file="/WEB-INF/view/ez/index/listpublictop.jsp"%>
 </head>
 <body>
-<form class="form" id="formSearch">
+<script type="text/javascript" src="/static/plugins/My97DatePicker/cn_WdatePicker.js"></script>
+<form class="form-inline" id="formSearch">
 	<shiro:hasPermission name="cmstag_query">
 	<div class="form-group">
 		<input id="cmsName" name="cmsName" placeholder="请输入名称" type="text" class="form-control" maxlength="150" autocomplete="off">
 	</div>
 	<div class="form-group">
-		<input name="cmsCreationTimeBegin" type="text"  class="form-control" placeholder="请选择开始时间"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:00'});" />
+		<input name="cmsCreationTimeBegin" type="text"  class="form-control" placeholder="请选择开始时间" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});" />
 	</div>
+		--
 	<div class="form-group">
-		<input name="cmsCreationTimeEnd" type="text"  class="form-control" placeholder="请选择结束时间"   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:00'});" />
+		<input name="cmsCreationTimeEnd" type="text"  class="form-control" placeholder="请选择结束时间" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});" />
 	</div>
 	<div class="form-group">
 		<input id="cmsRefers" name="cmsRefers" placeholder="请输入文档数量" type="text" class="form-control" maxlength="10" autocomplete="off">
 	</div>
 
-	<button class="btn btn-default" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
+	<button class="btn btn-primary" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
 	</shiro:hasPermission>
 	<shiro:hasPermission name="cmstag_add">
-		<button id="btn_add" type="button" class="btn btn-default">
+		<button id="btn_add" type="button" class="btn btn-primary">
 			<i class="fa fa-plus"></i>新增
 		</button>
 	</shiro:hasPermission>
 	<shiro:hasPermission name="cmstag_deleteall">
-		<button id="btn_delete" type="button" class="btn btn-default">
+		<button id="btn_delete" type="button" class="btn btn-primary">
 			<i class="fa fa-remove"></i>批量删除
 		</button>
 	</shiro:hasPermission>
@@ -39,7 +41,6 @@
 
 <table id="table"></table>
 <%@ include file="/WEB-INF/view/ez/index/listpublicjs.jsp"%>
-<script src="/static/plugins/My97DatePicker/cn_WdatePicker.js"></script>
 <script>
 	$(function () {
 		//初始化表格
@@ -206,6 +207,8 @@
 				$.ajax({
 					url: "/ez/cms/cmstag/deleteById.do",
 					type: "POST",
+					async:false,
+					dataType:"json",
 					data: { "ids": row.cmsTagId },
 					success: function (result) {
 						handleResult(result.status,result.message);
