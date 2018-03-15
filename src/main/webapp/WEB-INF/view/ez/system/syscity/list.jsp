@@ -169,7 +169,7 @@
 			title: '上传导入数据',
 			maxmin: true,
 			shadeClose: true, //点击遮罩关闭层
-			area : ['600px' , '250px'],
+			area : ['800px' , '600px'],
 			content: '/ez/system/syscity/upload.do',
 			end:function(){
 			    var uploadfilepath=$("#uploadfilepath").val();

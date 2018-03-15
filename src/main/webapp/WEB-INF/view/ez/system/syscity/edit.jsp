@@ -8,27 +8,64 @@
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
 </head>
 <body>
-<div class="layui-field-box">
-	<form id="formid" class="layui-form">
+<div class="container">
+	<form id="formid" class="form-horizontal">
 		<input type="hidden" name="id" value="${syscity.id}"/>
-		<div class="layui-form-item">
-			<label class="layui-form-label"><em class="required">*</em>城市名:</label>
-			<div class="layui-input-block">
-				<input type="text" name="name" value="${syscity.name}"  lay-verify="required"  placeholder="请输入城市名" autocomplete="off" class="layui-input">
+		<div class="form-group">
+			<label class="col-sm-2 control-label"><em class="required">*</em>城市名:</label>
+			<div class="col-sm-10">
+				<input type="text" name="name" value="${syscity.name}"  required="required"  placeholder="请输入城市名" autocomplete="off" >
 			</div>
 		</div>
-		<div class="layui-form-item">
-			<div class="layui-input-block">
-				<button class="layui-btn" lay-submit lay-filter="edit">编辑</button>
-				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
-			</div>
-		</div>
+        <div class="form-group">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-default">保存</button>
+                <button type="reset" class="btn btn-default">重置</button>
+            </div>
+        </div>
 	</form>
 </div>
-<script type="text/javascript" src="/static/plugins/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
+<%--<script type="text/javascript" src="/static/plugins/layui/layui.js" charset="utf-8"></script>--%>
+<link rel="stylesheet" href="/static/plugins/bootstrap3.3.7/css/bootstrap.min.css" class="css">
+<!--form validation-->
+<script src="/static/plugins/jquery-validation/jquery-validation.min.js"></script>
+<script src="/static/plugins/jquery-validation/jquery.validation_zh_CN.js"></script>
+<!--layer-->
+<script type="text/javascript" src="/static/plugins/layer/layer.js"></script>
 <script>
+    //表单验证加提交
+    $("#formid").validate({
+        submitHandler: function(form){
+            $.ajax({
+                url: "/ez/system/syscity/update.do",
+                type: "POST",
+                data:$('#formid').serialize(),// 你的formid
+                dataTpye:"json",
+                beforeSend: function () {
+                    // 禁用按钮防止重复提交
+                    $("button[type='submit']").attr({ disabled: "disabled" });
+                },
+                complete: function () {
+                    $("button[type='submit']").removeAttr("disabled");
+                },
+                success: function (result) {
+                    if("suc"==(result.msg)){
+                        //关闭窗口
+                        top.layer.closeAll();
+                        top.layer.msg('保存成功!',{icon: 1});
+                    }else{
+                        top.layer.msg('保存失败!'+result.message,{icon: 2});
+                    }
+                },
+                error: function () {
+                    top.layer.alert("请求失败!");
+                }
+            });
+        }
+    })
 	//Demo
-	layui.use(['layer', 'form','jquery','laydate'], function(){
+	/*layui.use(['layer', 'form','jquery','laydate'], function(){
 		var layer = layui.layer
 				,form = layui.form()
 				,$ = layui.jquery
@@ -52,8 +89,7 @@
 			});
 			return false;
 		});
-
-	});
+	});*/
 </script>
 </body>
 </html>

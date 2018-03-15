@@ -25,7 +25,7 @@
         </blockquote>
         <div>
             <label class="control-label">上传文件:</label>
-            <input type="file" name="file"  class="layui-upload-file" id="uploadfile">
+            <input type="file" name="file"   id="uploadfile">
             <input type="text" name="filepath" id="filepath">
             <p class="help-block">支持xls|xlsx格式</p>
         </div>
