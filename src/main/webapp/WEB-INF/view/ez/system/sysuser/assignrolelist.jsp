@@ -6,6 +6,9 @@
 <head>
 	<title>分配角色</title>
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
+	<style>
+		.layui-field-box{ padding: 0 20px;}
+	</style>
 </head>
 <body>
 <div class="layui-field-box">
@@ -26,8 +29,8 @@
 		</div>
 		<div class="layui-form-item">
 			<div class="layui-input-block">
-				<button class="layui-btn" lay-submit lay-filter="modify">修改</button>
-				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				<button class="btn btn-primary" lay-submit lay-filter="modify">修改</button>
+				<button type="reset" class="btn btn-default">重置</button>
 			</div>
 		</div>
 	</form>

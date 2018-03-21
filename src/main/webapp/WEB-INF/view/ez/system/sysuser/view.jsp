@@ -33,42 +33,43 @@
 			height: 40px;
 			border-radius: 100%;
 		}
+		.layui-field-box{ padding: 0 20px;}
 	</style>
 </head>
 <body>
 <div class="layui-field-box">
-	<form id="formid" class="layui-form">
-		<div class="layui-form-item">
-			<label class="layui-form-label"><em class="required">*</em>头像:</label>
-			<div class="layui-input-inline" >
+	<form id="formid" class="form-horizontal">
+		<div class="form-group">
+			<label class="col-sm-2 control-label"><em class="required">*</em>头像:</label>
+			<div class="layui-input-inline col-sm-10" >
 				<img id="headicon" src="${sysUser.usericom}" alt="头像">
 			</div>
 		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label"><em class="required">*</em>用户名:</label>
-			<div class="layui-input-inline">
-				<input type="text" name="lognm"  value="${sysUser.lognm}" class="layui-input layui-disabled" readonly>
+		<div class="form-group">
+			<label class="col-sm-2 control-label"><em class="required">*</em>用户名:</label>
+			<div class="layui-input-inline  col-sm-10">
+				<input type="text" name="lognm"  value="${sysUser.lognm}" class="layui-input layui-disabled form-control" readonly>
 			</div>
 		</div>
-		<div class="layui-form-item replaceselect">
-			<label class="layui-form-label"><em class="required">*</em>所属公司:</label>
-			<div class="layui-input-inline" style="width: 400px">
+		<div class="form-group replaceselect">
+			<label class="col-sm-2 control-label"><em class="required">*</em>所属公司:</label>
+			<div class="layui-input-inline col-sm-10" style="width: 400px">
 				<select id="companyno" name="companyno" style="width: 100%" disabled >
 					<option value="">请选择</option>
 				</select>
 			</div>
 		</div>
-		<div class="layui-form-item replaceselect">
-			<label class="layui-form-label"><em class="required">*</em>所属部门:</label>
-			<div class="layui-input-inline" style="width: 400px">
+		<div class="form-group  replaceselect">
+			<label class="col-sm-2 control-label"><em class="required">*</em>所属部门:</label>
+			<div class="layui-input-inline  col-sm-10" style="width: 400px">
 				<select id="dptno" name="dptno" style="width: 100%" disabled >
 					<option value="">请选择</option>
 				</select>
 			</div>
 		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">用户类型:</label>
-			<div class="layui-input-block">
+		<div class="form-group">
+			<label class="col-sm-2 control-label">用户类型:</label>
+			<div class="layui-input-block  col-sm-10">
 				<c:if test="${sysUser.optype ==0}">
 					<input type="radio" name="optype" value="0" title="系统用户" checked>
 					<input type="radio" name="optype" value="1" title="前台会员" disabled>
@@ -79,9 +80,9 @@
 				</c:if>
 			</div>
 		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">是否启用:</label>
-			<div class="layui-input-block">
+		<div class="form-group">
+			<label class="col-sm-2 control-label">是否启用:</label>
+			<div class="layui-input-block col-sm-10">
 				<c:if test="${sysUser.isused ==1}">
 					<input type="checkbox" name="isused" lay-skin="switch" lay-text="是|否" disabled checked>
 				</c:if>
@@ -90,65 +91,65 @@
 				</c:if>
 			</div>
 		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label"><em class="required">*</em>真实姓名:</label>
-			<div class="layui-input-inline">
-				<input type="text" name="userrelnm" value="${sysUser.userrelnm}" class="layui-input layui-disabled" readonly>
+		<div class="form-group">
+			<label class="col-sm-2 control-label"><em class="required">*</em>真实姓名:</label>
+			<div class="layui-input-inline col-sm-10">
+				<input type="text" name="userrelnm" value="${sysUser.userrelnm}" class="layui-input layui-disabled form-control" readonly>
 			</div>
 		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label"><em class="required">*</em>性别:</label>
-			<div class="layui-input-inline">
-				<select name="sex" id="sex" lay-verify="required" disabled>
+		<div class="form-group">
+			<label class="col-sm-2 control-label"><em class="required">*</em>性别:</label>
+			<div class="layui-input-inline col-sm-10">
+				<select name="sex" id="sex" lay-verify="required" class="form-control" disabled>
 					<option value="">请选择</option>
 				</select>
 			</div>
 		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">年龄:</label>
-			<div class="layui-input-inline">
-				<input type="number" name="age" value="${sysUser.age}" autocomplete="off" class="layui-input layui-disabled" readonly>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">年龄:</label>
+			<div class="layui-input-inline col-sm-10">
+				<input type="number" name="age" value="${sysUser.age}" autocomplete="off" class="layui-input layui-disabled form-control" readonly>
 			</div>
 		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">身份证号:</label>
-			<div class="layui-input-inline">
-				<input type="text" name="idnum" value="${sysUser.idnum}" class="layui-input layui-disabled" readonly>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">身份证号:</label>
+			<div class="layui-input-inline col-sm-10">
+				<input type="text" name="idnum" value="${sysUser.idnum}" class="layui-input layui-disabled form-control" readonly>
 			</div>
 		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">地区</label>
-			<div class="layui-input-inline">
-				<select id="quiz1" lay-filter="quiz1" disabled>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">地区</label>
+			<div class="layui-input-inline col-sm-3">
+				<select id="quiz1" lay-filter="quiz1" class="form-control" disabled>
 					<option value="">请选择</option>
 				</select>
 			</div>
-			<div class="layui-input-inline">
-				<select id="quiz2" lay-filter="quiz2" disabled>
+			<div class="layui-input-inline col-sm-3">
+				<select id="quiz2" lay-filter="quiz2" class="form-control" disabled>
 					<option value="">请选择</option>
 				</select>
 			</div>
-			<div class="layui-input-inline">
-				<select id="location" name="location" disabled>
+			<div class="layui-input-inline col-sm-3">
+				<select id="location" name="location" class="form-control" disabled>
 					<option value="">请选择</option>
 				</select>
 			</div>
 		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">手机号码:</label>
-			<div class="layui-input-inline">
-				<input type="text" name="mobile" value="${sysUser.mobile}" class="layui-input layui-disabled" readonly>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">手机号码:</label>
+			<div class="layui-input-inline col-sm-10">
+				<input type="text" name="mobile" value="${sysUser.mobile}" class="layui-input layui-disabled form-control" readonly>
 			</div>
 		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">邮箱:</label>
-			<div class="layui-input-inline">
-				<input type="text" name="email" value="${sysUser.email}"  class="layui-input layui-disabled" readonly>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">邮箱:</label>
+			<div class="layui-input-inline col-sm-10">
+				<input type="text" name="email" value="${sysUser.email}"  class="layui-input layui-disabled form-control" readonly>
 			</div>
 		</div>
-		<div class="layui-form-item">
-			<div class="layui-input-block">
-				<button class="layui-btn" onclick="top.layer.closeAll()">关闭</button>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button class="btn btn-primary" onclick="top.layer.closeAll()">关闭</button>
 			</div>
 		</div>
 	</form>

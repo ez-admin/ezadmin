@@ -31,7 +31,7 @@
 </head>
 <body>
 <div class="field-box">
-	<form id="formid" class="form">
+	<form id="formid" class="form-horizontal">
 		<div class="form-group">
 			<label class="col-sm-2 control-label"><em class="required">*</em>名称:</label>
 			<div class="col-sm-8">
@@ -52,8 +52,8 @@
                 </div>--%>
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-8">
-				<button class="btn btn-default" onclick="add()">保存</button>
-				<button type="reset" class="btn btn-primary">重置</button>
+				<button class="btn btn-primary" onclick="add()">保存</button>
+				<button type="reset" class="btn btn-default">重置</button>
 			</div>
 		</div>
 	</form>

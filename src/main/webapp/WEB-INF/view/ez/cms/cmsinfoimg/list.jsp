@@ -23,26 +23,26 @@
 		<input name="emImageInserttimeEnd" type="text"  class="form-control" placeholder="请选择结束时间" lay-verify="date" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" />
 	</div>--%>
 	<div class="form-group">
-		<select style="height:30px" name="positionId" id="positionId">
+		<select  name="positionId" id="positionId" class="form-control">
 			<option value="">请选择图片位置</option>
 		</select>
 	</div>
 	<div class="form-group">
-		<select style="height:30px" name="emImageStat">
+		<select name="emImageStat" class="form-control">
 			<option value="">请选择发布状态</option>
 			<option value="0">禁用</option>
 			<option value="1">启用</option>
 		</select>
 	</div>
-	<button class="btn btn-default" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
+	<button class="btn btn-primary" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
 	</shiro:hasPermission>
 	<shiro:hasPermission name="cmsinfoimg_add">
-		<button id="btn_add" type="button" class="btn btn-default">
+		<button id="btn_add" type="button" class="btn btn-primary">
 			<i class="fa fa-plus"></i>新增
 		</button>
 	</shiro:hasPermission>
 	<shiro:hasPermission name="cmsinfoimg_deleteall">
-		<button id="btn_delete" type="button" class="btn btn-default">
+		<button id="btn_delete" type="button" class="btn btn-primary">
 			<i class="fa fa-remove"></i>批量删除
 		</button>
 	</shiro:hasPermission>

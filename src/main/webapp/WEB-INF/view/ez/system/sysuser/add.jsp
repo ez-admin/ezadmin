@@ -33,121 +33,125 @@
 			height: 40px;
 			border-radius: 100%;
 		}
+		.layui-field-box{ padding: 0 20px;}
+		.layui-upload-file{
+			display: inline-block;
+		}
 	</style>
 </head>
 <body>
 	<div class="layui-field-box">
-		<form id="formid" class="layui-form">
+		<form id="formid" class="form-horizontal">
 			<input type="hidden" name="usericom" id="usericom" value="/static/images/0.jpg">
-			<div class="layui-form-item">
-				<label class="layui-form-label">头像:</label>
-				<div class="layui-input-inline" >
-					<input type="file" name="file" lay-ext="jpg|png|gif" class="layui-upload-file">
-					<img id="headicon" src="/static/images/0.jpg" alt="头像">
+			<div class="form-group">
+				<label class="col-sm-2 control-label ">头像:</label>
+				<div class="layui-input-inline col-sm-10" >
+					<input type="file" name="file" lay-ext="jpg|png|gif" class="layui-upload-file" style="display: inline-block;padding: 0 20px;">
+					<img id="headicon" src="/static/images/0.jpg" alt="头像" style="float: left;">
 				</div>
 			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label"><em class="required">*</em>用户名:</label>
-				<div class="layui-input-inline">
-					<input type="text" name="lognm"  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+			<div class="form-group">
+				<label class="col-sm-2 control-label"><em class="required">*</em>用户名:</label>
+				<div class="layui-input-inline col-sm-10">
+					<input type="text" name="lognm"  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="form-control">
 				</div>
 			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label"><em class="required">*</em>密码:</label>
-				<div class="layui-input-inline">
-					<input type="text" id="logpwd" name="logpwd" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+			<div class="form-group">
+				<label class="col-sm-2 control-label"><em class="required">*</em>密码:</label>
+				<div class="layui-input-inline col-sm-10">
+					<input type="text" id="logpwd" name="logpwd" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="form-control">
 				</div>
 			</div>
-			<div class="layui-form-item replaceselect">
-				<label class="layui-form-label"><em class="required">*</em>所属公司:</label>
-				<div class="layui-input-inline" style="width: 400px">
+			<div class="form-group replaceselect ">
+				<label class="layui-form-label col-sm-2 control-label"><em class="required">*</em>所属公司:</label>
+				<div class="layui-input-inline col-sm-10" style="width: 400px">
 					<select id="companyno" name="companyno" style="width: 100%" lay-verify="required" >
 						<option value="">请选择</option>
 					</select>
 				</div>
 			</div>
-			<div class="layui-form-item replaceselect" >
-				<label class="layui-form-label"><em class="required">*</em>所属部门:</label>
-				<div class="layui-input-inline" style="width: 400px">
+			<div class="form-group replaceselect" >
+				<label class="layui-form-label col-sm-2 control-label"><em class="required">*</em>所属部门:</label>
+				<div class="layui-input-inline  col-sm-10" style="width: 400px">
 					<select id="dptno" name="dptno" style="width: 100%" lay-verify="required">
 						<option value="">请选择</option>
 					</select>
 				</div>
 			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">用户类型:</label>
-				<div class="layui-input-block">
+			<div class="form-group">
+				<label class="layui-form-label col-sm-2 control-label">用户类型:</label>
+				<div class="layui-input-block col-sm-10">
 					<input type="radio" name="optype" value="0" title="系统用户" checked>
 					<input type="radio" name="optype" value="1" title="前台会员">
 				</div>
 			</div>
 
-			<div class="layui-form-item">
-				<label class="layui-form-label">是否启用:</label>
-				<div class="layui-input-block">
+			<div class="form-group">
+				<label class="layui-form-label col-sm-2 control-label">是否启用:</label>
+				<div class="layui-input-block col-sm-10">
 					<input type="checkbox" name="isused" value="1" lay-skin="switch" lay-text="是|否" checked>
 				</div>
 			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label"><em class="required">*</em>真实姓名:</label>
-				<div class="layui-input-inline">
-					<input type="text" name="userrelnm" lay-verify="required" placeholder="请输入真实姓名" autocomplete="off" class="layui-input">
+			<div class="form-group">
+				<label class="layui-form-label col-sm-2 control-label"><em class="required">*</em>真实姓名:</label>
+				<div class="layui-input-inline col-sm-10">
+					<input type="text" name="userrelnm" lay-verify="required" placeholder="请输入真实姓名" autocomplete="off" class="form-control">
 				</div>
 			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label"><em class="required">*</em>性别:</label>
-				<div class="layui-input-inline">
-					<select name="sex" id="sex" lay-verify="required" >
+			<div class="form-group replaceselect">
+				<label class="layui-form-label col-sm-2 control-label"><em class="required">*</em>性别:</label>
+				<div class="layui-input-inline col-sm-10">
+					<select name="sex" id="sex" lay-verify="required" class="form-control" >
 						<option value="">请选择</option>
 					</select>
 				</div>
 			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">年龄:</label>
-				<div class="layui-input-inline">
-					<input type="number" name="age" autocomplete="off" maxlength="3" class="layui-input">
+			<div class="form-group">
+				<label class="layui-form-label col-sm-2 control-label">年龄:</label>
+				<div class="layui-input-inline col-sm-10">
+					<input type="number" name="age" autocomplete="off" maxlength="3" class="form-control">
 				</div>
 			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">身份证号:</label>
-				<div class="layui-input-inline">
-					<input type="text" name="idnum"  placeholder="请输入身份证号" autocomplete="off" class="layui-input">
+			<div class="form-group">
+				<label class="layui-form-label col-sm-2 control-label">身份证号:</label>
+				<div class="layui-input-inline col-sm-10">
+					<input type="text" name="idnum"  placeholder="请输入身份证号" autocomplete="off" class="form-control">
 				</div>
 			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">地区</label>
-				<div class="layui-input-inline">
-					<select id="quiz1" lay-filter="quiz1">
+			<div class="form-group">
+				<label class="layui-form-label col-sm-2 control-label">地区</label>
+				<div class="layui-input-inline col-sm-3">
+					<select id="quiz1" lay-filter="quiz1" class="form-control" >
 						<option value="">请选择</option>
 					</select>
 				</div>
-				<div class="layui-input-inline">
-					<select id="quiz2" lay-filter="quiz2">
+				<div class="layui-input-inline col-sm-3">
+					<select id="quiz2" lay-filter="quiz2" class="form-control">
 						<option value="">请选择</option>
 					</select>
 				</div>
-				<div class="layui-input-inline">
-					<select id="location" name="location">
+				<div class="layui-input-inline col-sm-3">
+					<select id="location" name="location" class="form-control">
 						<option value="">请选择</option>
 					</select>
 				</div>
 			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">手机号码:</label>
-				<div class="layui-input-inline">
-					<input type="text" name="mobile" placeholder="请输入手机号码" autocomplete="off" class="layui-input">
+			<div class="form-group">
+				<label class="layui-form-label col-sm-2 control-label">手机号码:</label>
+				<div class="layui-input-inline col-sm-10">
+					<input type="text" name="mobile" placeholder="请输入手机号码" autocomplete="off" class="form-control">
 				</div>
 			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">邮箱:</label>
-				<div class="layui-input-inline">
-					<input type="text" name="email" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
+			<div class="form-group">
+				<label class="layui-form-label col-sm-2 control-label">邮箱:</label>
+				<div class="layui-input-inline col-sm-10">
+					<input type="text" name="email" placeholder="请输入邮箱" autocomplete="off" class="form-control">
 				</div>
 			</div>
-			<div class="layui-form-item">
-				<div class="layui-input-block">
-					<button class="layui-btn" lay-submit lay-filter="add">保存</button>
-					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button class="btn btn-primary" lay-submit lay-filter="add">保存</button>
+					<button type="reset" class="btn btn-default">重置</button>
 				</div>
 			</div>
 		</form>

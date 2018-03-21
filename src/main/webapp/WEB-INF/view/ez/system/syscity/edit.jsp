@@ -14,12 +14,12 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label"><em class="required">*</em>城市名:</label>
 			<div class="col-sm-10">
-				<input type="text" name="name" value="${syscity.name}"  required="required"  placeholder="请输入城市名" autocomplete="off" >
+				<input type="text" name="name" value="${syscity.name}"  required="required"  placeholder="请输入城市名" autocomplete="off"  class="form-control">
 			</div>
 		</div>
         <div class="form-group">
-            <div class="col-sm-10">
-                <button type="submit" class="btn btn-default">保存</button>
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">保存</button>
                 <button type="reset" class="btn btn-default">重置</button>
             </div>
         </div>

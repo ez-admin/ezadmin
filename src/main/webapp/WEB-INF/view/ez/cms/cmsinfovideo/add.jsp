@@ -21,7 +21,7 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label"><em class="required">*</em>视频位置:</label>
 			<div class="col-sm-10">
-				<select style="height:30px" name="positionId" id="positionId" lay-verify="required">
+				<select name="positionId" id="positionId" lay-verify="required" class="form-control">
 					<option value="">请选择视频所属位置</option>
 				</select>
 			</div>
@@ -56,8 +56,8 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-sm-10">
-                <button type="submit" class="btn btn-default">保存</button>
+			<div class="col-sm-offset-2 col-sm-8">
+                <button type="submit" class="btn btn-primary">保存</button>
                 <button type="reset" class="btn btn-default">重置</button>
 			</div>
 		</div>

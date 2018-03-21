@@ -32,8 +32,8 @@
 			</div>
 		</div>
         <div class="form-group">
-            <div class="col-sm-10">
-                <button type="submit" class="btn btn-default">保存</button>
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">保存</button>
                 <button type="reset" class="btn btn-default">重置</button>
             </div>
         </div>

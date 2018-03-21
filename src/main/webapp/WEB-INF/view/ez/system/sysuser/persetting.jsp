@@ -31,6 +31,7 @@
 		.layui-tab-title .layui-this {
 			background-color: #fff;
 		}
+		.layui-field-box{ padding: 0 20px;}
 	</style>
 </head>
 <body>
@@ -116,8 +117,8 @@
 				</div>
 				<div class="layui-form-item">
 					<div class="layui-input-block">
-						<button class="layui-btn" lay-submit lay-filter="edit">编辑</button>
-						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						<button class="btn btn-primary" lay-submit lay-filter="edit">编辑</button>
+						<button type="reset" class="btn btn-default">重置</button>
 					</div>
 				</div>
 			</form>

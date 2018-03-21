@@ -19,7 +19,7 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label"><em class="required">*</em>视频位置:</label>
 			<div class="col-sm-10">
-				<select style="height:30px" name="positionId" id="positionId" required="required" disabled>
+				<select name="positionId" id="positionId" required="required"  class="form-control" disabled>
 					<option value="">请选择视频所属位置</option>
 				</select>
 			</div>
@@ -68,8 +68,8 @@
 		</div>
 
 		<div class="form-group">
-			<div class="col-sm-10">
-				<button class="btn btn-default" onclick="top.layer.closeAll()">关闭</button>
+			<div class="col-sm-offset-2 col-sm-8">
+				<button class="btn btn-primary" onclick="top.layer.closeAll()">关闭</button>
 			</div>
 		</div>
 	</form>

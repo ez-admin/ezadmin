@@ -150,8 +150,8 @@
 			</div>
 		</div>--%>
 		<div class="form-group">
-			<div class="col-sm-2 control-label">
-				<button class="btn btn-default" onclick="top.layer.closeAll()">关闭</button>
+			<div class="col-sm-offset-2 col-sm-8">
+				<button class="btn btn-primary" onclick="top.layer.closeAll()">关闭</button>
 			</div>
 		</div>
 	</form>

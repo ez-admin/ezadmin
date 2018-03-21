@@ -14,26 +14,26 @@
 		<input id="emVideoTitle" name="emVideoTitle" placeholder="请输入标题" type="text" class="form-control" maxlength="255" autocomplete="off">
 	</div>
 	<div class="form-group">
-		<select style="height:30px" name="positionId" id="positionId">
+		<select  name="positionId" id="positionId" class="form-control">
 			<option value="">请选择视频位置</option>
 		</select>
 	</div>
 	<div class="form-group">
-		<select style="height:30px" name="emVideoStat">
+		<select name="emVideoStat" class="form-control">
 			<option value="">请选择发布状态</option>
 			<option value="0">禁用</option>
 			<option value="1">启用</option>
 		</select>
 	</div>
-	<button class="btn btn-default" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
+	<button class="btn btn-primary" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
 	</shiro:hasPermission>
 	<shiro:hasPermission name="cmsinfovideo_add">
-		<button id="btn_add" type="button" class="btn btn-default">
+		<button id="btn_add" type="button" class="btn btn-primary">
 			<i class="fa fa-plus"></i>新增
 		</button>
 	</shiro:hasPermission>
 	<shiro:hasPermission name="cmsinfovideo_deleteall">
-		<button id="btn_delete" type="button" class="btn btn-default">
+		<button id="btn_delete" type="button" class="btn btn-primary">
 			<i class="fa fa-remove"></i>批量删除
 		</button>
 	</shiro:hasPermission>

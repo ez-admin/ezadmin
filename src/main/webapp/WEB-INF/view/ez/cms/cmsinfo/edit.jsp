@@ -152,8 +152,8 @@
 			</div>
 		</div>--%>
 		<div class="form-group">
-			<div class="col-sm-2 control-label">
-				<button type="submit" class="btn btn-default" >保存</button>
+			<div class="col-sm-offset-2 col-sm-8">
+				<button type="submit" class="btn btn-primary" >保存</button>
 				<button type="reset" class="btn btn-default">重置</button>
 			</div>
 		</div>

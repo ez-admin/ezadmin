@@ -6,6 +6,11 @@
 <head>
 	<title>栏目管理新增</title>
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
+	<style>
+		.field-box{
+			padding: 20px 0;
+		}
+	</style>
 </head>
 <script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
 <script type="text/javascript">
@@ -73,7 +78,7 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label">栏目类型:</label>
 			<div class="col-sm-8">
-				<select name="cmsNodeType" id="cmsNodeType">
+				<select name="cmsNodeType" id="cmsNodeType" class="form-control">
 					<option value="">请选择栏目类型</option>
 				</select>
 			</div>
@@ -90,7 +95,7 @@
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-8">
 				<button onclick="add1()" class="btn btn-primary">保存</button>
-				<button type="reset" class="btn btn-primary">重置</button>
+				<button type="reset" class="btn btn-default">重置</button>
 			</div>
 		</div>
 	</form>

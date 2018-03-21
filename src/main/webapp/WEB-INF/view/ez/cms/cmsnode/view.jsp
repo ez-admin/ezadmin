@@ -6,6 +6,11 @@
 <head>
 	<title>查看栏目管理信息</title>
 	<%@ include file="/WEB-INF/view/ez/index/top.jsp"%>
+	<style>
+		.field-box{
+			padding: 20px 0;
+		}
+	</style>
 </head>
 <body>
 <script type="text/javascript" src="/static/plugins/My97DatePicker/cn_WdatePicker.js"></script>
@@ -53,7 +58,7 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label">栏目类型:</label>
 			<div class="col-sm-8">
-				<select name="cmsNodeType" id="cmsNodeType" disabled>
+				<select name="cmsNodeType" id="cmsNodeType" class="form-control" disabled>
 					<option value="">请选择栏目类型</option>
 				</select>
 			</div>

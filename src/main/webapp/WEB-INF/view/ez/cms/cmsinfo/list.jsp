@@ -14,7 +14,7 @@
             <input id="cmsInfoTitle" name="cmsInfoTitle" placeholder="请输入文章标题" type="text" class="form-control" maxlength="260" autocomplete="off">
         </div>
         <div class="form-group">
-            <select style="height:30px" name="cmsInfoState" id="cmsInfoState">
+            <select name="cmsInfoState" id="cmsInfoState" class="form-control">
                 <option value="">请选择发布状态</option>
                 <option value="0">禁用</option>
                 <option value="1">启用</option>
@@ -27,15 +27,15 @@
         <div class="form-group">
             <input name="cmsInfoInserttimeEnd" type="text"  class="form-control" placeholder="请选择结束时间" lay-verify="date" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" />
         </div>--%>
-        <button class="btn btn-default" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
+        <button class="btn btn-primary" type="button" id="btn_query"><i class="fa fa-search"></i>查询</button>
     </shiro:hasPermission>
     <shiro:hasPermission name="cmsinfo_add">
-        <button id="btn_add" type="button" class="btn btn-default">
+        <button id="btn_add" type="button" class="btn btn-primary">
             <i class="fa fa-plus"></i>新增
         </button>
     </shiro:hasPermission>
     <shiro:hasPermission name="cmsinfo_deleteall">
-        <button id="btn_delete" type="button" class="btn btn-default">
+        <button id="btn_delete" type="button" class="btn btn-primary">
             <i class="fa fa-remove"></i>批量删除
         </button>
     </shiro:hasPermission>

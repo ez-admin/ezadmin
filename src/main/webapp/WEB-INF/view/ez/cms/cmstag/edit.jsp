@@ -54,7 +54,7 @@
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-8">
 				<button class="btn btn-primary" onclick="edit()">编辑</button>
-				<button type="reset" class="btn btn-primary">重置</button>
+				<button type="reset" class="btn btn-default">重置</button>
 			</div>
 		</div>
 	</form>
